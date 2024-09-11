@@ -1,5 +1,6 @@
 <script>
 	// CORE IMPORTS
+    import * as d3 from "d3";
 	import { setContext, onMount } from "svelte";
 	import { getMotion } from "./utils.js";
 	import { themes } from "./config.js";
@@ -14,6 +15,8 @@
 	import Toggle from "./ui/Toggle.svelte";
 	import Arrow from "./ui/Arrow.svelte";
 	import Em from "./ui/Em.svelte";
+
+	import Circles from "./vis/Circles.svelte";
 
 	import { setColors, getGEO, getCSV } from "./utils.js";
 
@@ -77,36 +80,29 @@
 	let path = ["./data/pax.csv"];
 	let pax;
 	getCSV(path).then((data) => {
-		pax = data;
+		pax = data[0];
+		
 	});
 
-	$: console.log(mygeojson, pax);
 </script>
 
-<ONSHeader filled={true} center={false} />
+<!-- <ONSHeader filled={true} center={false} /> -->
 
 <Header
-	bgcolor="#206095"
+	bgcolor="white"
 	bgfixed={true}
-	theme="dark"
-	center={false}
-	short={true}
+	theme="light"
+	center={true}
+	short={false}
 >
-	<h1>This is the title of the article</h1>
-	<p class="text-big" style="margin-top: 5px">
+	<img src="./img/logo.png" alt="Logo"/>
+	<h1>PA-X Gender</h1>
+	<!-- <p class="text-big" style="margin-top: 5px">
 		This is a short text description of the article that might take up a
 		couple of lines
-	</p>
-	<p style="margin-top: 20px">DD MMM YYYY</p>
-	<p>
-		<Toggle
-			label="Animation {animation ? 'on' : 'off'}"
-			mono={true}
-			bind:checked={animation}
-		/>
-	</p>
+	</p> -->
 	<div style="margin-top: 90px;">
-		<Arrow color="white" {animation}>Scroll to begin</Arrow>
+		<Arrow color="black" {animation}>Scroll to begin</Arrow>
 	</div>
 </Header>
 
@@ -114,7 +110,13 @@
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="chart"></div>
+				{#if pax}
+					<div class="chart">
+						<Circles
+							{pax}
+						/>
+					</div>
+				{/if}
 			</div>
 		</figure>
 	</div>
@@ -178,6 +180,9 @@
 	}
 	:global(svelte-scroller-foreground section div) {
 		pointer-events: all !important;
+	}
+	img {
+		width: 50%;
 	}
 	select {
 		max-width: 350px;
