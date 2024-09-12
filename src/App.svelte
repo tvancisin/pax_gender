@@ -1,6 +1,6 @@
 <script>
 	// CORE IMPORTS
-    import * as d3 from "d3";
+	import * as d3 from "d3";
 	import { setContext, onMount } from "svelte";
 	import { getMotion } from "./utils.js";
 	import { themes } from "./config.js";
@@ -37,6 +37,7 @@
 
 	// Element bindings
 	let map = null; // Bound to mapbox 'map' instance once initialised
+	let step = null;
 
 	// Actions for Scroller components
 	const actions = {
@@ -48,9 +49,15 @@
 			map04: () => {},
 		},
 		chart: {
-			chart01: () => {},
-			chart02: () => {},
-			chart03: () => {},
+			chart01: () => {
+				step = "one";
+			},
+			chart02: () => {
+				step = "two";
+			},
+			chart03: () => {
+				step = "three";
+			},
 			chart04: () => {},
 			chart05: () => {},
 		},
@@ -77,13 +84,26 @@
 	});
 
 	//LOAD PAX
-	let path = ["./data/pax.csv"];
+	let path = ["./data/pax.csv", "./data/pax_gender.csv"];
 	let pax;
+	let pax_gender;
+	let parser = d3.timeParse("%Y-%m-%d");
+
 	getCSV(path).then((data) => {
 		pax = data[0];
+		pax_gender = data[1];
+
+		pax.forEach(function (d) {
+			d.Dat = parser(d.Dat);
+		});
+
+		pax.sort(function (x, y) {
+			return d3.ascending(x.Dat, y.Dat);
+		});
+
+		console.log(pax);
 		
 	});
-
 </script>
 
 <!-- <ONSHeader filled={true} center={false} /> -->
@@ -95,7 +115,7 @@
 	center={true}
 	short={false}
 >
-	<img src="./img/logo.png" alt="Logo"/>
+	<img src="./img/logo.png" alt="Logo" />
 	<h1>PA-X Gender</h1>
 	<!-- <p class="text-big" style="margin-top: 5px">
 		This is a short text description of the article that might take up a
@@ -106,15 +126,13 @@
 	</div>
 </Header>
 
-<Scroller {threshold} bind:id={id["chart"]} splitscreen={true}>
+<Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
 				{#if pax}
 					<div class="chart">
-						<Circles
-							{pax}
-						/>
+						<Circles {pax} {pax_gender} {step} />
 					</div>
 				{/if}
 			</div>
@@ -125,18 +143,17 @@
 		<section data-id="chart01">
 			<div class="col-medium">
 				<p>
-					This chart shows the <strong
-						>area in square kilometres</strong
-					> of each local authority district in the UK. Each circle represents
-					one district. The scale is logarithmic.
+					This chart shows <strong>all 2055 agreements</strong> in PA-X
+					database.
 				</p>
 			</div>
 		</section>
 		<section data-id="chart02">
 			<div class="col-medium">
 				<p>
-					The radius of each circle shows the <strong
-						>total population</strong
+					Only 436 agreements contain information
+					about <strong>
+						women, girls, gender or sexual violence</strong
 					> of the district.
 				</p>
 			</div>
