@@ -16,9 +16,10 @@
 	import Arrow from "./ui/Arrow.svelte";
 	import Em from "./ui/Em.svelte";
 
-	import Circles from "./vis/Circles.svelte";
+	import Lines from "./vis/Lines.svelte";
 
 	import { setColors, getGEO, getCSV } from "./utils.js";
+    import Timeline from "./vis/Timeline.svelte";
 
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
 	let theme = "dark";
@@ -87,21 +88,27 @@
 	let path = ["./data/pax.csv", "./data/pax_gender.csv"];
 	let pax;
 	let pax_gender;
+	let pax_gender_timeline;
+	let pax_timeline;
 	let parser = d3.timeParse("%Y-%m-%d");
 
 	getCSV(path).then((data) => {
 		pax = data[0];
 		pax_gender = data[1];
 
-		pax.forEach(function (d) {
-			d.Dat = parser(d.Dat);
-		});
+		// pax.forEach(function (d) {
+		// 	d.Dat = parser(d.Dat);
+		// });
 
 		pax.sort(function (x, y) {
 			return d3.ascending(x.Dat, y.Dat);
 		});
 
-		console.log(pax);
+		//group by date for timeline vis
+		pax_gender_timeline = d3.groups(pax_gender, (d) => d.Dat.substring(0,4))
+		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(0,4))
+		console.log(pax_timeline);
+		
 		
 	});
 </script>
@@ -132,9 +139,76 @@
 			<div class="col-wide height-full">
 				{#if pax}
 					<div class="chart">
-						<Circles {pax} {pax_gender} {step} />
+						<Lines {pax} {pax_gender} {step} />
 					</div>
 				{/if}
+			</div>
+		</figure>
+	</div>
+
+	<div slot="foreground">
+		<section data-id="chart01">
+			<div class="col-medium">
+				<p>
+					This chart shows <strong>all 2055 agreements</strong> in PA-X
+					database.
+				</p>
+			</div>
+		</section>
+		<section data-id="chart02">
+			<div class="col-medium">
+				<p>
+					Only 436 agreements contain information
+					about <strong>
+						women, girls, gender or sexual violence</strong
+					> of the district.
+				</p>
+			</div>
+		</section>
+		<section data-id="chart03">
+			<div class="col-medium">
+				<p>
+					The vertical axis shows the <strong>density</strong> of the district
+					in people per hectare.
+				</p>
+			</div>
+		</section>
+		<section data-id="chart04">
+			<div class="col-medium">
+				<p>
+					The colour of each circle shows the <strong
+						>part of the country</strong
+					> that the district is within.
+				</p>
+			</div>
+		</section>
+		<section data-id="chart05">
+			<div class="col-medium">
+				<h3>Select a district</h3>
+				<p>
+					Use the selection box below or click on the chart to select
+					a district. The chart will also highlight the other
+					districts in the same part of the country.
+				</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
+
+<Filler theme="light" short={true} wide={true} center={true}>
+	<p class="text-big">
+		UN Security Council Permanent Members
+	</p>
+</Filler>
+
+
+<Scroller {threshold} bind:id={id["timeline"]} splitscreen={false}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+					<div class="chart">
+						<Timeline {pax_gender_timeline} />
+					</div>
 			</div>
 		</figure>
 	</div>
