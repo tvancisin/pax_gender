@@ -19,7 +19,7 @@
 	import Lines from "./vis/Lines.svelte";
 
 	import { setColors, getGEO, getCSV } from "./utils.js";
-    import Timeline from "./vis/Timeline.svelte";
+	import Timeline from "./vis/Timeline.svelte";
 
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
 	let theme = "dark";
@@ -59,7 +59,9 @@
 			chart03: () => {
 				step = "three";
 			},
-			chart04: () => {},
+			chart04: () => {
+				step = "four";
+			},
 			chart05: () => {},
 		},
 	};
@@ -105,11 +107,10 @@
 		});
 
 		//group by date for timeline vis
-		pax_gender_timeline = d3.groups(pax_gender, (d) => d.Dat.substring(0,4))
-		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(0,4))
-		console.log(pax_timeline);
-		
-		
+		pax_gender_timeline = d3.groups(pax_gender, (d) =>
+			d.Dat.substring(0, 4),
+		);
+		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(0, 4));
 	});
 </script>
 
@@ -149,40 +150,40 @@
 	<div slot="foreground">
 		<section data-id="chart01">
 			<div class="col-medium">
-				<p>
-					This chart shows <strong>all 2055 agreements</strong> in PA-X
-					database.
+				<p style="text-align: center;">
+					These are <strong>all 2055 agreements</strong> in PA-X database. 
+					Each line/signature represents an agreement.
 				</p>
 			</div>
 		</section>
 		<section data-id="chart02">
 			<div class="col-medium">
-				<p>
-					Only 436 agreements contain information
-					about <strong>
-						women, girls, gender or sexual violence</strong
-					> of the district.
+				<p style="text-align: center;">
+
+					<strong>436 agreements</strong> contain information about
+					<strong> women, girls, gender or sexual violence.</strong>
 				</p>
 			</div>
 		</section>
 		<section data-id="chart03">
 			<div class="col-medium">
-				<p>
-					The vertical axis shows the <strong>density</strong> of the district
-					in people per hectare.
+				<p style="text-align: center;">
+					Women <strong>directly participated</strong> in the creation of the
+					agreement in
+					<strong>177 cases.</strong>
 				</p>
 			</div>
 		</section>
 		<section data-id="chart04">
 			<div class="col-medium">
-				<p>
-					The colour of each circle shows the <strong
-						>part of the country</strong
-					> that the district is within.
+				<p style="text-align: center;">
+					Signing or witnessing of agreement "as women" was recorded <strong
+						>52 times since 1990.</strong
+					>
 				</p>
 			</div>
 		</section>
-		<section data-id="chart05">
+		<!-- <section data-id="chart05">
 			<div class="col-medium">
 				<h3>Select a district</h3>
 				<p>
@@ -191,24 +192,21 @@
 					districts in the same part of the country.
 				</p>
 			</div>
-		</section>
+		</section> -->
 	</div>
 </Scroller>
 
 <Filler theme="light" short={true} wide={true} center={true}>
-	<p class="text-big">
-		UN Security Council Permanent Members
-	</p>
+	<p class="text-big">UN Security Council Permanent Members</p>
 </Filler>
-
 
 <Scroller {threshold} bind:id={id["timeline"]} splitscreen={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-					<div class="chart">
-						<Timeline {pax_gender_timeline} />
-					</div>
+				<div class="chart">
+					<Timeline {pax_gender_timeline} />
+				</div>
 			</div>
 		</figure>
 	</div>
@@ -225,8 +223,7 @@
 		<section data-id="chart02">
 			<div class="col-medium">
 				<p>
-					Only 436 agreements contain information
-					about <strong>
+					Only 436 agreements contain information about <strong>
 						women, girls, gender or sexual violence</strong
 					> of the district.
 				</p>

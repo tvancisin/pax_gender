@@ -4,9 +4,13 @@
     export let pax;
     export let pax_gender;
     export let step;
-    let width, height, current_pax;
+
+    let width, height, current_pax, def_pax, def_pax_gender;
+
     const gap = 3;
     current_pax = pax;
+    def_pax = pax;
+    def_pax_gender = pax_gender;
 
     const margin = {
         top: 10,
@@ -16,10 +20,19 @@
     };
 
     $: if (step == "one") {
+        console.log("one");
         current_pax = pax;
     } else if (step == "two") {
-        current_pax = pax_gender;
+        console.log("two");
+        current_pax = pax.filter(d => d.GeWom == 1);
+        
+        // current_pax = def_pax_gender;
     } else if (step == "three") {
+        current_pax = pax_gender.filter((d) => d.WggPar == 1)
+        console.log(current_pax);
+    } else if (step == "four") {
+        current_pax = pax_gender.filter((d) => d.WggImplSign == 1)
+        console.log(current_pax);
     }
 
     $: innerWidth = width - margin.left - margin.right;
@@ -80,18 +93,18 @@
         >
             {#each current_pax as paxItem, i (i)}
                 <!-- Calculate col and row based on the index -->
-                    <path
-                        d={lineGenerator(
-                            generateHandwrittenLine(
-                                (i % numCols) * (rectWidth + gap),
-                                Math.floor(i / numCols) * (rectHeight + gap),
-                                rectWidth,
-                            ),
-                        )}
-                        fill="none"
-                        stroke="black"
-                        stroke-width="0.5"
-                    />
+                <path
+                d={lineGenerator(
+                    generateHandwrittenLine(
+                        (i % numCols) * (rectWidth + gap), // X position remains the same
+                        innerHeight - (Math.floor(i / numCols) + 1) * (rectHeight + gap), // Invert Y position
+                        rectWidth
+                    ),
+                )}
+                fill="none"
+                stroke="black"
+                stroke-width="1"
+            />
             {/each}
         </g>
     </svg>

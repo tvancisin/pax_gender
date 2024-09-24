@@ -131,7 +131,7 @@ small {
 
 .col-wide {
 	width: 100%;
-	max-width: 980px;
+	/* max-width: 980px; */
 	margin: 0 24px;
 }
 
