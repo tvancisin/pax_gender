@@ -61,9 +61,22 @@
 			},
 			chart04: () => {
 				step = "four";
-			},
-			chart05: () => {},
+			}
 		},
+		time: {
+			time01: () => {
+				step = "time_one"
+			},
+			time02: () => {
+				step = "time_two"
+			},
+			time03: () => {
+				step = "time_three"
+			},
+			time04: () => {
+				step = "time_four"
+			}
+		}
 	};
 
 	// Code to run Scroller actions when new caption IDs come into view
@@ -98,9 +111,23 @@
 		pax = data[0];
 		pax_gender = data[1];
 
-		// pax.forEach(function (d) {
-		// 	d.Dat = parser(d.Dat);
-		// });
+		// Iterate through each object in the pax array
+		pax.forEach((paxItem) => {
+			// Find the corresponding item in pax_gender with the same AgtId
+			const genderItem = pax_gender.find(
+				(gender) => gender.AgtId === paxItem.AgtId,
+			);
+
+			// If a matching item is found, add the WggPar and WggImplSign values
+			if (genderItem) {
+				paxItem.WggPar = genderItem.WggPar;
+				paxItem.WggImplSign = genderItem.WggImplSign;
+			} else {
+				// Optionally handle cases where no matching item is found
+				paxItem.WggPar = "0";
+				paxItem.WggImplSign = "0";
+			}
+		});
 
 		pax.sort(function (x, y) {
 			return d3.ascending(x.Dat, y.Dat);
@@ -111,6 +138,7 @@
 			d.Dat.substring(0, 4),
 		);
 		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(0, 4));
+
 	});
 </script>
 
@@ -129,9 +157,9 @@
 		This is a short text description of the article that might take up a
 		couple of lines
 	</p> -->
-	<div style="margin-top: 90px;">
+	<!-- <div style="margin-top: 90px;">
 		<Arrow color="black" {animation}>Scroll to begin</Arrow>
-	</div>
+	</div> -->
 </Header>
 
 <Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
@@ -151,7 +179,7 @@
 		<section data-id="chart01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					These are <strong>all 2055 agreements</strong> in PA-X database. 
+					These are <strong>all 2055 agreements</strong> in PA-X database.
 					Each line/signature represents an agreement.
 				</p>
 			</div>
@@ -159,7 +187,6 @@
 		<section data-id="chart02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-
 					<strong>436 agreements</strong> contain information about
 					<strong> women, girls, gender or sexual violence.</strong>
 				</p>
@@ -168,8 +195,8 @@
 		<section data-id="chart03">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Women <strong>directly participated</strong> in the creation of the
-					agreement in
+					Women <strong>directly participated</strong> in the creation
+					of the agreement in
 					<strong>177 cases.</strong>
 				</p>
 			</div>
@@ -183,16 +210,6 @@
 				</p>
 			</div>
 		</section>
-		<!-- <section data-id="chart05">
-			<div class="col-medium">
-				<h3>Select a district</h3>
-				<p>
-					Use the selection box below or click on the chart to select
-					a district. The chart will also highlight the other
-					districts in the same part of the country.
-				</p>
-			</div>
-		</section> -->
 	</div>
 </Scroller>
 
@@ -200,19 +217,19 @@
 	<p class="text-big">UN Security Council Permanent Members</p>
 </Filler>
 
-<Scroller {threshold} bind:id={id["timeline"]} splitscreen={false}>
+<Scroller {threshold} bind:id={id["time"]} splitscreen={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="chart">
-					<Timeline {pax_gender_timeline} />
+				<div class="time">
+					<Timeline {pax_gender_timeline} {pax_timeline} {pax_gender} {step} />
 				</div>
 			</div>
 		</figure>
 	</div>
 
 	<div slot="foreground">
-		<section data-id="chart01">
+		<section data-id="time01">
 			<div class="col-medium">
 				<p>
 					This chart shows <strong>all 2055 agreements</strong> in PA-X
@@ -220,7 +237,7 @@
 				</p>
 			</div>
 		</section>
-		<section data-id="chart02">
+		<section data-id="time02">
 			<div class="col-medium">
 				<p>
 					Only 436 agreements contain information about <strong>
@@ -229,7 +246,7 @@
 				</p>
 			</div>
 		</section>
-		<section data-id="chart03">
+		<section data-id="time03">
 			<div class="col-medium">
 				<p>
 					The vertical axis shows the <strong>density</strong> of the district
@@ -237,22 +254,12 @@
 				</p>
 			</div>
 		</section>
-		<section data-id="chart04">
+		<section data-id="time04">
 			<div class="col-medium">
 				<p>
 					The colour of each circle shows the <strong
 						>part of the country</strong
 					> that the district is within.
-				</p>
-			</div>
-		</section>
-		<section data-id="chart05">
-			<div class="col-medium">
-				<h3>Select a district</h3>
-				<p>
-					Use the selection box below or click on the chart to select
-					a district. The chart will also highlight the other
-					districts in the same part of the country.
 				</p>
 			</div>
 		</section>

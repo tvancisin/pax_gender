@@ -18,21 +18,23 @@
         bottom: 10,
         left: 10,
     };
-
+    
     $: if (step == "one") {
-        console.log("one");
+        // d3.selectAll(".agt").style("stroke", "black");
         current_pax = pax;
     } else if (step == "two") {
-        console.log("two");
         current_pax = pax.filter(d => d.GeWom == 1);
-        
-        // current_pax = def_pax_gender;
+        // d3.selectAll(".agt").style("stroke", "black");
+        // d3.selectAll(".non_gender").style("stroke", "white");
     } else if (step == "three") {
+        // d3.selectAll(".agt").style("stroke", "black");
+        // d3.selectAll(":not(.participation)").style("stroke", "white");
         current_pax = pax_gender.filter((d) => d.WggPar == 1)
-        console.log(current_pax);
     } else if (step == "four") {
+        // d3.selectAll(".agt").style("stroke", "black");
+        // d3.selectAll(".non_gender").style("stroke", "black");
+        // d3.selectAll(":not(.signing)").style("stroke", "white");
         current_pax = pax_gender.filter((d) => d.WggImplSign == 1)
-        console.log(current_pax);
     }
 
     $: innerWidth = width - margin.left - margin.right;
@@ -58,7 +60,7 @@
     // Generate a more controlled line that mimics handwriting
     function generateHandwrittenLine(x, y, length) {
         const points = [];
-        const segments = 5; // Number of segments
+        const segments = 10; // Number of segments
         const segmentLength = length / segments;
 
         let currentX = x;
@@ -83,6 +85,28 @@
         .y((d) => d[1]) // Y coordinate from the generated points
         .curve(d3.curveMonotoneX); // Ensures the line progresses monotonically in the X direction
 
+    // Function to construct the class string
+    function getClassString(paxItem) {
+        let classes = ["agt"];
+
+        // Add classes based on conditions
+        if (paxItem.GeWom === "1") {
+            classes.push("gender");
+        } else {
+            classes.push("non_gender");
+        }
+
+        if (paxItem.WggPar === "1") {
+            classes.push("participation");
+        }
+
+        if (paxItem.WggImplSign === "1") {
+            classes.push("signing");
+        }
+
+        // Return the concatenated string of classes
+        return classes.join(" ");
+    }
 </script>
 
 <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
@@ -94,17 +118,20 @@
             {#each current_pax as paxItem, i (i)}
                 <!-- Calculate col and row based on the index -->
                 <path
-                d={lineGenerator(
-                    generateHandwrittenLine(
-                        (i % numCols) * (rectWidth + gap), // X position remains the same
-                        innerHeight - (Math.floor(i / numCols) + 1) * (rectHeight + gap), // Invert Y position
-                        rectWidth
-                    ),
-                )}
-                fill="none"
-                stroke="black"
-                stroke-width="1"
-            />
+                    d={lineGenerator(
+                        generateHandwrittenLine(
+                            (i % numCols) * (rectWidth + gap), // X position remains the same
+                            innerHeight -
+                                (Math.floor(i / numCols) + 1) *
+                                    (rectHeight + gap), // Invert Y position
+                            rectWidth,
+                        ),
+                    )}
+                    fill="none"
+                    stroke="black"
+                    stroke-width="1"
+                    class={getClassString(paxItem)}
+                />
             {/each}
         </g>
     </svg>
