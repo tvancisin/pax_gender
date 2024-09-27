@@ -232,34 +232,33 @@
 		<section data-id="time01">
 			<div class="col-medium">
 				<p>
-					This chart shows <strong>all 2055 agreements</strong> in PA-X
-					database.
+					These are <strong>all 2055 agreements</strong> in PA-X database.
+					Each line/signature represents an agreement.
 				</p>
 			</div>
 		</section>
 		<section data-id="time02">
 			<div class="col-medium">
 				<p>
-					Only 436 agreements contain information about <strong>
-						women, girls, gender or sexual violence</strong
-					> of the district.
+					<strong>436 agreements</strong> contain information about
+					<strong> women, girls, gender or sexual violence.</strong>
 				</p>
 			</div>
 		</section>
 		<section data-id="time03">
 			<div class="col-medium">
 				<p>
-					The vertical axis shows the <strong>density</strong> of the district
-					in people per hectare.
+					Women <strong>directly participated</strong> in the creation
+					of the agreement in
+					<strong>177 cases.</strong>
 				</p>
 			</div>
 		</section>
 		<section data-id="time04">
 			<div class="col-medium">
 				<p>
-					The colour of each circle shows the <strong
-						>part of the country</strong
-					> that the district is within.
+					Signing or witnessing of agreement "as women" was recorded <strong
+						>52 times since 1990.</strong>
 				</p>
 			</div>
 		</section>
