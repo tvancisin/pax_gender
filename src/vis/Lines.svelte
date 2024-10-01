@@ -5,7 +5,9 @@
     export let pax_gender;
     export let step;
 
-    let width, height, current_pax, def_pax, def_pax_gender;
+    let width = 400;
+    let height = 400;
+    let current_pax, def_pax, def_pax_gender;
 
     const gap = 3;
     current_pax = pax;
@@ -18,23 +20,15 @@
         bottom: 10,
         left: 10,
     };
-    
+
     $: if (step == "one") {
-        // d3.selectAll(".agt").style("stroke", "black");
         current_pax = pax;
     } else if (step == "two") {
-        current_pax = pax.filter(d => d.GeWom == 1);
-        // d3.selectAll(".agt").style("stroke", "black");
-        // d3.selectAll(".non_gender").style("stroke", "white");
+        current_pax = pax.filter((d) => d.GeWom == 1);
     } else if (step == "three") {
-        // d3.selectAll(".agt").style("stroke", "black");
-        // d3.selectAll(":not(.participation)").style("stroke", "white");
-        current_pax = pax_gender.filter((d) => d.WggPar == 1)
+        current_pax = pax_gender.filter((d) => d.WggPar == 1);
     } else if (step == "four") {
-        // d3.selectAll(".agt").style("stroke", "black");
-        // d3.selectAll(".non_gender").style("stroke", "black");
-        // d3.selectAll(":not(.signing)").style("stroke", "white");
-        current_pax = pax_gender.filter((d) => d.WggImplSign == 1)
+        current_pax = pax_gender.filter((d) => d.WggImplSign == 1);
     }
 
     $: innerWidth = width - margin.left - margin.right;
@@ -107,35 +101,40 @@
         // Return the concatenated string of classes
         return classes.join(" ");
     }
+
+    $:console.log(current_pax);
+    
 </script>
 
-<div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
-    <svg {width} {height}>
-        <g
-            class="inner_chart"
-            transform="translate({margin.left}, {margin.top})"
-        >
-            {#each current_pax as paxItem, i (i)}
-                <!-- Calculate col and row based on the index -->
-                <path
-                    d={lineGenerator(
-                        generateHandwrittenLine(
-                            (i % numCols) * (rectWidth + gap), // X position remains the same
-                            innerHeight -
-                                (Math.floor(i / numCols) + 1) *
-                                    (rectHeight + gap), // Invert Y position
-                            rectWidth,
-                        ),
-                    )}
-                    fill="none"
-                    stroke="black"
-                    stroke-width="1"
-                    class={getClassString(paxItem)}
-                />
-            {/each}
-        </g>
-    </svg>
-</div>
+{#if current_pax}
+    <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
+        <svg {width} {height}>
+            <g
+                class="inner_chart"
+                transform="translate({margin.left}, {margin.top})"
+            >
+                {#each current_pax as paxItem, i (i)}
+                    <!-- Calculate col and row based on the index -->
+                    <path
+                        d={lineGenerator(
+                            generateHandwrittenLine(
+                                (i % numCols) * (rectWidth + gap), // X position remains the same
+                                innerHeight -
+                                    (Math.floor(i / numCols) + 1) *
+                                        (rectHeight + gap), // Invert Y position
+                                rectWidth,
+                            ),
+                        )}
+                        fill="none"
+                        stroke="black"
+                        stroke-width="1"
+                        class={getClassString(paxItem)}
+                    />
+                {/each}
+            </g>
+        </svg>
+    </div>
+{/if}
 
 <style>
     .wrapper {

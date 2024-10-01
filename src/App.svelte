@@ -17,9 +17,8 @@
 	import Em from "./ui/Em.svelte";
 
 	import Lines from "./vis/Lines.svelte";
-
-	import { setColors, getGEO, getCSV } from "./utils.js";
 	import Timeline from "./vis/Timeline.svelte";
+	import { setColors, getGEO, getCSV } from "./utils.js";
 
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
 	let theme = "dark";
@@ -33,6 +32,9 @@
 	let id = {}; // Object to hold visible section IDs of Scroller components
 	let idPrev = {}; // Object to keep track of previous IDs, to compare for changes
 	onMount(() => {
+		setTimeout(() => {
+			window.scrollTo(0, 0);
+		}, 1000);
 		idPrev = { ...id };
 	});
 
@@ -61,22 +63,115 @@
 			},
 			chart04: () => {
 				step = "four";
-			}
+			},
 		},
 		time: {
 			time01: () => {
-				step = "time_one"
+				step = "1";
 			},
 			time02: () => {
-				step = "time_two"
+				step = "2";
 			},
 			time03: () => {
-				step = "time_three"
+				step = "3";
 			},
 			time04: () => {
-				step = "time_four"
-			}
-		}
+				step = "4";
+			},
+			time05: () => {
+				step = "5";
+			},
+			time06: () => {
+				step = "6";
+			},
+			time07: () => {
+				step = "7";
+			},
+			time08: () => {
+				step = "8";
+			},
+			time09: () => {
+				step = "9";
+			},
+			time10: () => {
+				step = "10";
+			},
+			time11: () => {
+				step = "11";
+			},
+			time12: () => {
+				step = "12";
+			},
+			time13: () => {
+				step = "13";
+			},
+			time14: () => {
+				step = "14";
+			},
+			time15: () => {
+				step = "15";
+			},
+			time16: () => {
+				step = "16";
+			},
+			time17: () => {
+				step = "17";
+			},
+			time18: () => {
+				step = "18";
+			},
+			time19: () => {
+				step = "19";
+			},
+			time20: () => {
+				step = "20";
+			},
+			time21: () => {
+				step = "21";
+			},
+			time22: () => {
+				step = "22";
+			},
+			time23: () => {
+				step = "23";
+			},
+			time24: () => {
+				step = "24";
+			},
+			time25: () => {
+				step = "25";
+			},
+			time26: () => {
+				step = "26";
+			},
+			time27: () => {
+				step = "27";
+			},
+			time28: () => {
+				step = "28";
+			},
+			time29: () => {
+				step = "29";
+			},
+			time30: () => {
+				step = "30";
+			},
+			time31: () => {
+				step = "31";
+			},
+			time32: () => {
+				step = "32";
+			},
+			time33: () => {
+				step = "33";
+			},
+			time34: () => {
+				step = "34";
+			},
+			time35: () => {
+				step = "35";
+			},
+		},
 	};
 
 	// Code to run Scroller actions when new caption IDs come into view
@@ -105,8 +200,6 @@
 	let pax_gender;
 	let pax_gender_timeline;
 	let pax_timeline;
-	let parser = d3.timeParse("%Y-%m-%d");
-
 	getCSV(path).then((data) => {
 		pax = data[0];
 		pax_gender = data[1];
@@ -138,7 +231,6 @@
 			d.Dat.substring(0, 4),
 		);
 		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(0, 4));
-
 	});
 </script>
 
@@ -214,7 +306,7 @@
 </Scroller>
 
 <Filler theme="light" short={true} wide={true} center={true}>
-	<p class="text-big">UN Security Council Permanent Members</p>
+	<p class="text-big">Timeline</p>
 </Filler>
 
 <Scroller {threshold} bind:id={id["time"]} splitscreen={false}>
@@ -222,7 +314,12 @@
 		<figure>
 			<div class="col-wide height-full">
 				<div class="time">
-					<Timeline {pax_gender_timeline} {pax_timeline} {pax_gender} {step} />
+					<Timeline
+						{pax_gender_timeline}
+						{pax_timeline}
+						{pax_gender}
+						{step}
+					/>
 				</div>
 			</div>
 		</figure>
@@ -231,41 +328,183 @@
 	<div slot="foreground">
 		<section data-id="time01">
 			<div class="col-medium">
-				<p>
-					These are <strong>all 2055 agreements</strong> in PA-X database.
-					Each line/signature represents an agreement.
-				</p>
+				<p style="text-align: center;">1990</p>
 			</div>
 		</section>
 		<section data-id="time02">
 			<div class="col-medium">
-				<p>
-					<strong>436 agreements</strong> contain information about
-					<strong> women, girls, gender or sexual violence.</strong>
-				</p>
+				<p style="text-align: center;">1991</p>
 			</div>
 		</section>
 		<section data-id="time03">
 			<div class="col-medium">
-				<p>
-					Women <strong>directly participated</strong> in the creation
-					of the agreement in
-					<strong>177 cases.</strong>
-				</p>
+				<p style="text-align: center;">1992</p>
 			</div>
 		</section>
 		<section data-id="time04">
 			<div class="col-medium">
-				<p>
-					Signing or witnessing of agreement "as women" was recorded <strong
-						>52 times since 1990.</strong>
-				</p>
+				<p style="text-align: center;">1993</p>
+			</div>
+		</section>
+		<section data-id="time05">
+			<div class="col-medium">
+				<p style="text-align: center;">1994</p>
+			</div>
+		</section>
+		<section data-id="time06">
+			<div class="col-medium">
+				<p style="text-align: center;">1995</p>
+			</div>
+		</section>
+		<section data-id="time07">
+			<div class="col-medium">
+				<p style="text-align: center;">1996</p>
+			</div>
+		</section>
+		<section data-id="time08">
+			<div class="col-medium">
+				<p style="text-align: center;">1997</p>
+			</div>
+		</section>
+		<section data-id="time09">
+			<div class="col-medium">
+				<p style="text-align: center;">1998</p>
+			</div>
+		</section>
+		<section data-id="time10">
+			<div class="col-medium">
+				<p style="text-align: center;">1999</p>
+			</div>
+		</section>
+		<section data-id="time11">
+			<div class="col-medium">
+				<p style="text-align: center;">2000</p>
+			</div>
+		</section>
+		<section data-id="time12">
+			<div class="col-medium">
+				<p style="text-align: center;">2001</p>
+			</div>
+		</section>
+		<section data-id="time13">
+			<div class="col-medium">
+				<p style="text-align: center;">2002</p>
+			</div>
+		</section>
+		<section data-id="time14">
+			<div class="col-medium">
+				<p style="text-align: center;">2003</p>
+			</div>
+		</section>
+		<section data-id="time15">
+			<div class="col-medium">
+				<p style="text-align: center;">2004</p>
+			</div>
+		</section>
+		<section data-id="time16">
+			<div class="col-medium">
+				<p style="text-align: center;">2005</p>
+			</div>
+		</section>
+		<section data-id="time17">
+			<div class="col-medium">
+				<p style="text-align: center;">2006</p>
+			</div>
+		</section>
+		<section data-id="time18">
+			<div class="col-medium">
+				<p style="text-align: center;">2007</p>
+			</div>
+		</section>
+		<section data-id="time19">
+			<div class="col-medium">
+				<p style="text-align: center;">2008</p>
+			</div>
+		</section>
+		<section data-id="time20">
+			<div class="col-medium">
+				<p style="text-align: center;">2009</p>
+			</div>
+		</section>
+		<section data-id="time21">
+			<div class="col-medium">
+				<p style="text-align: center;">2010</p>
+			</div>
+		</section>
+		<section data-id="time22">
+			<div class="col-medium">
+				<p style="text-align: center;">2011</p>
+			</div>
+		</section>
+		<section data-id="time23">
+			<div class="col-medium">
+				<p style="text-align: center;">2012</p>
+			</div>
+		</section>
+		<section data-id="time24">
+			<div class="col-medium">
+				<p style="text-align: center;">2013</p>
+			</div>
+		</section>
+		<section data-id="time25">
+			<div class="col-medium">
+				<p style="text-align: center;">2014</p>
+			</div>
+		</section>
+		<section data-id="time26">
+			<div class="col-medium">
+				<p style="text-align: center;">2015</p>
+			</div>
+		</section>
+		<section data-id="time27">
+			<div class="col-medium">
+				<p style="text-align: center;">2016</p>
+			</div>
+		</section>
+		<section data-id="time28">
+			<div class="col-medium">
+				<p style="text-align: center;">2017</p>
+			</div>
+		</section>
+		<section data-id="time29">
+			<div class="col-medium">
+				<p style="text-align: center;">2018</p>
+			</div>
+		</section>
+		<section data-id="time30">
+			<div class="col-medium">
+				<p style="text-align: center;">2019</p>
+			</div>
+		</section>
+		<section data-id="time31">
+			<div class="col-medium">
+				<p style="text-align: center;">2020</p>
+			</div>
+		</section>
+		<section data-id="time32">
+			<div class="col-medium">
+				<p style="text-align: center;">2021</p>
+			</div>
+		</section>
+		<section data-id="time33">
+			<div class="col-medium">
+				<p style="text-align: center;">2022</p>
+			</div>
+		</section>
+		<section data-id="time34">
+			<div class="col-medium">
+				<p style="text-align: center;">2023</p>
+			</div>
+		</section>
+		<section data-id="time35">
+			<div class="col-medium">
+				<p style="text-align: center;">Reorder</p>
 			</div>
 		</section>
 	</div>
 </Scroller>
 
-<ONSFooter />
+<!-- <ONSFooter /> -->
 
 <style>
 	/* Styles specific to elements within the demo */
@@ -276,14 +515,15 @@
 		pointer-events: all !important;
 	}
 	img {
-		width: 50%;
+		width: 20%;
 	}
-	select {
-		max-width: 350px;
-	}
-	.chart {
+	.chart,
+	.time {
 		margin-top: 45px;
 		width: calc(100% - 5px);
+	}
+	/* select {
+		max-width: 350px;
 	}
 	.chart-full {
 		margin: 0 20px;
@@ -291,7 +531,6 @@
 	.chart-sml {
 		font-size: 0.85em;
 	}
-	/* The properties below make the media DIVs grey, for visual purposes in demo */
 	.media {
 		background-color: #f0f0f0;
 		display: -webkit-box;
@@ -306,5 +545,5 @@
 		justify-content: center;
 		text-align: center;
 		color: #aaa;
-	}
+	} */
 </style>
