@@ -378,7 +378,11 @@
 		</section>
 		<section data-id="time11">
 			<div class="col-medium">
-				<p style="text-align: center;">2000</p>
+				<p style="text-align: center;">
+					The United Nations Security Council adopts resolution
+					(S/RES/1325) on women and peace and security on 31 October
+					2000.
+				</p>
 			</div>
 		</section>
 		<section data-id="time12">

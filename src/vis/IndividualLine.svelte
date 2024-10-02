@@ -10,11 +10,10 @@
     export let entries;
     export let reorder;
 
-    $: yScale = d3.scaleLinear().domain([0, 100]).range([0, innerHeight]);
+    const tX = tweened(null, { duration: 1200, easing: cubicOut });
+    const tY = tweened(null, { duration: 1200, easing: cubicOut });
 
-    const tX = tweened(null, { duration: 1000, easing: cubicOut });
-    const tY = tweened(null, { duration: 1000, easing: cubicOut });
-
+    $: yScale = d3.scaleLinear().domain([0, 100]).range([0, innerHeight / 2]);
     $: tX.set(x);
     $: tY.set(y);
 
@@ -41,7 +40,7 @@
             y2={yScale(i)}
             stroke="#cccccc"
             class={assign_class(entry)}
-            stroke-width="2"
+            stroke-width="1"
         />
     {/each}
 </g>

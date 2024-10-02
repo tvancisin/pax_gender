@@ -11,6 +11,10 @@
     let height = 400;
     let current_pax;
     let current_years;
+    let reorder = false;
+    let innerWidth, innerHeight, xScale, yScale;
+    const margin = { top: 20, right: 20, bottom: 20, left: 40 };
+
     let years = [
         "1990",
         "1991",
@@ -51,8 +55,8 @@
         "2015",
         "2016",
         "2008",
-        "2013",
         "2014",
+        "2013",
         "2003",
         "2006",
         "2011",
@@ -68,9 +72,9 @@
         "1993",
         "2005",
         "2007",
+        "2021",
         "2001",
         "2020",
-        "2021",
         "2023",
         "1991",
         "1998",
@@ -87,28 +91,23 @@
     $: innerWidth = width - margin.left - margin.right;
     $: innerHeight = height - margin.top - margin.bottom;
 
-
     $: xScale = d3
         .scaleBand()
         .domain(years)
         .range([0, innerWidth])
         .padding(0.1);
-    $: yScale = d3.scaleLinear().domain([0, 100]).range([innerHeight, 0]);
 
-    // recalculate when
+    $: yScale = d3
+        .scaleLinear()
+        .domain([0, 100])
+        .range([innerHeight / 2, 0]);
+
+    // wait till pax_timeline is loaded
     $: if (pax_timeline) {
         //initial timeline data
-        console.log("here");
         current_pax = [pax_timeline[0]];
         current_years = pax_timeline.map((d) => d[0]);
     }
-
-    // Margins and scales
-    const margin = { top: 20, right: 20, bottom: 20, left: 40 };
-    let innerWidth, innerHeight, xScale, yScale;
-
-    let reorder = false;
-    $: console.log(step);
 
     $: if (step == "1") {
         console.log("1990");
@@ -119,8 +118,6 @@
     } else if (step == "3") {
         console.log("1992");
         current_pax = pax_timeline.slice(0, 3);
-        // let participation = pax_gender.filter((d) => d.WggPar == 1);
-        // current_pax = d3.groups(participation, (d) => d.Dat.substring(0, 4));
     } else if (step == "4") {
         console.log("1993");
         current_pax = pax_timeline.slice(0, 4);
@@ -220,12 +217,35 @@
         reorder = true;
         years = most_women;
     }
+
+    function formatMobile(tick) {
+        return "'" + tick.toString().slice(-2);
+    }
 </script>
 
 {#if current_pax}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
         <svg {width} {height}>
-            <g transform="translate({margin.left}, {margin.top})">
+            <g
+                transform="translate({margin.left}, {innerHeight / 2 +
+                    margin.top})"
+            >
+                <g class="axis x-axis">
+                    {#each years as tick}
+                        <g
+                            class="tick tick-{tick}"
+                            transform="translate({xScale(tick) +
+                                xScale.bandwidth() / 2},{height / 2})"
+                        >
+                            <text y="-2"
+                                >{innerWidth > 380
+                                    ? tick
+                                    : formatMobile(tick)}</text
+                            >
+                        </g>
+                    {/each}
+                </g>
+
                 {#each current_pax as [year, entries]}
                     <IndividualLine
                         x={xScale(year)}
@@ -245,5 +265,19 @@
     .wrapper {
         height: 90vh;
         position: relative;
+    }
+    .tick {
+        font-size: 0.725em;
+        font-weight: 200;
+    }
+
+    .tick text {
+        fill: black;
+        text-anchor: start;
+        font-size: 10px;
+    }
+
+    .x-axis .tick text {
+        text-anchor: middle;
     }
 </style>

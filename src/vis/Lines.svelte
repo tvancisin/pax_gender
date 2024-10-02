@@ -8,8 +8,8 @@
     let width = 400;
     let height = 400;
     let current_pax, def_pax, def_pax_gender;
+    let gap = 3;
 
-    const gap = 3;
     current_pax = pax;
     def_pax = pax;
     def_pax_gender = pax_gender;
@@ -23,12 +23,16 @@
 
     $: if (step == "one") {
         current_pax = pax;
+        d3.selectAll(".agt").style("stroke", "black")
     } else if (step == "two") {
-        current_pax = pax.filter((d) => d.GeWom == 1);
+        d3.selectAll(".agt").style("stroke", "#cccccc")
+        d3.selectAll(".gender").style("stroke", "black")
     } else if (step == "three") {
-        current_pax = pax_gender.filter((d) => d.WggPar == 1);
+        d3.selectAll(".agt").style("stroke", "#cccccc")
+        d3.selectAll(".participation").style("stroke", "black")
     } else if (step == "four") {
-        current_pax = pax_gender.filter((d) => d.WggImplSign == 1);
+        d3.selectAll(".agt").style("stroke", "#cccccc")
+        d3.selectAll(".signing").style("stroke", "black")
     }
 
     $: innerWidth = width - margin.left - margin.right;
