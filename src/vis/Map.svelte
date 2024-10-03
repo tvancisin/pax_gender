@@ -5,14 +5,12 @@
     const { data, width, height } = getContext("LayerCake");
 
     export let projectionName = "geoNaturalEarth1";
+    export let features = $data.features;
 
     /* --------------------------------------------
      * Add this in case you want to plot only a subset of the features
      * while keeping the zoom on the whole geojson feature set
      */
-
-    export let features = $data.features;
-    $: console.log(features);
 
     $: projection = geo[projectionName]().fitSize([$width, $height], $data);
 
@@ -36,7 +34,7 @@
     {#each features as feature}
         <path
             class="feature-path"
-            fill="none"
+            fill={fillRandom(Math.random())}
             d={geoPath(feature)}
             on:mouseenter={polygon_hover}
         ></path>

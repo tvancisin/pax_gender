@@ -195,14 +195,20 @@
 	});
 
 	//LOAD PAX
-	let path = ["./data/pax.csv", "./data/pax_gender.csv"];
+	let path = [
+		"./data/pax.csv",
+		"./data/pax_gender.csv",
+		"./data/pax_central_points.csv",
+	];
 	let pax;
 	let pax_gender;
 	let pax_gender_timeline;
 	let pax_timeline;
+	let central_points;
 	getCSV(path).then((data) => {
 		pax = data[0];
 		pax_gender = data[1];
+		central_points = data[2]
 
 		// Iterate through each object in the pax array
 		pax.forEach((paxItem) => {
@@ -254,7 +260,7 @@
 	</div> -->
 </Header>
 
-<!-- <Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
+<Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
@@ -303,7 +309,7 @@
 			</div>
 		</section>
 	</div>
-</Scroller> -->
+</Scroller>
 
 <Filler theme="light" short={true} wide={true} center={true}>
 	<p class="text-big">Timeline</p>
@@ -320,6 +326,7 @@
 						{pax_timeline}
 						{pax_gender}
 						{step}
+						{central_points}
 					/>
 				</div>
 			</div>
