@@ -189,7 +189,7 @@
 
 	//LOAD GEOJSON
 	let mygeojson;
-	const myjson_path = "./data/geojson.json";
+	const myjson_path = "./data/custom.geo.json";
 	getGEO(myjson_path).then((geo) => {
 		mygeojson = geo;
 	});
@@ -254,7 +254,7 @@
 	</div> -->
 </Header>
 
-<Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
+<!-- <Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
@@ -303,7 +303,7 @@
 			</div>
 		</section>
 	</div>
-</Scroller>
+</Scroller> -->
 
 <Filler theme="light" short={true} wide={true} center={true}>
 	<p class="text-big">Timeline</p>
@@ -315,6 +315,7 @@
 			<div class="col-wide height-full">
 				<div class="time">
 					<Timeline
+						{mygeojson}
 						{pax_gender_timeline}
 						{pax_timeline}
 						{pax_gender}

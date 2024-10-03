@@ -13,7 +13,7 @@
     const tX = tweened(null, { duration: 1200, easing: cubicOut });
     const tY = tweened(null, { duration: 1200, easing: cubicOut });
 
-    $: yScale = d3.scaleLinear().domain([0, 100]).range([0, innerHeight / 2]);
+    $: yScale = d3.scaleLinear().domain([0, 100]).range([0, 220]);
     $: tX.set(x);
     $: tY.set(y);
 

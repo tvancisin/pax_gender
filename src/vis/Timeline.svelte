@@ -1,7 +1,11 @@
 <script>
     import * as d3 from "d3";
     import IndividualLine from "./IndividualLine.svelte";
+    import { LayerCake, Svg } from "layercake";
+    import Map from "./Map.svelte";
+    import Point from "./Point.svelte";
 
+    export let mygeojson;
     export let pax_gender_timeline;
     export let pax_timeline;
     export let pax_gender;
@@ -97,10 +101,7 @@
         .range([0, innerWidth])
         .padding(0.1);
 
-    $: yScale = d3
-        .scaleLinear()
-        .domain([0, 100])
-        .range([innerHeight / 2, 0]);
+    $: yScale = d3.scaleLinear().domain([0, 100]).range([220, 0]);
 
     // wait till pax_timeline is loaded
     $: if (pax_timeline) {
@@ -225,17 +226,53 @@
 
 {#if current_pax}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
-        <svg {width} {height}>
-            <g
-                transform="translate({margin.left}, {innerHeight / 2 +
-                    margin.top})"
-            >
+        {#if mygeojson}
+            <LayerCake data={mygeojson}>
+                <Svg>
+                    <Map projectionName={"geoNaturalEarth1"} />
+                    <Point projectionName={"geoNaturalEarth1"} pointsData={current_pax} />
+                    <g
+                        transform="translate({margin.left}, {innerHeight -
+                            200})"
+                    >
+                        <g class="axis x-axis">
+                            {#each years as tick}
+                                <g
+                                    class="tick tick-{tick}"
+                                    transform="translate({xScale(tick) +
+                                        xScale.bandwidth() / 2},{235})"
+                                >
+                                    <text y="-2"
+                                        >{innerWidth > 380
+                                            ? tick
+                                            : formatMobile(tick)}</text
+                                    >
+                                </g>
+                            {/each}
+                        </g>
+
+                        {#each current_pax as [year, entries]}
+                            <IndividualLine
+                                x={xScale(year)}
+                                y={yScale(entries.length)}
+                                {innerHeight}
+                                width={xScale.bandwidth()}
+                                {entries}
+                                {reorder}
+                            />
+                        {/each}
+                    </g>
+                </Svg>
+            </LayerCake>
+        {/if}
+        <!-- <svg {width} {height}>
+            <g transform="translate({margin.left}, {innerHeight - 200})">
                 <g class="axis x-axis">
                     {#each years as tick}
                         <g
                             class="tick tick-{tick}"
                             transform="translate({xScale(tick) +
-                                xScale.bandwidth() / 2},{height / 2})"
+                                xScale.bandwidth() / 2},{235})"
                         >
                             <text y="-2"
                                 >{innerWidth > 380
@@ -257,7 +294,7 @@
                     />
                 {/each}
             </g>
-        </svg>
+        </svg> -->
     </div>
 {/if}
 
