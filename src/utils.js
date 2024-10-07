@@ -73,3 +73,24 @@ export async function getGEO(url) {
   let json = await response.json();
   return json;
 }
+
+    // Generate a more controlled line that mimics handwriting
+export function generateHandwrittenLine(x, y, length) {
+      const points = [];
+      const segments = 5; // Number of segments
+      const segmentLength = length / segments;
+
+      let currentX = x;
+      let currentY = y;
+
+      for (let i = 0; i <= segments; i++) {
+          const randomOffsetX = Math.random() * segmentLength * 0.1; // Small variation in X
+          const randomOffsetY = Math.random() * 3 - 1.5; // Controlled Y deviation (no sharp deviations)
+
+          currentX += segmentLength; // Move right progressively
+          currentY += randomOffsetY; // Apply subtle up-down variations
+
+          points.push([currentX + randomOffsetX, currentY]);
+      }
+      return points;
+  }

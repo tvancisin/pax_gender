@@ -1,5 +1,6 @@
 <script>
     import * as d3 from "d3";
+    import { generateHandwrittenLine } from "../utils";
 
     export let pax;
     export let pax_gender;
@@ -54,27 +55,6 @@
     // Compute the width and height of each rectangle, accounting for gaps
     $: rectWidth = (innerWidth - totalGapX) / numCols;
     $: rectHeight = (innerHeight - totalGapY) / numRows;
-
-    // Generate a more controlled line that mimics handwriting
-    function generateHandwrittenLine(x, y, length) {
-        const points = [];
-        const segments = 10; // Number of segments
-        const segmentLength = length / segments;
-
-        let currentX = x;
-        let currentY = y;
-
-        for (let i = 0; i <= segments; i++) {
-            const randomOffsetX = Math.random() * segmentLength * 0.3; // Small variation in X
-            const randomOffsetY = Math.random() * 3 - 1.5; // Controlled Y deviation (no sharp deviations)
-
-            currentX += segmentLength; // Move right progressively
-            currentY += randomOffsetY; // Apply subtle up-down variations
-
-            points.push([currentX + randomOffsetX, currentY]);
-        }
-        return points;
-    }
 
     // Create a line generator using d3.line with curveMonotoneX to maintain left-to-right flow
     const lineGenerator = d3

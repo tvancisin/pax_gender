@@ -208,7 +208,7 @@
 	getCSV(path).then((data) => {
 		pax = data[0];
 		pax_gender = data[1];
-		central_points = data[2]
+		central_points = data[2];
 
 		// Iterate through each object in the pax array
 		pax.forEach((paxItem) => {
@@ -240,7 +240,7 @@
 	});
 </script>
 
-<!-- <ONSHeader filled={true} center={false} /> -->
+<ONSHeader filled={false} center={false} />
 
 <Header
 	bgcolor="white"
@@ -249,7 +249,6 @@
 	center={true}
 	short={false}
 >
-	<img src="./img/logo.png" alt="Logo" />
 	<h1>PA-X Gender</h1>
 	<!-- <p class="text-big" style="margin-top: 5px">
 		This is a short text description of the article that might take up a
@@ -259,6 +258,10 @@
 		<Arrow color="black" {animation}>Scroll to begin</Arrow>
 	</div> -->
 </Header>
+
+<!-- <Filler theme="light" short={true} wide={true} center={true}>
+	<p class="text-big">Overview</p>
+</Filler>
 
 <Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
 	<div slot="background">
@@ -309,7 +312,7 @@
 			</div>
 		</section>
 	</div>
-</Scroller>
+</Scroller> -->
 
 <Filler theme="light" short={true} wide={true} center={true}>
 	<p class="text-big">Timeline</p>
