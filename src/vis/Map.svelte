@@ -11,9 +11,9 @@
 
     $: if (cumulative_isos) {
         let filteredIsos = cumulative_isos.filter((iso) => iso !== "");
-        d3.selectAll(".country").style("fill", "#d9d9d9");
+        d3.selectAll(".country").style("fill", "white");
         filteredIsos.forEach((iso) => {
-            d3.selectAll("." + iso).style("fill", "red");
+            d3.selectAll("." + iso).style("fill", "gray");
         });
     }
 
@@ -22,7 +22,7 @@
      * while keeping the zoom on the whole geojson feature set
      */
 
-    $: projection = geo[projectionName]().fitSize([$width, $height], $data);
+    $: projection = geo[projectionName]().fitSize([$width, $height - 100], $data);
 
     $: geoPath = geo.geoPath(projection);
 
@@ -43,7 +43,7 @@
     {#each features as feature}
         <path
             class={"country " + feature.properties.adm0_iso}
-            fill="#d9d9d9"
+            fill="white"
             d={geoPath(feature)}
             on:mouseenter={polygon_hover(feature)}
         ></path>
@@ -52,7 +52,7 @@
 
 <style>
     .country {
-        stroke: white;
+        stroke:black;
         stroke-width: 0.5px;
     }
 </style>

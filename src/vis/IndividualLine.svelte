@@ -21,7 +21,7 @@
         .y((d) => d[1]) // Y coordinate from the generated points
         .curve(d3.curveMonotoneX); // Ensures the line progresses monotonically in the X direction
 
-    $: yScale = d3.scaleLinear().domain([0, 100]).range([0, 220]);
+    $: yScale = d3.scaleLinear().domain([0, 100]).range([0, 200]);
     $: tX.set(x);
     $: tY.set(y);
 
@@ -51,7 +51,7 @@
         /> -->
         <path
             d={lineGenerator(
-                generateHandwrittenLine(0, yScale(i), width),
+                generateHandwrittenLine(-5, yScale(i), width),
             )}
             fill="none"
             stroke="#cccccc"

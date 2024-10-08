@@ -244,7 +244,7 @@
 
 <Header
 	bgcolor="white"
-	bgfixed={true}
+	bgfixed={false}
 	theme="light"
 	center={true}
 	short={false}
@@ -259,7 +259,7 @@
 	</div> -->
 </Header>
 
-<!-- <Filler theme="light" short={true} wide={true} center={true}>
+<Filler theme="light" short={true} wide={true} center={true}>
 	<p class="text-big">Overview</p>
 </Filler>
 
@@ -312,10 +312,18 @@
 			</div>
 		</section>
 	</div>
-</Scroller> -->
+</Scroller>
+
+<Section>
+	<!-- <h2>This is a full-width chart demo</h2> -->
+	<!-- <p>
+		Below is an example of a media grid where the column with is set to "full". This allows for full width images and charts.
+	</p> -->
+	<img id="agreement" src="./img/agt.PNG">
+</Section>
 
 <Filler theme="light" short={true} wide={true} center={true}>
-	<p class="text-big">Timeline</p>
+	<p class="text-big">Agreements over Time</p>
 </Filler>
 
 <Scroller {threshold} bind:id={id["time"]} splitscreen={false}>
@@ -531,6 +539,9 @@
 	}
 	img {
 		width: 20%;
+	}
+	#agreement {
+		width: 100%;
 	}
 	.chart,
 	.time {

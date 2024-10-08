@@ -105,7 +105,7 @@
         .range([0, innerWidth])
         .padding(0.1);
 
-    $: yScale = d3.scaleLinear().domain([0, 100]).range([220, 0]);
+    $: yScale = d3.scaleLinear().domain([0, 100]).range([200, 0]);
 
     let current_isos;
     let cumulative_isos;
@@ -427,14 +427,14 @@
                     />
                     <g
                         transform="translate({margin.left}, {innerHeight -
-                            200})"
+                            150})"
                     >
                         <g class="axis x-axis">
                             {#each years as tick}
                                 <g
                                     class="tick tick-{tick}"
                                     transform="translate({xScale(tick) +
-                                        xScale.bandwidth() / 2},{235})"
+                                        xScale.bandwidth() / 2},{220})"
                                 >
                                     <text y="-2"
                                         >{innerWidth > 380
