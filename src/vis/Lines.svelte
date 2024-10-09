@@ -1,6 +1,6 @@
 <script>
     import * as d3 from "d3";
-    import { generateHandwrittenLine } from "../utils";
+    import { generateHandwrittenLine, lineGenerator } from "../utils";
 
     export let pax;
     export let pax_gender;
@@ -24,16 +24,16 @@
 
     $: if (step == "one") {
         current_pax = pax;
-        d3.selectAll(".agt").style("stroke", "black")
+        d3.selectAll(".agt").style("stroke", "black");
     } else if (step == "two") {
-        d3.selectAll(".agt").style("stroke", "#cccccc")
-        d3.selectAll(".gender").style("stroke", "black")
+        d3.selectAll(".agt").style("stroke", "#cccccc");
+        d3.selectAll(".gender").style("stroke", "black");
     } else if (step == "three") {
-        d3.selectAll(".agt").style("stroke", "#cccccc")
-        d3.selectAll(".participation").style("stroke", "black")
+        d3.selectAll(".agt").style("stroke", "#cccccc");
+        d3.selectAll(".participation").style("stroke", "black");
     } else if (step == "four") {
-        d3.selectAll(".agt").style("stroke", "#cccccc")
-        d3.selectAll(".signing").style("stroke", "black")
+        d3.selectAll(".agt").style("stroke", "#cccccc");
+        d3.selectAll(".signing").style("stroke", "black");
     }
 
     $: innerWidth = width - margin.left - margin.right;
@@ -55,13 +55,6 @@
     // Compute the width and height of each rectangle, accounting for gaps
     $: rectWidth = (innerWidth - totalGapX) / numCols;
     $: rectHeight = (innerHeight - totalGapY) / numRows;
-
-    // Create a line generator using d3.line with curveMonotoneX to maintain left-to-right flow
-    const lineGenerator = d3
-        .line()
-        .x((d) => d[0]) // X coordinate from the generated points
-        .y((d) => d[1]) // Y coordinate from the generated points
-        .curve(d3.curveMonotoneX); // Ensures the line progresses monotonically in the X direction
 
     // Function to construct the class string
     function getClassString(paxItem) {
@@ -86,8 +79,6 @@
         return classes.join(" ");
     }
 
-    $:console.log(current_pax);
-    
 </script>
 
 {#if current_pax}

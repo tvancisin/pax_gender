@@ -2,7 +2,7 @@
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
     import * as d3 from "d3";
-    import { generateHandwrittenLine } from "../utils";
+    import { generateHandwrittenLine, lineGenerator } from "../utils";
 
     export let x;
     export let y;
@@ -13,13 +13,6 @@
 
     const tX = tweened(null, { duration: 1200, easing: cubicOut });
     const tY = tweened(null, { duration: 1200, easing: cubicOut });
-
-    // Create a line generator using d3.line with curveMonotoneX to maintain left-to-right flow
-    const lineGenerator = d3
-        .line()
-        .x((d) => d[0]) // X coordinate from the generated points
-        .y((d) => d[1]) // Y coordinate from the generated points
-        .curve(d3.curveMonotoneX); // Ensures the line progresses monotonically in the X direction
 
     $: yScale = d3.scaleLinear().domain([0, 100]).range([0, 200]);
     $: tX.set(x);

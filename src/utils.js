@@ -11,14 +11,14 @@ export function setColors(themes, theme) {
 
 export function getMotion() {
   let mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)"); // Check if browser prefers reduced motion
-	return !mediaQuery || mediaQuery.matches ? false : true; // return true for motion, false for no motion
+  return !mediaQuery || mediaQuery.matches ? false : true; // return true for motion, false for no motion
 }
 
 // DEMO-SPECIFIC FUNCTIONS
 export async function getData(url) {
   let response = await fetch(url);
   let string = await response.text();
-	let data = await csvParse(string, autoType);
+  let data = await csvParse(string, autoType);
   return data;
 }
 
@@ -38,23 +38,23 @@ export function getColor(value, breaks, colors) {
       color = colors[i - 1];
       found = true;
     } else {
-      i ++;
+      i++;
     }
   }
   return color ? color : 'lightgrey';
 }
 
 export function getBreaks(vals) {
-	let len = vals.length;
-	let breaks = [
-		vals[0],
-		vals[Math.floor(len * 0.2)],
-		vals[Math.floor(len * 0.4)],
-		vals[Math.floor(len * 0.6)],
-		vals[Math.floor(len * 0.8)],
-		vals[len - 1]
-	];
-	return breaks;
+  let len = vals.length;
+  let breaks = [
+    vals[0],
+    vals[Math.floor(len * 0.2)],
+    vals[Math.floor(len * 0.4)],
+    vals[Math.floor(len * 0.6)],
+    vals[Math.floor(len * 0.8)],
+    vals[len - 1]
+  ];
+  return breaks;
 }
 
 export async function getIndividualCSV(path) {
@@ -74,23 +74,40 @@ export async function getGEO(url) {
   return json;
 }
 
-    // Generate a more controlled line that mimics handwriting
+
+// Create a line generator using d3.line with curveMonotoneX to maintain left-to-right flow
+export const lineGenerator = d3
+  .line()
+  .x((d) => d[0]) // X coordinate from the generated points
+  .y((d) => d[1]) // Y coordinate from the generated points
+  .curve(d3.curveMonotoneX); // Ensures the line progresses monotonically in the X direction
+
+// Generate a more controlled line that mimics handwriting with 5 peaks and dips
 export function generateHandwrittenLine(x, y, length) {
-      const points = [];
-      const segments = 5; // Number of segments
-      const segmentLength = length / segments;
+  let variation = 0.3
+  // if (gender == "1") {
+  //   variation = 1
+  // }
+  // else {
+  //   variation = 0.1
+  // }
+  const points = [];
+  const segments = 5; // Number of segments (5 peaks/dips)
+  const segmentLength = length / segments;
 
-      let currentX = x;
-      let currentY = y;
+  let currentX = x;
+  let currentY = y;
 
-      for (let i = 0; i <= segments; i++) {
-          const randomOffsetX = Math.random() * segmentLength * 0.1; // Small variation in X
-          const randomOffsetY = Math.random() * 3 - 1.5; // Controlled Y deviation (no sharp deviations)
+  for (let i = 0; i <= segments; i++) {
+    const randomOffsetX = Math.random() * segmentLength * 0.5; // Small X variation for natural look
+    const peakDipOffsetY = (i % 2 === 0)
+      ? Math.random() * 2 + variation // Peaks (up)
+      : Math.random() * -2 - variation; // Dips (down)
 
-          currentX += segmentLength; // Move right progressively
-          currentY += randomOffsetY; // Apply subtle up-down variations
+    currentX += segmentLength; // Move right progressively
+    currentY += peakDipOffsetY; // Create alternating peaks and dips
 
-          points.push([currentX + randomOffsetX, currentY]);
-      }
-      return points;
+    points.push([currentX + randomOffsetX, currentY]);
   }
+  return points;
+}

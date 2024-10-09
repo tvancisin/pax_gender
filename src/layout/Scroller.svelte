@@ -1,42 +1,46 @@
 <script context="module">
-  // Based on svelte-scroller by Rich Harris
-  // https://github.com/sveltejs/svelte-scroller
-  // Patched to transpile to IE 11 and allow for split-screen view option
+	// Based on svelte-scroller by Rich Harris
+	// https://github.com/sveltejs/svelte-scroller
+	// Patched to transpile to IE 11 and allow for split-screen view option
 
 	const handlers = [];
 	let manager;
 
-	if (typeof window !== 'undefined') {
-		const run_all = () => handlers.forEach(fn => fn());
+	if (typeof window !== "undefined") {
+		const run_all = () => handlers.forEach((fn) => fn());
 
-		window.addEventListener('scroll', run_all);
-		window.addEventListener('resize', run_all);
+		window.addEventListener("scroll", run_all);
+		window.addEventListener("resize", run_all);
 	}
 
-	if (typeof IntersectionObserver !== 'undefined') {
+	if (typeof IntersectionObserver !== "undefined") {
 		const map = new Map();
 
-		const observer = new IntersectionObserver((entries, observer) => {
-			entries.forEach(entry => {
-				const update = map.get(entry.target);
-				const index = handlers.indexOf(update);
+		const observer = new IntersectionObserver(
+			(entries, observer) => {
+				entries.forEach((entry) => {
+					const update = map.get(entry.target);
+					const index = handlers.indexOf(update);
 
-				if (entry.isIntersecting) {
-					if (index === -1) handlers.push(update);
-				} else {
-					update();
-					if (index !== -1) handlers.splice(index, 1);
-				}
-			});
-		}, {
-			rootMargin: '400px 0px' // TODO why 400?
-		});
+					if (entry.isIntersecting) {
+						if (index === -1) handlers.push(update);
+					} else {
+						update();
+						if (index !== -1) handlers.splice(index, 1);
+					}
+				});
+			},
+			{
+				rootMargin: "400px 0px", // TODO why 400?
+			},
+		);
 
 		manager = {
 			add: ({ outer, update }) => {
 				const { top, bottom } = outer.getBoundingClientRect();
 
-				if (top < window.innerHeight && bottom > 0) handlers.push(update);
+				if (top < window.innerHeight && bottom > 0)
+					handlers.push(update);
 
 				map.set(outer, update);
 				observer.observe(outer);
@@ -48,7 +52,7 @@
 
 				map.delete(outer);
 				observer.unobserve(outer);
-			}
+			},
 		};
 	} else {
 		manager = {
@@ -59,19 +63,19 @@
 			remove: ({ update }) => {
 				const index = handlers.indexOf(update);
 				if (index !== -1) handlers.splice(index, 1);
-			}
+			},
 		};
 	}
 </script>
 
 <script>
-	import { onMount } from 'svelte';
+	import { onMount } from "svelte";
 
 	// config
 	export let top = 0;
 	export let bottom = 1;
 	export let threshold = 0.5;
-	export let query = 'section';
+	export let query = "section";
 	export let parallax = false;
 
 	// bindings
@@ -84,7 +88,7 @@
 	export let id = null;
 
 	let outer;
-  let bgContainer; // IE patch. Container binding to update inline style
+	let bgContainer; // IE patch. Container binding to update inline style
 	let foreground;
 	let background;
 	let left;
@@ -99,8 +103,7 @@
 	$: top_px = Math.round(top * wh);
 	$: bottom_px = Math.round(bottom * wh);
 	$: threshold_px = Math.round(threshold * wh);
-
-	$: (top, bottom, threshold, parallax, update());
+	$: top, bottom, threshold, parallax, update();
 
 	onMount(() => {
 		sections = foreground.querySelectorAll(query);
@@ -115,12 +118,12 @@
 	});
 
 	// IE patch. BG container style (fixed/unfixed) set via function
-  function setFixed() {
-    if (bgContainer) {
-      let style = `position: ${fixed ? 'fixed' : 'absolute'}; top: 0; transform: translate(0, ${offset_top}px); width: ${width}px; z-index: ${inverted ? 3 : 1};`;
-      bgContainer.style.cssText = style;
-    }
-  }
+	function setFixed() {
+		if (bgContainer) {
+			let style = `position: ${fixed ? "fixed" : "absolute"}; top: 0; transform: translate(0, ${offset_top}px); width: ${width}px; z-index: ${inverted ? 3 : 1};`;
+			bgContainer.style.cssText = style;
+		}
+	}
 
 	function update() {
 		if (!foreground) return;
@@ -144,26 +147,29 @@
 
 		if (progress <= 0) {
 			offset_top = 0;
-      if (fixed) {
-        fixed = false;
-        setFixed();
-      } // Non-IE specific patch to avoid setting style repeatedly
+			if (fixed) {
+				fixed = false;
+				setFixed();
+			} // Non-IE specific patch to avoid setting style repeatedly
 		} else if (progress >= 1) {
 			offset_top = parallax
-				? (foreground_height - background_height)
-				: (foreground_height - available_space);
-      if (fixed) {
-        fixed = false;
-        setFixed();
-      }
+				? foreground_height - background_height
+				: foreground_height - available_space;
+			if (fixed) {
+				fixed = false;
+				setFixed();
+			}
 		} else {
-			offset_top = parallax ?
-				Math.round(top_px - progress * (background_height - available_space)) :
-				top_px;
-      if (!fixed) {
-        fixed = true;
-        setFixed();
-      }
+			offset_top = parallax
+				? Math.round(
+						top_px -
+							progress * (background_height - available_space),
+					)
+				: top_px;
+			if (!fixed) {
+				fixed = true;
+				setFixed();
+			}
 		}
 
 		for (index = 0; index < sections.length; index += 1) {
@@ -180,10 +186,13 @@
 	}
 </script>
 
-<svelte:window bind:innerHeight={wh}/>
+<svelte:window bind:innerHeight={wh} />
 
 <svelte-scroller-outer bind:this={outer} class:splitscreen>
-	<svelte-scroller-background-container class='background-container' bind:this={bgContainer}>
+	<svelte-scroller-background-container
+		class="background-container"
+		bind:this={bgContainer}
+	>
 		<svelte-scroller-background bind:this={background}>
 			<slot name="background"></slot>
 		</svelte-scroller-background>
@@ -214,7 +223,7 @@
 	}
 
 	svelte-scroller-foreground::after {
-		content: ' ';
+		content: " ";
 		display: block;
 		clear: both;
 	}

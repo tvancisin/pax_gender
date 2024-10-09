@@ -15,26 +15,25 @@
 	import Toggle from "./ui/Toggle.svelte";
 	import Arrow from "./ui/Arrow.svelte";
 	import Em from "./ui/Em.svelte";
-
 	import Lines from "./vis/Lines.svelte";
 	import Timeline from "./vis/Timeline.svelte";
+	import Text from "./vis/Text.svelte";
 	import { setColors, getGEO, getCSV } from "./utils.js";
 
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
-	let theme = "dark";
+	let theme = "light";
 	setContext("theme", theme);
 	setColors(themes, theme);
 
 	// CONFIG FOR SCROLLER COMPONENTS
 	const threshold = 0.65;
 	// State
-	let animation = getMotion(); // Set animation preference depending on browser preference
 	let id = {}; // Object to hold visible section IDs of Scroller components
 	let idPrev = {}; // Object to keep track of previous IDs, to compare for changes
 	onMount(() => {
 		setTimeout(() => {
 			window.scrollTo(0, 0);
-		}, 1000);
+		}, 500);
 		idPrev = { ...id };
 	});
 
@@ -240,7 +239,7 @@
 	});
 </script>
 
-<ONSHeader filled={false} center={false} />
+<!-- <ONSHeader filled={false} center={false} /> -->
 
 <Header
 	bgcolor="white"
@@ -250,18 +249,16 @@
 	short={false}
 >
 	<h1>PA-X Gender</h1>
-	<!-- <p class="text-big" style="margin-top: 5px">
-		This is a short text description of the article that might take up a
-		couple of lines
-	</p> -->
-	<!-- <div style="margin-top: 90px;">
-		<Arrow color="black" {animation}>Scroll to begin</Arrow>
-	</div> -->
+	<p style="margin-top: 5px">
+		This scrollytelling visualization uses PA-X Gender database to show how
+		and to what <br />
+		extent is gender taken into consideration in peacebuilding across the world.
+	</p>
 </Header>
 
-<Filler theme="light" short={true} wide={true} center={true}>
-	<p class="text-big">Overview</p>
-</Filler>
+<!-- <Filler theme="light" short={true} wide={true} center={true}>
+	<p class="text-big">How many agreements mention gender?</p>
+</Filler> -->
 
 <Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
 	<div slot="background">
@@ -280,8 +277,8 @@
 		<section data-id="chart01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					These are <strong>all 2055 agreements</strong> in PA-X database.
-					Each line/signature represents an agreement.
+					Every line represents one of <strong>2055 agreements</strong
+					> in PA-X database.
 				</p>
 			</div>
 		</section>
@@ -314,12 +311,41 @@
 	</div>
 </Scroller>
 
+<Filler theme="light" short={true} wide={true} center={true}>
+	<p class="text-big">How much text is dedicated to gender?</p>
+</Filler>
+
+<Scroller {threshold} bind:id={id["text"]} splitscreen={false}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				<div class="text">
+					<Text {pax_gender} />
+				</div>
+			</div>
+		</figure>
+	</div>
+
+	<div slot="foreground">
+		<section data-id="text01">
+			<div class="col-medium">
+				<p style="text-align: center;">text</p>
+			</div>
+		</section>
+		<section data-id="text02">
+			<div class="col-medium">
+				<p style="text-align: center;">text</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
+
 <Section>
 	<!-- <h2>This is a full-width chart demo</h2> -->
 	<!-- <p>
 		Below is an example of a media grid where the column with is set to "full". This allows for full width images and charts.
 	</p> -->
-	<img id="agreement" src="./img/agt.PNG">
+	<img id="agreement" src="./img/agt.PNG" />
 </Section>
 
 <Filler theme="light" short={true} wide={true} center={true}>
@@ -544,6 +570,7 @@
 		width: 100%;
 	}
 	.chart,
+	.text,
 	.time {
 		margin-top: 45px;
 		width: calc(100% - 5px);

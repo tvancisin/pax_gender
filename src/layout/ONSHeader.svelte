@@ -12,7 +12,7 @@
 		? 'background-color: ' + themes[theme]['background'] + ';'
 		: ''}"
 >
-	<div class="col-wide middle" style="margin-left:0px" class:center>
+	<div class="col-wide middle" style="margin-left:0px; margin-top:0px" class:center>
 		<a
 			href="https://pax.peaceagreements.org/agreements/wggsearch"
 			target="_blank"
