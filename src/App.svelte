@@ -198,9 +198,11 @@
 		"./data/pax.csv",
 		"./data/pax_gender.csv",
 		"./data/pax_central_points.csv",
+		"./data/pax_gender_text.csv",
 	];
 	let pax;
 	let pax_gender;
+	let pax_gender_text;
 	let pax_gender_timeline;
 	let pax_timeline;
 	let central_points;
@@ -208,6 +210,18 @@
 		pax = data[0];
 		pax_gender = data[1];
 		central_points = data[2];
+		pax_gender_text = data[3];
+
+		// add text to every pax_gender agt
+		pax_gender.forEach((genderItem) => {
+			const item = pax_gender_text.find(
+				(gender) => gender.AgtId === genderItem.AgtId,
+			);
+
+			if (item) {
+				genderItem.text = item.GeWom;
+			}
+		});
 
 		// Iterate through each object in the pax array
 		pax.forEach((paxItem) => {
@@ -572,7 +586,7 @@
 	.chart,
 	.text,
 	.time {
-		margin-top: 45px;
+		margin-top: 40px;
 		width: calc(100% - 5px);
 	}
 	/* select {

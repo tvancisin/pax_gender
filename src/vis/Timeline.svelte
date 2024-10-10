@@ -12,8 +12,6 @@
     export let step;
     export let central_points;
 
-    $: console.log(mygeojson);
-
     let width = 400;
     let height = 400;
     let current_pax;

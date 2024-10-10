@@ -1,9 +1,6 @@
 <script>
     export let pax_gender;
 
-    $: console.log(pax_gender);
-    
-
     let width = 400;
     let height = 400;
 
@@ -14,8 +11,9 @@
         left: 10,
     };
 
-    // Number of rectangles and grid dimensions
     const totalRectangles = 436;
+    const gap = 3; // Gap between rectangles
+
     let numCols, numRows;
 
     // Reactive calculation of rows, columns, and rectangle dimensions
@@ -25,16 +23,40 @@
     }
 
     // Reactive generation of rectangle data (x, y, width, height)
-    $: rectangles = Array.from({ length: totalRectangles }).map((_, i) => {
-        const rectWidth = (width - margin.left - margin.right) / numCols;
-        const rectHeight = (height - margin.top - margin.bottom) / numRows;
-        return {
-            x: (i % numCols) * rectWidth + margin.left,
-            y: Math.floor(i / numCols) * rectHeight + margin.top,
-            width: rectWidth,
-            height: rectHeight,
-        };
-    });
+    let rectangles;
+    $: if (pax_gender) {
+        rectangles = pax_gender.map((item, i) => {
+            const maxNCharacters = +item.N_characters; // Total characters
+            const womCharacters = +item.text.length; // Women characters
+
+            // console.log(maxNCharacters, womCharacters);
+            if (womCharacters > maxNCharacters) {
+                console.log(item);
+                
+            }
+            
+            const rectWidth =
+                (width - margin.left - margin.right) / numCols - gap;
+
+            const rectHeight =
+                (height - margin.top - margin.bottom) / numRows - gap;
+
+            // Full area for the maximum number of characters
+            const fullArea = rectWidth * rectHeight;
+
+            // Calculate the height (wHeight) that corresponds to womCharacters
+            const wArea = (womCharacters / maxNCharacters) * fullArea;
+            const wHeight = wArea / rectWidth; // Since width remains the same
+
+            return {
+                x: (i % numCols) * (rectWidth + gap) + margin.left,
+                y: Math.floor(i / numCols) * (rectHeight + gap) + margin.top,
+                width: rectWidth,
+                height: rectHeight,
+                wHeight: wHeight, // Height representing womCharacters
+            };
+        });
+    }
 </script>
 
 {#if pax_gender}
@@ -46,8 +68,19 @@
                     y={rect.y}
                     width={rect.width}
                     height={rect.height}
-                    fill="lightblue"
-                    stroke="white" />
+                    fill="white"
+                    stroke="gray"
+                    stroke-width="0.5"
+                />
+            {/each}
+            {#each rectangles as rect}
+                <rect
+                    x={rect.x}
+                    y={rect.y}
+                    width={rect.width}
+                    height={rect.wHeight}
+                    fill="black"
+                />
             {/each}
         </svg>
     </div>
