@@ -1,4 +1,6 @@
 <script>
+    import IndividualText from "./IndividualText.svelte";
+
     export let pax_gender;
 
     let width = 400;
@@ -12,7 +14,7 @@
     };
 
     const totalRectangles = 436;
-    const gap = 3; // Gap between rectangles
+    const gap = 4; // Gap between rectangles
 
     let numCols, numRows;
 
@@ -30,11 +32,10 @@
             const womCharacters = +item.text.length; // Women characters
 
             // console.log(maxNCharacters, womCharacters);
-            if (womCharacters > maxNCharacters) {
-                console.log(item);
-                
-            }
-            
+            // if (womCharacters > maxNCharacters/2) {
+            //     console.log(womCharacters, maxNCharacters, item);
+            // }
+
             const rectWidth =
                 (width - margin.left - margin.right) / numCols - gap;
 
@@ -57,30 +58,18 @@
             };
         });
     }
+
 </script>
 
-{#if pax_gender}
+{#if rectangles}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
         <svg {width} {height}>
             {#each rectangles as rect}
-                <rect
+            <IndividualText
                     x={rect.x}
                     y={rect.y}
-                    width={rect.width}
-                    height={rect.height}
-                    fill="white"
-                    stroke="gray"
-                    stroke-width="0.5"
-                />
-            {/each}
-            {#each rectangles as rect}
-                <rect
-                    x={rect.x}
-                    y={rect.y}
-                    width={rect.width}
-                    height={rect.wHeight}
-                    fill="black"
-                />
+                    {rect} />
+
             {/each}
         </svg>
     </div>

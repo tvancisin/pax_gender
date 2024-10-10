@@ -29,6 +29,7 @@
             assign_class(a) === "women" ? 1 : -1,
         );
     }
+    
 </script>
 
 <g transform="translate({$tX} {$tY})">

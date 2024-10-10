@@ -50,6 +50,20 @@
 			map03: () => {},
 			map04: () => {},
 		},
+		text: {
+			text01: () => {
+				step = "text_one";
+				pax_gender = pax_gender.sort(function (x, y) {
+					return d3.ascending(x.Dat, y.Dat);
+				});
+			},
+			text02: () => {
+				step = "text_two";
+				pax_gender = pax_gender.sort(function (x, y) {
+					return d3.ascending(x.wom_percent, y.wom_percent);
+				});
+			},
+		},
 		chart: {
 			chart01: () => {
 				step = "one";
@@ -218,8 +232,13 @@
 				(gender) => gender.AgtId === genderItem.AgtId,
 			);
 
+			const full_text = +genderItem.N_characters;
+			const women_text = item.GeWom.length;
+			const wom_percentage = (women_text / full_text) * 100;
+
 			if (item) {
 				genderItem.text = item.GeWom;
+				genderItem.wom_percent = wom_percentage;
 			}
 		});
 
@@ -242,14 +261,14 @@
 		});
 
 		pax.sort(function (x, y) {
-			return d3.ascending(x.Dat, y.Dat);
+			return d3.ascending(x.Dat.substring(6, 10), y.Dat.substring(6, 10));
 		});
 
 		//group by date for timeline vis
 		pax_gender_timeline = d3.groups(pax_gender, (d) =>
 			d.Dat.substring(0, 4),
 		);
-		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(0, 4));
+		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(6, 10));
 	});
 </script>
 
@@ -326,7 +345,10 @@
 </Scroller>
 
 <Filler theme="light" short={true} wide={true} center={true}>
-	<p class="text-big">How much text is dedicated to gender?</p>
+	<p class="text-big">
+		How much text is dedicated to women, girls, gender or sexual violence in
+		peace agreements?
+	</p>
 </Filler>
 
 <Scroller {threshold} bind:id={id["text"]} splitscreen={false}>
@@ -343,24 +365,50 @@
 	<div slot="foreground">
 		<section data-id="text01">
 			<div class="col-medium">
-				<p style="text-align: center;">text</p>
+				<p style="text-align: center;">Organized by years</p>
 			</div>
 		</section>
 		<section data-id="text02">
 			<div class="col-medium">
-				<p style="text-align: center;">text</p>
+				<p style="text-align: center;">
+					Organized by the amount of wgg content.
+				</p>
 			</div>
 		</section>
 	</div>
 </Scroller>
 
-<Section>
-	<!-- <h2>This is a full-width chart demo</h2> -->
-	<!-- <p>
-		Below is an example of a media grid where the column with is set to "full". This allows for full width images and charts.
-	</p> -->
-	<img id="agreement" src="./img/agt.PNG" />
-</Section>
+<Filler theme="light" short={true} wide={true} center={true}>
+	<p class="text-big">
+		What kind of references to women, girls, and sexual violence are in
+		these peace agreements?
+	</p>
+</Filler>
+
+<Scroller {threshold} bind:id={id["close_read"]} splitscreen={false}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				<div class="text">
+					<img id="agreement" src="./img/agt.PNG" />
+				</div>
+			</div>
+		</figure>
+	</div>
+
+	<div slot="foreground">
+		<section data-id="close01">
+			<div class="col-medium">
+				<p style="text-align: center;">Text</p>
+			</div>
+		</section>
+		<section data-id="close02">
+			<div class="col-medium">
+				<p style="text-align: center;">Text</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
 
 <Filler theme="light" short={true} wide={true} center={true}>
 	<p class="text-big">Agreements over Time</p>
@@ -584,6 +632,7 @@
 		width: 100%;
 	}
 	.chart,
+	.close_read,
 	.text,
 	.time {
 		margin-top: 40px;
