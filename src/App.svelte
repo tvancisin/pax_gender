@@ -198,7 +198,9 @@
 			}
 		});
 	}
-	$: id && runActions(Object.keys(actions)); // Run above code when 'id' object changes
+
+	// Run above code when 'id' object changes
+	$: id && runActions(Object.keys(actions));
 
 	//LOAD GEOJSON
 	let mygeojson;
@@ -213,10 +215,12 @@
 		"./data/pax_gender.csv",
 		"./data/pax_central_points.csv",
 		"./data/pax_gender_text.csv",
+		"./data/text_corr.csv",
 	];
 	let pax;
 	let pax_gender;
 	let pax_gender_text;
+	let corr_text;
 	let pax_gender_timeline;
 	let pax_timeline;
 	let central_points;
@@ -225,6 +229,8 @@
 		pax_gender = data[1];
 		central_points = data[2];
 		pax_gender_text = data[3];
+		pax_gender_text = data[3];
+		corr_text = data[4];
 
 		// add text to every pax_gender agt
 		pax_gender.forEach((genderItem) => {
@@ -232,13 +238,18 @@
 				(gender) => gender.AgtId === genderItem.AgtId,
 			);
 
-			const full_text = +genderItem.N_characters;
+			const find_corr = corr_text.find(
+				(gender) => gender.AgtId === genderItem.AgtId,
+			);
+
+			const full_text = +find_corr.Text_length;
 			const women_text = item.GeWom.length;
 			const wom_percentage = (women_text / full_text) * 100;
 
 			if (item) {
 				genderItem.text = item.GeWom;
 				genderItem.wom_percent = wom_percentage;
+				genderItem.corr_char_no = +find_corr.Text_length;
 			}
 		});
 
@@ -272,7 +283,7 @@
 	});
 </script>
 
-<!-- <ONSHeader filled={false} center={false} /> -->
+<ONSHeader filled={false} center={false} />
 
 <Header
 	bgcolor="white"

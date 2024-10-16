@@ -69,9 +69,8 @@ export async function getCSV(paths) {
 }
 
 export async function getGEO(url) {
-  let response = await fetch(url);
-  let json = await response.json();
-  return json;
+  const response = d3.json(url)
+  return response;
 }
 
 

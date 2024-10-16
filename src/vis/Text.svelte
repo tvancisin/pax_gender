@@ -28,10 +28,9 @@
     let rectangles;
     $: if (pax_gender) {
         rectangles = pax_gender.map((item, i) => {
-            const maxNCharacters = +item.N_characters; // Total characters
+            const maxNCharacters = +item.corr_char_no; // Total characters
             const womCharacters = +item.text.length; // Women characters
 
-            // console.log(maxNCharacters, womCharacters);
             // if (womCharacters > maxNCharacters/2) {
             //     console.log(womCharacters, maxNCharacters, item);
             // }
