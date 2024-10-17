@@ -17,7 +17,7 @@
 	import Em from "./ui/Em.svelte";
 	import Lines from "./vis/Lines.svelte";
 	import Timeline from "./vis/Timeline.svelte";
-	import Text from "./vis/Text.svelte";
+	import Text from "./vis/Rectangles.svelte";
 	import { setColors, getGEO, getCSV } from "./utils.js";
 
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
@@ -33,7 +33,7 @@
 	onMount(() => {
 		setTimeout(() => {
 			window.scrollTo(0, 0);
-		}, 500);
+		}, 1000);
 		idPrev = { ...id };
 	});
 
@@ -253,6 +253,9 @@
 			}
 		});
 
+		let quotas = d3.groups(pax_gender, (d) => d.WggUnsc);
+		console.log(quotas);
+
 		// Iterate through each object in the pax array
 		pax.forEach((paxItem) => {
 			// Find the corresponding item in pax_gender with the same AgtId
@@ -262,12 +265,14 @@
 
 			// If a matching item is found, add the WggPar and WggImplSign values
 			if (genderItem) {
-				paxItem.WggPar = genderItem.WggPar;
-				paxItem.WggImplSign = genderItem.WggImplSign;
+				paxItem.WggGenQuot = genderItem.WggGenQuot;
+				paxItem.WggIntLaw = genderItem.WggIntLaw;
+				paxItem.WggUnsc = genderItem.WggUnsc;
 			} else {
 				// Optionally handle cases where no matching item is found
-				paxItem.WggPar = "0";
-				paxItem.WggImplSign = "0";
+				paxItem.WggGenQuot = "0";
+				paxItem.WggIntLaw = "0";
+				paxItem.WggUnsc = "0";
 			}
 		});
 
@@ -300,9 +305,13 @@
 	</p>
 </Header>
 
-<!-- <Filler theme="light" short={true} wide={true} center={true}>
-	<p class="text-big">How many agreements mention gender?</p>
-</Filler> -->
+<Divider />
+
+<Filler theme="light" short={true} wide={true} center={true}>
+	<p class="text-big">How many peace agreements mention gender?</p>
+</Filler>
+
+<Divider />
 
 <Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
 	<div slot="background">
@@ -329,38 +338,47 @@
 		<section data-id="chart02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					<strong>436 agreements</strong> contain information about
-					<strong> women, girls, gender or sexual violence.</strong>
+					<strong>55 agreements</strong> outline a specific quota commitment,
+					or specify particular numbers of women that are to participate.
 				</p>
 			</div>
 		</section>
 		<section data-id="chart03">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Women <strong>directly participated</strong> in the creation
-					of the agreement in
-					<strong>177 cases.</strong>
+					<strong>82 agreements</strong> mention references to international
+					law with regards to women.
 				</p>
 			</div>
 		</section>
 		<section data-id="chart04">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Signing or witnessing of agreement "as women" was recorded <strong
-						>52 times since 1990.</strong
-					>
+					Out the 82 agreements, only <strong>10</strong> contain
+					references to the
+					<a
+						href="https://www.un.org/womenwatch/osagi/wps/"
+						target="_blank"
+						>United Nations Security Council Resolution 1325</a
+					> which urges all actors to increase the participation of women
+					and incorporate gender perspectives in all United Nations peace
+					and security efforts.
 				</p>
 			</div>
 		</section>
 	</div>
 </Scroller>
 
+<Divider />
+
 <Filler theme="light" short={true} wide={true} center={true}>
 	<p class="text-big">
-		How much text is dedicated to women, girls, gender or sexual violence in
-		peace agreements?
+		In peace agreement that do contain references to women, <br /> how much text
+		is dedicated to this topic?
 	</p>
 </Filler>
+
+<Divider />
 
 <Scroller {threshold} bind:id={id["text"]} splitscreen={false}>
 	<div slot="background">
@@ -376,18 +394,26 @@
 	<div slot="foreground">
 		<section data-id="text01">
 			<div class="col-medium">
-				<p style="text-align: center;">Organized by years</p>
+				<p style="text-align: center;">
+					Every rectangle represents a full length of peace agreement
+					that includes references to women, girls, and sexual
+					violence. The black section represents the proportion of
+					text dedicated to this topic.
+				</p>
 			</div>
 		</section>
 		<section data-id="text02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Organized by the amount of wgg content.
+					PA-X gender agreements organized by the amount of text
+					related to wgg.
 				</p>
 			</div>
 		</section>
 	</div>
 </Scroller>
+
+<Divider />
 
 <Filler theme="light" short={true} wide={true} center={true}>
 	<p class="text-big">
@@ -396,11 +422,13 @@
 	</p>
 </Filler>
 
+<Divider />
+
 <Scroller {threshold} bind:id={id["close_read"]} splitscreen={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="text">
+				<div class="close_read">
 					<img id="agreement" src="./img/agt.PNG" />
 				</div>
 			</div>
@@ -421,9 +449,13 @@
 	</div>
 </Scroller>
 
+<Divider />
+
 <Filler theme="light" short={true} wide={true} center={true}>
 	<p class="text-big">Agreements over Time</p>
 </Filler>
+
+<Divider />
 
 <Scroller {threshold} bind:id={id["time"]} splitscreen={false}>
 	<div slot="background">
@@ -643,11 +675,28 @@
 		width: 100%;
 	}
 	.chart,
-	.close_read,
 	.text,
 	.time {
 		margin-top: 40px;
 		width: calc(100% - 5px);
+	}
+
+	.close_read {
+		display: flex;
+		justify-content: center; /* Centers horizontally */
+		align-items: center; /* Centers vertically */
+		height: 100%; /* Takes up the full height of the parent */
+	}
+
+	#agreement {
+		max-width: 100%; /* Ensures the image doesn't overflow */
+		max-height: 100%; /* Ensures the image fits inside the container */
+	}
+
+	.col-medium {
+		-webkit-box-shadow: 0 0 3px 1px #6d6d6d;
+		-moz-box-shadow: 0 0 3px 1px #6d6d6d;
+		box-shadow: 0 0 3px 1px #6d6d6d;
 	}
 	/* select {
 		max-width: 350px;

@@ -1,5 +1,5 @@
 <script>
-    import IndividualText from "./IndividualText.svelte";
+    import IndividualText from "./IndividualRectangle.svelte";
 
     export let pax_gender;
 
@@ -65,7 +65,7 @@
         <svg {width} {height}>
             {#each rectangles as rect}
             <IndividualText
-                    x={rect.x}
+                    x={rect.x + Math.random() * 2 - 1}
                     y={rect.y}
                     {rect} />
 

@@ -12,15 +12,6 @@
     export let step;
     export let central_points;
 
-    let width = 400;
-    let height = 400;
-    let current_pax;
-    let current_years;
-    let current_central_points;
-    let reorder = true;
-    let innerWidth, innerHeight, xScale, yScale;
-    const margin = { top: 20, right: 20, bottom: 20, left: 40 };
-
     let years = [
         "1990",
         "1991",
@@ -94,6 +85,15 @@
         "1990",
     ];
 
+    let width = 400;
+    let height = 400;
+    let current_pax;
+    let current_years;
+    let current_central_points;
+    let reorder = true;
+    let innerWidth, innerHeight, xScale, yScale;
+    const margin = { top: 20, right: 20, bottom: 20, left: 40 };
+
     $: innerWidth = width - margin.left - margin.right;
     $: innerHeight = height - margin.top - margin.bottom;
 
@@ -160,84 +160,84 @@
         cumulative_isos = get_current_isos(current_pax);
     }
 
-    $: if (step == "1") {
+    $: if (step == "1" && pax_timeline) {
         console.log("1990");
         current_pax = pax_timeline.slice(0, 1);
         current_central_points = get_current_central_points([
             current_pax[current_pax.length - 1],
         ]);
         cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "2") {
+    } else if (step == "2" && pax_timeline) {
         console.log("1991");
         current_pax = pax_timeline.slice(0, 2);
         current_central_points = get_current_central_points([
             current_pax[current_pax.length - 1],
         ]);
         cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "3") {
+    } else if (step == "3" && pax_timeline) {
         console.log("1992");
         current_pax = pax_timeline.slice(0, 3);
         current_central_points = get_current_central_points([
             current_pax[current_pax.length - 1],
         ]);
         cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "4") {
+    } else if (step == "4" && pax_timeline) {
         console.log("1993");
         current_pax = pax_timeline.slice(0, 4);
         current_central_points = get_current_central_points([
             current_pax[current_pax.length - 1],
         ]);
         cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "5") {
+    } else if (step == "5" && pax_timeline) {
         console.log("1994");
         current_pax = pax_timeline.slice(0, 5);
         current_central_points = get_current_central_points([
             current_pax[current_pax.length - 1],
         ]);
         cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "6") {
+    } else if (step == "6" && pax_timeline) {
         console.log("1995");
         current_pax = pax_timeline.slice(0, 6);
         current_central_points = get_current_central_points([
             current_pax[current_pax.length - 1],
         ]);
         cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "7") {
+    } else if (step == "7" && pax_timeline) {
         console.log("1996");
         current_pax = pax_timeline.slice(0, 7);
         current_central_points = get_current_central_points([
             current_pax[current_pax.length - 1],
         ]);
         cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "8") {
+    } else if (step == "8" && pax_timeline) {
         console.log("1997");
         current_pax = pax_timeline.slice(0, 8);
         current_central_points = get_current_central_points([
             current_pax[current_pax.length - 1],
         ]);
         cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "9") {
+    } else if (step == "9" && pax_timeline) {
         console.log("1998");
         current_pax = pax_timeline.slice(0, 9);
         current_central_points = get_current_central_points([
             current_pax[current_pax.length - 1],
         ]);
         cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "10") {
+    } else if (step == "10" && pax_timeline) {
         console.log("1999");
         current_pax = pax_timeline.slice(0, 10);
         current_central_points = get_current_central_points([
             current_pax[current_pax.length - 1],
         ]);
         cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "11") {
+    } else if (step == "11" && pax_timeline) {
         console.log("2000");
         current_pax = pax_timeline.slice(0, 11);
         current_central_points = get_current_central_points([
             current_pax[current_pax.length - 1],
         ]);
         cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "12") {
+    } else if (step == "12" && pax_timeline) {
         console.log("2001");
         current_pax = pax_timeline.slice(0, 12);
         current_central_points = get_current_central_points([

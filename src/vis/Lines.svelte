@@ -9,7 +9,7 @@
     let width = 400;
     let height = 400;
     let current_pax, def_pax, def_pax_gender;
-    let gap = 3;
+    let gap = 4;
 
     current_pax = pax;
     def_pax = pax;
@@ -26,14 +26,14 @@
         current_pax = pax;
         d3.selectAll(".agt").style("stroke", "black");
     } else if (step == "two") {
-        d3.selectAll(".agt").style("stroke", "#cccccc");
-        d3.selectAll(".gender").style("stroke", "black");
+        d3.selectAll(".agt").style("stroke", "#e6e6e6");
+        d3.selectAll(".quotas").style("stroke", "black");
     } else if (step == "three") {
-        d3.selectAll(".agt").style("stroke", "#cccccc");
-        d3.selectAll(".participation").style("stroke", "black");
+        d3.selectAll(".agt").style("stroke", "#e6e6e6");
+        d3.selectAll(".inter_law").style("stroke", "black");
     } else if (step == "four") {
-        d3.selectAll(".agt").style("stroke", "#cccccc");
-        d3.selectAll(".signing").style("stroke", "black");
+        d3.selectAll(".agt").style("stroke", "#e6e6e6");
+        d3.selectAll(".un").style("stroke", "black");
     }
 
     $: innerWidth = width - margin.left - margin.right;
@@ -56,27 +56,25 @@
     $: rectWidth = (innerWidth - totalGapX) / numCols;
     $: rectHeight = (innerHeight - totalGapY) / numRows;
 
-    // Function to construct the class string
+    //Construct the class string
     function getClassString(paxItem) {
         let classes = ["agt"];
-
-        // Add classes based on conditions
-        if (paxItem.GeWom === "1") {
-            classes.push("gender");
-        } else {
-            classes.push("non_gender");
+        if (paxItem.WggGenQuot === "1") {
+            classes.push("quotas");
+        }
+        if (paxItem.WggIntLaw === "1") {
+            classes.push("inter_law");
         }
 
-        if (paxItem.WggPar === "1") {
-            classes.push("participation");
+        if (paxItem.WggUnsc === "1") {
+            classes.push("un");
         }
-
-        if (paxItem.WggImplSign === "1") {
-            classes.push("signing");
-        }
-
-        // Return the concatenated string of classes
         return classes.join(" ");
+    }
+
+    function show_info (d) {
+        console.log(d)
+        
     }
 
 </script>
@@ -93,7 +91,9 @@
                     <path
                         d={lineGenerator(
                             generateHandwrittenLine(
-                                (i % numCols) * (rectWidth + gap), // X position remains the same
+                                (i % numCols) * (rectWidth + gap) +
+                                    Math.random() * 4 -
+                                    2, // X position remains the same
                                 innerHeight -
                                     (Math.floor(i / numCols) + 1) *
                                         (rectHeight + gap), // Invert Y position
@@ -102,8 +102,11 @@
                         )}
                         fill="none"
                         stroke="black"
-                        stroke-width="1"
+                        stroke-width="2"
                         class={getClassString(paxItem)}
+                        cursor="pointer"
+                        on:mouseover={() => show_info(paxItem)}
+                        on:focus={() => show_info(paxItem)}
                     />
                 {/each}
             </g>

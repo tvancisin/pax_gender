@@ -4,6 +4,7 @@
 
   export let theme = getContext('theme');
   export let hr = true;
+
 </script>
 
 <section style="color: {themes[theme]['text']}; background-color: {themes[theme]['background']};">

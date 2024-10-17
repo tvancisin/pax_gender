@@ -110,3 +110,4 @@ export function generateHandwrittenLine(x, y, length) {
   }
   return points;
 }
+
