@@ -27,11 +27,14 @@
         d3.selectAll(".agt").style("stroke", "black");
     } else if (step == "two") {
         d3.selectAll(".agt").style("stroke", "#e6e6e6");
-        d3.selectAll(".quotas").style("stroke", "black");
+        d3.selectAll(".gender").style("stroke", "black");
     } else if (step == "three") {
         d3.selectAll(".agt").style("stroke", "#e6e6e6");
-        d3.selectAll(".inter_law").style("stroke", "black");
+        d3.selectAll(".quotas").style("stroke", "black");
     } else if (step == "four") {
+        d3.selectAll(".agt").style("stroke", "#e6e6e6");
+        d3.selectAll(".inter_law").style("stroke", "black");
+    } else if (step == "five") {
         d3.selectAll(".agt").style("stroke", "#e6e6e6");
         d3.selectAll(".un").style("stroke", "black");
     }
@@ -59,6 +62,9 @@
     //Construct the class string
     function getClassString(paxItem) {
         let classes = ["agt"];
+        if (paxItem.GeWom == "1") {
+            classes.push("gender");
+        }
         if (paxItem.WggGenQuot === "1") {
             classes.push("quotas");
         }
@@ -72,11 +78,9 @@
         return classes.join(" ");
     }
 
-    function show_info (d) {
-        console.log(d)
-        
+    function show_info(d) {
+        console.log(d);
     }
-
 </script>
 
 {#if current_pax}

@@ -17,7 +17,7 @@
 	import Em from "./ui/Em.svelte";
 	import Lines from "./vis/Lines.svelte";
 	import Timeline from "./vis/Timeline.svelte";
-	import Text from "./vis/Rectangles.svelte";
+	import Rectangles from "./vis/Rectangles.svelte";
 	import { setColors, getGEO, getCSV } from "./utils.js";
 
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
@@ -50,18 +50,12 @@
 			map03: () => {},
 			map04: () => {},
 		},
-		text: {
-			text01: () => {
-				step = "text_one";
-				pax_gender = pax_gender.sort(function (x, y) {
-					return d3.ascending(x.Dat, y.Dat);
-				});
+		rect: {
+			rect01: () => {
+				step = "rect_one";
 			},
-			text02: () => {
-				step = "text_two";
-				pax_gender = pax_gender.sort(function (x, y) {
-					return d3.ascending(x.wom_percent, y.wom_percent);
-				});
+			rect02: () => {
+				step = "rect_two";
 			},
 		},
 		chart: {
@@ -76,6 +70,9 @@
 			},
 			chart04: () => {
 				step = "four";
+			},
+			chart05: () => {
+				step = "five";
 			},
 		},
 		time: {
@@ -253,7 +250,7 @@
 			}
 		});
 
-		let quotas = d3.groups(pax_gender, (d) => d.WggUnsc);
+		let quotas = d3.groups(pax, (d) => d.GeWom);
 		console.log(quotas);
 
 		// Iterate through each object in the pax array
@@ -338,12 +335,22 @@
 		<section data-id="chart02">
 			<div class="col-medium">
 				<p style="text-align: center;">
+					<strong>436 agreements</strong> peace agreements specifically
+					address women, their inclusion, and their rights. This includes
+					references to girls, widows, mothers, sexual violence, gender
+					violence, UNSC 1325 or CEDAW, and lactating women.
+				</p>
+			</div>
+		</section>
+		<section data-id="chart03">
+			<div class="col-medium">
+				<p style="text-align: center;">
 					<strong>55 agreements</strong> outline a specific quota commitment,
 					or specify particular numbers of women that are to participate.
 				</p>
 			</div>
 		</section>
-		<section data-id="chart03">
+		<section data-id="chart04">
 			<div class="col-medium">
 				<p style="text-align: center;">
 					<strong>82 agreements</strong> mention references to international
@@ -351,7 +358,7 @@
 				</p>
 			</div>
 		</section>
-		<section data-id="chart04">
+		<section data-id="chart05">
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Out the 82 agreements, only <strong>10</strong> contain
@@ -373,36 +380,35 @@
 
 <Filler theme="light" short={true} wide={true} center={true}>
 	<p class="text-big">
-		In peace agreement that do contain references to women, <br /> how much text
-		is dedicated to this topic?
+		Within the 436 peace agreements that do contain references to women, <br /> how
+		much attention is in fact given to this topic?
 	</p>
 </Filler>
 
 <Divider />
 
-<Scroller {threshold} bind:id={id["text"]} splitscreen={false}>
+<Scroller {threshold} bind:id={id["rect"]} splitscreen={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="text">
-					<Text {pax_gender} />
+				<div class="rect">
+					<Rectangles {pax_gender} {step} />
 				</div>
 			</div>
 		</figure>
 	</div>
 
 	<div slot="foreground">
-		<section data-id="text01">
+		<section data-id="rect01">
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Every rectangle represents a full length of peace agreement
-					that includes references to women, girls, and sexual
-					violence. The black section represents the proportion of
-					text dedicated to this topic.
+					that includes references to gender. The black section
+					highlights the proportion of text dedicated to this topic.
 				</p>
 			</div>
 		</section>
-		<section data-id="text02">
+		<section data-id="rect02">
 			<div class="col-medium">
 				<p style="text-align: center;">
 					PA-X gender agreements organized by the amount of text
@@ -675,7 +681,7 @@
 		width: 100%;
 	}
 	.chart,
-	.text,
+	.rect,
 	.time {
 		margin-top: 40px;
 		width: calc(100% - 5px);

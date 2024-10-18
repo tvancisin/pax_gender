@@ -1,7 +1,11 @@
 <script>
-    import IndividualText from "./IndividualRectangle.svelte";
+    import { interpolateMagma } from "d3";
+    import IndividualRectangle from "./IndividualRectangle.svelte";
 
     export let pax_gender;
+    export let step;
+
+
 
     let width = 400;
     let height = 400;
@@ -14,7 +18,7 @@
     };
 
     const totalRectangles = 436;
-    const gap = 4; // Gap between rectangles
+    const gap = 6; // Gap between rectangles
 
     let numCols, numRows;
 
@@ -30,11 +34,6 @@
         rectangles = pax_gender.map((item, i) => {
             const maxNCharacters = +item.corr_char_no; // Total characters
             const womCharacters = +item.text.length; // Women characters
-
-            // if (womCharacters > maxNCharacters/2) {
-            //     console.log(womCharacters, maxNCharacters, item);
-            // }
-
             const rectWidth =
                 (width - margin.left - margin.right) / numCols - gap;
 
@@ -54,21 +53,27 @@
                 width: rectWidth,
                 height: rectHeight,
                 wHeight: wHeight, // Height representing womCharacters
+                quotas: item.WggGenQuot,
+                int_law: item.WggIntLaw,
+                unsc: item.WggUnsc
             };
         });
     }
 
+    $: console.log(rectangles);
+    
 </script>
 
 {#if rectangles}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
         <svg {width} {height}>
             {#each rectangles as rect}
-            <IndividualText
+                <IndividualRectangle
                     x={rect.x + Math.random() * 2 - 1}
                     y={rect.y}
-                    {rect} />
-
+                    {rect}
+                    {step}
+                />
             {/each}
         </svg>
     </div>
