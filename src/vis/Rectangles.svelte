@@ -5,8 +5,6 @@
     export let pax_gender;
     export let step;
 
-
-
     let width = 400;
     let height = 400;
 
@@ -30,10 +28,16 @@
 
     // Reactive generation of rectangle data (x, y, width, height)
     let rectangles;
-    $: if (pax_gender) {
+    $: if (pax_gender || step == "rect_one") {
         rectangles = pax_gender.map((item, i) => {
             const maxNCharacters = +item.corr_char_no; // Total characters
             const womCharacters = +item.text.length; // Women characters
+            const quotCharacters = item.quotas;
+            const lawCharacters = item.law;
+            const unCharacters = item.un;
+
+            // console.log(quotCharacters, lawCharacters, unCharacters);
+            
             const rectWidth =
                 (width - margin.left - margin.right) / numCols - gap;
 
@@ -45,7 +49,14 @@
 
             // Calculate the height (wHeight) that corresponds to womCharacters
             const wArea = (womCharacters / maxNCharacters) * fullArea;
+            const qArea = (quotCharacters / maxNCharacters) * fullArea;
+            const lawArea = (lawCharacters / maxNCharacters) * fullArea;
+            const unArea = (unCharacters / maxNCharacters) * fullArea;
+
             const wHeight = wArea / rectWidth; // Since width remains the same
+            const qHeight = qArea / rectWidth;
+            const lHeight = lawArea / rectWidth;
+            const uHeight = unArea / rectWidth;
 
             return {
                 x: (i % numCols) * (rectWidth + gap) + margin.left,
@@ -53,15 +64,32 @@
                 width: rectWidth,
                 height: rectHeight,
                 wHeight: wHeight, // Height representing womCharacters
-                quotas: item.WggGenQuot,
+                qHeight: qHeight,
+                lHeight: lHeight,
+                uHeight: uHeight,
                 int_law: item.WggIntLaw,
-                unsc: item.WggUnsc
+                unsc: item.WggUnsc,
             };
         });
     }
 
-    $: console.log(rectangles);
-    
+    $: if (step == "rect_two") {
+        rectangles.map((item) => {
+            item.wHeight = item.qHeight;
+        });
+        rectangles = rectangles;
+    } else if (step == "rect_three") {
+        rectangles.map((item) => {
+            item.wHeight = item.lHeight;
+        });
+        rectangles = rectangles;
+    } else if (step == "rect_four") {
+        rectangles.map((item) => {
+            item.wHeight = item.uHeight;
+        });
+        rectangles = rectangles;
+    }
+
 </script>
 
 {#if rectangles}

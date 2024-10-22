@@ -57,6 +57,12 @@
 			rect02: () => {
 				step = "rect_two";
 			},
+			rect03: () => {
+				step = "rect_three";
+			},
+			rect04: () => {
+				step = "rect_four";
+			},
 		},
 		chart: {
 			chart01: () => {
@@ -213,6 +219,7 @@
 		"./data/pax_central_points.csv",
 		"./data/pax_gender_text.csv",
 		"./data/text_corr.csv",
+		"./data/wgg_text.csv",
 	];
 	let pax;
 	let pax_gender;
@@ -221,6 +228,7 @@
 	let pax_gender_timeline;
 	let pax_timeline;
 	let central_points;
+	let wgg_text;
 	getCSV(path).then((data) => {
 		pax = data[0];
 		pax_gender = data[1];
@@ -228,6 +236,7 @@
 		pax_gender_text = data[3];
 		pax_gender_text = data[3];
 		corr_text = data[4];
+		wgg_text = data[5];
 
 		// add text to every pax_gender agt
 		pax_gender.forEach((genderItem) => {
@@ -239,13 +248,26 @@
 				(gender) => gender.AgtId === genderItem.AgtId,
 			);
 
+			const detail_wgg = wgg_text.find(
+				(gender) => gender.AgtId === genderItem.AgtId,
+			);
+
 			const full_text = +find_corr.Text_length;
 			const women_text = item.GeWom.length;
+			const quotas_text = detail_wgg.WggGenQuot.length;
+			const law_text = detail_wgg.WggIntLaw.length;
+			const un_text = detail_wgg.WggUnsc.length;
+
+			console.log(quotas_text, law_text, un_text);
+
 			const wom_percentage = (women_text / full_text) * 100;
 
 			if (item) {
 				genderItem.text = item.GeWom;
-				genderItem.wom_percent = wom_percentage;
+				genderItem.quotas = quotas_text;
+				genderItem.law = law_text;
+				genderItem.un = un_text;
+				// genderItem.wom_percent = wom_percentage;
 				genderItem.corr_char_no = +find_corr.Text_length;
 			}
 		});
@@ -305,7 +327,11 @@
 <Divider />
 
 <Filler theme="light" short={true} wide={true} center={true}>
-	<p class="text-big">How many peace agreements mention gender?</p>
+	<p class="text-big">
+		What does an agreement look like?<br />
+		messy timeline example<br /> then try to make each squiggly line follow that
+		process.
+	</p>
 </Filler>
 
 <Divider />
@@ -377,11 +403,75 @@
 </Scroller>
 
 <Divider />
+<Scroller {threshold} bind:id={id["prov"]} splitscreen={false}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				{#if pax}
+					<div class="chart">
+						provenance here. who signed them? what did it take to
+						sign them?
+						<!-- <Lines {pax} {pax_gender} {step} /> -->
+					</div>
+				{/if}
+			</div>
+		</figure>
+	</div>
+
+	<div slot="foreground">
+		<section data-id="chart01">
+			<div class="col-medium">
+				<p style="text-align: center;"></p>
+			</div>
+		</section>
+		<section data-id="chart02">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					<strong>436 agreements</strong> peace agreements specifically
+					address women, their inclusion, and their rights. This includes
+					references to girls, widows, mothers, sexual violence, gender
+					violence, UNSC 1325 or CEDAW, and lactating women.
+				</p>
+			</div>
+		</section>
+		<section data-id="chart03">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					<strong>55 agreements</strong> outline a specific quota commitment,
+					or specify particular numbers of women that are to participate.
+				</p>
+			</div>
+		</section>
+		<section data-id="chart04">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					<strong>82 agreements</strong> mention references to international
+					law with regards to women.
+				</p>
+			</div>
+		</section>
+		<section data-id="chart05">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Out the 82 agreements, only <strong>10</strong> contain
+					references to the
+					<a
+						href="https://www.un.org/womenwatch/osagi/wps/"
+						target="_blank"
+						>United Nations Security Council Resolution 1325</a
+					> which urges all actors to increase the participation of women
+					and incorporate gender perspectives in all United Nations peace
+					and security efforts.
+				</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
 
 <Filler theme="light" short={true} wide={true} center={true}>
 	<p class="text-big">
-		Within the 436 peace agreements that do contain references to women, <br /> how
-		much attention is in fact given to this topic?
+		Within the 436 peace agreements that do contain references to women and
+		gender, <br /> how much attention is in fact given to this topic?
 	</p>
 </Filler>
 
@@ -410,10 +500,17 @@
 		</section>
 		<section data-id="rect02">
 			<div class="col-medium">
-				<p style="text-align: center;">
-					PA-X gender agreements organized by the amount of text
-					related to wgg.
-				</p>
+				<p style="text-align: center;">Quotas</p>
+			</div>
+		</section>
+		<section data-id="rect03">
+			<div class="col-medium">
+				<p style="text-align: center;">International Law</p>
+			</div>
+		</section>
+		<section data-id="rect04">
+			<div class="col-medium">
+				<p style="text-align: center;">UN</p>
 			</div>
 		</section>
 	</div>
