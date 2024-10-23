@@ -137,6 +137,7 @@ small {
 }
 
 .col-medium {
+	background-color: rgba(255, 255, 255, 0.692);
 	width: 100%;
 	max-width: 680px;
 	margin: 0 24px;
