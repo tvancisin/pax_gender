@@ -258,16 +258,11 @@
 			const law_text = detail_wgg.WggIntLaw.length;
 			const un_text = detail_wgg.WggUnsc.length;
 
-			console.log(quotas_text, law_text, un_text);
-
-			const wom_percentage = (women_text / full_text) * 100;
-
 			if (item) {
 				genderItem.text = item.GeWom;
 				genderItem.quotas = quotas_text;
 				genderItem.law = law_text;
 				genderItem.un = un_text;
-				// genderItem.wom_percent = wom_percentage;
 				genderItem.corr_char_no = +find_corr.Text_length;
 			}
 		});
@@ -326,11 +321,9 @@
 
 <Divider />
 
-<Filler theme="light" short={true} wide={true} center={true}>
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
-		What does an agreement look like?<br />
-		messy timeline example<br /> then try to make each squiggly line follow that
-		process.
+		PA-X maintains the biggest database of peace agreements in the world.
 	</p>
 </Filler>
 
@@ -403,72 +396,12 @@
 </Scroller>
 
 <Divider />
-<Scroller {threshold} bind:id={id["prov"]} splitscreen={false}>
-	<div slot="background">
-		<figure>
-			<div class="col-wide height-full">
-				{#if pax}
-					<div class="chart">
-						provenance here. who signed them? what did it take to
-						sign them?
-						<!-- <Lines {pax} {pax_gender} {step} /> -->
-					</div>
-				{/if}
-			</div>
-		</figure>
-	</div>
 
-	<div slot="foreground">
-		<section data-id="chart01">
-			<div class="col-medium">
-				<p style="text-align: center;"></p>
-			</div>
-		</section>
-		<section data-id="chart02">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					<strong>436 agreements</strong> peace agreements specifically
-					address women, their inclusion, and their rights. This includes
-					references to girls, widows, mothers, sexual violence, gender
-					violence, UNSC 1325 or CEDAW, and lactating women.
-				</p>
-			</div>
-		</section>
-		<section data-id="chart03">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					<strong>55 agreements</strong> outline a specific quota commitment,
-					or specify particular numbers of women that are to participate.
-				</p>
-			</div>
-		</section>
-		<section data-id="chart04">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					<strong>82 agreements</strong> mention references to international
-					law with regards to women.
-				</p>
-			</div>
-		</section>
-		<section data-id="chart05">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Out the 82 agreements, only <strong>10</strong> contain
-					references to the
-					<a
-						href="https://www.un.org/womenwatch/osagi/wps/"
-						target="_blank"
-						>United Nations Security Council Resolution 1325</a
-					> which urges all actors to increase the participation of women
-					and incorporate gender perspectives in all United Nations peace
-					and security efforts.
-				</p>
-			</div>
-		</section>
-	</div>
-</Scroller>
+<Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
+	<p class="text-big">How do we gather the agreements?</p>
+</Filler>
 
-<Filler theme="light" short={true} wide={true} center={true}>
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
 		Within the 436 peace agreements that do contain references to women and
 		gender, <br /> how much attention is in fact given to this topic?
@@ -518,7 +451,11 @@
 
 <Divider />
 
-<Filler theme="light" short={true} wide={true} center={true}>
+<Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
+	<p class="text-big">What do we do with the agreements we gather?</p>
+</Filler>
+
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
 		What kind of references to women, girls, and sexual violence are in
 		these peace agreements?
@@ -532,7 +469,7 @@
 		<figure>
 			<div class="col-wide height-full">
 				<div class="close_read">
-					<img id="agreement" src="./img/agt.PNG" />
+					<img id="agreement" src="./img/jinrui.PNG" />
 				</div>
 			</div>
 		</figure>
@@ -554,7 +491,7 @@
 
 <Divider />
 
-<Filler theme="light" short={true} wide={true} center={true}>
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">Agreements over Time</p>
 </Filler>
 

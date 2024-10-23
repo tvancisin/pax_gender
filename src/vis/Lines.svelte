@@ -79,7 +79,7 @@
     }
 
     function show_info(d) {
-        console.log(d);
+        // console.log(d);
     }
 </script>
 

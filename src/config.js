@@ -7,10 +7,10 @@ export const themes = {
     'background': '#fff'
   },
   'dark': {
-    'text': '#fff',
+    'text': 'black',
     'muted': '#bbb',
     'pale': '#333',
-    'background': '#222'
+    'background': 'gray'
   },
   'lightblue': {
     'text': '#206095',
