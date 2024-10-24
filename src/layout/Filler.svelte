@@ -10,8 +10,7 @@
 
 	let shadow_css = ``;
 	if (shadow) {
-		shadow_css = `box-shadow: inset 0 10px 10px -8px rgba(0, 0, 0, 1),
-	inset 0 -10px 10px -8px rgba(0, 0, 0, 1)`;
+		shadow_css = `box-shadow: inset 0 10px 10px -8px rgba(0, 0, 0, 1)`;
 	}
 </script>
 

@@ -4,25 +4,31 @@
 
   export let theme = getContext('theme');
   export let hr = true;
+  export let shadow;
+
+  $: console.log(theme);
+  
+
+  let shadow_css = ``;
+	if (shadow) {
+		shadow_css = `background-color: #808080`;
+	}
 
 </script>
 
-<section style="color: {themes[theme]['text']}; background-color: {themes[theme]['background']};">
-	<div class="col-medium">
-    {#if hr}
-    <hr style="color: {themes[theme]['muted']}"/>
-    {:else}
-    <hr style="color: {themes[theme]['muted']}; border: none;"/>
-    {/if}
+<section style="color: {themes[theme]['text']}; {shadow_css};">
+	<div class="col-medium" style={shadow_css}>
+    <hr style="color: {themes[theme]}"/>
 	</div>
 </section>
 
 <style>
   hr {
-    width: 75px;
+    width: 100px;
+    color: black;
     border: none;
     border-top: 2px solid;
-    margin: 40px auto -10px auto;
+    /* margin: 40px auto -10px auto; */
   }
 </style>
 

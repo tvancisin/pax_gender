@@ -77,6 +77,7 @@
 	export let threshold = 0.5;
 	export let query = "section";
 	export let parallax = false;
+	export let shadow;
 
 	// bindings
 	export let index = 0;
@@ -184,11 +185,16 @@
 			if (bottom >= threshold_px) break;
 		}
 	}
+
+	let shadow_css = ``;
+	if (shadow) {
+		shadow_css = `box-shadow: inset 0 -10px 10px -8px rgba(0, 0, 0, 1); background-color: gray`;
+	}
 </script>
 
 <svelte:window bind:innerHeight={wh} />
 
-<svelte-scroller-outer bind:this={outer} class:splitscreen>
+<svelte-scroller-outer bind:this={outer} class:splitscreen style={shadow_css}>
 	<svelte-scroller-background-container
 		class="background-container"
 		bind:this={bgContainer}

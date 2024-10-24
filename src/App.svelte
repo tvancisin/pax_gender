@@ -380,7 +380,7 @@
 		<section data-id="chart05">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Out the 82 agreements, only <strong>10</strong> contain
+					Out of the 82 agreements, only <strong>10</strong> contain
 					references to the
 					<a
 						href="https://www.un.org/womenwatch/osagi/wps/"
@@ -395,11 +395,7 @@
 	</div>
 </Scroller>
 
-<Divider />
 
-<Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
-	<p class="text-big">How do we gather the agreements?</p>
-</Filler>
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
@@ -451,14 +447,13 @@
 
 <Divider />
 
-<Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
+<!-- <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
 	<p class="text-big">What do we do with the agreements we gather?</p>
-</Filler>
+</Filler> -->
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
-		What kind of references to women, girls, and sexual violence are in
-		these peace agreements?
+		PA-X Gender physicalization project. [include video and screenshots here]
 	</p>
 </Filler>
 
@@ -490,6 +485,8 @@
 </Scroller>
 
 <Divider />
+
+
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">Agreements over Time</p>
@@ -693,6 +690,42 @@
 		<section data-id="time35">
 			<div class="col-medium">
 				<p style="text-align: center;">Reorder</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
+
+<Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
+	<p class="text-big">How do we gather the agreements? How are they processed?  [where to include provenance?<br> beginning/end/between sections?]</p>
+</Filler>
+
+<Divider shadow={true}/>
+
+<Scroller {threshold} bind:id={id["prov"]} splitscreen={false} shadow={true}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				<div class="close_read">
+					<img id="agreement" src="./img/sources.jpg" />
+				</div>
+			</div>
+		</figure>
+	</div>
+
+	<div slot="foreground">
+		<section data-id="prov01">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					sources
+				</p>
+			</div>
+		</section>
+		<section data-id="prov02">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					translation/transcription/coding/data entry
+					<img id="agreement" src="./img/diagram.png" />
+				</p>
 			</div>
 		</section>
 	</div>
