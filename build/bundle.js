@@ -23333,7 +23333,7 @@ var app = (function () {
     	let shadow_css = ``;
 
     	if (shadow) {
-    		shadow_css = `box-shadow: inset 0 -15px 15px -8px rgba(0, 0, 0, 1); background-color: gray`;
+    		shadow_css = `box-shadow: inset 0 -10px 10px -8px rgba(0, 0, 0, 1); background-color: gray`;
     	}
 
     	$$self.$$.on_mount.push(function () {
@@ -23791,7 +23791,7 @@ var app = (function () {
     	let shadow_css = ``;
 
     	if (shadow) {
-    		shadow_css = `box-shadow: inset 0 15px 10px -8px rgba(0, 0, 0, 1)`;
+    		shadow_css = `box-shadow: inset 0 10px 10px -8px rgba(0, 0, 0, 1)`;
     	}
 
     	$$self.$$.on_mount.push(function () {
@@ -32149,7 +32149,7 @@ var app = (function () {
     const file$k = "src\\App.svelte";
 
     // (307:0) <Header  bgcolor="white"  bgfixed={false}  theme="light"  center={true}  short={false} >
-    function create_default_slot_6(ctx) {
+    function create_default_slot_5(ctx) {
     	let h1;
     	let t1;
     	let p;
@@ -32189,7 +32189,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_6.name,
+    		id: create_default_slot_5.name,
     		type: "slot",
     		source: "(307:0) <Header  bgcolor=\\\"white\\\"  bgfixed={false}  theme=\\\"light\\\"  center={true}  short={false} >",
     		ctx
@@ -32199,7 +32199,7 @@ var app = (function () {
     }
 
     // (324:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-    function create_default_slot_5(ctx) {
+    function create_default_slot_4(ctx) {
     	let p;
 
     	const block = {
@@ -32220,7 +32220,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_5.name,
+    		id: create_default_slot_4.name,
     		type: "slot",
     		source: "(324:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
@@ -32539,164 +32539,7 @@ var app = (function () {
     	return block;
     }
 
-    // (398:0) <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
-    function create_default_slot_4(ctx) {
-    	let p;
-
-    	const block = {
-    		c: function create() {
-    			p = element("p");
-    			p.textContent = "How do we gather the agreements?";
-    			attr_dev(p, "class", "text-big");
-    			add_location(p, file$k, 398, 1, 9085);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, p, anchor);
-    		},
-    		p: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(p);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_4.name,
-    		type: "slot",
-    		source: "(398:0) <Filler theme=\\\"dark\\\" short={true} wide={true} center={true} shadow={true}>",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (405:1) 
-    function create_background_slot_3(ctx) {
-    	let div2;
-    	let figure;
-    	let div1;
-    	let div0;
-
-    	const block = {
-    		c: function create() {
-    			div2 = element("div");
-    			figure = element("figure");
-    			div1 = element("div");
-    			div0 = element("div");
-    			attr_dev(div0, "class", "chart svelte-1ekp1nb");
-    			add_location(div0, file$k, 407, 4, 9335);
-    			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$k, 406, 3, 9296);
-    			add_location(figure, file$k, 405, 2, 9284);
-    			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$k, 404, 1, 9258);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div2, anchor);
-    			append_dev(div2, figure);
-    			append_dev(figure, div1);
-    			append_dev(div1, div0);
-    		},
-    		p: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div2);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_background_slot_3.name,
-    		type: "slot",
-    		source: "(405:1) ",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (413:1) 
-    function create_foreground_slot_3(ctx) {
-    	let div2;
-    	let section0;
-    	let div0;
-    	let p0;
-    	let t0;
-    	let strong0;
-    	let t2;
-    	let t3;
-    	let section1;
-    	let div1;
-    	let p1;
-    	let strong1;
-    	let t5;
-
-    	const block = {
-    		c: function create() {
-    			div2 = element("div");
-    			section0 = element("section");
-    			div0 = element("div");
-    			p0 = element("p");
-    			t0 = text("Every line represents one of ");
-    			strong0 = element("strong");
-    			strong0.textContent = "2055 agreements";
-    			t2 = text(" in PA-X database.");
-    			t3 = space();
-    			section1 = element("section");
-    			div1 = element("div");
-    			p1 = element("p");
-    			strong1 = element("strong");
-    			strong1.textContent = "436 agreements";
-    			t5 = text(" peace agreements specifically\n\t\t\t\t\taddress women, their inclusion, and their rights. This includes\n\t\t\t\t\treferences to girls, widows, mothers, sexual violence, gender\n\t\t\t\t\tviolence, UNSC 1325 or CEDAW, and lactating women.");
-    			add_location(strong0, file$k, 416, 34, 9544);
-    			set_style(p0, "text-align", "center");
-    			add_location(p0, file$k, 415, 4, 9478);
-    			attr_dev(div0, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div0, file$k, 414, 3, 9449);
-    			attr_dev(section0, "data-id", "prov01");
-    			add_location(section0, file$k, 413, 2, 9419);
-    			add_location(strong1, file$k, 424, 5, 9731);
-    			set_style(p1, "text-align", "center");
-    			add_location(p1, file$k, 423, 4, 9694);
-    			attr_dev(div1, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div1, file$k, 422, 3, 9665);
-    			attr_dev(section1, "data-id", "prov02");
-    			add_location(section1, file$k, 421, 2, 9635);
-    			attr_dev(div2, "slot", "foreground");
-    			add_location(div2, file$k, 412, 1, 9393);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div2, anchor);
-    			append_dev(div2, section0);
-    			append_dev(section0, div0);
-    			append_dev(div0, p0);
-    			append_dev(p0, t0);
-    			append_dev(p0, strong0);
-    			append_dev(p0, t2);
-    			append_dev(div2, t3);
-    			append_dev(div2, section1);
-    			append_dev(section1, div1);
-    			append_dev(div1, p1);
-    			append_dev(p1, strong1);
-    			append_dev(p1, t5);
-    		},
-    		p: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div2);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_foreground_slot_3.name,
-    		type: "slot",
-    		source: "(413:1) ",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (435:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (400:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_3(ctx) {
     	let p;
     	let t0;
@@ -32709,9 +32552,9 @@ var app = (function () {
     			t0 = text("Within the 436 peace agreements that do contain references to women and\n\t\tgender, ");
     			br = element("br");
     			t1 = text(" how much attention is in fact given to this topic?");
-    			add_location(br, file$k, 437, 10, 10221);
+    			add_location(br, file$k, 402, 10, 9194);
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$k, 435, 1, 10116);
+    			add_location(p, file$k, 400, 1, 9089);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -32729,15 +32572,15 @@ var app = (function () {
     		block,
     		id: create_default_slot_3.name,
     		type: "slot",
-    		source: "(435:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(400:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (445:1) 
-    function create_background_slot_2(ctx) {
+    // (410:1) 
+    function create_background_slot_3(ctx) {
     	let div2;
     	let figure;
     	let div1;
@@ -32761,12 +32604,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(rectangles.$$.fragment);
     			attr_dev(div0, "class", "rect svelte-1ekp1nb");
-    			add_location(div0, file$k, 447, 4, 10451);
+    			add_location(div0, file$k, 412, 4, 9424);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$k, 446, 3, 10412);
-    			add_location(figure, file$k, 445, 2, 10400);
+    			add_location(div1, file$k, 411, 3, 9385);
+    			add_location(figure, file$k, 410, 2, 9373);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$k, 444, 1, 10374);
+    			add_location(div2, file$k, 409, 1, 9347);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -32799,17 +32642,17 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_background_slot_2.name,
+    		id: create_background_slot_3.name,
     		type: "slot",
-    		source: "(445:1) ",
+    		source: "(410:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (455:1) 
-    function create_foreground_slot_2(ctx) {
+    // (420:1) 
+    function create_foreground_slot_3(ctx) {
     	let div4;
     	let section0;
     	let div0;
@@ -32850,31 +32693,31 @@ var app = (function () {
     			p3 = element("p");
     			p3.textContent = "UN";
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$k, 457, 4, 10638);
+    			add_location(p0, file$k, 422, 4, 9611);
     			attr_dev(div0, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div0, file$k, 456, 3, 10609);
+    			add_location(div0, file$k, 421, 3, 9582);
     			attr_dev(section0, "data-id", "rect01");
-    			add_location(section0, file$k, 455, 2, 10579);
+    			add_location(section0, file$k, 420, 2, 9552);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$k, 466, 4, 10951);
+    			add_location(p1, file$k, 431, 4, 9924);
     			attr_dev(div1, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div1, file$k, 465, 3, 10922);
+    			add_location(div1, file$k, 430, 3, 9895);
     			attr_dev(section1, "data-id", "rect02");
-    			add_location(section1, file$k, 464, 2, 10892);
+    			add_location(section1, file$k, 429, 2, 9865);
     			set_style(p2, "text-align", "center");
-    			add_location(p2, file$k, 471, 4, 11077);
+    			add_location(p2, file$k, 436, 4, 10050);
     			attr_dev(div2, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div2, file$k, 470, 3, 11048);
+    			add_location(div2, file$k, 435, 3, 10021);
     			attr_dev(section2, "data-id", "rect03");
-    			add_location(section2, file$k, 469, 2, 11018);
+    			add_location(section2, file$k, 434, 2, 9991);
     			set_style(p3, "text-align", "center");
-    			add_location(p3, file$k, 476, 4, 11214);
+    			add_location(p3, file$k, 441, 4, 10187);
     			attr_dev(div3, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div3, file$k, 475, 3, 11185);
+    			add_location(div3, file$k, 440, 3, 10158);
     			attr_dev(section3, "data-id", "rect04");
-    			add_location(section3, file$k, 474, 2, 11155);
+    			add_location(section3, file$k, 439, 2, 10128);
     			attr_dev(div4, "slot", "foreground");
-    			add_location(div4, file$k, 454, 1, 10553);
+    			add_location(div4, file$k, 419, 1, 9526);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
@@ -32902,25 +32745,25 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_foreground_slot_2.name,
+    		id: create_foreground_slot_3.name,
     		type: "slot",
-    		source: "(455:1) ",
+    		source: "(420:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (485:0) <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
+    // (454:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_2(ctx) {
     	let p;
 
     	const block = {
     		c: function create() {
     			p = element("p");
-    			p.textContent = "What do we do with the agreements we gather?";
+    			p.textContent = "PA-X Gender physicalization project. [include video and screenshots here]";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$k, 485, 1, 11385);
+    			add_location(p, file$k, 454, 1, 10525);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -32935,46 +32778,15 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(485:0) <Filler theme=\\\"dark\\\" short={true} wide={true} center={true} shadow={true}>",
+    		source: "(454:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (489:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-    function create_default_slot_1$1(ctx) {
-    	let p;
-
-    	const block = {
-    		c: function create() {
-    			p = element("p");
-    			p.textContent = "What kind of references to women, girls, and sexual violence are in\n\t\tthese peace agreements?";
-    			attr_dev(p, "class", "text-big");
-    			add_location(p, file$k, 489, 1, 11543);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, p, anchor);
-    		},
-    		p: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(p);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_1$1.name,
-    		type: "slot",
-    		source: "(489:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (499:1) 
-    function create_background_slot_1(ctx) {
+    // (463:1) 
+    function create_background_slot_2(ctx) {
     	let div2;
     	let figure;
     	let div1;
@@ -32992,14 +32804,14 @@ var app = (function () {
     			attr_dev(img, "id", "agreement");
     			if (!src_url_equal(img.src, img_src_value = "./img/jinrui.PNG")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "class", "svelte-1ekp1nb");
-    			add_location(img, file$k, 502, 5, 11868);
+    			add_location(img, file$k, 466, 5, 10830);
     			attr_dev(div0, "class", "close_read svelte-1ekp1nb");
-    			add_location(div0, file$k, 501, 4, 11838);
+    			add_location(div0, file$k, 465, 4, 10800);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$k, 500, 3, 11799);
-    			add_location(figure, file$k, 499, 2, 11787);
+    			add_location(div1, file$k, 464, 3, 10761);
+    			add_location(figure, file$k, 463, 2, 10749);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$k, 498, 1, 11761);
+    			add_location(div2, file$k, 462, 1, 10723);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -33016,17 +32828,17 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_background_slot_1.name,
+    		id: create_background_slot_2.name,
     		type: "slot",
-    		source: "(499:1) ",
+    		source: "(463:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (509:1) 
-    function create_foreground_slot_1(ctx) {
+    // (473:1) 
+    function create_foreground_slot_2(ctx) {
     	let div2;
     	let section0;
     	let div0;
@@ -33049,19 +32861,19 @@ var app = (function () {
     			p1 = element("p");
     			p1.textContent = "Text";
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$k, 511, 4, 12043);
+    			add_location(p0, file$k, 475, 4, 11005);
     			attr_dev(div0, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div0, file$k, 510, 3, 12014);
+    			add_location(div0, file$k, 474, 3, 10976);
     			attr_dev(section0, "data-id", "close01");
-    			add_location(section0, file$k, 509, 2, 11983);
+    			add_location(section0, file$k, 473, 2, 10945);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$k, 516, 4, 12168);
+    			add_location(p1, file$k, 480, 4, 11130);
     			attr_dev(div1, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div1, file$k, 515, 3, 12139);
+    			add_location(div1, file$k, 479, 3, 11101);
     			attr_dev(section1, "data-id", "close02");
-    			add_location(section1, file$k, 514, 2, 12108);
+    			add_location(section1, file$k, 478, 2, 11070);
     			attr_dev(div2, "slot", "foreground");
-    			add_location(div2, file$k, 508, 1, 11957);
+    			add_location(div2, file$k, 472, 1, 10919);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -33081,17 +32893,17 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_foreground_slot_1.name,
+    		id: create_foreground_slot_2.name,
     		type: "slot",
-    		source: "(509:1) ",
+    		source: "(473:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (525:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-    function create_default_slot$1(ctx) {
+    // (491:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    function create_default_slot_1$1(ctx) {
     	let p;
 
     	const block = {
@@ -33099,7 +32911,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Agreements over Time";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$k, 525, 1, 12343);
+    			add_location(p, file$k, 491, 1, 11307);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -33112,17 +32924,17 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot$1.name,
+    		id: create_default_slot_1$1.name,
     		type: "slot",
-    		source: "(525:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(491:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (532:1) 
-    function create_background_slot(ctx) {
+    // (498:1) 
+    function create_background_slot_1(ctx) {
     	let div2;
     	let figure;
     	let div1;
@@ -33150,12 +32962,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(timeline.$$.fragment);
     			attr_dev(div0, "class", "time svelte-1ekp1nb");
-    			add_location(div0, file$k, 534, 4, 12554);
+    			add_location(div0, file$k, 500, 4, 11518);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$k, 533, 3, 12515);
-    			add_location(figure, file$k, 532, 2, 12503);
+    			add_location(div1, file$k, 499, 3, 11479);
+    			add_location(figure, file$k, 498, 2, 11467);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$k, 531, 1, 12477);
+    			add_location(div2, file$k, 497, 1, 11441);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -33192,17 +33004,17 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_background_slot.name,
+    		id: create_background_slot_1.name,
     		type: "slot",
-    		source: "(532:1) ",
+    		source: "(498:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (549:1) 
-    function create_foreground_slot(ctx) {
+    // (515:1) 
+    function create_foreground_slot_1(ctx) {
     	let div35;
     	let section0;
     	let div0;
@@ -33522,217 +33334,217 @@ var app = (function () {
     			p34 = element("p");
     			p34.textContent = "Reorder";
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$k, 551, 4, 12846);
+    			add_location(p0, file$k, 517, 4, 11810);
     			attr_dev(div0, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div0, file$k, 550, 3, 12817);
+    			add_location(div0, file$k, 516, 3, 11781);
     			attr_dev(section0, "data-id", "time01");
-    			add_location(section0, file$k, 549, 2, 12787);
+    			add_location(section0, file$k, 515, 2, 11751);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$k, 556, 4, 12970);
+    			add_location(p1, file$k, 522, 4, 11934);
     			attr_dev(div1, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div1, file$k, 555, 3, 12941);
+    			add_location(div1, file$k, 521, 3, 11905);
     			attr_dev(section1, "data-id", "time02");
-    			add_location(section1, file$k, 554, 2, 12911);
+    			add_location(section1, file$k, 520, 2, 11875);
     			set_style(p2, "text-align", "center");
-    			add_location(p2, file$k, 561, 4, 13094);
+    			add_location(p2, file$k, 527, 4, 12058);
     			attr_dev(div2, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div2, file$k, 560, 3, 13065);
+    			add_location(div2, file$k, 526, 3, 12029);
     			attr_dev(section2, "data-id", "time03");
-    			add_location(section2, file$k, 559, 2, 13035);
+    			add_location(section2, file$k, 525, 2, 11999);
     			set_style(p3, "text-align", "center");
-    			add_location(p3, file$k, 566, 4, 13218);
+    			add_location(p3, file$k, 532, 4, 12182);
     			attr_dev(div3, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div3, file$k, 565, 3, 13189);
+    			add_location(div3, file$k, 531, 3, 12153);
     			attr_dev(section3, "data-id", "time04");
-    			add_location(section3, file$k, 564, 2, 13159);
+    			add_location(section3, file$k, 530, 2, 12123);
     			set_style(p4, "text-align", "center");
-    			add_location(p4, file$k, 571, 4, 13342);
+    			add_location(p4, file$k, 537, 4, 12306);
     			attr_dev(div4, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div4, file$k, 570, 3, 13313);
+    			add_location(div4, file$k, 536, 3, 12277);
     			attr_dev(section4, "data-id", "time05");
-    			add_location(section4, file$k, 569, 2, 13283);
+    			add_location(section4, file$k, 535, 2, 12247);
     			set_style(p5, "text-align", "center");
-    			add_location(p5, file$k, 576, 4, 13466);
+    			add_location(p5, file$k, 542, 4, 12430);
     			attr_dev(div5, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div5, file$k, 575, 3, 13437);
+    			add_location(div5, file$k, 541, 3, 12401);
     			attr_dev(section5, "data-id", "time06");
-    			add_location(section5, file$k, 574, 2, 13407);
+    			add_location(section5, file$k, 540, 2, 12371);
     			set_style(p6, "text-align", "center");
-    			add_location(p6, file$k, 581, 4, 13590);
+    			add_location(p6, file$k, 547, 4, 12554);
     			attr_dev(div6, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div6, file$k, 580, 3, 13561);
+    			add_location(div6, file$k, 546, 3, 12525);
     			attr_dev(section6, "data-id", "time07");
-    			add_location(section6, file$k, 579, 2, 13531);
+    			add_location(section6, file$k, 545, 2, 12495);
     			set_style(p7, "text-align", "center");
-    			add_location(p7, file$k, 586, 4, 13714);
+    			add_location(p7, file$k, 552, 4, 12678);
     			attr_dev(div7, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div7, file$k, 585, 3, 13685);
+    			add_location(div7, file$k, 551, 3, 12649);
     			attr_dev(section7, "data-id", "time08");
-    			add_location(section7, file$k, 584, 2, 13655);
+    			add_location(section7, file$k, 550, 2, 12619);
     			set_style(p8, "text-align", "center");
-    			add_location(p8, file$k, 591, 4, 13838);
+    			add_location(p8, file$k, 557, 4, 12802);
     			attr_dev(div8, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div8, file$k, 590, 3, 13809);
+    			add_location(div8, file$k, 556, 3, 12773);
     			attr_dev(section8, "data-id", "time09");
-    			add_location(section8, file$k, 589, 2, 13779);
+    			add_location(section8, file$k, 555, 2, 12743);
     			set_style(p9, "text-align", "center");
-    			add_location(p9, file$k, 596, 4, 13962);
+    			add_location(p9, file$k, 562, 4, 12926);
     			attr_dev(div9, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div9, file$k, 595, 3, 13933);
+    			add_location(div9, file$k, 561, 3, 12897);
     			attr_dev(section9, "data-id", "time10");
-    			add_location(section9, file$k, 594, 2, 13903);
+    			add_location(section9, file$k, 560, 2, 12867);
     			set_style(p10, "text-align", "center");
-    			add_location(p10, file$k, 601, 4, 14086);
+    			add_location(p10, file$k, 567, 4, 13050);
     			attr_dev(div10, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div10, file$k, 600, 3, 14057);
+    			add_location(div10, file$k, 566, 3, 13021);
     			attr_dev(section10, "data-id", "time11");
-    			add_location(section10, file$k, 599, 2, 14027);
+    			add_location(section10, file$k, 565, 2, 12991);
     			set_style(p11, "text-align", "center");
-    			add_location(p11, file$k, 610, 4, 14345);
+    			add_location(p11, file$k, 576, 4, 13309);
     			attr_dev(div11, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div11, file$k, 609, 3, 14316);
+    			add_location(div11, file$k, 575, 3, 13280);
     			attr_dev(section11, "data-id", "time12");
-    			add_location(section11, file$k, 608, 2, 14286);
+    			add_location(section11, file$k, 574, 2, 13250);
     			set_style(p12, "text-align", "center");
-    			add_location(p12, file$k, 615, 4, 14469);
+    			add_location(p12, file$k, 581, 4, 13433);
     			attr_dev(div12, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div12, file$k, 614, 3, 14440);
+    			add_location(div12, file$k, 580, 3, 13404);
     			attr_dev(section12, "data-id", "time13");
-    			add_location(section12, file$k, 613, 2, 14410);
+    			add_location(section12, file$k, 579, 2, 13374);
     			set_style(p13, "text-align", "center");
-    			add_location(p13, file$k, 620, 4, 14593);
+    			add_location(p13, file$k, 586, 4, 13557);
     			attr_dev(div13, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div13, file$k, 619, 3, 14564);
+    			add_location(div13, file$k, 585, 3, 13528);
     			attr_dev(section13, "data-id", "time14");
-    			add_location(section13, file$k, 618, 2, 14534);
+    			add_location(section13, file$k, 584, 2, 13498);
     			set_style(p14, "text-align", "center");
-    			add_location(p14, file$k, 625, 4, 14717);
+    			add_location(p14, file$k, 591, 4, 13681);
     			attr_dev(div14, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div14, file$k, 624, 3, 14688);
+    			add_location(div14, file$k, 590, 3, 13652);
     			attr_dev(section14, "data-id", "time15");
-    			add_location(section14, file$k, 623, 2, 14658);
+    			add_location(section14, file$k, 589, 2, 13622);
     			set_style(p15, "text-align", "center");
-    			add_location(p15, file$k, 630, 4, 14841);
+    			add_location(p15, file$k, 596, 4, 13805);
     			attr_dev(div15, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div15, file$k, 629, 3, 14812);
+    			add_location(div15, file$k, 595, 3, 13776);
     			attr_dev(section15, "data-id", "time16");
-    			add_location(section15, file$k, 628, 2, 14782);
+    			add_location(section15, file$k, 594, 2, 13746);
     			set_style(p16, "text-align", "center");
-    			add_location(p16, file$k, 635, 4, 14965);
+    			add_location(p16, file$k, 601, 4, 13929);
     			attr_dev(div16, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div16, file$k, 634, 3, 14936);
+    			add_location(div16, file$k, 600, 3, 13900);
     			attr_dev(section16, "data-id", "time17");
-    			add_location(section16, file$k, 633, 2, 14906);
+    			add_location(section16, file$k, 599, 2, 13870);
     			set_style(p17, "text-align", "center");
-    			add_location(p17, file$k, 640, 4, 15089);
+    			add_location(p17, file$k, 606, 4, 14053);
     			attr_dev(div17, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div17, file$k, 639, 3, 15060);
+    			add_location(div17, file$k, 605, 3, 14024);
     			attr_dev(section17, "data-id", "time18");
-    			add_location(section17, file$k, 638, 2, 15030);
+    			add_location(section17, file$k, 604, 2, 13994);
     			set_style(p18, "text-align", "center");
-    			add_location(p18, file$k, 645, 4, 15213);
+    			add_location(p18, file$k, 611, 4, 14177);
     			attr_dev(div18, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div18, file$k, 644, 3, 15184);
+    			add_location(div18, file$k, 610, 3, 14148);
     			attr_dev(section18, "data-id", "time19");
-    			add_location(section18, file$k, 643, 2, 15154);
+    			add_location(section18, file$k, 609, 2, 14118);
     			set_style(p19, "text-align", "center");
-    			add_location(p19, file$k, 650, 4, 15337);
+    			add_location(p19, file$k, 616, 4, 14301);
     			attr_dev(div19, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div19, file$k, 649, 3, 15308);
+    			add_location(div19, file$k, 615, 3, 14272);
     			attr_dev(section19, "data-id", "time20");
-    			add_location(section19, file$k, 648, 2, 15278);
+    			add_location(section19, file$k, 614, 2, 14242);
     			set_style(p20, "text-align", "center");
-    			add_location(p20, file$k, 655, 4, 15461);
+    			add_location(p20, file$k, 621, 4, 14425);
     			attr_dev(div20, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div20, file$k, 654, 3, 15432);
+    			add_location(div20, file$k, 620, 3, 14396);
     			attr_dev(section20, "data-id", "time21");
-    			add_location(section20, file$k, 653, 2, 15402);
+    			add_location(section20, file$k, 619, 2, 14366);
     			set_style(p21, "text-align", "center");
-    			add_location(p21, file$k, 660, 4, 15585);
+    			add_location(p21, file$k, 626, 4, 14549);
     			attr_dev(div21, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div21, file$k, 659, 3, 15556);
+    			add_location(div21, file$k, 625, 3, 14520);
     			attr_dev(section21, "data-id", "time22");
-    			add_location(section21, file$k, 658, 2, 15526);
+    			add_location(section21, file$k, 624, 2, 14490);
     			set_style(p22, "text-align", "center");
-    			add_location(p22, file$k, 665, 4, 15709);
+    			add_location(p22, file$k, 631, 4, 14673);
     			attr_dev(div22, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div22, file$k, 664, 3, 15680);
+    			add_location(div22, file$k, 630, 3, 14644);
     			attr_dev(section22, "data-id", "time23");
-    			add_location(section22, file$k, 663, 2, 15650);
+    			add_location(section22, file$k, 629, 2, 14614);
     			set_style(p23, "text-align", "center");
-    			add_location(p23, file$k, 670, 4, 15833);
+    			add_location(p23, file$k, 636, 4, 14797);
     			attr_dev(div23, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div23, file$k, 669, 3, 15804);
+    			add_location(div23, file$k, 635, 3, 14768);
     			attr_dev(section23, "data-id", "time24");
-    			add_location(section23, file$k, 668, 2, 15774);
+    			add_location(section23, file$k, 634, 2, 14738);
     			set_style(p24, "text-align", "center");
-    			add_location(p24, file$k, 675, 4, 15957);
+    			add_location(p24, file$k, 641, 4, 14921);
     			attr_dev(div24, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div24, file$k, 674, 3, 15928);
+    			add_location(div24, file$k, 640, 3, 14892);
     			attr_dev(section24, "data-id", "time25");
-    			add_location(section24, file$k, 673, 2, 15898);
+    			add_location(section24, file$k, 639, 2, 14862);
     			set_style(p25, "text-align", "center");
-    			add_location(p25, file$k, 680, 4, 16081);
+    			add_location(p25, file$k, 646, 4, 15045);
     			attr_dev(div25, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div25, file$k, 679, 3, 16052);
+    			add_location(div25, file$k, 645, 3, 15016);
     			attr_dev(section25, "data-id", "time26");
-    			add_location(section25, file$k, 678, 2, 16022);
+    			add_location(section25, file$k, 644, 2, 14986);
     			set_style(p26, "text-align", "center");
-    			add_location(p26, file$k, 685, 4, 16205);
+    			add_location(p26, file$k, 651, 4, 15169);
     			attr_dev(div26, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div26, file$k, 684, 3, 16176);
+    			add_location(div26, file$k, 650, 3, 15140);
     			attr_dev(section26, "data-id", "time27");
-    			add_location(section26, file$k, 683, 2, 16146);
+    			add_location(section26, file$k, 649, 2, 15110);
     			set_style(p27, "text-align", "center");
-    			add_location(p27, file$k, 690, 4, 16329);
+    			add_location(p27, file$k, 656, 4, 15293);
     			attr_dev(div27, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div27, file$k, 689, 3, 16300);
+    			add_location(div27, file$k, 655, 3, 15264);
     			attr_dev(section27, "data-id", "time28");
-    			add_location(section27, file$k, 688, 2, 16270);
+    			add_location(section27, file$k, 654, 2, 15234);
     			set_style(p28, "text-align", "center");
-    			add_location(p28, file$k, 695, 4, 16453);
+    			add_location(p28, file$k, 661, 4, 15417);
     			attr_dev(div28, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div28, file$k, 694, 3, 16424);
+    			add_location(div28, file$k, 660, 3, 15388);
     			attr_dev(section28, "data-id", "time29");
-    			add_location(section28, file$k, 693, 2, 16394);
+    			add_location(section28, file$k, 659, 2, 15358);
     			set_style(p29, "text-align", "center");
-    			add_location(p29, file$k, 700, 4, 16577);
+    			add_location(p29, file$k, 666, 4, 15541);
     			attr_dev(div29, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div29, file$k, 699, 3, 16548);
+    			add_location(div29, file$k, 665, 3, 15512);
     			attr_dev(section29, "data-id", "time30");
-    			add_location(section29, file$k, 698, 2, 16518);
+    			add_location(section29, file$k, 664, 2, 15482);
     			set_style(p30, "text-align", "center");
-    			add_location(p30, file$k, 705, 4, 16701);
+    			add_location(p30, file$k, 671, 4, 15665);
     			attr_dev(div30, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div30, file$k, 704, 3, 16672);
+    			add_location(div30, file$k, 670, 3, 15636);
     			attr_dev(section30, "data-id", "time31");
-    			add_location(section30, file$k, 703, 2, 16642);
+    			add_location(section30, file$k, 669, 2, 15606);
     			set_style(p31, "text-align", "center");
-    			add_location(p31, file$k, 710, 4, 16825);
+    			add_location(p31, file$k, 676, 4, 15789);
     			attr_dev(div31, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div31, file$k, 709, 3, 16796);
+    			add_location(div31, file$k, 675, 3, 15760);
     			attr_dev(section31, "data-id", "time32");
-    			add_location(section31, file$k, 708, 2, 16766);
+    			add_location(section31, file$k, 674, 2, 15730);
     			set_style(p32, "text-align", "center");
-    			add_location(p32, file$k, 715, 4, 16949);
+    			add_location(p32, file$k, 681, 4, 15913);
     			attr_dev(div32, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div32, file$k, 714, 3, 16920);
+    			add_location(div32, file$k, 680, 3, 15884);
     			attr_dev(section32, "data-id", "time33");
-    			add_location(section32, file$k, 713, 2, 16890);
+    			add_location(section32, file$k, 679, 2, 15854);
     			set_style(p33, "text-align", "center");
-    			add_location(p33, file$k, 720, 4, 17073);
+    			add_location(p33, file$k, 686, 4, 16037);
     			attr_dev(div33, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div33, file$k, 719, 3, 17044);
+    			add_location(div33, file$k, 685, 3, 16008);
     			attr_dev(section33, "data-id", "time34");
-    			add_location(section33, file$k, 718, 2, 17014);
+    			add_location(section33, file$k, 684, 2, 15978);
     			set_style(p34, "text-align", "center");
-    			add_location(p34, file$k, 725, 4, 17197);
+    			add_location(p34, file$k, 691, 4, 16161);
     			attr_dev(div34, "class", "col-medium svelte-1ekp1nb");
-    			add_location(div34, file$k, 724, 3, 17168);
+    			add_location(div34, file$k, 690, 3, 16132);
     			attr_dev(section34, "data-id", "time35");
-    			add_location(section34, file$k, 723, 2, 17138);
+    			add_location(section34, file$k, 689, 2, 16102);
     			attr_dev(div35, "slot", "foreground");
-    			add_location(div35, file$k, 548, 1, 12761);
+    			add_location(div35, file$k, 514, 1, 11725);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div35, anchor);
@@ -33884,9 +33696,176 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
+    		id: create_foreground_slot_1.name,
+    		type: "slot",
+    		source: "(515:1) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (698:0) <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
+    function create_default_slot$1(ctx) {
+    	let p;
+    	let t0;
+    	let br;
+    	let t1;
+
+    	const block = {
+    		c: function create() {
+    			p = element("p");
+    			t0 = text("How do we gather the agreements? How are they processed?  [where to include provenance?");
+    			br = element("br");
+    			t1 = text(" beginning/end/between sections?]");
+    			add_location(br, file$k, 698, 108, 16431);
+    			attr_dev(p, "class", "text-big");
+    			add_location(p, file$k, 698, 1, 16324);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, p, anchor);
+    			append_dev(p, t0);
+    			append_dev(p, br);
+    			append_dev(p, t1);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(p);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot$1.name,
+    		type: "slot",
+    		source: "(698:0) <Filler theme=\\\"dark\\\" short={true} wide={true} center={true} shadow={true}>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (705:1) 
+    function create_background_slot(ctx) {
+    	let div2;
+    	let figure;
+    	let div1;
+    	let div0;
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			div2 = element("div");
+    			figure = element("figure");
+    			div1 = element("div");
+    			div0 = element("div");
+    			img = element("img");
+    			attr_dev(img, "id", "agreement");
+    			if (!src_url_equal(img.src, img_src_value = "./img/sources.jpg")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "class", "svelte-1ekp1nb");
+    			add_location(img, file$k, 708, 5, 16696);
+    			attr_dev(div0, "class", "close_read svelte-1ekp1nb");
+    			add_location(div0, file$k, 707, 4, 16666);
+    			attr_dev(div1, "class", "col-wide height-full");
+    			add_location(div1, file$k, 706, 3, 16627);
+    			add_location(figure, file$k, 705, 2, 16615);
+    			attr_dev(div2, "slot", "background");
+    			add_location(div2, file$k, 704, 1, 16589);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, figure);
+    			append_dev(figure, div1);
+    			append_dev(div1, div0);
+    			append_dev(div0, img);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div2);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_background_slot.name,
+    		type: "slot",
+    		source: "(705:1) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (715:1) 
+    function create_foreground_slot(ctx) {
+    	let div2;
+    	let section0;
+    	let div0;
+    	let p0;
+    	let t1;
+    	let section1;
+    	let div1;
+    	let p1;
+    	let t2;
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			div2 = element("div");
+    			section0 = element("section");
+    			div0 = element("div");
+    			p0 = element("p");
+    			p0.textContent = "sources";
+    			t1 = space();
+    			section1 = element("section");
+    			div1 = element("div");
+    			p1 = element("p");
+    			t2 = text("translation/transcription/coding/data entry\n\t\t\t\t\t");
+    			img = element("img");
+    			set_style(p0, "text-align", "center");
+    			add_location(p0, file$k, 717, 4, 16871);
+    			attr_dev(div0, "class", "col-medium svelte-1ekp1nb");
+    			add_location(div0, file$k, 716, 3, 16842);
+    			attr_dev(section0, "data-id", "prov01");
+    			add_location(section0, file$k, 715, 2, 16812);
+    			attr_dev(img, "id", "agreement");
+    			if (!src_url_equal(img.src, img_src_value = "./img/diagram.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "class", "svelte-1ekp1nb");
+    			add_location(img, file$k, 726, 5, 17095);
+    			set_style(p1, "text-align", "center");
+    			add_location(p1, file$k, 724, 4, 17009);
+    			attr_dev(div1, "class", "col-medium svelte-1ekp1nb");
+    			add_location(div1, file$k, 723, 3, 16980);
+    			attr_dev(section1, "data-id", "prov02");
+    			add_location(section1, file$k, 722, 2, 16950);
+    			attr_dev(div2, "slot", "foreground");
+    			add_location(div2, file$k, 714, 1, 16786);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, section0);
+    			append_dev(section0, div0);
+    			append_dev(div0, p0);
+    			append_dev(div2, t1);
+    			append_dev(div2, section1);
+    			append_dev(section1, div1);
+    			append_dev(div1, p1);
+    			append_dev(p1, t2);
+    			append_dev(p1, img);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div2);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
     		id: create_foreground_slot.name,
     		type: "slot",
-    		source: "(549:1) ",
+    		source: "(715:1) ",
     		ctx
     	});
 
@@ -33914,30 +33893,28 @@ var app = (function () {
     	let scroller1;
     	let updating_id_1;
     	let t8;
-    	let filler2;
-    	let t9;
     	let divider3;
+    	let t9;
+    	let filler2;
     	let t10;
+    	let divider4;
+    	let t11;
     	let scroller2;
     	let updating_id_2;
-    	let t11;
-    	let divider4;
     	let t12;
-    	let filler3;
-    	let t13;
-    	let filler4;
-    	let t14;
     	let divider5;
+    	let t13;
+    	let filler3;
+    	let t14;
+    	let divider6;
     	let t15;
     	let scroller3;
     	let updating_id_3;
     	let t16;
-    	let divider6;
+    	let filler4;
     	let t17;
-    	let filler5;
-    	let t18;
     	let divider7;
-    	let t19;
+    	let t18;
     	let scroller4;
     	let updating_id_4;
     	let current;
@@ -33954,7 +33931,7 @@ var app = (function () {
     				theme: "light",
     				center: true,
     				short: false,
-    				$$slots: { default: [create_default_slot_6] },
+    				$$slots: { default: [create_default_slot_5] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -33969,7 +33946,7 @@ var app = (function () {
     				wide: true,
     				center: true,
     				shadow: false,
-    				$$slots: { default: [create_default_slot_5] },
+    				$$slots: { default: [create_default_slot_4] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -34000,43 +33977,6 @@ var app = (function () {
 
     	filler1 = new Filler({
     			props: {
-    				theme: "dark",
-    				short: true,
-    				wide: true,
-    				center: true,
-    				shadow: true,
-    				$$slots: { default: [create_default_slot_4] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	divider2 = new Divider({ props: { shadow: true }, $$inline: true });
-
-    	function scroller1_id_binding(value) {
-    		/*scroller1_id_binding*/ ctx[9](value);
-    	}
-
-    	let scroller1_props = {
-    		threshold: threshold$1,
-    		splitscreen: false,
-    		shadow: true,
-    		$$slots: {
-    			foreground: [create_foreground_slot_3],
-    			background: [create_background_slot_3]
-    		},
-    		$$scope: { ctx }
-    	};
-
-    	if (/*id*/ ctx[0]["prov"] !== void 0) {
-    		scroller1_props.id = /*id*/ ctx[0]["prov"];
-    	}
-
-    	scroller1 = new Scroller({ props: scroller1_props, $$inline: true });
-    	binding_callbacks.push(() => bind(scroller1, 'id', scroller1_id_binding));
-
-    	filler2 = new Filler({
-    			props: {
     				theme: "light",
     				short: true,
     				wide: true,
@@ -34048,7 +33988,44 @@ var app = (function () {
     			$$inline: true
     		});
 
+    	divider2 = new Divider({ $$inline: true });
+
+    	function scroller1_id_binding(value) {
+    		/*scroller1_id_binding*/ ctx[9](value);
+    	}
+
+    	let scroller1_props = {
+    		threshold: threshold$1,
+    		splitscreen: false,
+    		$$slots: {
+    			foreground: [create_foreground_slot_3],
+    			background: [create_background_slot_3]
+    		},
+    		$$scope: { ctx }
+    	};
+
+    	if (/*id*/ ctx[0]["rect"] !== void 0) {
+    		scroller1_props.id = /*id*/ ctx[0]["rect"];
+    	}
+
+    	scroller1 = new Scroller({ props: scroller1_props, $$inline: true });
+    	binding_callbacks.push(() => bind(scroller1, 'id', scroller1_id_binding));
     	divider3 = new Divider({ $$inline: true });
+
+    	filler2 = new Filler({
+    			props: {
+    				theme: "light",
+    				short: true,
+    				wide: true,
+    				center: true,
+    				shadow: false,
+    				$$slots: { default: [create_default_slot_2] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	divider4 = new Divider({ $$inline: true });
 
     	function scroller2_id_binding(value) {
     		/*scroller2_id_binding*/ ctx[10](value);
@@ -34064,28 +34041,15 @@ var app = (function () {
     		$$scope: { ctx }
     	};
 
-    	if (/*id*/ ctx[0]["rect"] !== void 0) {
-    		scroller2_props.id = /*id*/ ctx[0]["rect"];
+    	if (/*id*/ ctx[0]["close_read"] !== void 0) {
+    		scroller2_props.id = /*id*/ ctx[0]["close_read"];
     	}
 
     	scroller2 = new Scroller({ props: scroller2_props, $$inline: true });
     	binding_callbacks.push(() => bind(scroller2, 'id', scroller2_id_binding));
-    	divider4 = new Divider({ $$inline: true });
+    	divider5 = new Divider({ $$inline: true });
 
     	filler3 = new Filler({
-    			props: {
-    				theme: "dark",
-    				short: true,
-    				wide: true,
-    				center: true,
-    				shadow: true,
-    				$$slots: { default: [create_default_slot_2] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	filler4 = new Filler({
     			props: {
     				theme: "light",
     				short: true,
@@ -34098,7 +34062,7 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	divider5 = new Divider({ $$inline: true });
+    	divider6 = new Divider({ $$inline: true });
 
     	function scroller3_id_binding(value) {
     		/*scroller3_id_binding*/ ctx[11](value);
@@ -34114,28 +34078,27 @@ var app = (function () {
     		$$scope: { ctx }
     	};
 
-    	if (/*id*/ ctx[0]["close_read"] !== void 0) {
-    		scroller3_props.id = /*id*/ ctx[0]["close_read"];
+    	if (/*id*/ ctx[0]["time"] !== void 0) {
+    		scroller3_props.id = /*id*/ ctx[0]["time"];
     	}
 
     	scroller3 = new Scroller({ props: scroller3_props, $$inline: true });
     	binding_callbacks.push(() => bind(scroller3, 'id', scroller3_id_binding));
-    	divider6 = new Divider({ $$inline: true });
 
-    	filler5 = new Filler({
+    	filler4 = new Filler({
     			props: {
-    				theme: "light",
+    				theme: "dark",
     				short: true,
     				wide: true,
     				center: true,
-    				shadow: false,
+    				shadow: true,
     				$$slots: { default: [create_default_slot$1] },
     				$$scope: { ctx }
     			},
     			$$inline: true
     		});
 
-    	divider7 = new Divider({ $$inline: true });
+    	divider7 = new Divider({ props: { shadow: true }, $$inline: true });
 
     	function scroller4_id_binding(value) {
     		/*scroller4_id_binding*/ ctx[12](value);
@@ -34144,6 +34107,7 @@ var app = (function () {
     	let scroller4_props = {
     		threshold: threshold$1,
     		splitscreen: false,
+    		shadow: true,
     		$$slots: {
     			foreground: [create_foreground_slot],
     			background: [create_background_slot]
@@ -34151,8 +34115,8 @@ var app = (function () {
     		$$scope: { ctx }
     	};
 
-    	if (/*id*/ ctx[0]["time"] !== void 0) {
-    		scroller4_props.id = /*id*/ ctx[0]["time"];
+    	if (/*id*/ ctx[0]["prov"] !== void 0) {
+    		scroller4_props.id = /*id*/ ctx[0]["prov"];
     	}
 
     	scroller4 = new Scroller({ props: scroller4_props, $$inline: true });
@@ -34178,28 +34142,26 @@ var app = (function () {
     			t7 = space();
     			create_component(scroller1.$$.fragment);
     			t8 = space();
-    			create_component(filler2.$$.fragment);
-    			t9 = space();
     			create_component(divider3.$$.fragment);
+    			t9 = space();
+    			create_component(filler2.$$.fragment);
     			t10 = space();
-    			create_component(scroller2.$$.fragment);
-    			t11 = space();
     			create_component(divider4.$$.fragment);
+    			t11 = space();
+    			create_component(scroller2.$$.fragment);
     			t12 = space();
-    			create_component(filler3.$$.fragment);
-    			t13 = space();
-    			create_component(filler4.$$.fragment);
-    			t14 = space();
     			create_component(divider5.$$.fragment);
+    			t13 = space();
+    			create_component(filler3.$$.fragment);
+    			t14 = space();
+    			create_component(divider6.$$.fragment);
     			t15 = space();
     			create_component(scroller3.$$.fragment);
     			t16 = space();
-    			create_component(divider6.$$.fragment);
+    			create_component(filler4.$$.fragment);
     			t17 = space();
-    			create_component(filler5.$$.fragment);
-    			t18 = space();
     			create_component(divider7.$$.fragment);
-    			t19 = space();
+    			t18 = space();
     			create_component(scroller4.$$.fragment);
     		},
     		l: function claim(nodes) {
@@ -34224,28 +34186,26 @@ var app = (function () {
     			insert_dev(target, t7, anchor);
     			mount_component(scroller1, target, anchor);
     			insert_dev(target, t8, anchor);
-    			mount_component(filler2, target, anchor);
-    			insert_dev(target, t9, anchor);
     			mount_component(divider3, target, anchor);
+    			insert_dev(target, t9, anchor);
+    			mount_component(filler2, target, anchor);
     			insert_dev(target, t10, anchor);
-    			mount_component(scroller2, target, anchor);
-    			insert_dev(target, t11, anchor);
     			mount_component(divider4, target, anchor);
+    			insert_dev(target, t11, anchor);
+    			mount_component(scroller2, target, anchor);
     			insert_dev(target, t12, anchor);
-    			mount_component(filler3, target, anchor);
-    			insert_dev(target, t13, anchor);
-    			mount_component(filler4, target, anchor);
-    			insert_dev(target, t14, anchor);
     			mount_component(divider5, target, anchor);
+    			insert_dev(target, t13, anchor);
+    			mount_component(filler3, target, anchor);
+    			insert_dev(target, t14, anchor);
+    			mount_component(divider6, target, anchor);
     			insert_dev(target, t15, anchor);
     			mount_component(scroller3, target, anchor);
     			insert_dev(target, t16, anchor);
-    			mount_component(divider6, target, anchor);
+    			mount_component(filler4, target, anchor);
     			insert_dev(target, t17, anchor);
-    			mount_component(filler5, target, anchor);
-    			insert_dev(target, t18, anchor);
     			mount_component(divider7, target, anchor);
-    			insert_dev(target, t19, anchor);
+    			insert_dev(target, t18, anchor);
     			mount_component(scroller4, target, anchor);
     			current = true;
     		},
@@ -34286,13 +34246,13 @@ var app = (function () {
     			filler1.$set(filler1_changes);
     			const scroller1_changes = {};
 
-    			if (dirty & /*$$scope*/ 4194304) {
+    			if (dirty & /*$$scope, pax_gender, step*/ 4194322) {
     				scroller1_changes.$$scope = { dirty, ctx };
     			}
 
     			if (!updating_id_1 && dirty & /*id*/ 1) {
     				updating_id_1 = true;
-    				scroller1_changes.id = /*id*/ ctx[0]["prov"];
+    				scroller1_changes.id = /*id*/ ctx[0]["rect"];
     				add_flush_callback(() => updating_id_1 = false);
     			}
 
@@ -34306,13 +34266,13 @@ var app = (function () {
     			filler2.$set(filler2_changes);
     			const scroller2_changes = {};
 
-    			if (dirty & /*$$scope, pax_gender, step*/ 4194322) {
+    			if (dirty & /*$$scope*/ 4194304) {
     				scroller2_changes.$$scope = { dirty, ctx };
     			}
 
     			if (!updating_id_2 && dirty & /*id*/ 1) {
     				updating_id_2 = true;
-    				scroller2_changes.id = /*id*/ ctx[0]["rect"];
+    				scroller2_changes.id = /*id*/ ctx[0]["close_read"];
     				add_flush_callback(() => updating_id_2 = false);
     			}
 
@@ -34324,6 +34284,19 @@ var app = (function () {
     			}
 
     			filler3.$set(filler3_changes);
+    			const scroller3_changes = {};
+
+    			if (dirty & /*$$scope, mygeojson, pax_gender_timeline, pax_timeline, pax_gender, step, central_points*/ 4194550) {
+    				scroller3_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_id_3 && dirty & /*id*/ 1) {
+    				updating_id_3 = true;
+    				scroller3_changes.id = /*id*/ ctx[0]["time"];
+    				add_flush_callback(() => updating_id_3 = false);
+    			}
+
+    			scroller3.$set(scroller3_changes);
     			const filler4_changes = {};
 
     			if (dirty & /*$$scope*/ 4194304) {
@@ -34331,35 +34304,15 @@ var app = (function () {
     			}
 
     			filler4.$set(filler4_changes);
-    			const scroller3_changes = {};
-
-    			if (dirty & /*$$scope*/ 4194304) {
-    				scroller3_changes.$$scope = { dirty, ctx };
-    			}
-
-    			if (!updating_id_3 && dirty & /*id*/ 1) {
-    				updating_id_3 = true;
-    				scroller3_changes.id = /*id*/ ctx[0]["close_read"];
-    				add_flush_callback(() => updating_id_3 = false);
-    			}
-
-    			scroller3.$set(scroller3_changes);
-    			const filler5_changes = {};
-
-    			if (dirty & /*$$scope*/ 4194304) {
-    				filler5_changes.$$scope = { dirty, ctx };
-    			}
-
-    			filler5.$set(filler5_changes);
     			const scroller4_changes = {};
 
-    			if (dirty & /*$$scope, mygeojson, pax_gender_timeline, pax_timeline, pax_gender, step, central_points*/ 4194550) {
+    			if (dirty & /*$$scope*/ 4194304) {
     				scroller4_changes.$$scope = { dirty, ctx };
     			}
 
     			if (!updating_id_4 && dirty & /*id*/ 1) {
     				updating_id_4 = true;
-    				scroller4_changes.id = /*id*/ ctx[0]["time"];
+    				scroller4_changes.id = /*id*/ ctx[0]["prov"];
     				add_flush_callback(() => updating_id_4 = false);
     			}
 
@@ -34376,16 +34329,15 @@ var app = (function () {
     			transition_in(filler1.$$.fragment, local);
     			transition_in(divider2.$$.fragment, local);
     			transition_in(scroller1.$$.fragment, local);
-    			transition_in(filler2.$$.fragment, local);
     			transition_in(divider3.$$.fragment, local);
-    			transition_in(scroller2.$$.fragment, local);
+    			transition_in(filler2.$$.fragment, local);
     			transition_in(divider4.$$.fragment, local);
-    			transition_in(filler3.$$.fragment, local);
-    			transition_in(filler4.$$.fragment, local);
+    			transition_in(scroller2.$$.fragment, local);
     			transition_in(divider5.$$.fragment, local);
-    			transition_in(scroller3.$$.fragment, local);
+    			transition_in(filler3.$$.fragment, local);
     			transition_in(divider6.$$.fragment, local);
-    			transition_in(filler5.$$.fragment, local);
+    			transition_in(scroller3.$$.fragment, local);
+    			transition_in(filler4.$$.fragment, local);
     			transition_in(divider7.$$.fragment, local);
     			transition_in(scroller4.$$.fragment, local);
     			current = true;
@@ -34400,16 +34352,15 @@ var app = (function () {
     			transition_out(filler1.$$.fragment, local);
     			transition_out(divider2.$$.fragment, local);
     			transition_out(scroller1.$$.fragment, local);
-    			transition_out(filler2.$$.fragment, local);
     			transition_out(divider3.$$.fragment, local);
-    			transition_out(scroller2.$$.fragment, local);
+    			transition_out(filler2.$$.fragment, local);
     			transition_out(divider4.$$.fragment, local);
-    			transition_out(filler3.$$.fragment, local);
-    			transition_out(filler4.$$.fragment, local);
+    			transition_out(scroller2.$$.fragment, local);
     			transition_out(divider5.$$.fragment, local);
-    			transition_out(scroller3.$$.fragment, local);
+    			transition_out(filler3.$$.fragment, local);
     			transition_out(divider6.$$.fragment, local);
-    			transition_out(filler5.$$.fragment, local);
+    			transition_out(scroller3.$$.fragment, local);
+    			transition_out(filler4.$$.fragment, local);
     			transition_out(divider7.$$.fragment, local);
     			transition_out(scroller4.$$.fragment, local);
     			current = false;
@@ -34433,28 +34384,26 @@ var app = (function () {
     			if (detaching) detach_dev(t7);
     			destroy_component(scroller1, detaching);
     			if (detaching) detach_dev(t8);
-    			destroy_component(filler2, detaching);
-    			if (detaching) detach_dev(t9);
     			destroy_component(divider3, detaching);
+    			if (detaching) detach_dev(t9);
+    			destroy_component(filler2, detaching);
     			if (detaching) detach_dev(t10);
-    			destroy_component(scroller2, detaching);
-    			if (detaching) detach_dev(t11);
     			destroy_component(divider4, detaching);
+    			if (detaching) detach_dev(t11);
+    			destroy_component(scroller2, detaching);
     			if (detaching) detach_dev(t12);
-    			destroy_component(filler3, detaching);
-    			if (detaching) detach_dev(t13);
-    			destroy_component(filler4, detaching);
-    			if (detaching) detach_dev(t14);
     			destroy_component(divider5, detaching);
+    			if (detaching) detach_dev(t13);
+    			destroy_component(filler3, detaching);
+    			if (detaching) detach_dev(t14);
+    			destroy_component(divider6, detaching);
     			if (detaching) detach_dev(t15);
     			destroy_component(scroller3, detaching);
     			if (detaching) detach_dev(t16);
-    			destroy_component(divider6, detaching);
+    			destroy_component(filler4, detaching);
     			if (detaching) detach_dev(t17);
-    			destroy_component(filler5, detaching);
-    			if (detaching) detach_dev(t18);
     			destroy_component(divider7, detaching);
-    			if (detaching) detach_dev(t19);
+    			if (detaching) detach_dev(t18);
     			destroy_component(scroller4, detaching);
     		}
     	};
@@ -34772,29 +34721,29 @@ var app = (function () {
     	}
 
     	function scroller1_id_binding(value) {
-    		if ($$self.$$.not_equal(id["prov"], value)) {
-    			id["prov"] = value;
-    			$$invalidate(0, id);
-    		}
-    	}
-
-    	function scroller2_id_binding(value) {
     		if ($$self.$$.not_equal(id["rect"], value)) {
     			id["rect"] = value;
     			$$invalidate(0, id);
     		}
     	}
 
-    	function scroller3_id_binding(value) {
+    	function scroller2_id_binding(value) {
     		if ($$self.$$.not_equal(id["close_read"], value)) {
     			id["close_read"] = value;
     			$$invalidate(0, id);
     		}
     	}
 
-    	function scroller4_id_binding(value) {
+    	function scroller3_id_binding(value) {
     		if ($$self.$$.not_equal(id["time"], value)) {
     			id["time"] = value;
+    			$$invalidate(0, id);
+    		}
+    	}
+
+    	function scroller4_id_binding(value) {
+    		if ($$self.$$.not_equal(id["prov"], value)) {
+    			id["prov"] = value;
     			$$invalidate(0, id);
     		}
     	}
