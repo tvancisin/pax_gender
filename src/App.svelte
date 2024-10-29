@@ -268,7 +268,6 @@
 		});
 
 		let quotas = d3.groups(pax, (d) => d.GeWom);
-		console.log(quotas);
 
 		// Iterate through each object in the pax array
 		pax.forEach((paxItem) => {
@@ -335,7 +334,7 @@
 			<div class="col-wide height-full">
 				{#if pax}
 					<div class="chart">
-						<Lines {pax} {pax_gender} {step} />
+						<Lines {pax} {pax_gender} {step} {central_points} {mygeojson}/>
 					</div>
 				{/if}
 			</div>
@@ -494,7 +493,7 @@
 
 <Divider />
 
-<Scroller {threshold} bind:id={id["time"]} splitscreen={false}>
+<!-- <Scroller {threshold} bind:id={id["time"]} splitscreen={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
@@ -693,7 +692,7 @@
 			</div>
 		</section>
 	</div>
-</Scroller>
+</Scroller> -->
 
 <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
 	<p class="text-big">How do we gather the agreements? How are they processed?  [where to include provenance?<br> beginning/end/between sections?]</p>

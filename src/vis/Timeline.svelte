@@ -140,10 +140,15 @@
     }
 
     function get_current_isos(data) {
+        console.log(data);
+        
         const combinedArray = data.reduce(
             (acc, yearArray) => [...acc, ...yearArray[1]],
             [],
         );
+
+        console.log(combinedArray);
+        
         const matchingLoc1ISO = combinedArray
             .filter((d) => d.GeWom === "1")
             .map((d) => d.Loc1ISO);
@@ -155,6 +160,8 @@
     $: if (pax_timeline) {
         //initial timeline data
         current_pax = [pax_timeline[0]];
+        console.log(current_pax);
+        
         current_years = pax_timeline.map((d) => d[0]);
         current_central_points = get_current_central_points(current_pax);
         cumulative_isos = get_current_isos(current_pax);
@@ -415,10 +422,10 @@
         {#if mygeojson}
             <LayerCake data={mygeojson}>
                 <Svg>
-                    <Map
+                    <!-- <Map
                         projectionName={"geoNaturalEarth1"}
                         {cumulative_isos}
-                    />
+                    /> -->
                     <Point
                         projectionName={"geoNaturalEarth1"}
                         pointsData={current_central_points}

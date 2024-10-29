@@ -6,9 +6,6 @@
   export let hr = true;
   export let shadow;
 
-  $: console.log(theme);
-  
-
   let shadow_css = ``;
 	if (shadow) {
 		shadow_css = `background-color: #808080`;
