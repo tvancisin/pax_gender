@@ -2,7 +2,7 @@
     import * as d3 from "d3";
     import IndividualLine from "./IndividualLine.svelte";
     import { LayerCake, Svg } from "layercake";
-    import Map from "./Map.svelte";
+    import Map1 from "./Map1.svelte";
     import Point from "./Point.svelte";
 
     export let mygeojson;
@@ -87,15 +87,18 @@
 
     let width = 400;
     let height = 400;
-    let current_pax;
+    let rendered_data;
     let current_years;
     let current_central_points;
     let reorder = true;
     let innerWidth, innerHeight, xScale, yScale;
     const margin = { top: 20, right: 20, bottom: 20, left: 40 };
 
+    $: current_pax = pax_timeline;
     $: innerWidth = width - margin.left - margin.right;
     $: innerHeight = height - margin.top - margin.bottom;
+
+    $: console.log("current pax: ", current_pax);
 
     $: xScale = d3
         .scaleBand()
@@ -103,7 +106,7 @@
         .range([0, innerWidth])
         .padding(0.1);
 
-    $: yScale = d3.scaleLinear().domain([0, 100]).range([200, 0]);
+    $: yScale = d3.scaleLinear().domain([0, 100]).range([100, 0]);
 
     let current_isos;
     let cumulative_isos;
@@ -140,301 +143,213 @@
     }
 
     function get_current_isos(data) {
-        console.log(data);
-        
-        const combinedArray = data.reduce(
-            (acc, yearArray) => [...acc, ...yearArray[1]],
-            [],
-        );
+        let iso_array = [];
+        //construct array of iso's
+        data.forEach((d) => {
+            iso_array = iso_array.concat(d[1].map((x) => x.Loc1ISO)); // Reassign to iso_array
+        });
+        //remove duplicates
+        iso_array = [...new Set(iso_array)];
 
-        console.log(combinedArray);
-        
-        const matchingLoc1ISO = combinedArray
-            .filter((d) => d.GeWom === "1")
-            .map((d) => d.Loc1ISO);
-
-        return matchingLoc1ISO;
+        return iso_array;
     }
 
+    let degrouped_pax = [];
     // wait till pax_timeline is loaded
-    $: if (pax_timeline) {
+    $: if (current_pax) {
+        if (degrouped_pax.length == 0) {
+            current_pax.forEach((d) => {
+                degrouped_pax = degrouped_pax.concat(d[1]); // Reassign to iso_array
+            });
+        }
+        console.log("degrouped_pax: ", degrouped_pax);
+
         //initial timeline data
-        current_pax = [pax_timeline[0]];
-        console.log(current_pax);
-        
         current_years = pax_timeline.map((d) => d[0]);
         current_central_points = get_current_central_points(current_pax);
         cumulative_isos = get_current_isos(current_pax);
+
+        let previousYear = null; // Track the last year seen
+        let index = 0; // Index that resets for each new year
+
+        rendered_data = degrouped_pax.map((d) => {
+            const currentYear = d.Dat.substring(6, 10);
+
+            // Reset index if the year has changed
+            if (currentYear !== previousYear) {
+                index = 0;
+                previousYear = currentYear;
+            }
+
+            const result = {
+                x1: xScale(currentYear),
+                x2: xScale.bandwidth(),
+                y1: yScale(index),
+                y2: yScale(index),
+            };
+
+            index += 1; // Increment index for the next entry in the same year
+            return result;
+        });
     }
 
-    $: if (step == "1" && pax_timeline) {
-        console.log("1990");
-        current_pax = pax_timeline.slice(0, 1);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "2" && pax_timeline) {
-        console.log("1991");
-        current_pax = pax_timeline.slice(0, 2);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
+    $: if (step == "1") {
+        // current_pax = pax_timeline;
+        // current_central_points = get_current_central_points([
+        //     current_pax[current_pax.length - 1],
+        // ]);
+        // cumulative_isos = get_current_isos(current_pax);
+        let previousYear = null; // Track the last year seen
+        let index = 0; // Index that resets for each new year
+        rendered_data = degrouped_pax.map((d) => {
+            const currentYear = d.Dat.substring(6, 10);
+
+            // Reset index if the year has changed
+            if (currentYear !== previousYear) {
+                index = 0;
+                previousYear = currentYear;
+            }
+
+            const result = {
+                x1: xScale(currentYear),
+                x2: xScale.bandwidth(),
+                y1: yScale(index),
+                y2: yScale(index),
+            };
+
+            index += 1; // Increment index for the next entry in the same year
+            return result;
+        });
+    } else if (step == "2") {
+        // current_pax = pax_timeline;
+        // current_central_points = get_current_central_points([
+        //     current_pax[current_pax.length - 1],
+        // ]);
+        // cumulative_isos = get_current_isos(current_pax);
+
+        // let previousYear = null; // Track the last year seen
+        // let index = 0; // Index that resets for each new year
+        // rendered_data = degrouped_pax.map((d) => {
+        //     const currentYear = d.Dat.substring(6, 10);
+
+        //     // Reset index if the year has changed
+        //     if (currentYear !== previousYear) {
+        //         index = 0;
+        //         previousYear = currentYear;
+        //     }
+
+        //     const result = {
+        //         x1: xScale(currentYear),
+        //         x2: 0,
+        //         y1: yScale(index),
+        //         y2: yScale(index),
+        //     };
+
+        //     index += 1; // Increment index for the next entry in the same year
+        //     return result;
+        // });
+
+        let previousYear = null; // Track the last year seen
+        let index = 0; // Index that changes based on GeWom value
+
+        rendered_data = degrouped_pax.map((d) => {
+            const currentYear = d.Dat.substring(6, 10);
+
+            // Reset index if the year has changed
+            if (currentYear !== previousYear) {
+                index = 0;
+                previousYear = currentYear;
+            }
+
+            let result;
+            // Adjust index based on GeWom value
+            if (d.GeWom === "1") {
+                index += 1;
+                result = {
+                    x1: xScale(currentYear),
+                    x2: xScale.bandwidth(),
+                    y1: yScale(index),
+                    y2: yScale(index),
+                };
+            } else if (d.GeWom === "0") {
+                result = {
+                    x1: xScale(currentYear),
+                    x2: 0,
+                    y1: yScale(index),
+                    y2: yScale(index),
+                };
+            }
+
+            // Return the result using the updated index value
+
+            return result;
+        });
     } else if (step == "3" && pax_timeline) {
-        console.log("1992");
-        current_pax = pax_timeline.slice(0, 3);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "4" && pax_timeline) {
-        console.log("1993");
-        current_pax = pax_timeline.slice(0, 4);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "5" && pax_timeline) {
-        console.log("1994");
-        current_pax = pax_timeline.slice(0, 5);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "6" && pax_timeline) {
-        console.log("1995");
-        current_pax = pax_timeline.slice(0, 6);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "7" && pax_timeline) {
-        console.log("1996");
-        current_pax = pax_timeline.slice(0, 7);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "8" && pax_timeline) {
-        console.log("1997");
-        current_pax = pax_timeline.slice(0, 8);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "9" && pax_timeline) {
-        console.log("1998");
-        current_pax = pax_timeline.slice(0, 9);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "10" && pax_timeline) {
-        console.log("1999");
-        current_pax = pax_timeline.slice(0, 10);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "11" && pax_timeline) {
-        console.log("2000");
-        current_pax = pax_timeline.slice(0, 11);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "12" && pax_timeline) {
-        console.log("2001");
-        current_pax = pax_timeline.slice(0, 12);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "13") {
-        console.log("2002");
-        current_pax = pax_timeline.slice(0, 13);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "14") {
-        console.log("2003");
-        current_pax = pax_timeline.slice(0, 14);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "15") {
-        console.log("2004");
-        current_pax = pax_timeline.slice(0, 15);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "16") {
-        console.log("2005");
-        current_pax = pax_timeline.slice(0, 16);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "17") {
-        console.log("2006");
-        current_pax = pax_timeline.slice(0, 17);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "18") {
-        console.log("2007");
-        current_pax = pax_timeline.slice(0, 18);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "19") {
-        console.log("2008");
-        current_pax = pax_timeline.slice(0, 19);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "20") {
-        console.log("2009");
-        current_pax = pax_timeline.slice(0, 20);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "21") {
-        console.log("2010");
-        current_pax = pax_timeline.slice(0, 21);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "22") {
-        console.log("2011");
-        current_pax = pax_timeline.slice(0, 22);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "23") {
-        console.log("2012");
-        current_pax = pax_timeline.slice(0, 23);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "24") {
-        console.log("2013");
-        current_pax = pax_timeline.slice(0, 24);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "25") {
-        console.log("2014");
-        current_pax = pax_timeline.slice(0, 25);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "26") {
-        console.log("2015");
-        current_pax = pax_timeline.slice(0, 26);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "27") {
-        console.log("2016");
-        current_pax = pax_timeline.slice(0, 27);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "28") {
-        console.log("2017");
-        current_pax = pax_timeline.slice(0, 28);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "29") {
-        console.log("2018");
-        current_pax = pax_timeline.slice(0, 29);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "30") {
-        console.log("2019");
-        current_pax = pax_timeline.slice(0, 30);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "31") {
-        console.log("2020");
-        current_pax = pax_timeline.slice(0, 31);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "32") {
-        console.log("2021");
-        current_pax = pax_timeline.slice(0, 32);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "33") {
-        current_pax = pax_timeline.slice(0, 33);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "34") {
-        console.log("2023");
-        reorder = true;
-        years = current_years;
-        current_pax = pax_timeline.slice(0, 34);
-        current_central_points = get_current_central_points([
-            current_pax[current_pax.length - 1],
-        ]);
-        cumulative_isos = get_current_isos(current_pax);
-    } else if (step == "35") {
-        console.log("reorder");
-        reorder = true;
-        years = most_women;
+        // current_pax = pax_timeline.slice(0, 3);
+        // current_central_points = get_current_central_points([
+        //     current_pax[current_pax.length - 1],
+        // ]);
+        // cumulative_isos = get_current_isos(current_pax);
+        // let previousYear = null; // Track the last year seen
+        // let index = 0; // Index that changes based on GeWom value
+        // rendered_data = degrouped_pax.map((d) => {
+        //     const currentYear = d.Dat.substring(6, 10);
+        //     // Reset index if the year has changed
+        //     if (currentYear !== previousYear) {
+        //         index = 0;
+        //         previousYear = currentYear;
+        //     }
+        //     // Adjust index based on GeWom value
+        //     if (d.GeWom === "1") {
+        //         index += 1;
+        //     } else if (d.GeWom === "0") {
+        //         index = -50;
+        //     }
+        //     // Return the result using the updated index value
+        //     const result = {
+        //         x1: xScale(currentYear),
+        //         x2: xScale.bandwidth(),
+        //         y1: yScale(index),
+        //         y2: yScale(index),
+        //     };
+        //     return result;
+        // });
     }
+
+    // else if (step == "4" && pax_timeline) {
+    //     console.log("1993");
+    //     current_pax = pax_timeline.slice(0, 4);
+    //     current_central_points = get_current_central_points([
+    //         current_pax[current_pax.length - 1],
+    //     ]);
+    //     cumulative_isos = get_current_isos(current_pax);
+    // }
 
     function formatMobile(tick) {
         return "'" + tick.toString().slice(-2);
     }
+
+    $: console.log("rendered data: ", rendered_data);
 </script>
 
-{#if current_pax}
+{#if rendered_data && mygeojson}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
         {#if mygeojson}
             <LayerCake data={mygeojson}>
                 <Svg>
-                    <!-- <Map
+                    <Map1
                         projectionName={"geoNaturalEarth1"}
                         {cumulative_isos}
-                    /> -->
-                    <Point
+                    />
+                    <!-- <Point
                         projectionName={"geoNaturalEarth1"}
                         pointsData={current_central_points}
-                    />
+                    /> -->
                     <g
                         transform="translate({margin.left}, {innerHeight -
                             150})"
                     >
-                        <g class="axis x-axis">
+                        <!-- <g class="axis x-axis">
                             {#each years as tick}
                                 <g
                                     class="tick tick-{tick}"
@@ -448,16 +363,14 @@
                                     >
                                 </g>
                             {/each}
-                        </g>
+                        </g> -->
 
-                        {#each current_pax as [year, entries]}
+                        {#each rendered_data as d}
                             <IndividualLine
-                                x={xScale(year)}
-                                y={yScale(entries.length)}
-                                {innerHeight}
-                                width={xScale.bandwidth()}
-                                {entries}
-                                {reorder}
+                                x1={d.x1}
+                                x2={d.x2}
+                                y1={d.y1}
+                                y2={d.y2}
                             />
                         {/each}
                     </g>

@@ -113,17 +113,15 @@
             };
         });
 
-        // d3.selectAll(".agt").style("fill", "white");
-        // d3.selectAll(".gender").style("fill", "black");
     } else if (step == "three") {
         rendered_data = current_pax.map((d, i) => {
             return {
-                x: (i % numCols) * (rectWidth + gap),
+                x: d.GeWom === "1" ? (i % numCols) * (rectWidth + gap) : -50,
                 y:
                     innerHeight -
                     (Math.floor(i / numCols) + 1) * (rectHeight + gap),
                 width: rectWidth,
-                height: d.GeWom === "1" ? rectHeight : 0, // Conditional height
+                height: rectHeight, // Conditional height
             };
         });
 
@@ -188,13 +186,13 @@
                 {/each}
             </g>
         </svg>
-        <Map
+        <!-- <Map
             projectionName={"geoNaturalEarth1"}
             {cumulative_isos}
             {map_svg_width}
             {height}
             {mygeojson}
-        />
+        /> -->
     </div>
 {/if}
 

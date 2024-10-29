@@ -4,59 +4,43 @@
     import * as d3 from "d3";
     import { generateHandwrittenLine, lineGenerator } from "../utils";
 
-    export let x;
-    export let y;
-    export let width;
-    export let innerHeight;
-    export let entries;
-    export let reorder;
+    export let x1;
+    export let x2;
+    export let y1;
+    export let y2;
 
-    const tX = tweened(null, { duration: 1200, easing: cubicOut });
-    const tY = tweened(null, { duration: 1200, easing: cubicOut });
+    const tX1 = tweened(null, { duration: 1000, easing: cubicOut });
+    const tX2 = tweened(null, { duration: 1000, easing: cubicOut });
+    const tY1 = tweened(null, { duration: 1000, easing: cubicOut });
+    const tY2 = tweened(null, { duration: 1000, easing: cubicOut });
 
-    $: yScale = d3.scaleLinear().domain([0, 100]).range([0, 200]);
-    $: tX.set(x);
-    $: tY.set(y);
+    $: tX1.set(x1);
+    $: tX2.set(x2);
+    $: tY1.set(y1);
+    $: tY2.set(y2);
 
     function assign_class(entry) {
-        if (entry.GeWom == "1") {
-            return "women";
-        }
+        // if (entry.GeWom == "1") {
+        return "women";
+        // }
     }
 
-    $: if (reorder) {
-        entries = [...entries].sort((a, b) =>
-            assign_class(a) === "women" ? 1 : -1,
-        );
-    }
-    
+    // $: if (reorder) {
+    //     entries = [...entries].sort((a, b) =>
+    //         assign_class(a) === "women" ? 1 : -1,
+    //     );
+    // }
 </script>
 
-<g transform="translate({$tX} {$tY})">
-    {#each entries as entry, i}
-        <!-- <line
-            x1="0"
-            x2={width}
-            y1={yScale(i)}
-            y2={yScale(i)}
-            stroke="#cccccc"
-            class={assign_class(entry)}
-            stroke-width="1"
-        /> -->
-        <path
-            d={lineGenerator(
-                generateHandwrittenLine(-5, yScale(i), width),
-            )}
-            fill="none"
-            stroke="#cccccc"
-            stroke-width="1"
-            class={assign_class(entry)}
-        />
-    {/each}
+<g transform="translate({$tX1} {$tY1})">
+    <line x1={0} x2={$tX2} y1={$tY1} y2={$tY2} stroke="black" />
 </g>
 
 <style>
     .women {
         stroke: black;
+    }
+    line {
+        shape-rendering: crispEdges;
     }
 </style>

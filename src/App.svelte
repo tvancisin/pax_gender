@@ -301,6 +301,7 @@
 	});
 </script>
 
+
 <ONSHeader filled={false} center={false} />
 
 <Header
@@ -318,17 +319,58 @@
 	</p>
 </Header>
 
-<Divider />
-
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
 		PA-X maintains the biggest database of peace agreements in the world.
 	</p>
 </Filler>
 
-<Divider />
 
-<Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
+<Scroller {threshold} bind:id={id["time"]} splitscreen={false} shadow={false}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				<div class="time">
+					<Timeline
+						{mygeojson}
+						{pax_gender_timeline}
+						{pax_timeline}
+						{pax_gender}
+						{step}
+						{central_points}
+					/>
+				</div>
+			</div>
+		</figure>
+	</div>
+
+	<div slot="foreground">
+		<section data-id="time01">
+			<div class="col-medium">
+				<p style="text-align: center;">1990</p>
+			</div>
+		</section>
+		<section data-id="time02">
+			<div class="col-medium">
+				<p style="text-align: center;">1991</p>
+			</div>
+		</section>
+		<section data-id="time03">
+			<div class="col-medium">
+				<p style="text-align: center;">1992</p>
+			</div>
+		</section>
+		<section data-id="time04">
+			<div class="col-medium">
+				<p style="text-align: center;">1993</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
+
+
+
+<!-- <Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
@@ -392,7 +434,7 @@
 			</div>
 		</section>
 	</div>
-</Scroller>
+</Scroller> -->
 
 
 
@@ -403,9 +445,8 @@
 	</p>
 </Filler>
 
-<Divider />
 
-<Scroller {threshold} bind:id={id["rect"]} splitscreen={false}>
+<!-- <Scroller {threshold} bind:id={id["rect"]} splitscreen={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
@@ -442,9 +483,7 @@
 			</div>
 		</section>
 	</div>
-</Scroller>
-
-<Divider />
+</Scroller> -->
 
 <!-- <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
 	<p class="text-big">What do we do with the agreements we gather?</p>
@@ -456,8 +495,7 @@
 	</p>
 </Filler>
 
-<Divider />
-
+<!-- 
 <Scroller {threshold} bind:id={id["close_read"]} splitscreen={false}>
 	<div slot="background">
 		<figure>
@@ -481,17 +519,12 @@
 			</div>
 		</section>
 	</div>
-</Scroller>
+</Scroller> -->
 
-<Divider />
-
-
-
+<!-- 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">Agreements over Time</p>
-</Filler>
-
-<Divider />
+</Filler> -->
 
 <!-- <Scroller {threshold} bind:id={id["time"]} splitscreen={false}>
 	<div slot="background">
