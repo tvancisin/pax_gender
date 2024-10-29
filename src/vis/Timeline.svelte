@@ -274,9 +274,9 @@
             } else if (d.GeWom === "0") {
                 result = {
                     x1: xScale(currentYear),
-                    x2: 0,
-                    y1: yScale(index),
-                    y2: yScale(index),
+                    x2: xScale.bandwidth(),
+                    y1: 150,
+                    y2: 150,
                 };
             }
 
