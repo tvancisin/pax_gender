@@ -1,6 +1,15 @@
 import { csvParse, autoType } from 'd3-dsv';
 import { feature } from 'topojson-client';
 import * as d3 from "d3";
+import { centralPointsStore } from './store';
+
+let central_points;
+
+// Subscribe to the store
+centralPointsStore.subscribe((value) => {
+    central_points = value;
+});
+
 
 // CORE FUNCTIONS
 export function setColors(themes, theme) {
@@ -111,3 +120,122 @@ export function generateHandwrittenLine(x, y, length) {
   return points;
 }
 
+export let years = [
+  "1990",
+  "1991",
+  "1992",
+  "1993",
+  "1994",
+  "1995",
+  "1996",
+  "1997",
+  "1998",
+  "1999",
+  "2000",
+  "2001",
+  "2002",
+  "2003",
+  "2004",
+  "2005",
+  "2006",
+  "2007",
+  "2008",
+  "2009",
+  "2010",
+  "2011",
+  "2012",
+  "2013",
+  "2014",
+  "2015",
+  "2016",
+  "2017",
+  "2018",
+  "2019",
+  "2020",
+  "2021",
+  "2022",
+  "2023",
+];
+
+export let most_women = [
+  "2015",
+  "2016",
+  "2008",
+  "2014",
+  "2013",
+  "2003",
+  "2006",
+  "2011",
+  "2004",
+  "2018",
+  "1996",
+  "2002",
+  "2012",
+  "2019",
+  "1994",
+  "1995",
+  "1999",
+  "1993",
+  "2005",
+  "2007",
+  "2021",
+  "2001",
+  "2020",
+  "2023",
+  "1991",
+  "1998",
+  "2009",
+  "2000",
+  "2010",
+  "2017",
+  "2022",
+  "1992",
+  "1997",
+  "1990",
+];
+
+//create iso array
+export function get_current_isos(data) {
+  let iso_array = [];
+  //construct array of iso's
+  data.forEach((d) => {
+      iso_array.push(d.Loc1ISO); // Reassign to iso_array
+  });
+  //remove duplicates
+  iso_array = [...new Set(iso_array)];
+
+  return iso_array;
+}
+
+//central points for map
+export function get_current_central_points(pax) {
+  let current_isos = pax
+      .map((d) => {
+          if (d.GeWom == "1") {
+              return d.Loc1ISO;
+          }
+      })
+      .filter((iso) => iso !== undefined && iso !== null);
+
+  // Create the new array of objects
+  let points = current_isos
+      .map((code) => {
+          // Find the matching country object
+          const country = central_points.find((c) => c.iso_code === code);
+
+          if (country) {
+              return {
+                  name: country.name,
+                  code: code,
+                  longitude: +country.central_longitude,
+                  latitude: +country.central_latitude,
+              };
+          } else {
+              // Return null or any fallback in case no match is found
+              return null;
+          }
+      })
+      .filter((item) => item !== null); // Remove null entries
+
+  return points;
+}

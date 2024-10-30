@@ -9,14 +9,13 @@
     export let features = $data.features;
     export let cumulative_isos;
 
-
-    // $: if (cumulative_isos) {
-    //     let filteredIsos = cumulative_isos.filter((iso) => iso !== "");
-    //     filteredIsos.forEach((iso) => {
-    //         d3.selectAll("." + iso).style("fill", "red");
-    //         d3.selectAll("." + iso).style("fill", "gray");
-    //     });
-    // }
+    $: if (cumulative_isos) {
+        let filteredIsos = cumulative_isos.filter((iso) => iso !== "");
+        d3.selectAll(".country").style("fill", "white");
+        filteredIsos.forEach((iso) => {
+            d3.selectAll("." + iso).style("fill", "black");
+        });
+    }
 
     $: projection = geo[projectionName]().fitSize([$width, $height - 100], $data);
     $: geoPath = geo.geoPath(projection);
@@ -36,8 +35,8 @@
 <g class="map-group">
     {#each features as feature}
         <path
-            class={"country " + feature.properties.adm0_iso}
             fill={initial_fill(feature)}
+            class={"country " + feature.properties.adm0_iso}
             d={geoPath(feature)}
             on:mouseenter={polygon_hover(feature)}
         ></path>

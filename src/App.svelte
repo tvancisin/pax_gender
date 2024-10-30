@@ -19,6 +19,7 @@
 	import Timeline from "./vis/Timeline.svelte";
 	import Rectangles from "./vis/Rectangles.svelte";
 	import { setColors, getGEO, getCSV } from "./utils.js";
+	import { centralPointsStore } from "./store";
 
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
 	let theme = "light";
@@ -97,96 +98,6 @@
 			time05: () => {
 				step = "5";
 			},
-			time06: () => {
-				step = "6";
-			},
-			time07: () => {
-				step = "7";
-			},
-			time08: () => {
-				step = "8";
-			},
-			time09: () => {
-				step = "9";
-			},
-			time10: () => {
-				step = "10";
-			},
-			time11: () => {
-				step = "11";
-			},
-			time12: () => {
-				step = "12";
-			},
-			time13: () => {
-				step = "13";
-			},
-			time14: () => {
-				step = "14";
-			},
-			time15: () => {
-				step = "15";
-			},
-			time16: () => {
-				step = "16";
-			},
-			time17: () => {
-				step = "17";
-			},
-			time18: () => {
-				step = "18";
-			},
-			time19: () => {
-				step = "19";
-			},
-			time20: () => {
-				step = "20";
-			},
-			time21: () => {
-				step = "21";
-			},
-			time22: () => {
-				step = "22";
-			},
-			time23: () => {
-				step = "23";
-			},
-			time24: () => {
-				step = "24";
-			},
-			time25: () => {
-				step = "25";
-			},
-			time26: () => {
-				step = "26";
-			},
-			time27: () => {
-				step = "27";
-			},
-			time28: () => {
-				step = "28";
-			},
-			time29: () => {
-				step = "29";
-			},
-			time30: () => {
-				step = "30";
-			},
-			time31: () => {
-				step = "31";
-			},
-			time32: () => {
-				step = "32";
-			},
-			time33: () => {
-				step = "33";
-			},
-			time34: () => {
-				step = "34";
-			},
-			time35: () => {
-				step = "35";
-			},
 		},
 	};
 
@@ -233,6 +144,7 @@
 		pax = data[0];
 		pax_gender = data[1];
 		central_points = data[2];
+		centralPointsStore.set(central_points);
 		pax_gender_text = data[3];
 		pax_gender_text = data[3];
 		corr_text = data[4];
@@ -301,7 +213,6 @@
 	});
 </script>
 
-
 <ONSHeader filled={false} center={false} />
 
 <Header
@@ -325,7 +236,6 @@
 	</p>
 </Filler>
 
-
 <Scroller {threshold} bind:id={id["time"]} splitscreen={false} shadow={false}>
 	<div slot="background">
 		<figure>
@@ -333,11 +243,11 @@
 				<div class="time">
 					<Timeline
 						{mygeojson}
-						{pax_gender_timeline}
+						{central_points}
+						{pax}
 						{pax_timeline}
 						{pax_gender}
 						{step}
-						{central_points}
 					/>
 				</div>
 			</div>
@@ -347,28 +257,21 @@
 	<div slot="foreground">
 		<section data-id="time01">
 			<div class="col-medium">
-				<p style="text-align: center;">1990</p>
+				<p style="text-align: center;">All</p>
 			</div>
 		</section>
 		<section data-id="time02">
 			<div class="col-medium">
-				<p style="text-align: center;">1991</p>
+				<p style="text-align: center;">gender</p>
 			</div>
 		</section>
 		<section data-id="time03">
 			<div class="col-medium">
-				<p style="text-align: center;">1992</p>
-			</div>
-		</section>
-		<section data-id="time04">
-			<div class="col-medium">
-				<p style="text-align: center;">1993</p>
+				<p style="text-align: center;">quotas</p>
 			</div>
 		</section>
 	</div>
 </Scroller>
-
-
 
 <!-- <Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
 	<div slot="background">
@@ -436,15 +339,12 @@
 	</div>
 </Scroller> -->
 
-
-
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
 		Within the 436 peace agreements that do contain references to women and
 		gender, <br /> how much attention is in fact given to this topic?
 	</p>
 </Filler>
-
 
 <!-- <Scroller {threshold} bind:id={id["rect"]} splitscreen={false}>
 	<div slot="background">
@@ -491,7 +391,8 @@
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
-		PA-X Gender physicalization project. [include video and screenshots here]
+		PA-X Gender physicalization project. [include video and screenshots
+		here]
 	</p>
 </Filler>
 
@@ -728,10 +629,13 @@
 </Scroller> -->
 
 <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
-	<p class="text-big">How do we gather the agreements? How are they processed?  [where to include provenance?<br> beginning/end/between sections?]</p>
+	<p class="text-big">
+		How do we gather the agreements? How are they processed? [where to
+		include provenance?<br /> beginning/end/between sections?]
+	</p>
 </Filler>
 
-<Divider shadow={true}/>
+<Divider shadow={true} />
 
 <Scroller {threshold} bind:id={id["prov"]} splitscreen={false} shadow={true}>
 	<div slot="background">
@@ -747,9 +651,7 @@
 	<div slot="foreground">
 		<section data-id="prov01">
 			<div class="col-medium">
-				<p style="text-align: center;">
-					sources
-				</p>
+				<p style="text-align: center;">sources</p>
 			</div>
 		</section>
 		<section data-id="prov02">
