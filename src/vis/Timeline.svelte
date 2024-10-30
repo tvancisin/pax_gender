@@ -285,6 +285,42 @@
             return result;
         });
     } else if (step == "3" && pax_timeline) {
+
+        let previousYear = null; // Track the last year seen
+        let index = 0; // Index that changes based on GeWom value
+
+        rendered_data = degrouped_pax.map((d) => {
+            const currentYear = d.Dat.substring(6, 10);
+
+            // Reset index if the year has changed
+            if (currentYear !== previousYear) {
+                index = 0;
+                previousYear = currentYear;
+            }
+
+            let result;
+            // Adjust index based on GeWom value
+            if (d.WggGenQuot === "1") {
+                index += 1;
+                result = {
+                    x1: xScale(currentYear),
+                    x2: xScale.bandwidth(),
+                    y1: yScale(index),
+                    y2: yScale(index),
+                };
+            } else if (d.WggGenQuot === "0") {
+                result = {
+                    x1: xScale(currentYear),
+                    x2: xScale.bandwidth(),
+                    y1: 150,
+                    y2: 150,
+                };
+            }
+
+            // Return the result using the updated index value
+
+            return result;
+        });
         // current_pax = pax_timeline.slice(0, 3);
         // current_central_points = get_current_central_points([
         //     current_pax[current_pax.length - 1],
