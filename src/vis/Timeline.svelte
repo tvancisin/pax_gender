@@ -8,24 +8,33 @@
         most_women,
         get_current_isos,
         get_current_central_points,
+        full_grid,
+        pax_stages_grid,
+        pax_stages_filter_grid,
+        full_grid_filter,
     } from "../utils";
     import Point from "./Point.svelte";
 
     export let pax;
+    export let pax_stages;
     export let mygeojson;
     export let pax_timeline;
     export let pax_gender;
     export let step;
     export let central_points;
+    export let afghanistan;
 
     let width = 400;
     let height = 400;
     let rendered_data;
+    let gap = 3;
     let current_pax;
     let current_years;
     let current_central_points;
     let cumulative_isos;
     let reorder = true;
+    let initialPaxCount;
+    let gender_text_position;
     let innerWidth, innerHeight, xScale, yScale;
     const margin = { top: 20, right: 20, bottom: 20, left: 40 };
 
@@ -38,14 +47,16 @@
         .range([0, innerWidth])
         .padding(0.1);
 
-    $: yScale = d3.scaleLinear().domain([0, 100]).range([100, 0]);
+    $: yScale = d3.scaleLinear().domain([0, 100]).range([innerHeight, 0]);
+    $: yHeight = d3.scaleLinear().domain([0, 40000]).range([0, innerHeight]);
 
-    //init
-    $: if (pax) {
+    //initial functions
+    $: if (pax && pax_stages) {
         // current_years = pax_timeline.map((d) => d[0]);
-        current_central_points = get_current_central_points(pax);
-        cumulative_isos = get_current_isos(pax);
+        // current_central_points = get_current_central_points(pax);
+        // cumulative_isos = get_current_isos(pax);
 
+        // ALLPAX timeline
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that resets for each new year
         rendered_data = pax.map((d) => {
@@ -58,21 +69,20 @@
             }
 
             const result = {
-                x1: xScale(currentYear) + Math.random(),
-                x2: xScale.bandwidth() + Math.random(),
-                y1: yScale(index),
-                y2: yScale(index),
+                x: xScale(currentYear),
+                y: yScale(index),
+                width: xScale.bandwidth(),
+                height: 1,
             };
 
             index += 1; // Increment index for the next entry in the same year
             return result;
         });
     }
-
+    let blaa = [];
+    //steps
     $: if (step == "1") {
-        current_central_points = get_current_central_points(pax);
-        cumulative_isos = get_current_isos(pax);
-
+        // ALLPAX timeline
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that resets for each new year
         rendered_data = pax.map((d) => {
@@ -85,19 +95,17 @@
             }
 
             const result = {
-                x1: xScale(currentYear),
-                x2: xScale.bandwidth(),
-                y1: yScale(index),
-                y2: yScale(index),
+                x: xScale(currentYear),
+                y: yScale(index),
+                width: xScale.bandwidth(),
+                height: 1,
             };
 
             index += 1; // Increment index for the next entry in the same year
             return result;
         });
     } else if (step == "2") {
-        current_central_points = get_current_central_points(pax_gender);
-        cumulative_isos = get_current_isos(pax_gender);
-
+        //PAX gender timeline
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that changes based on GeWom value
         rendered_data = pax.map((d) => {
@@ -110,19 +118,18 @@
             }
 
             // Determine y position based on GeWom value
-            const yPosition = d.GeWom === "1" ? yScale(++index) : 150;
+            const yPosition =
+                d.GeWom === "1" ? yScale(++index) : innerHeight + 100;
 
             return {
-                x1: xScale(currentYear),
-                x2: xScale.bandwidth(),
-                y1: yPosition,
-                y2: yPosition,
+                x: xScale(currentYear),
+                y: yPosition,
+                width: xScale.bandwidth(),
+                height: 1,
             };
         });
-    } else if (step == "3" && pax_timeline) {
-        current_central_points = get_current_central_points(pax_gender);
-        cumulative_isos = get_current_isos(pax_gender);
-
+    } else if (step == "3") {
+        //PAX gender timeline
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that changes based on GeWom value
         rendered_data = pax.map((d) => {
@@ -135,43 +142,134 @@
             }
 
             // Determine y position based on GeWom value
-            const yPosition = d.WggGenQuot === "1" ? yScale(++index) : 150;
+            const yPosition =
+                d.Con === "Afghanistan" ? yScale(++index) : innerHeight + 100;
 
             return {
-                x1: xScale(currentYear),
-                x2: xScale.bandwidth(),
-                y1: yPosition,
-                y2: yPosition,
+                x: xScale(currentYear),
+                y: yPosition,
+                width: xScale.bandwidth(),
+                height: 1,
+            };
+        });
+    } else if (step == "4") {
+        //PAX gender timeline
+        let previousYear = null; // Track the last year seen
+        let index = 0; // Index that changes based on GeWom value
+
+        rendered_data = pax.map((d) => {
+            // Calculate the width of each part and apply a gap
+            const partWidth = innerWidth / 22;
+            const elementWidth = partWidth - 4; // Leave 4px gap
+
+            // Set x position based on the current index
+            const xPosition = index * partWidth;
+
+            // Determine y position based on GeWom value
+            const yPosition =
+                d.Con === "Afghanistan" ? innerHeight : innerHeight + 100;
+
+            // Increment index only if d.Con is "Afghanistan"
+            if (d.Con === "Afghanistan") {
+                index++;
+                // Reset index if it exceeds 22 parts to loop back
+                if (index >= 22) {
+                    index = 0;
+                }
+            }
+
+            return {
+                x: xPosition,
+                y: yPosition,
+                width: elementWidth,
+                height: 1,
+            };
+        });
+    } else if (step == "5") {
+        blaa = []; // Reset `blaa` before populating it in this step
+
+        function construct_gender(id, x, w, h, y) {
+            let filteredResults = afghanistan.filter(
+                (item) => item.AgtID === id,
+            );
+
+            if (filteredResults.length !== 0) {
+                filteredResults.forEach((d) => {
+
+                    // Push the new object into the persistent `blaa` array
+                    blaa.push({
+                        x: x,
+                        y: y + (h / 100) * d.provisionLocation,
+                        width: w,
+                        height: 1,
+                    });
+                });
+                // Reassign `blaa` to itself to trigger reactivity
+                blaa = [...blaa];
+            }
+        }
+
+        let index = 0; // Index that changes based on GeWom value
+        rendered_data = pax.map((d) => {
+            // Calculate the width of each part and apply a gap
+            const partWidth = innerWidth / 22;
+            const elementWidth = partWidth - 4; // Leave 4px gap
+
+            // Set x position based on the current index
+            let xPosition = index * partWidth;
+            let agt_height;
+            let yPosition;
+            // Increment index only if d.Con is "Afghanistan"
+            if (d.Con === "Afghanistan") {
+                index++;
+                // Reset index if it exceeds 22 parts to loop back
+                if (index >= 22) {
+                    index = 0;
+                }
+
+                yPosition = innerHeight - yHeight(d.N_characters);
+                agt_height = yHeight(d.N_characters);
+                construct_gender(
+                    d.AgtId,
+                    xPosition,
+                    elementWidth,
+                    agt_height,
+                    yPosition,
+                );
+            } else {
+                yPosition = innerHeight + 100;
+                agt_height = 0;
+            }
+
+            return {
+                x: xPosition,
+                y: yPosition,
+                width: elementWidth,
+                height: agt_height,
             };
         });
     }
+
+    $: console.log(blaa);
 
     function formatMobile(tick) {
         return "'" + tick.toString().slice(-2);
     }
 
-    $: console.log("rendered data: ", rendered_data);
-    $: console.log("central points: ", central_points);
+    // $: console.log("rendered data: ", rendered_data);
+    // $: console.log("central points: ", central_points);
 </script>
 
-{#if rendered_data && mygeojson}
+{#if rendered_data && mygeojson && pax_timeline}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
         {#if mygeojson}
             <LayerCake data={mygeojson}>
                 <Svg>
-                    <Map1
-                        projectionName={"geoNaturalEarth1"}
-                        {cumulative_isos}
-                    />
-                    <!-- <Point
-                        projectionName={"geoNaturalEarth1"}
-                        pointsData={current_central_points}
-                    /> -->
                     <g
-                        transform="translate({margin.left}, {innerHeight -
-                            150})"
+                        class="timeline"
+                        transform="translate({margin.left}, {margin.top})"
                     >
-                        <g class="axis x-axis">
+                        <!-- <g class="axis x-axis">
                             {#each years as tick}
                                 <g
                                     class="tick tick-{tick}"
@@ -185,20 +283,35 @@
                                     >
                                 </g>
                             {/each}
-                        </g>
+                        </g> -->
 
-                        {#each rendered_data as d}
+                        {#each rendered_data as d, i}
                             <IndividualLine
-                                x1={d.x1}
-                                x2={d.x2}
-                                y1={d.y1}
-                                y2={d.y2}
+                                {i}
+                                x={d.x}
+                                y={d.y}
+                                width={d.width}
+                                height={d.height}
+                            />
+                        {/each}
+                        {#each blaa as d}
+                            <rect
+                                x={d.x}
+                                y={+d.y}
+                                width={d.width}
+                                height={d.height}
+                                fill="white"
                             />
                         {/each}
                     </g>
                 </Svg>
             </LayerCake>
         {/if}
+        <!-- x1={d.x1}
+                                x2={d.x2}
+                                y1={d.y1}
+                                y2={d.y2} -->
+
         <!-- <svg {width} {height}>
             <g transform="translate({margin.left}, {innerHeight - 200})">
                 <g class="axis x-axis">

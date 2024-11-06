@@ -7,7 +7,7 @@ let central_points;
 
 // Subscribe to the store
 centralPointsStore.subscribe((value) => {
-    central_points = value;
+  central_points = value;
 });
 
 
@@ -81,7 +81,6 @@ export async function getGEO(url) {
   const response = d3.json(url)
   return response;
 }
-
 
 // Create a line generator using d3.line with curveMonotoneX to maintain left-to-right flow
 export const lineGenerator = d3
@@ -199,7 +198,7 @@ export function get_current_isos(data) {
   let iso_array = [];
   //construct array of iso's
   data.forEach((d) => {
-      iso_array.push(d.Loc1ISO); // Reassign to iso_array
+    iso_array.push(d.Loc1ISO); // Reassign to iso_array
   });
   //remove duplicates
   iso_array = [...new Set(iso_array)];
@@ -210,32 +209,231 @@ export function get_current_isos(data) {
 //central points for map
 export function get_current_central_points(pax) {
   let current_isos = pax
-      .map((d) => {
-          if (d.GeWom == "1") {
-              return d.Loc1ISO;
-          }
-      })
-      .filter((iso) => iso !== undefined && iso !== null);
+    .map((d) => {
+      if (d.GeWom == "1") {
+        return d.Loc1ISO;
+      }
+    })
+    .filter((iso) => iso !== undefined && iso !== null);
 
   // Create the new array of objects
   let points = current_isos
-      .map((code) => {
-          // Find the matching country object
-          const country = central_points.find((c) => c.iso_code === code);
+    .map((code) => {
+      // Find the matching country object
+      const country = central_points.find((c) => c.iso_code === code);
 
-          if (country) {
-              return {
-                  name: country.name,
-                  code: code,
-                  longitude: +country.central_longitude,
-                  latitude: +country.central_latitude,
-              };
-          } else {
-              // Return null or any fallback in case no match is found
-              return null;
-          }
-      })
-      .filter((item) => item !== null); // Remove null entries
+      if (country) {
+        return {
+          name: country.name,
+          code: code,
+          longitude: +country.central_longitude,
+          latitude: +country.central_latitude,
+        };
+      } else {
+        // Return null or any fallback in case no match is found
+        return null;
+      }
+    })
+    .filter((item) => item !== null); // Remove null entries
 
   return points;
+}
+
+//initial grid construction
+export function full_grid(pax, innerHeight, innerWidth, initialPaxCount, gap) {
+  // Dynamically calculate the number of columns based on the width and the initial pax count
+  let numCols = Math.ceil(
+    Math.sqrt(initialPaxCount * (innerWidth / innerHeight)),
+  );
+  let numRows = Math.ceil(initialPaxCount / numCols);
+
+  // Calculate available space after accounting for gaps
+  let totalGapX = (numCols - 1) * gap;
+  let totalGapY = (numRows - 1) * gap;
+
+  // Compute the width and height of each rectangle, accounting for gaps
+  let rectWidth = (innerWidth - totalGapX) / numCols;
+  let rectHeight = (innerHeight - totalGapY) / numRows;
+
+  let rendered_data = pax.map((d, i) => {
+    return {
+      x: (i % numCols) * (rectWidth + gap),
+      y:
+        innerHeight -
+        (Math.floor(i / numCols) + 1) * (rectHeight + gap),
+      width: rectWidth,
+      height: rectHeight,
+    };
+  });
+  return rendered_data;
+}
+
+//full grid but with filter
+export function full_grid_filter(pax, innerHeight, innerWidth, initialPaxCount, gap) {
+  // Dynamically calculate the number of columns based on the width and the initial pax count
+  let numCols = Math.ceil(
+    Math.sqrt(initialPaxCount * (innerWidth / innerHeight)),
+  );
+  let numRows = Math.ceil(initialPaxCount / numCols);
+
+  // Calculate available space after accounting for gaps
+  let totalGapX = (numCols - 1) * gap;
+  let totalGapY = (numRows - 1) * gap;
+
+  // Compute the width and height of each rectangle, accounting for gaps
+  let rectWidth = (innerWidth - totalGapX) / numCols;
+  let rectHeight = (innerHeight - totalGapY) / numRows;
+
+  let index = 0; // Only increment for GeWom === "1" entries
+
+  let rendered_data = pax.map((d) => {
+    if (d.GeWom === "0") {
+      // For entries with GeWom === "0", set them off-screen
+      return {
+        x: (index % numCols) * (rectWidth + gap),
+        y: innerHeight + 100,
+        width: rectWidth,
+        height: rectHeight,
+      };
+    }
+
+    // Calculate x and y based on current index
+    const x = (index % numCols) * (rectWidth + gap);
+    const y =
+      innerHeight - (Math.floor(index / numCols) + 1) * (rectHeight + gap);
+
+    index++; // Increment only for GeWom === "1"
+
+    return {
+      x: x,
+      y: y,
+      width: rectWidth,
+      height: rectHeight,
+    };
+  });
+
+  return rendered_data;
+}
+
+export function pax_stages_grid(pax_stages, innerHeight, innerWidth) {
+  // Define stage names in the order they should appear as columns
+  // Define the external column gap and internal cell gap
+  let columns = pax_stages;
+  let columnGap = 10; // Gap between each stage column
+  let cellGap = 2; // Internal gap between rectangles within each column
+  let numColumns = 7; // Total columns for each stage
+  let cellsPerRow = 10; // 10 cells horizontally per column
+
+  // Calculate the width of each stage column, accounting for column gaps
+  let rectWidth =
+    (innerWidth - (numColumns - 1) * columnGap) / numColumns;
+
+  // Calculate the width of each cell within a column, accounting for internal gaps
+  let cellWidth = (rectWidth - (cellsPerRow - 1) * cellGap) / cellsPerRow;
+
+  // Calculate the number of rows needed based on the largest stage dataset
+  let maxEntries = Math.max(
+    ...columns.map(([stage, entries]) => entries.length),
+  );
+  let numRows = Math.ceil(maxEntries / cellsPerRow);
+
+  // Calculate the height of each cell within a column to fit `innerHeight`, including gaps
+  let cellHeight = (innerHeight - (numRows - 1) * cellGap) / numRows;
+
+  // Render data for each stage column
+  let rendered_data = columns.flatMap(([stage, entries], colIndex) => {
+    return entries.map((d, i) => {
+      // Calculate x based on column index and gap
+      let x = colIndex * (rectWidth + columnGap);
+
+      // Calculate row and column indices for each cell
+      let row = Math.floor(i / cellsPerRow); // New row every 10 entries
+      let col = i % cellsPerRow; // Position within the 10-column grid
+
+      // Calculate y position from bottom to top
+      let y = innerHeight - (row + 1) * (cellHeight + cellGap);
+
+      return {
+        x: x + col * (cellWidth + cellGap), // Horizontal position within column's grid
+        y: y, // Vertical position from bottom to top
+        width: cellWidth, // Adjusted width to fit screen
+        height: cellHeight, // Adjusted height to fit screen
+      };
+    });
+  });
+  return rendered_data;
+}
+
+//stages gid with filter
+export function pax_stages_filter_grid(
+  pax_stages,
+  innerHeight,
+  innerWidth,
+  filter,
+) {
+  // Define stage names in the order they should appear as columns
+  let columns = pax_stages;
+  // Define the external column gap and internal cell gap
+  let columnGap = 10; // Gap between each stage column
+  let cellGap = 2; // Internal gap between rectangles within each column
+  let numColumns = 7; // Total columns for each stage
+  let cellsPerRow = 10; // 10 cells horizontally per column
+
+  // Calculate the width of each stage column, accounting for column gaps
+  let rectWidth =
+    (innerWidth - (numColumns - 1) * columnGap) / numColumns;
+
+  // Calculate the width of each cell within a column, accounting for internal gaps
+  let cellWidth = (rectWidth - (cellsPerRow - 1) * cellGap) / cellsPerRow;
+
+  // Calculate the number of rows needed based on the largest stage dataset
+  let maxEntries = Math.max(
+    ...columns.map(([stage, entries]) => entries.length),
+  );
+  let numRows = Math.ceil(maxEntries / cellsPerRow);
+
+  // Calculate the height of each cell within a column to fit `innerHeight`, including gaps
+  let cellHeight = (innerHeight - (numRows - 1) * cellGap) / numRows;
+
+  // Render data for each stage column
+  let rendered_data = columns.flatMap(([stage, entries], colIndex) => {
+    let currentRow = 0; // Track the current row for "GeWom" entries equal to "1"
+    let currentCol = 0; // Track the current column within each row for "GeWom" entries equal to "1"
+
+    return entries.map((d) => {
+      // For entries with GeWom == "0", place them off-screen
+      if (d[filter] === "0") {
+        return {
+          x: colIndex * (rectWidth + columnGap) +
+        currentCol * (cellWidth + cellGap), // Off-screen x position
+          y: innerHeight + 100, // Off-screen y position
+          width: cellWidth,
+          height: cellHeight,
+        };
+      }
+
+      // Calculate x based on current column and column index
+      let x =
+        colIndex * (rectWidth + columnGap) +
+        currentCol * (cellWidth + cellGap);
+
+      // Calculate y position from bottom to top for GeWom == "1"
+      let y = innerHeight - (currentRow + 1) * (cellHeight + cellGap);
+
+      // Update column and row positions
+      currentCol++;
+      if (currentCol >= cellsPerRow) {
+        currentCol = 0; // Reset column position
+        currentRow++; // Move to the next row
+      }
+
+      return {
+        x: x, // Horizontal position within column's grid
+        y: y, // Vertical position based on row
+        width: cellWidth, // Adjusted width to fit screen
+        height: cellHeight, // Adjusted height to fit screen
+      };
+    });
+  });
+  return rendered_data;
 }

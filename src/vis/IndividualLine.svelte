@@ -4,43 +4,51 @@
     import * as d3 from "d3";
     import { generateHandwrittenLine, lineGenerator } from "../utils";
 
-    export let x1;
-    export let x2;
-    export let y1;
-    export let y2;
+    export let x;
+    export let y;
+    export let width;
+    export let height;
+    export let i;
 
-    const tX1 = tweened(null, { duration: 1000, easing: cubicOut });
-    const tX2 = tweened(null, { duration: 1000, easing: cubicOut });
-    const tY1 = tweened(null, { duration: 1000, easing: cubicOut });
-    const tY2 = tweened(null, { duration: 1000, easing: cubicOut });
+    // // Separate transition parameters for each stage
+    // const sizeTweenParams = {
+    //     duration: 500,
+    //     easing: cubicOut,
+    // };
 
-    $: tX1.set(x1);
-    $: tX2.set(x2);
-    $: tY1.set(y1);
-    $: tY2.set(y2);
+    const positionTweenParams = (delay) => ({
+        delay: 500 + delay * 2, // Start after size transition
+        duration: 250,
+        easing: cubicOut,
+    });
 
-    function assign_class(entry) {
-        // if (entry.GeWom == "1") {
-        return "women";
-        // }
-    }
+    // Separate tweens for size
+    // const tWidth = tweened(null, sizeTweenParams);
+    // const tHeight = tweened(null, sizeTweenParams);
 
-    // $: if (reorder) {
-    //     entries = [...entries].sort((a, b) =>
-    //         assign_class(a) === "women" ? 1 : -1,
-    //     );
-    // }
+    // Separate tweens for position with staggered delay
+    // const tX = tweened(null, positionTweenParams(i));
+    // const tY = tweened(null, positionTweenParams(i));
+
+    const tX = tweened(null, positionTweenParams);
+    const tY = tweened(null, positionTweenParams);
+    const tWidth = tweened(null, { duration: 300, easing: cubicOut });
+    const tHeight = tweened(null, positionTweenParams);
+
+    // Update size tweens first
+    // $: tWidth.set(width);
+    // $: tHeight.set(height);
+
+    // Update position tweens after size animation completes
+    $: tX.set(x);
+    $: tY.set(y);
+    $: tWidth.set(width);
+    $: tHeight.set(height);
 </script>
 
-<g transform="translate({$tX1} {$tY1})">
-    <line x1={0} x2={$tX2} y1={$tY1} y2={$tY2} stroke="black" />
+<g transform="translate({$tX} {$tY})">
+    <rect x="0" y="0" width={$tWidth} height={$tHeight} />
 </g>
 
 <style>
-    .women {
-        stroke: black;
-    }
-    line {
-        shape-rendering: crispEdges;
-    }
 </style>

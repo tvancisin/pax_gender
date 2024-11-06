@@ -16,10 +16,12 @@
 	import Arrow from "./ui/Arrow.svelte";
 	import Em from "./ui/Em.svelte";
 	import Lines from "./vis/Lines.svelte";
-	import Timeline from "./vis/Timeline.svelte";
+	import Stages from "./vis/Stages.svelte";
 	import Rectangles from "./vis/Rectangles.svelte";
 	import { setColors, getGEO, getCSV } from "./utils.js";
 	import { centralPointsStore } from "./store";
+	import Timeline from "./vis/Timeline.svelte";
+	import Geography from "./vis/Geography.svelte";
 
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
 	let theme = "light";
@@ -39,17 +41,25 @@
 	});
 
 	// Element bindings
-	let map = null; // Bound to mapbox 'map' instance once initialised
+	// let map = null; // Bound to mapbox 'map' instance once initialised
 	let step = null;
 
 	// Actions for Scroller components
 	const actions = {
 		map: {
 			// Actions for <Scroller/> with id="map"
-			map01: () => {},
-			map02: () => {},
-			map03: () => {},
-			map04: () => {},
+			map01: () => {
+				step = "map_one";
+			},
+			map02: () => {
+				step = "map_two";
+			},
+			map03: () => {
+				step = "map_three";
+			},
+			map04: () => {
+				step = "map_four";
+			},
 		},
 		rect: {
 			rect01: () => {
@@ -80,6 +90,20 @@
 			},
 			chart05: () => {
 				step = "five";
+			},
+		},
+		stage: {
+			stage01: () => {
+				step = "stage01";
+			},
+			stage02: () => {
+				step = "stage02";
+			},
+			stage03: () => {
+				step = "stage03";
+			},
+			stage04: () => {
+				step = "stage04";
 			},
 		},
 		time: {
@@ -131,6 +155,7 @@
 		"./data/pax_gender_text.csv",
 		"./data/text_corr.csv",
 		"./data/wgg_text.csv",
+		"./data/gender_provisions_afghanistan.csv",
 	];
 	let pax;
 	let pax_gender;
@@ -140,6 +165,8 @@
 	let pax_timeline;
 	let central_points;
 	let wgg_text;
+	let pax_stages;
+	let afghanistan;
 	getCSV(path).then((data) => {
 		pax = data[0];
 		pax_gender = data[1];
@@ -149,6 +176,7 @@
 		pax_gender_text = data[3];
 		corr_text = data[4];
 		wgg_text = data[5];
+		afghanistan = data[6];
 
 		// add text to every pax_gender agt
 		pax_gender.forEach((genderItem) => {
@@ -205,6 +233,10 @@
 			return d3.ascending(x.Dat.substring(6, 10), y.Dat.substring(6, 10));
 		});
 
+		//group by agreement stages
+		pax_stages = d3.groups(pax, (d) => d.Stage);
+		console.log(pax_stages);
+
 		//group by date for timeline vis
 		pax_gender_timeline = d3.groups(pax_gender, (d) =>
 			d.Dat.substring(0, 4),
@@ -230,20 +262,37 @@
 	</p>
 </Header>
 
+<Divider />
+
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
-		PA-X maintains the biggest database of peace agreements in the world.
+		<strong>Peace Process</strong> is an attempt to bring political and/or
+		military <br /> protagonists to an agreement that could end their conflict.
 	</p>
 </Filler>
 
-<Scroller {threshold} bind:id={id["time"]} splitscreen={false} shadow={false}>
+<Divider />
+
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+	<p class="text-big">
+		<strong>Peace Process Stages</strong> include Ceasefire,
+		Pre-Negotiation,<br /> Partial Agreement, Comprehensive Agreement, Implementation,
+		Renewal and Other.
+	</p>
+</Filler>
+
+<Divider />
+
+<!-- STAGES -->
+<Scroller {threshold} bind:id={id["stage"]} splitscreen={false} shadow={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="time">
-					<Timeline
+				<div class="stage">
+					<Stages
 						{mygeojson}
 						{central_points}
+						{pax_stages}
 						{pax}
 						{pax_timeline}
 						{pax_gender}
@@ -255,19 +304,172 @@
 	</div>
 
 	<div slot="foreground">
+		<section data-id="stage01">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					PA-X maintains the biggest database of peace agreements in
+					the world. Every rectangle in this view represents one of
+					2055 agreements.
+				</p>
+			</div>
+		</section>
+		<section data-id="stage02">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					436/2055 agreements contain references to gender.
+				</p>
+			</div>
+		</section>
+		<section data-id="stage03">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					<strong>Peace Process Stages</strong> include Ceasefire,
+					Pre-Negotiation,<br /> Partial Agreement, Comprehensive Agreement,
+					Implementation, Renewal and Other.
+				</p>
+			</div>
+		</section>
+		<section data-id="stage04">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Agreements containing gener references show that women are
+					included more in the comprehensive stages of peace
+					processes.
+				</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
+
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+	<p class="text-big">Timeline</p>
+</Filler>
+
+<!-- TIME -->
+<Scroller {threshold} bind:id={id["time"]} splitscreen={false} shadow={false}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				<div class="time">
+					<Timeline
+						{mygeojson}
+						{central_points}
+						{pax_stages}
+						{pax}
+						{pax_timeline}
+						{pax_gender}
+						{step}
+						{afghanistan}
+					/>
+				</div>
+			</div>
+		</figure>
+	</div>
+
+	<div slot="foreground">
 		<section data-id="time01">
 			<div class="col-medium">
-				<p style="text-align: center;">All</p>
+				<p style="text-align: center;">
+					PA-X maintains the biggest database of peace agreements in
+					the world. Every rectangle in this view represents one of
+					2055 agreements.
+				</p>
 			</div>
 		</section>
 		<section data-id="time02">
 			<div class="col-medium">
-				<p style="text-align: center;">gender</p>
+				<p style="text-align: center;">
+					436/2055 agreements contain references to gender.
+				</p>
 			</div>
 		</section>
 		<section data-id="time03">
 			<div class="col-medium">
-				<p style="text-align: center;">quotas</p>
+				<p style="text-align: center;">
+					<strong>Peace Process Stages</strong> include Ceasefire,
+					Pre-Negotiation,<br /> Partial Agreement, Comprehensive Agreement,
+					Implementation, Renewal and Other.
+				</p>
+			</div>
+		</section>
+		<section data-id="time04">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Agreements containing gener references show that women are
+					included more in the comprehensive stages of peace
+					processes.
+				</p>
+			</div>
+		</section>
+		<section data-id="time05">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Agreements containing gener references show that women are
+					included more in the comprehensive stages of peace
+					processes.
+				</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
+
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+	<p class="text-big">Geography</p>
+</Filler>
+
+<!-- Map -->
+<Scroller {threshold} bind:id={id["map"]} splitscreen={false} shadow={false}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				<div class="map">
+					<Geography
+						{mygeojson}
+						{central_points}
+						{pax_stages}
+						{pax}
+						{pax_timeline}
+						{pax_gender}
+						{step}
+					/>
+				</div>
+			</div>
+		</figure>
+	</div>
+
+	<div slot="foreground">
+		<section data-id="map01">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					PA-X maintains the biggest database of peace agreements in
+					the world. Every rectangle in this view represents one of
+					2055 agreements.
+				</p>
+			</div>
+		</section>
+		<section data-id="map02">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					436/2055 agreements contain references to gender.
+				</p>
+			</div>
+		</section>
+		<section data-id="map03">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					<strong>Peace Process Stages</strong> include Ceasefire,
+					Pre-Negotiation,<br /> Partial Agreement, Comprehensive Agreement,
+					Implementation, Renewal and Other.
+				</p>
+			</div>
+		</section>
+		<section data-id="map04">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Agreements containing gener references show that women are
+					included more in the comprehensive stages of peace
+					processes.
+				</p>
 			</div>
 		</section>
 	</div>
@@ -396,238 +598,6 @@
 	</p>
 </Filler>
 
-<!-- 
-<Scroller {threshold} bind:id={id["close_read"]} splitscreen={false}>
-	<div slot="background">
-		<figure>
-			<div class="col-wide height-full">
-				<div class="close_read">
-					<img id="agreement" src="./img/jinrui.PNG" />
-				</div>
-			</div>
-		</figure>
-	</div>
-
-	<div slot="foreground">
-		<section data-id="close01">
-			<div class="col-medium">
-				<p style="text-align: center;">Text</p>
-			</div>
-		</section>
-		<section data-id="close02">
-			<div class="col-medium">
-				<p style="text-align: center;">Text</p>
-			</div>
-		</section>
-	</div>
-</Scroller> -->
-
-<!-- 
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">Agreements over Time</p>
-</Filler> -->
-
-<!-- <Scroller {threshold} bind:id={id["time"]} splitscreen={false}>
-	<div slot="background">
-		<figure>
-			<div class="col-wide height-full">
-				<div class="time">
-					<Timeline
-						{mygeojson}
-						{pax_gender_timeline}
-						{pax_timeline}
-						{pax_gender}
-						{step}
-						{central_points}
-					/>
-				</div>
-			</div>
-		</figure>
-	</div>
-
-	<div slot="foreground">
-		<section data-id="time01">
-			<div class="col-medium">
-				<p style="text-align: center;">1990</p>
-			</div>
-		</section>
-		<section data-id="time02">
-			<div class="col-medium">
-				<p style="text-align: center;">1991</p>
-			</div>
-		</section>
-		<section data-id="time03">
-			<div class="col-medium">
-				<p style="text-align: center;">1992</p>
-			</div>
-		</section>
-		<section data-id="time04">
-			<div class="col-medium">
-				<p style="text-align: center;">1993</p>
-			</div>
-		</section>
-		<section data-id="time05">
-			<div class="col-medium">
-				<p style="text-align: center;">1994</p>
-			</div>
-		</section>
-		<section data-id="time06">
-			<div class="col-medium">
-				<p style="text-align: center;">1995</p>
-			</div>
-		</section>
-		<section data-id="time07">
-			<div class="col-medium">
-				<p style="text-align: center;">1996</p>
-			</div>
-		</section>
-		<section data-id="time08">
-			<div class="col-medium">
-				<p style="text-align: center;">1997</p>
-			</div>
-		</section>
-		<section data-id="time09">
-			<div class="col-medium">
-				<p style="text-align: center;">1998</p>
-			</div>
-		</section>
-		<section data-id="time10">
-			<div class="col-medium">
-				<p style="text-align: center;">1999</p>
-			</div>
-		</section>
-		<section data-id="time11">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					The United Nations Security Council adopts resolution
-					(S/RES/1325) on women and peace and security on 31 October
-					2000.
-				</p>
-			</div>
-		</section>
-		<section data-id="time12">
-			<div class="col-medium">
-				<p style="text-align: center;">2001</p>
-			</div>
-		</section>
-		<section data-id="time13">
-			<div class="col-medium">
-				<p style="text-align: center;">2002</p>
-			</div>
-		</section>
-		<section data-id="time14">
-			<div class="col-medium">
-				<p style="text-align: center;">2003</p>
-			</div>
-		</section>
-		<section data-id="time15">
-			<div class="col-medium">
-				<p style="text-align: center;">2004</p>
-			</div>
-		</section>
-		<section data-id="time16">
-			<div class="col-medium">
-				<p style="text-align: center;">2005</p>
-			</div>
-		</section>
-		<section data-id="time17">
-			<div class="col-medium">
-				<p style="text-align: center;">2006</p>
-			</div>
-		</section>
-		<section data-id="time18">
-			<div class="col-medium">
-				<p style="text-align: center;">2007</p>
-			</div>
-		</section>
-		<section data-id="time19">
-			<div class="col-medium">
-				<p style="text-align: center;">2008</p>
-			</div>
-		</section>
-		<section data-id="time20">
-			<div class="col-medium">
-				<p style="text-align: center;">2009</p>
-			</div>
-		</section>
-		<section data-id="time21">
-			<div class="col-medium">
-				<p style="text-align: center;">2010</p>
-			</div>
-		</section>
-		<section data-id="time22">
-			<div class="col-medium">
-				<p style="text-align: center;">2011</p>
-			</div>
-		</section>
-		<section data-id="time23">
-			<div class="col-medium">
-				<p style="text-align: center;">2012</p>
-			</div>
-		</section>
-		<section data-id="time24">
-			<div class="col-medium">
-				<p style="text-align: center;">2013</p>
-			</div>
-		</section>
-		<section data-id="time25">
-			<div class="col-medium">
-				<p style="text-align: center;">2014</p>
-			</div>
-		</section>
-		<section data-id="time26">
-			<div class="col-medium">
-				<p style="text-align: center;">2015</p>
-			</div>
-		</section>
-		<section data-id="time27">
-			<div class="col-medium">
-				<p style="text-align: center;">2016</p>
-			</div>
-		</section>
-		<section data-id="time28">
-			<div class="col-medium">
-				<p style="text-align: center;">2017</p>
-			</div>
-		</section>
-		<section data-id="time29">
-			<div class="col-medium">
-				<p style="text-align: center;">2018</p>
-			</div>
-		</section>
-		<section data-id="time30">
-			<div class="col-medium">
-				<p style="text-align: center;">2019</p>
-			</div>
-		</section>
-		<section data-id="time31">
-			<div class="col-medium">
-				<p style="text-align: center;">2020</p>
-			</div>
-		</section>
-		<section data-id="time32">
-			<div class="col-medium">
-				<p style="text-align: center;">2021</p>
-			</div>
-		</section>
-		<section data-id="time33">
-			<div class="col-medium">
-				<p style="text-align: center;">2022</p>
-			</div>
-		</section>
-		<section data-id="time34">
-			<div class="col-medium">
-				<p style="text-align: center;">2023</p>
-			</div>
-		</section>
-		<section data-id="time35">
-			<div class="col-medium">
-				<p style="text-align: center;">Reorder</p>
-			</div>
-		</section>
-	</div>
-</Scroller> -->
-
 <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
 	<p class="text-big">
 		How do we gather the agreements? How are they processed? [where to
@@ -683,7 +653,9 @@
 	}
 	.chart,
 	.rect,
-	.time {
+	.time,
+	.map,
+	.stage {
 		margin-top: 40px;
 		width: calc(100% - 5px);
 	}
