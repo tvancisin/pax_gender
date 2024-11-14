@@ -21,9 +21,9 @@
 
     $: if (cumulative_isos) {
         let filteredIsos = cumulative_isos.filter((iso) => iso !== "");
-        d3.selectAll(".country").style("fill", "#e6e6e6");
+        d3.selectAll(".country").style("fill", " #4d4d4d");
         filteredIsos.forEach((iso) => {
-            d3.selectAll("." + iso).style("fill", "black");
+            d3.selectAll("." + iso).style("fill", "#f6f1d6");
         });
     }
 
@@ -36,8 +36,8 @@
 
     function initial_fill(polygon) {
         return cumulative_isos.includes(polygon.properties.adm0_iso)
-            ? "black"
-            : "#e6e6e6";
+            ? "#f6f1d6"
+            : "#4d4d4d";
     }
 
 </script>

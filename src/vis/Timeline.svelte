@@ -2,18 +2,7 @@
     import * as d3 from "d3";
     import IndividualLine from "./IndividualLine.svelte";
     import { LayerCake, Svg } from "layercake";
-    import Map1 from "./Map1.svelte";
-    import {
-        years,
-        most_women,
-        get_current_isos,
-        get_current_central_points,
-        full_grid,
-        pax_stages_grid,
-        pax_stages_filter_grid,
-        full_grid_filter,
-    } from "../utils";
-    import Point from "./Point.svelte";
+    import { years } from "../utils";
 
     export let pax;
     export let pax_stages;
@@ -27,14 +16,7 @@
     let width = 400;
     let height = 400;
     let rendered_data;
-    let gap = 3;
-    let current_pax;
-    let current_years;
-    let current_central_points;
-    let cumulative_isos;
-    let reorder = true;
-    let initialPaxCount;
-    let gender_text_position;
+    let gender_text = [];
     let innerWidth, innerHeight, xScale, yScale;
     const margin = { top: 20, right: 20, bottom: 20, left: 40 };
 
@@ -52,11 +34,6 @@
 
     //initial functions
     $: if (pax && pax_stages) {
-        // current_years = pax_timeline.map((d) => d[0]);
-        // current_central_points = get_current_central_points(pax);
-        // cumulative_isos = get_current_isos(pax);
-
-        // ALLPAX timeline
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that resets for each new year
         rendered_data = pax.map((d) => {
@@ -72,17 +49,16 @@
                 x: xScale(currentYear),
                 y: yScale(index),
                 width: xScale.bandwidth(),
-                height: 1,
+                height: 3,
             };
 
             index += 1; // Increment index for the next entry in the same year
             return result;
         });
     }
-    let blaa = [];
     //steps
     $: if (step == "1") {
-        // ALLPAX timeline
+        //full timeline
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that resets for each new year
         rendered_data = pax.map((d) => {
@@ -98,14 +74,14 @@
                 x: xScale(currentYear),
                 y: yScale(index),
                 width: xScale.bandwidth(),
-                height: 1,
+                height: 3,
             };
 
             index += 1; // Increment index for the next entry in the same year
             return result;
         });
     } else if (step == "2") {
-        //PAX gender timeline
+        //only pax gender
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that changes based on GeWom value
         rendered_data = pax.map((d) => {
@@ -125,11 +101,11 @@
                 x: xScale(currentYear),
                 y: yPosition,
                 width: xScale.bandwidth(),
-                height: 1,
+                height: 3,
             };
         });
     } else if (step == "3") {
-        //PAX gender timeline
+        //afghanistan only
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that changes based on GeWom value
         rendered_data = pax.map((d) => {
@@ -149,14 +125,12 @@
                 x: xScale(currentYear),
                 y: yPosition,
                 width: xScale.bandwidth(),
-                height: 1,
+                height: 3,
             };
         });
     } else if (step == "4") {
-        //PAX gender timeline
-        let previousYear = null; // Track the last year seen
+        //spreading afghanistan agts
         let index = 0; // Index that changes based on GeWom value
-
         rendered_data = pax.map((d) => {
             // Calculate the width of each part and apply a gap
             const partWidth = innerWidth / 22;
@@ -182,12 +156,12 @@
                 x: xPosition,
                 y: yPosition,
                 width: elementWidth,
-                height: 1,
+                height: 3,
             };
         });
     } else if (step == "5") {
-        blaa = []; // Reset `blaa` before populating it in this step
-
+        //lenghts of agreements and gender text highlight
+        gender_text = []; // Reset before populating it in this step
         function construct_gender(id, x, w, h, y) {
             let filteredResults = afghanistan.filter(
                 (item) => item.AgtID === id,
@@ -195,17 +169,16 @@
 
             if (filteredResults.length !== 0) {
                 filteredResults.forEach((d) => {
-
                     // Push the new object into the persistent `blaa` array
-                    blaa.push({
+                    gender_text.push({
                         x: x,
                         y: y + (h / 100) * d.provisionLocation,
                         width: w,
-                        height: 1,
+                        height: 3,
                     });
                 });
-                // Reassign `blaa` to itself to trigger reactivity
-                blaa = [...blaa];
+                // Reassign to itself to trigger reactivity
+                gender_text = [...gender_text];
             }
         }
 
@@ -250,8 +223,6 @@
         });
     }
 
-    $: console.log(blaa);
-
     function formatMobile(tick) {
         return "'" + tick.toString().slice(-2);
     }
@@ -294,54 +265,19 @@
                                 height={d.height}
                             />
                         {/each}
-                        {#each blaa as d}
+                        {#each gender_text as d}
                             <rect
                                 x={d.x}
                                 y={+d.y}
                                 width={d.width}
                                 height={d.height}
-                                fill="white"
+                                fill="black"
                             />
                         {/each}
                     </g>
                 </Svg>
             </LayerCake>
         {/if}
-        <!-- x1={d.x1}
-                                x2={d.x2}
-                                y1={d.y1}
-                                y2={d.y2} -->
-
-        <!-- <svg {width} {height}>
-            <g transform="translate({margin.left}, {innerHeight - 200})">
-                <g class="axis x-axis">
-                    {#each years as tick}
-                        <g
-                            class="tick tick-{tick}"
-                            transform="translate({xScale(tick) +
-                                xScale.bandwidth() / 2},{235})"
-                        >
-                            <text y="-2"
-                                >{innerWidth > 380
-                                    ? tick
-                                    : formatMobile(tick)}</text
-                            >
-                        </g>
-                    {/each}
-                </g>
-
-                {#each current_pax as [year, entries]}
-                    <IndividualLine
-                        x={xScale(year)}
-                        y={yScale(entries.length)}
-                        {innerHeight}
-                        width={xScale.bandwidth()}
-                        {entries}
-                        {reorder}
-                    />
-                {/each}
-            </g>
-        </svg> -->
     </div>
 {/if}
 

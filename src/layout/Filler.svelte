@@ -15,9 +15,7 @@
 </script>
 
 <section
-	style="color: {themes[theme]['text']}; {shadow_css}; background-color: {themes[theme][
-		'background'
-	]};"
+	style="color: white}; {shadow_css}; background-color: black};"
 >
 	<div
 		class="middle"

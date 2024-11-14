@@ -22,7 +22,7 @@
 <style>
   hr {
     width: 100px;
-    color: black;
+    color: white;
     border: none;
     border-top: 2px solid;
     /* margin: 40px auto -10px auto; */

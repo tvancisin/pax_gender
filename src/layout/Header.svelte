@@ -32,7 +32,7 @@
   }
 </style>
 
-<header style="color: {themes[theme]['text']}; background-color: {bgcolor ? bgcolor : themes[theme]['background']}; {style}" class:short>
+<header style="color: white}; background-color: black; {style}" class:short>
 	<div class="v-padded col-wide middle" style="position: relative" class:short class:height-full={!short}>
 		<div class:center>
 			<slot></slot>

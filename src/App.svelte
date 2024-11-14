@@ -250,21 +250,21 @@
 <Header
 	bgcolor="white"
 	bgfixed={false}
-	theme="light"
+	theme="black"
 	center={true}
 	short={false}
 >
 	<h1>PA-X Gender</h1>
 	<p style="margin-top: 5px">
-		This scrollytelling visualization uses PA-X Gender database to show how
-		and to what <br />
+		This scrollytelling visualization uses PA-X database to show how and to
+		what <br />
 		extent is gender taken into consideration in peacebuilding across the world.
 	</p>
 </Header>
 
-<Divider />
+<!-- <Divider /> -->
 
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+<!-- <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
 		<strong>Peace Process</strong> is an attempt to bring political and/or
 		military <br /> protagonists to an agreement that could end their conflict.
@@ -279,7 +279,7 @@
 		Pre-Negotiation,<br /> Partial Agreement, Comprehensive Agreement, Implementation,
 		Renewal and Other.
 	</p>
-</Filler>
+</Filler> -->
 
 <Divider />
 
@@ -369,44 +369,28 @@
 	<div slot="foreground">
 		<section data-id="time01">
 			<div class="col-medium">
-				<p style="text-align: center;">
-					PA-X maintains the biggest database of peace agreements in
-					the world. Every rectangle in this view represents one of
-					2055 agreements.
-				</p>
+				<p style="text-align: center;">agreements over the years</p>
 			</div>
 		</section>
 		<section data-id="time02">
 			<div class="col-medium">
-				<p style="text-align: center;">
-					436/2055 agreements contain references to gender.
-				</p>
+				<p style="text-align: center;">only pax-gender agreements</p>
 			</div>
 		</section>
 		<section data-id="time03">
 			<div class="col-medium">
-				<p style="text-align: center;">
-					<strong>Peace Process Stages</strong> include Ceasefire,
-					Pre-Negotiation,<br /> Partial Agreement, Comprehensive Agreement,
-					Implementation, Renewal and Other.
-				</p>
+				<p style="text-align: center;">afghanistan agreements</p>
 			</div>
 		</section>
 		<section data-id="time04">
 			<div class="col-medium">
-				<p style="text-align: center;">
-					Agreements containing gener references show that women are
-					included more in the comprehensive stages of peace
-					processes.
-				</p>
+				<p style="text-align: center;">afghanistan agreements</p>
 			</div>
 		</section>
 		<section data-id="time05">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Agreements containing gener references show that women are
-					included more in the comprehensive stages of peace
-					processes.
+					afghanistan agreements with highlighted gender text
 				</p>
 			</div>
 		</section>
@@ -441,34 +425,28 @@
 		<section data-id="map01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					PA-X maintains the biggest database of peace agreements in
-					the world. Every rectangle in this view represents one of
-					2055 agreements.
+					all pax agreements geography
 				</p>
 			</div>
 		</section>
 		<section data-id="map02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					436/2055 agreements contain references to gender.
+					pax gender agreements geography
 				</p>
 			</div>
 		</section>
 		<section data-id="map03">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					<strong>Peace Process Stages</strong> include Ceasefire,
-					Pre-Negotiation,<br /> Partial Agreement, Comprehensive Agreement,
-					Implementation, Renewal and Other.
+					international law
 				</p>
 			</div>
 		</section>
 		<section data-id="map04">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Agreements containing gener references show that women are
-					included more in the comprehensive stages of peace
-					processes.
+					references to un 1325
 				</p>
 			</div>
 		</section>
@@ -544,7 +522,7 @@
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
 		Within the 436 peace agreements that do contain references to women and
-		gender, <br /> how much attention is in fact given to this topic?
+		gender, how much attention is in fact given to this topic?
 	</p>
 </Filler>
 

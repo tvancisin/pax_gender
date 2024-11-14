@@ -293,7 +293,7 @@ export function full_grid_filter(pax, innerHeight, innerWidth, initialPaxCount, 
         x: (index % numCols) * (rectWidth + gap),
         y: innerHeight + 100,
         width: rectWidth,
-        height: rectHeight,
+        height: 0,
       };
     }
 
@@ -408,7 +408,7 @@ export function pax_stages_filter_grid(
         currentCol * (cellWidth + cellGap), // Off-screen x position
           y: innerHeight + 100, // Off-screen y position
           width: cellWidth,
-          height: cellHeight,
+          height: 0,
         };
       }
 

@@ -44,10 +44,20 @@
     $: tY.set(y);
     $: tWidth.set(width);
     $: tHeight.set(height);
+
 </script>
 
-<g transform="translate({$tX} {$tY})">
-    <rect x="0" y="0" width={$tWidth} height={$tHeight} />
+<g
+    transform="translate({$tX} {$tY})"
+>
+    <rect
+        x="0"
+        y="0"
+        width={$tWidth}
+        height={$tHeight}
+        rx="1"
+        fill="#F6F1D6"
+    />
 </g>
 
 <style>
