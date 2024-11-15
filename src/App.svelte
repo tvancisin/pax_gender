@@ -63,16 +63,16 @@
 		},
 		rect: {
 			rect01: () => {
-				step = "rect_one";
+				step = "rect01";
 			},
 			rect02: () => {
-				step = "rect_two";
+				step = "rect02";
 			},
 			rect03: () => {
-				step = "rect_three";
+				step = "rect03";
 			},
 			rect04: () => {
-				step = "rect_four";
+				step = "rect04";
 			},
 		},
 		chart: {
@@ -283,6 +283,60 @@
 
 <Divider />
 
+<!-- RECTANGLES -->
+<Scroller {threshold} bind:id={id["rect"]} splitscreen={false} shadow={false}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				<div class="rect">
+					<Rectangles
+						{mygeojson}
+						{pax_stages}
+						{pax}
+						{pax_timeline}
+						{step}
+					/>
+				</div>
+			</div>
+		</figure>
+	</div>
+
+	<div slot="foreground">
+		<section data-id="rect01">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					PA-X maintains the biggest database of peace agreements in
+					the world. Every rectangle in this view represents one of
+					2055 agreements.
+				</p>
+			</div>
+		</section>
+		<section data-id="rect02">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Out of the 2055 agreements, only 436 contain references to
+					gender.
+				</p>
+			</div>
+		</section>
+		<section data-id="rect03">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					That's less than a quarter, despite United Nations Security
+					Council Resolution 1325 which urges all actors to increase
+					the participation of women and incorporate gender
+					perspectives in all United Nations peace and security
+					efforts.
+				</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
+
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+	<p class="text-big">Peace Process Stages</p>
+</Filler>
+
 <!-- STAGES -->
 <Scroller {threshold} bind:id={id["stage"]} splitscreen={false} shadow={false}>
 	<div slot="background">
@@ -291,11 +345,9 @@
 				<div class="stage">
 					<Stages
 						{mygeojson}
-						{central_points}
 						{pax_stages}
 						{pax}
 						{pax_timeline}
-						{pax_gender}
 						{step}
 					/>
 				</div>
@@ -307,35 +359,15 @@
 		<section data-id="stage01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					PA-X maintains the biggest database of peace agreements in
-					the world. Every rectangle in this view represents one of
-					2055 agreements.
+					Dividing all PA-X agreements into different peace process
+					stages shows the predominance of Partial and Pre-Negotiation
+					agreements
 				</p>
 			</div>
 		</section>
 		<section data-id="stage02">
 			<div class="col-medium">
-				<p style="text-align: center;">
-					436/2055 agreements contain references to gender.
-				</p>
-			</div>
-		</section>
-		<section data-id="stage03">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					<strong>Peace Process Stages</strong> include Ceasefire,
-					Pre-Negotiation,<br /> Partial Agreement, Comprehensive Agreement,
-					Implementation, Renewal and Other.
-				</p>
-			</div>
-		</section>
-		<section data-id="stage04">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Agreements containing gener references show that women are
-					included more in the comprehensive stages of peace
-					processes.
-				</p>
+				<p style="text-align: center;">PA-X Gender agreements</p>
 			</div>
 		</section>
 	</div>
@@ -353,11 +385,9 @@
 				<div class="time">
 					<Timeline
 						{mygeojson}
-						{central_points}
 						{pax_stages}
 						{pax}
 						{pax_timeline}
-						{pax_gender}
 						{step}
 						{afghanistan}
 					/>
@@ -369,17 +399,20 @@
 	<div slot="foreground">
 		<section data-id="time01">
 			<div class="col-medium">
-				<p style="text-align: center;">agreements over the years</p>
+				<p style="text-align: center;">
+					All PA-X agreements over time, each line represents an
+					agreement.
+				</p>
 			</div>
 		</section>
 		<section data-id="time02">
 			<div class="col-medium">
-				<p style="text-align: center;">only pax-gender agreements</p>
+				<p style="text-align: center;">PA-X Gender agreements</p>
 			</div>
 		</section>
 		<section data-id="time03">
 			<div class="col-medium">
-				<p style="text-align: center;">afghanistan agreements</p>
+				<p style="text-align: center;">Afghanistan</p>
 			</div>
 		</section>
 		<section data-id="time04">
@@ -424,9 +457,7 @@
 	<div slot="foreground">
 		<section data-id="map01">
 			<div class="col-medium">
-				<p style="text-align: center;">
-					all pax agreements geography
-				</p>
+				<p style="text-align: center;">all pax agreements geography</p>
 			</div>
 		</section>
 		<section data-id="map02">
@@ -438,16 +469,12 @@
 		</section>
 		<section data-id="map03">
 			<div class="col-medium">
-				<p style="text-align: center;">
-					international law
-				</p>
+				<p style="text-align: center;">international law</p>
 			</div>
 		</section>
 		<section data-id="map04">
 			<div class="col-medium">
-				<p style="text-align: center;">
-					references to un 1325
-				</p>
+				<p style="text-align: center;">references to un 1325</p>
 			</div>
 		</section>
 	</div>

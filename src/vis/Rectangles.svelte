@@ -1,109 +1,111 @@
 <script>
-    import { interpolateMagma } from "d3";
-    import IndividualRectangle from "./IndividualRectangle.svelte";
+    import * as d3 from "d3";
+    import IndividualLine from "./IndividualLine.svelte";
+    import { LayerCake, Svg } from "layercake";
+    import {
+        years,
+        full_grid,
+        full_grid_hide_non_gender,
+        full_grid_filter,
+    } from "../utils";
 
-    export let pax_gender;
+    export let pax;
+    export let pax_stages;
+    export let mygeojson;
+    export let pax_timeline;
     export let step;
 
     let width = 400;
     let height = 400;
+    let rendered_data;
+    let gap = 2;
+    let initialPaxCount;
+    let innerWidth, innerHeight, xScale, yScale;
+    const margin = { top: 20, right: 20, bottom: 20, left: 40 };
 
-    const margin = {
-        top: 10,
-        right: 10,
-        bottom: 10,
-        left: 10,
-    };
+    $: innerWidth = width - margin.left - margin.right;
+    $: innerHeight = height - margin.top - margin.bottom;
 
-    const totalRectangles = 436;
-    const gap = 6; // Gap between rectangles
+    $: xScale = d3
+        .scaleBand()
+        .domain(years)
+        .range([0, innerWidth])
+        .padding(0.1);
 
-    let numCols, numRows;
+    $: yScale = d3.scaleLinear().domain([0, 100]).range([innerHeight, 0]);
 
-    // Reactive calculation of rows, columns, and rectangle dimensions
-    $: {
-        numCols = Math.ceil(Math.sqrt(totalRectangles));
-        numRows = Math.ceil(totalRectangles / numCols);
+    //initial functions
+    $: if (pax && pax_stages) {
+        //prepare the initial grid
+        initialPaxCount = pax.length;
+        rendered_data = full_grid(
+            pax,
+            innerHeight,
+            innerWidth,
+            initialPaxCount,
+            gap,
+        );
     }
 
-    // Reactive generation of rectangle data (x, y, width, height)
-    let rectangles;
-    $: if (pax_gender || step == "rect_one") {
-        rectangles = pax_gender.map((item, i) => {
-            const maxNCharacters = +item.corr_char_no; // Total characters
-            const womCharacters = +item.text.length; // Women characters
-            const quotCharacters = item.quotas;
-            const lawCharacters = item.law;
-            const unCharacters = item.un;
-
-            // console.log(quotCharacters, lawCharacters, unCharacters);
-            
-            const rectWidth =
-                (width - margin.left - margin.right) / numCols - gap;
-
-            const rectHeight =
-                (height - margin.top - margin.bottom) / numRows - gap;
-
-            // Full area for the maximum number of characters
-            const fullArea = rectWidth * rectHeight;
-
-            // Calculate the height (wHeight) that corresponds to womCharacters
-            const wArea = (womCharacters / maxNCharacters) * fullArea;
-            const qArea = (quotCharacters / maxNCharacters) * fullArea;
-            const lawArea = (lawCharacters / maxNCharacters) * fullArea;
-            const unArea = (unCharacters / maxNCharacters) * fullArea;
-
-            const wHeight = wArea / rectWidth; // Since width remains the same
-            const qHeight = qArea / rectWidth;
-            const lHeight = lawArea / rectWidth;
-            const uHeight = unArea / rectWidth;
-
-            return {
-                x: (i % numCols) * (rectWidth + gap) + margin.left,
-                y: Math.floor(i / numCols) * (rectHeight + gap) + margin.top,
-                width: rectWidth,
-                height: rectHeight,
-                wHeight: wHeight, // Height representing womCharacters
-                qHeight: qHeight,
-                lHeight: lHeight,
-                uHeight: uHeight,
-                int_law: item.WggIntLaw,
-                unsc: item.WggUnsc,
-            };
-        });
+    //steps
+    $: if (step == "rect01") {
+        //full grid
+        rendered_data = full_grid(
+            pax,
+            innerHeight,
+            innerWidth,
+            initialPaxCount,
+            gap,
+        );
+    } else if (step == "rect02") {
+        //0 height for non-gender
+        rendered_data = full_grid_hide_non_gender(
+            pax,
+            innerHeight,
+            innerWidth,
+            initialPaxCount,
+            gap,
+        );
+    } else if (step == "rect03") {
+        //full grid gender
+        rendered_data = full_grid_filter(
+            pax,
+            innerHeight,
+            innerWidth,
+            initialPaxCount,
+            gap,
+        );
     }
 
-    $: if (step == "rect_two") {
-        rectangles.map((item) => {
-            item.wHeight = item.qHeight;
-        });
-        rectangles = rectangles;
-    } else if (step == "rect_three") {
-        rectangles.map((item) => {
-            item.wHeight = item.lHeight;
-        });
-        rectangles = rectangles;
-    } else if (step == "rect_four") {
-        rectangles.map((item) => {
-            item.wHeight = item.uHeight;
-        });
-        rectangles = rectangles;
+    function formatMobile(tick) {
+        return "'" + tick.toString().slice(-2);
     }
 
+    // $: console.log("rendered data: ", rendered_data);
 </script>
 
-{#if rectangles}
+{#if rendered_data && mygeojson && pax_timeline}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
-        <svg {width} {height}>
-            {#each rectangles as rect}
-                <IndividualRectangle
-                    x={rect.x + Math.random() * 2 - 1}
-                    y={rect.y}
-                    {rect}
-                    {step}
-                />
-            {/each}
-        </svg>
+        {#if mygeojson}
+            <LayerCake data={mygeojson}>
+                <Svg>
+                    <g
+                        class="timeline"
+                        transform="translate({margin.left}, {margin.top})"
+                    >
+                        {#each rendered_data as d, i}
+                            <IndividualLine
+                                {i}
+                                x={d.x}
+                                y={d.y}
+                                width={d.width}
+                                height={d.height}
+                            />
+                        {/each}
+                    </g>
+                </Svg>
+            </LayerCake>
+        {/if}
     </div>
 {/if}
 

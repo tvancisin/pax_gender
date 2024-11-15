@@ -269,6 +269,54 @@ export function full_grid(pax, innerHeight, innerWidth, initialPaxCount, gap) {
 }
 
 //full grid but with filter
+export function full_grid_hide_non_gender(pax, innerHeight, innerWidth, initialPaxCount, gap) {
+  // Dynamically calculate the number of columns based on the width and the initial pax count
+  let numCols = Math.ceil(
+    Math.sqrt(initialPaxCount * (innerWidth / innerHeight)),
+  );
+  let numRows = Math.ceil(initialPaxCount / numCols);
+
+  // Calculate available space after accounting for gaps
+  let totalGapX = (numCols - 1) * gap;
+  let totalGapY = (numRows - 1) * gap;
+
+  // Compute the width and height of each rectangle, accounting for gaps
+  let rectWidth = (innerWidth - totalGapX) / numCols;
+  let rectHeight = (innerHeight - totalGapY) / numRows;
+
+  let index = 0; // Only increment for GeWom === "1" entries
+
+  let rendered_data = pax.map((d) => {
+    // Calculate x and y based on current index
+    const x = (index % numCols) * (rectWidth + gap);
+    const y =
+      innerHeight - (Math.floor(index / numCols) + 1) * (rectHeight + gap);
+
+    index++; // Increment only for GeWom === "1"
+
+    if (d.GeWom === "0") {
+      // For entries with GeWom === "0", set them off-screen
+      return {
+        x: x,
+        y: y,
+        width: rectWidth,
+        height: 0,
+      };
+    }
+
+
+    return {
+      x: x,
+      y: y,
+      width: rectWidth,
+      height: rectHeight,
+    };
+  });
+
+  return rendered_data;
+}
+
+//full grid but with filter
 export function full_grid_filter(pax, innerHeight, innerWidth, initialPaxCount, gap) {
   // Dynamically calculate the number of columns based on the width and the initial pax count
   let numCols = Math.ceil(
@@ -405,7 +453,7 @@ export function pax_stages_filter_grid(
       if (d[filter] === "0") {
         return {
           x: colIndex * (rectWidth + columnGap) +
-        currentCol * (cellWidth + cellGap), // Off-screen x position
+            currentCol * (cellWidth + cellGap), // Off-screen x position
           y: innerHeight + 100, // Off-screen y position
           width: cellWidth,
           height: 0,

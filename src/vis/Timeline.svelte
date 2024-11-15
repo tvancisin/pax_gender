@@ -8,9 +8,7 @@
     export let pax_stages;
     export let mygeojson;
     export let pax_timeline;
-    export let pax_gender;
     export let step;
-    export let central_points;
     export let afghanistan;
 
     let width = 400;
@@ -105,6 +103,7 @@
             };
         });
     } else if (step == "3") {
+        d3.select(".axis").style("visibility", "visible");
         //afghanistan only
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that changes based on GeWom value
@@ -129,6 +128,7 @@
             };
         });
     } else if (step == "4") {
+        d3.select(".axis").style("visibility", "hidden");
         //spreading afghanistan agts
         let index = 0; // Index that changes based on GeWom value
         rendered_data = pax.map((d) => {
@@ -159,7 +159,9 @@
                 height: 3,
             };
         });
+        d3.selectAll(".gender_text").style("visibility", "hidden");
     } else if (step == "5") {
+        d3.selectAll(".gender_text").style("visibility", "visible");
         //lenghts of agreements and gender text highlight
         gender_text = []; // Reset before populating it in this step
         function construct_gender(id, x, w, h, y) {
@@ -228,7 +230,6 @@
     }
 
     // $: console.log("rendered data: ", rendered_data);
-    // $: console.log("central points: ", central_points);
 </script>
 
 {#if rendered_data && mygeojson && pax_timeline}
@@ -240,12 +241,13 @@
                         class="timeline"
                         transform="translate({margin.left}, {margin.top})"
                     >
-                        <!-- <g class="axis x-axis">
+                        <g class="axis x-axis">
                             {#each years as tick}
                                 <g
                                     class="tick tick-{tick}"
                                     transform="translate({xScale(tick) +
-                                        xScale.bandwidth() / 2},{220})"
+                                        xScale.bandwidth() / 2},{innerHeight +
+                                        15})"
                                 >
                                     <text y="-2"
                                         >{innerWidth > 380
@@ -254,7 +256,7 @@
                                     >
                                 </g>
                             {/each}
-                        </g> -->
+                        </g>
 
                         {#each rendered_data as d, i}
                             <IndividualLine
@@ -265,11 +267,13 @@
                                 height={d.height}
                             />
                         {/each}
+
                         {#each gender_text as d}
                             <rect
-                                x={d.x}
-                                y={+d.y}
-                                width={d.width}
+                                class="gender_text"
+                                x={d.x + 2}
+                                y={+d.y - 2}
+                                width={d.width - 4}
                                 height={d.height}
                                 fill="black"
                             />
@@ -292,9 +296,9 @@
     }
 
     .tick text {
-        fill: black;
+        fill: white;
         text-anchor: start;
-        font-size: 10px;
+        font-size: 8px;
     }
 
     .x-axis .tick text {
