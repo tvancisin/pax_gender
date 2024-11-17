@@ -81,13 +81,13 @@
     } else if (step == "2") {
         //only pax gender
         let previousYear = null; // Track the last year seen
-        let index = 0; // Index that changes based on GeWom value
+        let index = -1; // Index that changes based on GeWom value
         rendered_data = pax.map((d) => {
             const currentYear = d.Dat.substring(6, 10);
 
             // Reset index if the year has changed
             if (currentYear !== previousYear) {
-                index = 0;
+                index = -1;
                 previousYear = currentYear;
             }
 

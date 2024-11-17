@@ -18,6 +18,7 @@
     let width = 400;
     let height = 400;
     let rendered_data;
+    let wom_first_pax;
     let gap = 2;
     let initialPaxCount;
     let innerWidth, innerHeight, xScale, yScale;
@@ -49,7 +50,7 @@
 
     //steps
     $: if (step == "rect01") {
-        //full grid
+        // full grid
         rendered_data = full_grid(
             pax,
             innerHeight,
@@ -66,7 +67,9 @@
             initialPaxCount,
             gap,
         );
+        // // d3.selectAll(".non-gender").style("fill", "gray");
     } else if (step == "rect03") {
+
         //full grid gender
         rendered_data = full_grid_filter(
             pax,
@@ -100,6 +103,7 @@
                                 y={d.y}
                                 width={d.width}
                                 height={d.height}
+                                cls={d.class}
                             />
                         {/each}
                     </g>

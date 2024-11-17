@@ -8,6 +8,7 @@
     export let y;
     export let width;
     export let height;
+    export let cls;
     export let i;
 
     // // Separate transition parameters for each stage
@@ -57,6 +58,7 @@
         height={$tHeight}
         rx="1"
         fill="#F6F1D6"
+        class={cls}
     />
 </g>
 

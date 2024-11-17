@@ -256,6 +256,7 @@ export function full_grid(pax, innerHeight, innerWidth, initialPaxCount, gap) {
   let rectHeight = (innerHeight - totalGapY) / numRows;
 
   let rendered_data = pax.map((d, i) => {
+    
     return {
       x: (i % numCols) * (rectWidth + gap),
       y:
@@ -263,6 +264,7 @@ export function full_grid(pax, innerHeight, innerWidth, initialPaxCount, gap) {
         (Math.floor(i / numCols) + 1) * (rectHeight + gap),
       width: rectWidth,
       height: rectHeight,
+      class: d.GeWom == "0" ? "non-gender" : "gender"
     };
   });
   return rendered_data;
