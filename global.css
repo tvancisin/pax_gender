@@ -9,8 +9,8 @@ html, body {
 }
 
 body {
-	color: #222;
-	background-color: #fff;
+	color: #F6F1D6;
+	background-color: #000000;
 	margin: 0;
 	padding: 0;
 	-webkit-box-sizing: border-box;
@@ -137,10 +137,12 @@ small {
 }
 
 .col-medium {
-	background-color: rgba(255, 255, 255, 0.692);
+	background-color: rgba(0, 0, 0, 0.822);
+	color: white;
 	width: 100%;
 	max-width: 680px;
 	margin: 0 24px;
+	font-size: 18px;
 }
 
 .col-narrow {
@@ -250,7 +252,7 @@ svelte-scroller-background-container {
 }
 
 [slot="foreground"] section div {
-	padding: 12px;
+	padding: 35px;
 	position: relative;
 }
 
