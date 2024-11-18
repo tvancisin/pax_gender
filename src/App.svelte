@@ -305,9 +305,8 @@
 		<section data-id="rect01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					PA-X maintains the biggest database of peace agreements in
-					the world. Every rectangle in this view represents one of
-					2055 agreements.
+					PA-X maintains the biggest database of peace agreements in the world.<br />
+					Every rectangle in this view represents one of 2055 agreements.
 				</p>
 			</div>
 		</section>
@@ -319,7 +318,7 @@
 				</p>
 			</div>
 		</section>
-		<section data-id="rect03">
+		<!-- <section data-id="rect03">
 			<div class="col-medium">
 				<p style="text-align: center;">
 					That's less than a quarter, despite United Nations Security
@@ -329,7 +328,7 @@
 					efforts.
 				</p>
 			</div>
-		</section>
+		</section> -->
 	</div>
 </Scroller>
 

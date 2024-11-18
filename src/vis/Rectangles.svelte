@@ -5,7 +5,6 @@
     import {
         years,
         full_grid,
-        full_grid_hide_non_gender,
         full_grid_filter,
     } from "../utils";
 
@@ -14,6 +13,8 @@
     export let mygeojson;
     export let pax_timeline;
     export let step;
+
+    let tooltip = { visible: false, x: 0, y: 0, info: "" }; // Tooltip state
 
     let width = 400;
     let height = 400;
@@ -58,18 +59,16 @@
             initialPaxCount,
             gap,
         );
+        d3.selectAll(".ind_rect").style("fill", "#F6F1D6");
     } else if (step == "rect02") {
         //0 height for non-gender
-        rendered_data = full_grid_hide_non_gender(
-            pax,
-            innerHeight,
-            innerWidth,
-            initialPaxCount,
-            gap,
-        );
-        // // d3.selectAll(".non-gender").style("fill", "gray");
-    } else if (step == "rect03") {
-
+        // rendered_data = full_grid_hide_non_gender(
+        //     pax,
+        //     innerHeight,
+        //     innerWidth,
+        //     initialPaxCount,
+        //     gap,
+        // );
         //full grid gender
         rendered_data = full_grid_filter(
             pax,
@@ -78,37 +77,72 @@
             initialPaxCount,
             gap,
         );
+        // d3.selectAll(".non-gender").style("fill", "gray");
     }
+
+    // else if (step == "rect03") {
+
+    //     //full grid gender
+    //     rendered_data = full_grid_filter(
+    //         pax,
+    //         innerHeight,
+    //         innerWidth,
+    //         initialPaxCount,
+    //         gap,
+    //     );
+    // }
+
+    // else if (step == "rect04") {
+    //     console.log("heeeee");
+    // }
 
     function formatMobile(tick) {
         return "'" + tick.toString().slice(-2);
     }
 
+    // Event handlers for tooltip
+    const handleHover = (event) => {
+
+        tooltip = { visible: true, x: event.detail.x, y: event.detail.y, info: event.detail.info };
+    };
+
+    const handleLeave = () => {
+        tooltip = { ...tooltip, visible: false };
+    };
+
     // $: console.log("rendered data: ", rendered_data);
 </script>
 
-{#if rendered_data && mygeojson && pax_timeline}
+{#if rendered_data}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
-        {#if mygeojson}
-            <LayerCake data={mygeojson}>
-                <Svg>
-                    <g
-                        class="timeline"
-                        transform="translate({margin.left}, {margin.top})"
-                    >
-                        {#each rendered_data as d, i}
-                            <IndividualLine
-                                {i}
-                                x={d.x}
-                                y={d.y}
-                                width={d.width}
-                                height={d.height}
-                                cls={d.class}
-                            />
-                        {/each}
-                    </g>
-                </Svg>
-            </LayerCake>
+        <LayerCake>
+            <Svg>
+                <g
+                    class="timeline"
+                    transform="translate({margin.left}, {margin.top})"
+                >
+                    {#each rendered_data as d, i}
+                        <IndividualLine
+                            {i}
+                            x={d.x}
+                            y={d.y}
+                            width={d.width}
+                            height={d.height}
+                            info={d.info}
+                            on:hover={handleHover}
+                            on:leave={handleLeave}
+                        />
+                    {/each}
+                </g>
+            </Svg>
+        </LayerCake>
+        {#if tooltip.visible}
+            <div
+                class="tooltip"
+                style="position: absolute; left: {tooltip.x + 70}px; top: {tooltip.y + 40}px;"
+            >
+                 <p>{tooltip.info}</p>
+            </div>
         {/if}
     </div>
 {/if}
@@ -117,5 +151,20 @@
     .wrapper {
         height: 90vh;
         position: relative;
+    }
+
+    .tooltip {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 10px;
+        border-radius: 4px;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        width: 150px
+    }
+
+    p {
+        margin: 5px;
+        font-size: 12px;
     }
 </style>

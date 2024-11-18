@@ -1,6 +1,8 @@
 <script>
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
+    import { createEventDispatcher } from "svelte"; // Import the dispatcher
+
     import * as d3 from "d3";
     import { generateHandwrittenLine, lineGenerator } from "../utils";
 
@@ -8,37 +10,22 @@
     export let y;
     export let width;
     export let height;
-    export let cls;
+    export let info;
     export let i;
 
-    // // Separate transition parameters for each stage
-    // const sizeTweenParams = {
-    //     duration: 500,
-    //     easing: cubicOut,
-    // };
+    const dispatch = createEventDispatcher();
 
-    const positionTweenParams = (delay) => ({
-        delay: 500 + delay * 2, // Start after size transition
-        duration: 250,
+    // Define position tween parameters with staggered delay
+    const positionTweenParams = {
+        delay: (i / 5) * Math.random(), // Delay increases with index
+        duration: 300,
         easing: cubicOut,
-    });
-
-    // Separate tweens for size
-    // const tWidth = tweened(null, sizeTweenParams);
-    // const tHeight = tweened(null, sizeTweenParams);
-
-    // Separate tweens for position with staggered delay
-    // const tX = tweened(null, positionTweenParams(i));
-    // const tY = tweened(null, positionTweenParams(i));
+    };
 
     const tX = tweened(null, positionTweenParams);
     const tY = tweened(null, positionTweenParams);
     const tWidth = tweened(null, { duration: 300, easing: cubicOut });
     const tHeight = tweened(null, positionTweenParams);
-
-    // Update size tweens first
-    // $: tWidth.set(width);
-    // $: tHeight.set(height);
 
     // Update position tweens after size animation completes
     $: tX.set(x);
@@ -46,11 +33,25 @@
     $: tWidth.set(width);
     $: tHeight.set(height);
 
+    // Hover state for adding a class
+    let isHovered = false;
+
+    const handleMouseEnter = () => {
+        isHovered = true;
+        // Dispatch the custom event with necessary data
+        dispatch("hover", { x, y, info });
+    };
+
+    const handleMouseLeave = () => {
+        setTimeout(() => {
+            isHovered = false;
+        }, 100); // Delay before transitioning back
+        // Dispatch the custom event to clear the tooltip
+        dispatch("leave");
+    };
 </script>
 
-<g
-    transform="translate({$tX} {$tY})"
->
+<g transform="translate({$tX} {$tY})">
     <rect
         x="0"
         y="0"
@@ -58,9 +59,19 @@
         height={$tHeight}
         rx="1"
         fill="#F6F1D6"
-        class={cls}
+        class:is-hovered={isHovered}
+        on:mouseenter={handleMouseEnter}
+        on:mouseleave={handleMouseLeave}
     />
 </g>
 
 <style>
+    rect {
+        fill: #f6f1d6;
+        transition: fill 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smooth transition */
+    }
+
+    rect.is-hovered {
+        fill: rgb(163, 0, 0); /* Change to red on hover */
+    }
 </style>
