@@ -310,6 +310,34 @@ var app = (function () {
         get_current_component().$$.on_destroy.push(fn);
     }
     /**
+     * Creates an event dispatcher that can be used to dispatch [component events](/docs#template-syntax-component-directives-on-eventname).
+     * Event dispatchers are functions that can take two arguments: `name` and `detail`.
+     *
+     * Component events created with `createEventDispatcher` create a
+     * [CustomEvent](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent).
+     * These events do not [bubble](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#Event_bubbling_and_capture).
+     * The `detail` argument corresponds to the [CustomEvent.detail](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/detail)
+     * property and can contain any type of data.
+     *
+     * https://svelte.dev/docs#run-time-svelte-createeventdispatcher
+     */
+    function createEventDispatcher() {
+        const component = get_current_component();
+        return (type, detail, { cancelable = false } = {}) => {
+            const callbacks = component.$$.callbacks[type];
+            if (callbacks) {
+                // TODO are there situations where events could be dispatched
+                // in a server (non-DOM) environment?
+                const event = custom_event(type, detail, { cancelable });
+                callbacks.slice().forEach(fn => {
+                    fn.call(component, event);
+                });
+                return !event.defaultPrevented;
+            }
+            return true;
+        };
+    }
+    /**
      * Associates an arbitrary `context` object with the current component and the specified `key`
      * and returns that object. The context is then available to children of the component
      * (including slotted content) with `getContext`.
@@ -21680,7 +21708,7 @@ var app = (function () {
       let rectHeight = (innerHeight - totalGapY) / numRows;
 
       let rendered_data = pax.map((d, i) => {
-        
+
         return {
           x: (i % numCols) * (rectWidth + gap),
           y:
@@ -21688,59 +21716,60 @@ var app = (function () {
             (Math.floor(i / numCols) + 1) * (rectHeight + gap),
           width: rectWidth,
           height: rectHeight,
-          class: d.GeWom == "0" ? "non-gender" : "gender"
+          info: d.Agt
         };
       });
       return rendered_data;
     }
 
-    //full grid but with filter
-    function full_grid_hide_non_gender(pax, innerHeight, innerWidth, initialPaxCount, gap) {
-      // Dynamically calculate the number of columns based on the width and the initial pax count
-      let numCols = Math.ceil(
-        Math.sqrt(initialPaxCount * (innerWidth / innerHeight)),
-      );
-      let numRows = Math.ceil(initialPaxCount / numCols);
 
-      // Calculate available space after accounting for gaps
-      let totalGapX = (numCols - 1) * gap;
-      let totalGapY = (numRows - 1) * gap;
+    // //full grid but with filter
+    // export function full_grid_hide_non_gender(pax, innerHeight, innerWidth, initialPaxCount, gap) {
+    //   // Dynamically calculate the number of columns based on the width and the initial pax count
+    //   let numCols = Math.ceil(
+    //     Math.sqrt(initialPaxCount * (innerWidth / innerHeight)),
+    //   );
+    //   let numRows = Math.ceil(initialPaxCount / numCols);
 
-      // Compute the width and height of each rectangle, accounting for gaps
-      let rectWidth = (innerWidth - totalGapX) / numCols;
-      let rectHeight = (innerHeight - totalGapY) / numRows;
+    //   // Calculate available space after accounting for gaps
+    //   let totalGapX = (numCols - 1) * gap;
+    //   let totalGapY = (numRows - 1) * gap;
 
-      let index = 0; // Only increment for GeWom === "1" entries
+    //   // Compute the width and height of each rectangle, accounting for gaps
+    //   let rectWidth = (innerWidth - totalGapX) / numCols;
+    //   let rectHeight = (innerHeight - totalGapY) / numRows;
 
-      let rendered_data = pax.map((d) => {
-        // Calculate x and y based on current index
-        const x = (index % numCols) * (rectWidth + gap);
-        const y =
-          innerHeight - (Math.floor(index / numCols) + 1) * (rectHeight + gap);
+    //   let index = 0; // Only increment for GeWom === "1" entries
 
-        index++; // Increment only for GeWom === "1"
+    //   let rendered_data = pax.map((d) => {
+    //     // Calculate x and y based on current index
+    //     const x = (index % numCols) * (rectWidth + gap);
+    //     const y =
+    //       innerHeight - (Math.floor(index / numCols) + 1) * (rectHeight + gap);
 
-        if (d.GeWom === "0") {
-          // For entries with GeWom === "0", set them off-screen
-          return {
-            x: x,
-            y: y,
-            width: rectWidth,
-            height: 0,
-          };
-        }
+    //     index++; // Increment only for GeWom === "1"
+
+    //     if (d.GeWom === "0") {
+    //       // For entries with GeWom === "0", set them off-screen
+    //       return {
+    //         x: x,
+    //         y: y,
+    //         width: rectWidth,
+    //         height: 0,
+    //       };
+    //     }
 
 
-        return {
-          x: x,
-          y: y,
-          width: rectWidth,
-          height: rectHeight,
-        };
-      });
+    //     return {
+    //       x: x,
+    //       y: y,
+    //       width: rectWidth,
+    //       height: rectHeight,
+    //     };
+    //   });
 
-      return rendered_data;
-    }
+    //   return rendered_data;
+    // }
 
     //full grid but with filter
     function full_grid_filter(pax, innerHeight, innerWidth, initialPaxCount, gap) {
@@ -21768,6 +21797,7 @@ var app = (function () {
             y: innerHeight + 100,
             width: rectWidth,
             height: 0,
+            info: d.Agt
           };
         }
 
@@ -21783,6 +21813,7 @@ var app = (function () {
           y: y,
           width: rectWidth,
           height: rectHeight,
+            info: d.Agt
         };
       });
 
@@ -21832,6 +21863,7 @@ var app = (function () {
             y: y, // Vertical position from bottom to top
             width: cellWidth, // Adjusted width to fit screen
             height: cellHeight, // Adjusted height to fit screen
+            info: d.Agt
           };
         });
       });
@@ -21883,6 +21915,7 @@ var app = (function () {
               y: innerHeight + 100, // Off-screen y position
               width: cellWidth,
               height: 0,
+              info: d.Agt
             };
           }
 
@@ -21906,6 +21939,7 @@ var app = (function () {
             y: y, // Vertical position based on row
             width: cellWidth, // Adjusted width to fit screen
             height: cellHeight, // Adjusted height to fit screen
+            info: d.Agt
           };
         });
       });
@@ -27477,6 +27511,8 @@ var app = (function () {
     	let g;
     	let rect;
     	let g_transform_value;
+    	let mounted;
+    	let dispose;
 
     	const block = {
     		c: function create() {
@@ -27488,10 +27524,11 @@ var app = (function () {
     			attr_dev(rect, "height", /*$tHeight*/ ctx[4]);
     			attr_dev(rect, "rx", "1");
     			attr_dev(rect, "fill", "#F6F1D6");
-    			attr_dev(rect, "class", /*cls*/ ctx[0]);
-    			add_location(rect, file$e, 53, 4, 1545);
+    			attr_dev(rect, "class", "svelte-bllv9l");
+    			toggle_class(rect, "is-hovered", /*isHovered*/ ctx[0]);
+    			add_location(rect, file$e, 54, 4, 1636);
     			attr_dev(g, "transform", g_transform_value = "translate(" + /*$tX*/ ctx[1] + " " + /*$tY*/ ctx[2] + ")");
-    			add_location(g, file$e, 50, 0, 1494);
+    			add_location(g, file$e, 53, 0, 1592);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -27499,6 +27536,15 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, g, anchor);
     			append_dev(g, rect);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(rect, "mouseenter", /*handleMouseEnter*/ ctx[9], false, false, false, false),
+    					listen_dev(rect, "mouseleave", /*handleMouseLeave*/ ctx[10], false, false, false, false)
+    				];
+
+    				mounted = true;
+    			}
     		},
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*$tWidth*/ 8) {
@@ -27509,8 +27555,8 @@ var app = (function () {
     				attr_dev(rect, "height", /*$tHeight*/ ctx[4]);
     			}
 
-    			if (dirty & /*cls*/ 1) {
-    				attr_dev(rect, "class", /*cls*/ ctx[0]);
+    			if (dirty & /*isHovered*/ 1) {
+    				toggle_class(rect, "is-hovered", /*isHovered*/ ctx[0]);
     			}
 
     			if (dirty & /*$tX, $tY*/ 6 && g_transform_value !== (g_transform_value = "translate(" + /*$tX*/ ctx[1] + " " + /*$tY*/ ctx[2] + ")")) {
@@ -27521,6 +27567,8 @@ var app = (function () {
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(g);
+    			mounted = false;
+    			run_all(dispose);
     		}
     	};
 
@@ -27546,28 +27594,18 @@ var app = (function () {
     	let { y } = $$props;
     	let { width } = $$props;
     	let { height } = $$props;
-    	let { cls } = $$props;
+    	let { info } = $$props;
     	let { i } = $$props;
+    	const dispatch = createEventDispatcher();
 
-    	// // Separate transition parameters for each stage
-    	// const sizeTweenParams = {
-    	//     duration: 500,
-    	//     easing: cubicOut,
-    	// };
-    	const positionTweenParams = delay => ({
-    		delay: 500 + delay * 2, // Start after size transition
-    		duration: 250,
+    	// Define position tween parameters with staggered delay
+    	const positionTweenParams = {
+    		delay: i / 5 * Math.random(), // Delay increases with index
+    		duration: 300,
     		easing: cubicOut$1
-    	});
+    	};
 
-    	// Separate tweens for size
-    	// const tWidth = tweened(null, sizeTweenParams);
-    	// const tHeight = tweened(null, sizeTweenParams);
-    	// Separate tweens for position with staggered delay
-    	// const tX = tweened(null, positionTweenParams(i));
-    	// const tY = tweened(null, positionTweenParams(i));
     	const tX = tweened(null, positionTweenParams);
-
     	validate_store(tX, 'tX');
     	component_subscribe($$self, tX, value => $$invalidate(1, $tX = value));
     	const tY = tweened(null, positionTweenParams);
@@ -27579,6 +27617,28 @@ var app = (function () {
     	const tHeight = tweened(null, positionTweenParams);
     	validate_store(tHeight, 'tHeight');
     	component_subscribe($$self, tHeight, value => $$invalidate(4, $tHeight = value));
+
+    	// Hover state for adding a class
+    	let isHovered = false;
+
+    	const handleMouseEnter = () => {
+    		$$invalidate(0, isHovered = true);
+
+    		// Dispatch the custom event with necessary data
+    		dispatch("hover", { x, y, info });
+    	};
+
+    	const handleMouseLeave = () => {
+    		setTimeout(
+    			() => {
+    				$$invalidate(0, isHovered = false);
+    			},
+    			100
+    		); // Delay before transitioning back
+
+    		// Dispatch the custom event to clear the tooltip
+    		dispatch("leave");
+    	};
 
     	$$self.$$.on_mount.push(function () {
     		if (x === undefined && !('x' in $$props || $$self.$$.bound[$$self.$$.props['x']])) {
@@ -27597,8 +27657,8 @@ var app = (function () {
     			console.warn("<IndividualLine> was created without expected prop 'height'");
     		}
 
-    		if (cls === undefined && !('cls' in $$props || $$self.$$.bound[$$self.$$.props['cls']])) {
-    			console.warn("<IndividualLine> was created without expected prop 'cls'");
+    		if (info === undefined && !('info' in $$props || $$self.$$.bound[$$self.$$.props['info']])) {
+    			console.warn("<IndividualLine> was created without expected prop 'info'");
     		}
 
     		if (i === undefined && !('i' in $$props || $$self.$$.bound[$$self.$$.props['i']])) {
@@ -27606,24 +27666,25 @@ var app = (function () {
     		}
     	});
 
-    	const writable_props = ['x', 'y', 'width', 'height', 'cls', 'i'];
+    	const writable_props = ['x', 'y', 'width', 'height', 'info', 'i'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<IndividualLine> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$$set = $$props => {
-    		if ('x' in $$props) $$invalidate(9, x = $$props.x);
-    		if ('y' in $$props) $$invalidate(10, y = $$props.y);
-    		if ('width' in $$props) $$invalidate(11, width = $$props.width);
-    		if ('height' in $$props) $$invalidate(12, height = $$props.height);
-    		if ('cls' in $$props) $$invalidate(0, cls = $$props.cls);
-    		if ('i' in $$props) $$invalidate(13, i = $$props.i);
+    		if ('x' in $$props) $$invalidate(11, x = $$props.x);
+    		if ('y' in $$props) $$invalidate(12, y = $$props.y);
+    		if ('width' in $$props) $$invalidate(13, width = $$props.width);
+    		if ('height' in $$props) $$invalidate(14, height = $$props.height);
+    		if ('info' in $$props) $$invalidate(15, info = $$props.info);
+    		if ('i' in $$props) $$invalidate(16, i = $$props.i);
     	};
 
     	$$self.$capture_state = () => ({
     		tweened,
     		cubicOut: cubicOut$1,
+    		createEventDispatcher,
     		d3,
     		generateHandwrittenLine,
     		lineGenerator,
@@ -27631,13 +27692,17 @@ var app = (function () {
     		y,
     		width,
     		height,
-    		cls,
+    		info,
     		i,
+    		dispatch,
     		positionTweenParams,
     		tX,
     		tY,
     		tWidth,
     		tHeight,
+    		isHovered,
+    		handleMouseEnter,
+    		handleMouseLeave,
     		$tX,
     		$tY,
     		$tWidth,
@@ -27645,12 +27710,13 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('x' in $$props) $$invalidate(9, x = $$props.x);
-    		if ('y' in $$props) $$invalidate(10, y = $$props.y);
-    		if ('width' in $$props) $$invalidate(11, width = $$props.width);
-    		if ('height' in $$props) $$invalidate(12, height = $$props.height);
-    		if ('cls' in $$props) $$invalidate(0, cls = $$props.cls);
-    		if ('i' in $$props) $$invalidate(13, i = $$props.i);
+    		if ('x' in $$props) $$invalidate(11, x = $$props.x);
+    		if ('y' in $$props) $$invalidate(12, y = $$props.y);
+    		if ('width' in $$props) $$invalidate(13, width = $$props.width);
+    		if ('height' in $$props) $$invalidate(14, height = $$props.height);
+    		if ('info' in $$props) $$invalidate(15, info = $$props.info);
+    		if ('i' in $$props) $$invalidate(16, i = $$props.i);
+    		if ('isHovered' in $$props) $$invalidate(0, isHovered = $$props.isHovered);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -27658,29 +27724,26 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*x*/ 512) {
-    			// Update size tweens first
-    			// $: tWidth.set(width);
-    			// $: tHeight.set(height);
+    		if ($$self.$$.dirty & /*x*/ 2048) {
     			// Update position tweens after size animation completes
     			 tX.set(x);
     		}
 
-    		if ($$self.$$.dirty & /*y*/ 1024) {
+    		if ($$self.$$.dirty & /*y*/ 4096) {
     			 tY.set(y);
     		}
 
-    		if ($$self.$$.dirty & /*width*/ 2048) {
+    		if ($$self.$$.dirty & /*width*/ 8192) {
     			 tWidth.set(width);
     		}
 
-    		if ($$self.$$.dirty & /*height*/ 4096) {
+    		if ($$self.$$.dirty & /*height*/ 16384) {
     			 tHeight.set(height);
     		}
     	};
 
     	return [
-    		cls,
+    		isHovered,
     		$tX,
     		$tY,
     		$tWidth,
@@ -27689,10 +27752,13 @@ var app = (function () {
     		tY,
     		tWidth,
     		tHeight,
+    		handleMouseEnter,
+    		handleMouseLeave,
     		x,
     		y,
     		width,
     		height,
+    		info,
     		i
     	];
     }
@@ -27702,12 +27768,12 @@ var app = (function () {
     		super(options);
 
     		init(this, options, instance$e, create_fragment$e, safe_not_equal, {
-    			x: 9,
-    			y: 10,
-    			width: 11,
-    			height: 12,
-    			cls: 0,
-    			i: 13
+    			x: 11,
+    			y: 12,
+    			width: 13,
+    			height: 14,
+    			info: 15,
+    			i: 16
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -27750,11 +27816,11 @@ var app = (function () {
     		throw new Error("<IndividualLine>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
-    	get cls() {
+    	get info() {
     		throw new Error("<IndividualLine>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
-    	set cls(value) {
+    	set info(value) {
     		throw new Error("<IndividualLine>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
@@ -31937,119 +32003,72 @@ var app = (function () {
     }
 
     /* src\vis\Rectangles.svelte generated by Svelte v3.59.2 */
-
     const file$j = "src\\vis\\Rectangles.svelte";
 
     function get_each_context$3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[17] = list[i];
-    	child_ctx[19] = i;
+    	child_ctx[20] = list[i];
+    	child_ctx[22] = i;
     	return child_ctx;
     }
 
-    // (90:0) {#if rendered_data && mygeojson && pax_timeline}
+    // (116:0) {#if rendered_data}
     function create_if_block$8(ctx) {
     	let div;
-    	let div_resize_listener;
-    	let current;
-    	let if_block = /*mygeojson*/ ctx[0] && create_if_block_1$2(ctx);
-
-    	const block = {
-    		c: function create() {
-    			div = element("div");
-    			if (if_block) if_block.c();
-    			attr_dev(div, "class", "wrapper svelte-zaiuf5");
-    			add_render_callback(() => /*div_elementresize_handler*/ ctx[12].call(div));
-    			add_location(div, file$j, 90, 4, 2316);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			if (if_block) if_block.m(div, null);
-    			div_resize_listener = add_iframe_resize_listener(div, /*div_elementresize_handler*/ ctx[12].bind(div));
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			if (/*mygeojson*/ ctx[0]) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
-
-    					if (dirty & /*mygeojson*/ 1) {
-    						transition_in(if_block, 1);
-    					}
-    				} else {
-    					if_block = create_if_block_1$2(ctx);
-    					if_block.c();
-    					transition_in(if_block, 1);
-    					if_block.m(div, null);
-    				}
-    			} else if (if_block) {
-    				group_outros();
-
-    				transition_out(if_block, 1, 1, () => {
-    					if_block = null;
-    				});
-
-    				check_outros();
-    			}
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(if_block);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(if_block);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
-    			if (if_block) if_block.d();
-    			div_resize_listener();
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block$8.name,
-    		type: "if",
-    		source: "(90:0) {#if rendered_data && mygeojson && pax_timeline}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (92:8) {#if mygeojson}
-    function create_if_block_1$2(ctx) {
     	let layercake;
+    	let t;
+    	let div_resize_listener;
     	let current;
 
     	layercake = new LayerCake({
     			props: {
-    				data: /*mygeojson*/ ctx[0],
     				$$slots: { default: [create_default_slot$1] },
     				$$scope: { ctx }
     			},
     			$$inline: true
     		});
 
+    	let if_block = /*tooltip*/ ctx[2].visible && create_if_block_1$2(ctx);
+
     	const block = {
     		c: function create() {
+    			div = element("div");
     			create_component(layercake.$$.fragment);
+    			t = space();
+    			if (if_block) if_block.c();
+    			attr_dev(div, "class", "wrapper svelte-17fdnrm");
+    			add_render_callback(() => /*div_elementresize_handler*/ ctx[15].call(div));
+    			add_location(div, file$j, 116, 4, 3011);
     		},
     		m: function mount(target, anchor) {
-    			mount_component(layercake, target, anchor);
+    			insert_dev(target, div, anchor);
+    			mount_component(layercake, div, null);
+    			append_dev(div, t);
+    			if (if_block) if_block.m(div, null);
+    			div_resize_listener = add_iframe_resize_listener(div, /*div_elementresize_handler*/ ctx[15].bind(div));
     			current = true;
     		},
     		p: function update(ctx, dirty) {
     			const layercake_changes = {};
-    			if (dirty & /*mygeojson*/ 1) layercake_changes.data = /*mygeojson*/ ctx[0];
 
-    			if (dirty & /*$$scope, rendered_data*/ 1048592) {
+    			if (dirty & /*$$scope, rendered_data*/ 8388616) {
     				layercake_changes.$$scope = { dirty, ctx };
     			}
 
     			layercake.$set(layercake_changes);
+
+    			if (/*tooltip*/ ctx[2].visible) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block_1$2(ctx);
+    					if_block.c();
+    					if_block.m(div, null);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -32061,37 +32080,43 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			destroy_component(layercake, detaching);
+    			if (detaching) detach_dev(div);
+    			destroy_component(layercake);
+    			if (if_block) if_block.d();
+    			div_resize_listener();
     		}
     	};
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$2.name,
+    		id: create_if_block$8.name,
     		type: "if",
-    		source: "(92:8) {#if mygeojson}",
+    		source: "(116:0) {#if rendered_data}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (99:24) {#each rendered_data as d, i}
+    // (124:20) {#each rendered_data as d, i}
     function create_each_block$3(ctx) {
     	let individualline;
     	let current;
 
     	individualline = new IndividualLine({
     			props: {
-    				i: /*i*/ ctx[19],
-    				x: /*d*/ ctx[17].x,
-    				y: /*d*/ ctx[17].y,
-    				width: /*d*/ ctx[17].width,
-    				height: /*d*/ ctx[17].height,
-    				cls: /*d*/ ctx[17].class
+    				i: /*i*/ ctx[22],
+    				x: /*d*/ ctx[20].x,
+    				y: /*d*/ ctx[20].y,
+    				width: /*d*/ ctx[20].width,
+    				height: /*d*/ ctx[20].height,
+    				info: /*d*/ ctx[20].info
     			},
     			$$inline: true
     		});
+
+    	individualline.$on("hover", /*handleHover*/ ctx[5]);
+    	individualline.$on("leave", /*handleLeave*/ ctx[6]);
 
     	const block = {
     		c: function create() {
@@ -32103,11 +32128,11 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const individualline_changes = {};
-    			if (dirty & /*rendered_data*/ 16) individualline_changes.x = /*d*/ ctx[17].x;
-    			if (dirty & /*rendered_data*/ 16) individualline_changes.y = /*d*/ ctx[17].y;
-    			if (dirty & /*rendered_data*/ 16) individualline_changes.width = /*d*/ ctx[17].width;
-    			if (dirty & /*rendered_data*/ 16) individualline_changes.height = /*d*/ ctx[17].height;
-    			if (dirty & /*rendered_data*/ 16) individualline_changes.cls = /*d*/ ctx[17].class;
+    			if (dirty & /*rendered_data*/ 8) individualline_changes.x = /*d*/ ctx[20].x;
+    			if (dirty & /*rendered_data*/ 8) individualline_changes.y = /*d*/ ctx[20].y;
+    			if (dirty & /*rendered_data*/ 8) individualline_changes.width = /*d*/ ctx[20].width;
+    			if (dirty & /*rendered_data*/ 8) individualline_changes.height = /*d*/ ctx[20].height;
+    			if (dirty & /*rendered_data*/ 8) individualline_changes.info = /*d*/ ctx[20].info;
     			individualline.$set(individualline_changes);
     		},
     		i: function intro(local) {
@@ -32128,19 +32153,19 @@ var app = (function () {
     		block,
     		id: create_each_block$3.name,
     		type: "each",
-    		source: "(99:24) {#each rendered_data as d, i}",
+    		source: "(124:20) {#each rendered_data as d, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (94:16) <Svg>
+    // (119:12) <Svg>
     function create_default_slot_1$1(ctx) {
     	let g;
     	let g_transform_value;
     	let current;
-    	let each_value = /*rendered_data*/ ctx[4];
+    	let each_value = /*rendered_data*/ ctx[3];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -32161,8 +32186,8 @@ var app = (function () {
     			}
 
     			attr_dev(g, "class", "timeline");
-    			attr_dev(g, "transform", g_transform_value = "translate(" + /*margin*/ ctx[5].left + ", " + /*margin*/ ctx[5].top + ")");
-    			add_location(g, file$j, 94, 20, 2501);
+    			attr_dev(g, "transform", g_transform_value = "translate(" + /*margin*/ ctx[4].left + ", " + /*margin*/ ctx[4].top + ")");
+    			add_location(g, file$j, 119, 16, 3142);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, g, anchor);
@@ -32176,8 +32201,8 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*rendered_data*/ 16) {
-    				each_value = /*rendered_data*/ ctx[4];
+    			if (dirty & /*rendered_data, handleHover, handleLeave*/ 104) {
+    				each_value = /*rendered_data*/ ctx[3];
     				validate_each_argument(each_value);
     				let i;
 
@@ -32232,14 +32257,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1$1.name,
     		type: "slot",
-    		source: "(94:16) <Svg>",
+    		source: "(119:12) <Svg>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (93:12) <LayerCake data={mygeojson}>
+    // (118:8) <LayerCake>
     function create_default_slot$1(ctx) {
     	let svg;
     	let current;
@@ -32263,7 +32288,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const svg_changes = {};
 
-    			if (dirty & /*$$scope, rendered_data*/ 1048592) {
+    			if (dirty & /*$$scope, rendered_data*/ 8388616) {
     				svg_changes.$$scope = { dirty, ctx };
     			}
 
@@ -32287,7 +32312,59 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(93:12) <LayerCake data={mygeojson}>",
+    		source: "(118:8) <LayerCake>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (139:8) {#if tooltip.visible}
+    function create_if_block_1$2(ctx) {
+    	let div;
+    	let p;
+    	let t_value = /*tooltip*/ ctx[2].info + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			p = element("p");
+    			t = text(t_value);
+    			attr_dev(p, "class", "svelte-17fdnrm");
+    			add_location(p, file$j, 143, 17, 4044);
+    			attr_dev(div, "class", "tooltip svelte-17fdnrm");
+    			set_style(div, "position", "absolute");
+    			set_style(div, "left", /*tooltip*/ ctx[2].x + 70 + "px");
+    			set_style(div, "top", /*tooltip*/ ctx[2].y + 40 + "px");
+    			add_location(div, file$j, 139, 12, 3877);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, p);
+    			append_dev(p, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*tooltip*/ 4 && t_value !== (t_value = /*tooltip*/ ctx[2].info + "")) set_data_dev(t, t_value);
+
+    			if (dirty & /*tooltip*/ 4) {
+    				set_style(div, "left", /*tooltip*/ ctx[2].x + 70 + "px");
+    			}
+
+    			if (dirty & /*tooltip*/ 4) {
+    				set_style(div, "top", /*tooltip*/ ctx[2].y + 40 + "px");
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$2.name,
+    		type: "if",
+    		source: "(139:8) {#if tooltip.visible}",
     		ctx
     	});
 
@@ -32297,7 +32374,7 @@ var app = (function () {
     function create_fragment$j(ctx) {
     	let if_block_anchor;
     	let current;
-    	let if_block = /*rendered_data*/ ctx[4] && /*mygeojson*/ ctx[0] && /*pax_timeline*/ ctx[1] && create_if_block$8(ctx);
+    	let if_block = /*rendered_data*/ ctx[3] && create_if_block$8(ctx);
 
     	const block = {
     		c: function create() {
@@ -32313,11 +32390,11 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
-    			if (/*rendered_data*/ ctx[4] && /*mygeojson*/ ctx[0] && /*pax_timeline*/ ctx[1]) {
+    			if (/*rendered_data*/ ctx[3]) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
 
-    					if (dirty & /*rendered_data, mygeojson, pax_timeline*/ 19) {
+    					if (dirty & /*rendered_data*/ 8) {
     						transition_in(if_block, 1);
     					}
     				} else {
@@ -32374,6 +32451,7 @@ var app = (function () {
     	let { mygeojson } = $$props;
     	let { pax_timeline } = $$props;
     	let { step } = $$props;
+    	let tooltip = { visible: false, x: 0, y: 0, info: "" }; // Tooltip state
     	let width = 400;
     	let height = 400;
     	let rendered_data;
@@ -32382,6 +32460,20 @@ var app = (function () {
     	let initialPaxCount;
     	let innerWidth, innerHeight, xScale, yScale;
     	const margin = { top: 20, right: 20, bottom: 20, left: 40 };
+
+    	// Event handlers for tooltip
+    	const handleHover = event => {
+    		$$invalidate(2, tooltip = {
+    			visible: true,
+    			x: event.detail.x,
+    			y: event.detail.y,
+    			info: event.detail.info
+    		});
+    	};
+
+    	const handleLeave = () => {
+    		$$invalidate(2, tooltip = { ...tooltip, visible: false });
+    	};
 
     	$$self.$$.on_mount.push(function () {
     		if (pax === undefined && !('pax' in $$props || $$self.$$.bound[$$self.$$.props['pax']])) {
@@ -32414,16 +32506,16 @@ var app = (function () {
     	function div_elementresize_handler() {
     		width = this.clientWidth;
     		height = this.clientHeight;
-    		$$invalidate(2, width);
-    		$$invalidate(3, height);
+    		$$invalidate(0, width);
+    		$$invalidate(1, height);
     	}
 
     	$$self.$$set = $$props => {
-    		if ('pax' in $$props) $$invalidate(6, pax = $$props.pax);
-    		if ('pax_stages' in $$props) $$invalidate(7, pax_stages = $$props.pax_stages);
-    		if ('mygeojson' in $$props) $$invalidate(0, mygeojson = $$props.mygeojson);
-    		if ('pax_timeline' in $$props) $$invalidate(1, pax_timeline = $$props.pax_timeline);
-    		if ('step' in $$props) $$invalidate(8, step = $$props.step);
+    		if ('pax' in $$props) $$invalidate(7, pax = $$props.pax);
+    		if ('pax_stages' in $$props) $$invalidate(8, pax_stages = $$props.pax_stages);
+    		if ('mygeojson' in $$props) $$invalidate(9, mygeojson = $$props.mygeojson);
+    		if ('pax_timeline' in $$props) $$invalidate(10, pax_timeline = $$props.pax_timeline);
+    		if ('step' in $$props) $$invalidate(11, step = $$props.step);
     	};
 
     	$$self.$capture_state = () => ({
@@ -32433,13 +32525,13 @@ var app = (function () {
     		Svg,
     		years,
     		full_grid,
-    		full_grid_hide_non_gender,
     		full_grid_filter,
     		pax,
     		pax_stages,
     		mygeojson,
     		pax_timeline,
     		step,
+    		tooltip,
     		width,
     		height,
     		rendered_data,
@@ -32451,23 +32543,26 @@ var app = (function () {
     		xScale,
     		yScale,
     		margin,
-    		formatMobile: formatMobile$1
+    		formatMobile: formatMobile$1,
+    		handleHover,
+    		handleLeave
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('pax' in $$props) $$invalidate(6, pax = $$props.pax);
-    		if ('pax_stages' in $$props) $$invalidate(7, pax_stages = $$props.pax_stages);
-    		if ('mygeojson' in $$props) $$invalidate(0, mygeojson = $$props.mygeojson);
-    		if ('pax_timeline' in $$props) $$invalidate(1, pax_timeline = $$props.pax_timeline);
-    		if ('step' in $$props) $$invalidate(8, step = $$props.step);
-    		if ('width' in $$props) $$invalidate(2, width = $$props.width);
-    		if ('height' in $$props) $$invalidate(3, height = $$props.height);
-    		if ('rendered_data' in $$props) $$invalidate(4, rendered_data = $$props.rendered_data);
+    		if ('pax' in $$props) $$invalidate(7, pax = $$props.pax);
+    		if ('pax_stages' in $$props) $$invalidate(8, pax_stages = $$props.pax_stages);
+    		if ('mygeojson' in $$props) $$invalidate(9, mygeojson = $$props.mygeojson);
+    		if ('pax_timeline' in $$props) $$invalidate(10, pax_timeline = $$props.pax_timeline);
+    		if ('step' in $$props) $$invalidate(11, step = $$props.step);
+    		if ('tooltip' in $$props) $$invalidate(2, tooltip = $$props.tooltip);
+    		if ('width' in $$props) $$invalidate(0, width = $$props.width);
+    		if ('height' in $$props) $$invalidate(1, height = $$props.height);
+    		if ('rendered_data' in $$props) $$invalidate(3, rendered_data = $$props.rendered_data);
     		if ('wom_first_pax' in $$props) wom_first_pax = $$props.wom_first_pax;
-    		if ('gap' in $$props) $$invalidate(16, gap = $$props.gap);
-    		if ('initialPaxCount' in $$props) $$invalidate(9, initialPaxCount = $$props.initialPaxCount);
-    		if ('innerWidth' in $$props) $$invalidate(10, innerWidth = $$props.innerWidth);
-    		if ('innerHeight' in $$props) $$invalidate(11, innerHeight = $$props.innerHeight);
+    		if ('gap' in $$props) $$invalidate(19, gap = $$props.gap);
+    		if ('initialPaxCount' in $$props) $$invalidate(12, initialPaxCount = $$props.initialPaxCount);
+    		if ('innerWidth' in $$props) $$invalidate(13, innerWidth = $$props.innerWidth);
+    		if ('innerHeight' in $$props) $$invalidate(14, innerHeight = $$props.innerHeight);
     		if ('xScale' in $$props) xScale = $$props.xScale;
     		if ('yScale' in $$props) yScale = $$props.yScale;
     	};
@@ -32477,56 +32572,66 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*width*/ 4) {
-    			 $$invalidate(10, innerWidth = width - margin.left - margin.right);
+    		if ($$self.$$.dirty & /*width*/ 1) {
+    			 $$invalidate(13, innerWidth = width - margin.left - margin.right);
     		}
 
-    		if ($$self.$$.dirty & /*height*/ 8) {
-    			 $$invalidate(11, innerHeight = height - margin.top - margin.bottom);
+    		if ($$self.$$.dirty & /*height*/ 2) {
+    			 $$invalidate(14, innerHeight = height - margin.top - margin.bottom);
     		}
 
-    		if ($$self.$$.dirty & /*innerWidth*/ 1024) {
+    		if ($$self.$$.dirty & /*innerWidth*/ 8192) {
     			 xScale = band().domain(years).range([0, innerWidth]).padding(0.1);
     		}
 
-    		if ($$self.$$.dirty & /*innerHeight*/ 2048) {
+    		if ($$self.$$.dirty & /*innerHeight*/ 16384) {
     			 yScale = linear$2().domain([0, 100]).range([innerHeight, 0]);
     		}
 
-    		if ($$self.$$.dirty & /*pax, pax_stages, innerHeight, innerWidth, initialPaxCount*/ 3776) {
+    		if ($$self.$$.dirty & /*pax, pax_stages, innerHeight, innerWidth, initialPaxCount*/ 29056) {
     			//initial functions
     			 if (pax && pax_stages) {
     				//prepare the initial grid
-    				$$invalidate(9, initialPaxCount = pax.length);
+    				$$invalidate(12, initialPaxCount = pax.length);
 
-    				$$invalidate(4, rendered_data = full_grid(pax, innerHeight, innerWidth, initialPaxCount, gap));
+    				$$invalidate(3, rendered_data = full_grid(pax, innerHeight, innerWidth, initialPaxCount, gap));
     			}
     		}
 
-    		if ($$self.$$.dirty & /*step, pax, innerHeight, innerWidth, initialPaxCount*/ 3904) {
+    		if ($$self.$$.dirty & /*step, pax, innerHeight, innerWidth, initialPaxCount*/ 30848) {
     			//steps
     			 if (step == "rect01") {
     				// full grid
-    				$$invalidate(4, rendered_data = full_grid(pax, innerHeight, innerWidth, initialPaxCount, gap));
+    				$$invalidate(3, rendered_data = full_grid(pax, innerHeight, innerWidth, initialPaxCount, gap));
+
+    				selectAll(".ind_rect").style("fill", "#F6F1D6");
     			} else if (step == "rect02") {
     				//0 height for non-gender
-    				$$invalidate(4, rendered_data = full_grid_hide_non_gender(pax, innerHeight, innerWidth, initialPaxCount, gap));
-    			} else if (step == "rect03") {
+    				// rendered_data = full_grid_hide_non_gender(
+    				//     pax,
+    				//     innerHeight,
+    				//     innerWidth,
+    				//     initialPaxCount,
+    				//     gap,
+    				// );
     				//full grid gender
-    				$$invalidate(4, rendered_data = full_grid_filter(pax, innerHeight, innerWidth, initialPaxCount, gap)); // // d3.selectAll(".non-gender").style("fill", "gray");
-    			}
+    				$$invalidate(3, rendered_data = full_grid_filter(pax, innerHeight, innerWidth, initialPaxCount, gap));
+    			} // d3.selectAll(".non-gender").style("fill", "gray");
     		}
     	};
 
     	return [
-    		mygeojson,
-    		pax_timeline,
     		width,
     		height,
+    		tooltip,
     		rendered_data,
     		margin,
+    		handleHover,
+    		handleLeave,
     		pax,
     		pax_stages,
+    		mygeojson,
+    		pax_timeline,
     		step,
     		initialPaxCount,
     		innerWidth,
@@ -32540,11 +32645,11 @@ var app = (function () {
     		super(options);
 
     		init(this, options, instance$j, create_fragment$j, safe_not_equal, {
-    			pax: 6,
-    			pax_stages: 7,
-    			mygeojson: 0,
-    			pax_timeline: 1,
-    			step: 8
+    			pax: 7,
+    			pax_stages: 8,
+    			mygeojson: 9,
+    			pax_timeline: 10,
+    			step: 11
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -34762,36 +34867,33 @@ var app = (function () {
 
     // (304:1) 
     function create_foreground_slot_4(ctx) {
-    	let div3;
+    	let div2;
     	let section0;
     	let div0;
     	let p0;
+    	let t0;
+    	let br;
     	let t1;
+    	let t2;
     	let section1;
     	let div1;
     	let p1;
-    	let t3;
-    	let section2;
-    	let div2;
-    	let p2;
 
     	const block = {
     		c: function create() {
-    			div3 = element("div");
+    			div2 = element("div");
     			section0 = element("section");
     			div0 = element("div");
     			p0 = element("p");
-    			p0.textContent = "PA-X maintains the biggest database of peace agreements in\r\n\t\t\t\t\tthe world. Every rectangle in this view represents one of\r\n\t\t\t\t\t2055 agreements.";
-    			t1 = space();
+    			t0 = text("PA-X maintains the biggest database of peace agreements in the world.");
+    			br = element("br");
+    			t1 = text("\r\n\t\t\t\t\tEvery rectangle in this view represents one of 2055 agreements.");
+    			t2 = space();
     			section1 = element("section");
     			div1 = element("div");
     			p1 = element("p");
     			p1.textContent = "Out of the 2055 agreements, only 436 contain references to\r\n\t\t\t\t\tgender.";
-    			t3 = space();
-    			section2 = element("section");
-    			div2 = element("div");
-    			p2 = element("p");
-    			p2.textContent = "That's less than a quarter, despite United Nations Security\r\n\t\t\t\t\tCouncil Resolution 1325 which urges all actors to increase\r\n\t\t\t\t\tthe participation of women and incorporate gender\r\n\t\t\t\t\tperspectives in all United Nations peace and security\r\n\t\t\t\t\tefforts.";
+    			add_location(br, file$n, 307, 74, 7719);
     			set_style(p0, "text-align", "center");
     			add_location(p0, file$n, 306, 4, 7612);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
@@ -34799,37 +34901,30 @@ var app = (function () {
     			attr_dev(section0, "data-id", "rect01");
     			add_location(section0, file$n, 304, 2, 7551);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$n, 315, 4, 7895);
+    			add_location(p1, file$n, 314, 4, 7895);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$n, 314, 3, 7865);
+    			add_location(div1, file$n, 313, 3, 7865);
     			attr_dev(section1, "data-id", "rect02");
-    			add_location(section1, file$n, 313, 2, 7834);
-    			set_style(p2, "text-align", "center");
-    			add_location(p2, file$n, 323, 4, 8105);
-    			attr_dev(div2, "class", "col-medium svelte-ypoop9");
-    			add_location(div2, file$n, 322, 3, 8075);
-    			attr_dev(section2, "data-id", "rect03");
-    			add_location(section2, file$n, 321, 2, 8044);
-    			attr_dev(div3, "slot", "foreground");
-    			add_location(div3, file$n, 303, 1, 7524);
+    			add_location(section1, file$n, 312, 2, 7834);
+    			attr_dev(div2, "slot", "foreground");
+    			add_location(div2, file$n, 303, 1, 7524);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div3, anchor);
-    			append_dev(div3, section0);
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, section0);
     			append_dev(section0, div0);
     			append_dev(div0, p0);
-    			append_dev(div3, t1);
-    			append_dev(div3, section1);
+    			append_dev(p0, t0);
+    			append_dev(p0, br);
+    			append_dev(p0, t1);
+    			append_dev(div2, t2);
+    			append_dev(div2, section1);
     			append_dev(section1, div1);
     			append_dev(div1, p1);
-    			append_dev(div3, t3);
-    			append_dev(div3, section2);
-    			append_dev(section2, div2);
-    			append_dev(div2, p2);
     		},
     		p: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div3);
+    			if (detaching) detach_dev(div2);
     		}
     	};
 
@@ -34844,7 +34939,7 @@ var app = (function () {
     	return block;
     }
 
-    // (336:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (335:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_5(ctx) {
     	let p;
 
@@ -34853,7 +34948,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Peace Process Stages";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$n, 336, 1, 8538);
+    			add_location(p, file$n, 335, 1, 8547);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34868,14 +34963,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_5.name,
     		type: "slot",
-    		source: "(336:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(335:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (342:1) 
+    // (341:1) 
     function create_background_slot_3(ctx) {
     	let div2;
     	let figure;
@@ -34903,12 +34998,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(stages.$$.fragment);
     			attr_dev(div0, "class", "stage svelte-ypoop9");
-    			add_location(div0, file$n, 344, 4, 8776);
+    			add_location(div0, file$n, 343, 4, 8785);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$n, 343, 3, 8736);
-    			add_location(figure, file$n, 342, 2, 8723);
+    			add_location(div1, file$n, 342, 3, 8745);
+    			add_location(figure, file$n, 341, 2, 8732);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$n, 341, 1, 8696);
+    			add_location(div2, file$n, 340, 1, 8705);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34946,14 +35041,14 @@ var app = (function () {
     		block,
     		id: create_background_slot_3.name,
     		type: "slot",
-    		source: "(342:1) ",
+    		source: "(341:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (358:1) 
+    // (357:1) 
     function create_foreground_slot_3(ctx) {
     	let div2;
     	let section0;
@@ -34977,19 +35072,19 @@ var app = (function () {
     			p1 = element("p");
     			p1.textContent = "PA-X Gender agreements";
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$n, 360, 4, 9045);
+    			add_location(p0, file$n, 359, 4, 9054);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$n, 359, 3, 9015);
+    			add_location(div0, file$n, 358, 3, 9024);
     			attr_dev(section0, "data-id", "stage01");
-    			add_location(section0, file$n, 358, 2, 8983);
+    			add_location(section0, file$n, 357, 2, 8992);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$n, 369, 4, 9325);
+    			add_location(p1, file$n, 368, 4, 9334);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$n, 368, 3, 9295);
+    			add_location(div1, file$n, 367, 3, 9304);
     			attr_dev(section1, "data-id", "stage02");
-    			add_location(section1, file$n, 367, 2, 9263);
+    			add_location(section1, file$n, 366, 2, 9272);
     			attr_dev(div2, "slot", "foreground");
-    			add_location(div2, file$n, 357, 1, 8956);
+    			add_location(div2, file$n, 356, 1, 8965);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -35011,14 +35106,14 @@ var app = (function () {
     		block,
     		id: create_foreground_slot_3.name,
     		type: "slot",
-    		source: "(358:1) ",
+    		source: "(357:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (376:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (375:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_4(ctx) {
     	let p;
 
@@ -35027,7 +35122,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Timeline";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$n, 376, 1, 9512);
+    			add_location(p, file$n, 375, 1, 9521);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -35042,14 +35137,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_4.name,
     		type: "slot",
-    		source: "(376:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(375:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (382:1) 
+    // (381:1) 
     function create_background_slot_2(ctx) {
     	let div2;
     	let figure;
@@ -35078,12 +35173,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(timeline.$$.fragment);
     			attr_dev(div0, "class", "time svelte-ypoop9");
-    			add_location(div0, file$n, 384, 4, 9735);
+    			add_location(div0, file$n, 383, 4, 9744);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$n, 383, 3, 9695);
-    			add_location(figure, file$n, 382, 2, 9682);
+    			add_location(div1, file$n, 382, 3, 9704);
+    			add_location(figure, file$n, 381, 2, 9691);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$n, 381, 1, 9655);
+    			add_location(div2, file$n, 380, 1, 9664);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -35122,14 +35217,14 @@ var app = (function () {
     		block,
     		id: create_background_slot_2.name,
     		type: "slot",
-    		source: "(382:1) ",
+    		source: "(381:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (399:1) 
+    // (398:1) 
     function create_foreground_slot_2(ctx) {
     	let div5;
     	let section0;
@@ -35180,37 +35275,37 @@ var app = (function () {
     			p4 = element("p");
     			p4.textContent = "afghanistan agreements with highlighted gender text";
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$n, 401, 4, 10025);
+    			add_location(p0, file$n, 400, 4, 10034);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$n, 400, 3, 9995);
+    			add_location(div0, file$n, 399, 3, 10004);
     			attr_dev(section0, "data-id", "time01");
-    			add_location(section0, file$n, 399, 2, 9964);
+    			add_location(section0, file$n, 398, 2, 9973);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$n, 409, 4, 10234);
+    			add_location(p1, file$n, 408, 4, 10243);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$n, 408, 3, 10204);
+    			add_location(div1, file$n, 407, 3, 10213);
     			attr_dev(section1, "data-id", "time02");
-    			add_location(section1, file$n, 407, 2, 10173);
+    			add_location(section1, file$n, 406, 2, 10182);
     			set_style(p2, "text-align", "center");
-    			add_location(p2, file$n, 414, 4, 10381);
+    			add_location(p2, file$n, 413, 4, 10390);
     			attr_dev(div2, "class", "col-medium svelte-ypoop9");
-    			add_location(div2, file$n, 413, 3, 10351);
+    			add_location(div2, file$n, 412, 3, 10360);
     			attr_dev(section2, "data-id", "time03");
-    			add_location(section2, file$n, 412, 2, 10320);
+    			add_location(section2, file$n, 411, 2, 10329);
     			set_style(p3, "text-align", "center");
-    			add_location(p3, file$n, 419, 4, 10517);
+    			add_location(p3, file$n, 418, 4, 10526);
     			attr_dev(div3, "class", "col-medium svelte-ypoop9");
-    			add_location(div3, file$n, 418, 3, 10487);
+    			add_location(div3, file$n, 417, 3, 10496);
     			attr_dev(section3, "data-id", "time04");
-    			add_location(section3, file$n, 417, 2, 10456);
+    			add_location(section3, file$n, 416, 2, 10465);
     			set_style(p4, "text-align", "center");
-    			add_location(p4, file$n, 424, 4, 10664);
+    			add_location(p4, file$n, 423, 4, 10673);
     			attr_dev(div4, "class", "col-medium svelte-ypoop9");
-    			add_location(div4, file$n, 423, 3, 10634);
+    			add_location(div4, file$n, 422, 3, 10643);
     			attr_dev(section4, "data-id", "time05");
-    			add_location(section4, file$n, 422, 2, 10603);
+    			add_location(section4, file$n, 421, 2, 10612);
     			attr_dev(div5, "slot", "foreground");
-    			add_location(div5, file$n, 398, 1, 9937);
+    			add_location(div5, file$n, 397, 1, 9946);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div5, anchor);
@@ -35244,14 +35339,14 @@ var app = (function () {
     		block,
     		id: create_foreground_slot_2.name,
     		type: "slot",
-    		source: "(399:1) ",
+    		source: "(398:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (433:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (432:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_3(ctx) {
     	let p;
 
@@ -35260,7 +35355,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Geography";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$n, 433, 1, 10893);
+    			add_location(p, file$n, 432, 1, 10902);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -35275,14 +35370,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3.name,
     		type: "slot",
-    		source: "(433:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(432:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (439:1) 
+    // (438:1) 
     function create_background_slot_1(ctx) {
     	let div2;
     	let figure;
@@ -35312,12 +35407,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(geography.$$.fragment);
     			attr_dev(div0, "class", "map svelte-ypoop9");
-    			add_location(div0, file$n, 441, 4, 11115);
+    			add_location(div0, file$n, 440, 4, 11124);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$n, 440, 3, 11075);
-    			add_location(figure, file$n, 439, 2, 11062);
+    			add_location(div1, file$n, 439, 3, 11084);
+    			add_location(figure, file$n, 438, 2, 11071);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$n, 438, 1, 11035);
+    			add_location(div2, file$n, 437, 1, 11044);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -35357,14 +35452,14 @@ var app = (function () {
     		block,
     		id: create_background_slot_1.name,
     		type: "slot",
-    		source: "(439:1) ",
+    		source: "(438:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (457:1) 
+    // (456:1) 
     function create_foreground_slot_1(ctx) {
     	let div4;
     	let section0;
@@ -35406,31 +35501,31 @@ var app = (function () {
     			p3 = element("p");
     			p3.textContent = "references to un 1325";
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$n, 459, 4, 11427);
+    			add_location(p0, file$n, 458, 4, 11436);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$n, 458, 3, 11397);
+    			add_location(div0, file$n, 457, 3, 11406);
     			attr_dev(section0, "data-id", "map01");
-    			add_location(section0, file$n, 457, 2, 11367);
+    			add_location(section0, file$n, 456, 2, 11376);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$n, 464, 4, 11579);
+    			add_location(p1, file$n, 463, 4, 11588);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$n, 463, 3, 11549);
+    			add_location(div1, file$n, 462, 3, 11558);
     			attr_dev(section1, "data-id", "map02");
-    			add_location(section1, file$n, 462, 2, 11519);
+    			add_location(section1, file$n, 461, 2, 11528);
     			set_style(p2, "text-align", "center");
-    			add_location(p2, file$n, 471, 4, 11747);
+    			add_location(p2, file$n, 470, 4, 11756);
     			attr_dev(div2, "class", "col-medium svelte-ypoop9");
-    			add_location(div2, file$n, 470, 3, 11717);
+    			add_location(div2, file$n, 469, 3, 11726);
     			attr_dev(section2, "data-id", "map03");
-    			add_location(section2, file$n, 469, 2, 11687);
+    			add_location(section2, file$n, 468, 2, 11696);
     			set_style(p3, "text-align", "center");
-    			add_location(p3, file$n, 476, 4, 11888);
+    			add_location(p3, file$n, 475, 4, 11897);
     			attr_dev(div3, "class", "col-medium svelte-ypoop9");
-    			add_location(div3, file$n, 475, 3, 11858);
+    			add_location(div3, file$n, 474, 3, 11867);
     			attr_dev(section3, "data-id", "map04");
-    			add_location(section3, file$n, 474, 2, 11828);
+    			add_location(section3, file$n, 473, 2, 11837);
     			attr_dev(div4, "slot", "foreground");
-    			add_location(div4, file$n, 456, 1, 11340);
+    			add_location(div4, file$n, 455, 1, 11349);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
@@ -35460,14 +35555,14 @@ var app = (function () {
     		block,
     		id: create_foreground_slot_1.name,
     		type: "slot",
-    		source: "(457:1) ",
+    		source: "(456:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (549:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (548:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_2(ctx) {
     	let p;
 
@@ -35476,7 +35571,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Within the 436 peace agreements that do contain references to women and\r\n\t\tgender, how much attention is in fact given to this topic?";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$n, 549, 1, 14116);
+    			add_location(p, file$n, 548, 1, 14125);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -35491,14 +35586,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(549:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(548:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (599:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (598:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_1$4(ctx) {
     	let p;
 
@@ -35507,7 +35602,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "PA-X Gender physicalization project. [include video and screenshots\r\n\t\there]";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$n, 599, 1, 15578);
+    			add_location(p, file$n, 598, 1, 15587);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -35522,14 +35617,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1$4.name,
     		type: "slot",
-    		source: "(599:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(598:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (606:0) <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
+    // (605:0) <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
     function create_default_slot$4(ctx) {
     	let p;
     	let t0;
@@ -35542,9 +35637,9 @@ var app = (function () {
     			t0 = text("How do we gather the agreements? How are they processed? [where to\r\n\t\tinclude provenance?");
     			br = element("br");
     			t1 = text(" beginning/end/between sections?]");
-    			add_location(br, file$n, 608, 21, 15890);
+    			add_location(br, file$n, 607, 21, 15899);
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$n, 606, 1, 15777);
+    			add_location(p, file$n, 605, 1, 15786);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -35562,14 +35657,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$4.name,
     		type: "slot",
-    		source: "(606:0) <Filler theme=\\\"dark\\\" short={true} wide={true} center={true} shadow={true}>",
+    		source: "(605:0) <Filler theme=\\\"dark\\\" short={true} wide={true} center={true} shadow={true}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (616:1) 
+    // (615:1) 
     function create_background_slot(ctx) {
     	let div2;
     	let figure;
@@ -35588,14 +35683,14 @@ var app = (function () {
     			attr_dev(img, "id", "agreement");
     			if (!src_url_equal(img.src, img_src_value = "./img/sources.jpg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "class", "svelte-ypoop9");
-    			add_location(img, file$n, 619, 5, 16171);
+    			add_location(img, file$n, 618, 5, 16180);
     			attr_dev(div0, "class", "close_read svelte-ypoop9");
-    			add_location(div0, file$n, 618, 4, 16140);
+    			add_location(div0, file$n, 617, 4, 16149);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$n, 617, 3, 16100);
-    			add_location(figure, file$n, 616, 2, 16087);
+    			add_location(div1, file$n, 616, 3, 16109);
+    			add_location(figure, file$n, 615, 2, 16096);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$n, 615, 1, 16060);
+    			add_location(div2, file$n, 614, 1, 16069);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -35614,14 +35709,14 @@ var app = (function () {
     		block,
     		id: create_background_slot.name,
     		type: "slot",
-    		source: "(616:1) ",
+    		source: "(615:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (626:1) 
+    // (625:1) 
     function create_foreground_slot(ctx) {
     	let div2;
     	let section0;
@@ -35649,23 +35744,23 @@ var app = (function () {
     			t2 = text("translation/transcription/coding/data entry\r\n\t\t\t\t\t");
     			img = element("img");
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$n, 628, 4, 16355);
+    			add_location(p0, file$n, 627, 4, 16364);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$n, 627, 3, 16325);
+    			add_location(div0, file$n, 626, 3, 16334);
     			attr_dev(section0, "data-id", "prov01");
-    			add_location(section0, file$n, 626, 2, 16294);
+    			add_location(section0, file$n, 625, 2, 16303);
     			attr_dev(img, "id", "agreement");
     			if (!src_url_equal(img.src, img_src_value = "./img/diagram.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "class", "svelte-ypoop9");
-    			add_location(img, file$n, 635, 5, 16575);
+    			add_location(img, file$n, 634, 5, 16584);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$n, 633, 4, 16487);
+    			add_location(p1, file$n, 632, 4, 16496);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$n, 632, 3, 16457);
+    			add_location(div1, file$n, 631, 3, 16466);
     			attr_dev(section1, "data-id", "prov02");
-    			add_location(section1, file$n, 631, 2, 16426);
+    			add_location(section1, file$n, 630, 2, 16435);
     			attr_dev(div2, "slot", "foreground");
-    			add_location(div2, file$n, 625, 1, 16267);
+    			add_location(div2, file$n, 624, 1, 16276);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -35689,7 +35784,7 @@ var app = (function () {
     		block,
     		id: create_foreground_slot.name,
     		type: "slot",
-    		source: "(626:1) ",
+    		source: "(625:1) ",
     		ctx
     	});
 
