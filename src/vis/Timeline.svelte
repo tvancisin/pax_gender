@@ -109,13 +109,13 @@
         d3.select(".axis").style("visibility", "visible");
         //afghanistan only
         let previousYear = null; // Track the last year seen
-        let index = 0; // Index that changes based on GeWom value
+        let index = -1; // Index that changes based on GeWom value
         rendered_data = pax.map((d) => {
             const currentYear = d.Dat.substring(6, 10);
 
             // Reset index if the year has changed
             if (currentYear !== previousYear) {
-                index = 0;
+                index = -1;
                 previousYear = currentYear;
             }
 
@@ -145,7 +145,7 @@
 
             // Determine y position based on GeWom value
             const yPosition =
-                d.Con === "Afghanistan" ? innerHeight : innerHeight + 100;
+                d.Con === "Afghanistan" ? 10 : innerHeight + 100;
 
             // Increment index only if d.Con is "Afghanistan"
             if (d.Con === "Afghanistan") {
@@ -207,7 +207,7 @@
                     index = 0;
                 }
 
-                yPosition = innerHeight - yHeight(d.N_characters);
+                yPosition = 10;
                 agt_height = yHeight(d.N_characters);
                 construct_gender(
                     d.AgtId,
@@ -255,7 +255,7 @@
                                         xScale.bandwidth() / 2},{innerHeight +
                                         15})"
                                 >
-                                    <text y="-2"
+                                    <text y="1"
                                         >{innerWidth > 380
                                             ? tick
                                             : formatMobile(tick)}</text
@@ -279,7 +279,7 @@
                             <rect
                                 class="gender_text"
                                 x={d.x + 2}
-                                y={+d.y - 2}
+                                y={+d.y}
                                 width={d.width - 4}
                                 height={d.height}
                                 fill="black"
@@ -305,7 +305,7 @@
     .tick text {
         fill: white;
         text-anchor: start;
-        font-size: 8px;
+        font-size: 10px;
     }
 
     .x-axis .tick text {

@@ -76,9 +76,9 @@
                     {#each stages as d, i}
                         <text
                             x={column_width * i + i * 2}
-                            y={innerHeight + 10}
+                            y={innerHeight + 12}
                             fill="white"
-                            font-size="10px">{d}</text
+                            font-size="12px">{d}</text
                         >
                     {/each}
 

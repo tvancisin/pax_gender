@@ -21,7 +21,7 @@
 
 <style>
   hr {
-    width: 100px;
+    width: 200px;
     color: white;
     border: none;
     border-top: 2px solid;

@@ -270,17 +270,9 @@
 		<strong>Peace Process</strong> is an attempt to bring political and/or
 		military <br /> protagonists to an agreement that could end their conflict.
 	</p>
-</Filler>
-
-<Divider />
-
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">
-		<strong>Peace Process Stages</strong> include Ceasefire,
-		Pre-Negotiation,<br /> Partial Agreement, Comprehensive Agreement, Implementation,
-		Renewal and Other.
-	</p>
 </Filler> -->
+
+<!-- <Divider /> -->
 
 <!-- RECTANGLES -->
 <Scroller {threshold} bind:id={id["rect"]} splitscreen={false} shadow={false}>
@@ -467,118 +459,6 @@
 		</section>
 	</div>
 </Scroller>
-
-<!-- <Scroller {threshold} bind:id={id["chart"]} splitscreen={false}>
-	<div slot="background">
-		<figure>
-			<div class="col-wide height-full">
-				{#if pax}
-					<div class="chart">
-						<Lines {pax} {pax_gender} {step} {central_points} {mygeojson}/>
-					</div>
-				{/if}
-			</div>
-		</figure>
-	</div>
-
-	<div slot="foreground">
-		<section data-id="chart01">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Every line represents one of <strong>2055 agreements</strong
-					> in PA-X database.
-				</p>
-			</div>
-		</section>
-		<section data-id="chart02">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					<strong>436 agreements</strong> peace agreements specifically
-					address women, their inclusion, and their rights. This includes
-					references to girls, widows, mothers, sexual violence, gender
-					violence, UNSC 1325 or CEDAW, and lactating women.
-				</p>
-			</div>
-		</section>
-		<section data-id="chart03">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					<strong>55 agreements</strong> outline a specific quota commitment,
-					or specify particular numbers of women that are to participate.
-				</p>
-			</div>
-		</section>
-		<section data-id="chart04">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					<strong>82 agreements</strong> mention references to international
-					law with regards to women.
-				</p>
-			</div>
-		</section>
-		<section data-id="chart05">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Out of the 82 agreements, only <strong>10</strong> contain
-					references to the
-					<a
-						href="https://www.un.org/womenwatch/osagi/wps/"
-						target="_blank"
-						>United Nations Security Council Resolution 1325</a
-					> which urges all actors to increase the participation of women
-					and incorporate gender perspectives in all United Nations peace
-					and security efforts.
-				</p>
-			</div>
-		</section>
-	</div>
-</Scroller> -->
-
-<!-- <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">
-		Within the 436 peace agreements that do contain references to women and
-		gender, how much attention is in fact given to this topic?
-	</p>
-</Filler> -->
-
-<!-- <Scroller {threshold} bind:id={id["rect"]} splitscreen={false}>
-	<div slot="background">
-		<figure>
-			<div class="col-wide height-full">
-				<div class="rect">
-					<Rectangles {pax_gender} {step} />
-				</div>
-			</div>
-		</figure>
-	</div>
-
-	<div slot="foreground">
-		<section data-id="rect01">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Every rectangle represents a full length of peace agreement
-					that includes references to gender. The black section
-					highlights the proportion of text dedicated to this topic.
-				</p>
-			</div>
-		</section>
-		<section data-id="rect02">
-			<div class="col-medium">
-				<p style="text-align: center;">Quotas</p>
-			</div>
-		</section>
-		<section data-id="rect03">
-			<div class="col-medium">
-				<p style="text-align: center;">International Law</p>
-			</div>
-		</section>
-		<section data-id="rect04">
-			<div class="col-medium">
-				<p style="text-align: center;">UN</p>
-			</div>
-		</section>
-	</div>
-</Scroller> -->
 
 <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
 	<p class="text-big">

@@ -10,6 +10,7 @@
     export let info;
     export let i;
 
+
     const dispatch = createEventDispatcher();
 
     // Define position tween parameters with staggered delay
@@ -57,8 +58,6 @@
         rx="1"
         fill="#F6F1D6"
         class:is-hovered={isHovered}
-        on:mouseenter={handleMouseEnter}
-        on:mouseleave={handleMouseLeave}
     />
 </g>
 
@@ -72,3 +71,6 @@
         fill: rgb(163, 0, 0); /* Change to red on hover */
     }
 </style>
+
+        <!-- on:mouseenter={handleMouseEnter}
+        on:mouseleave={handleMouseLeave} -->

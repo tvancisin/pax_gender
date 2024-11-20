@@ -2,7 +2,7 @@
     import * as d3 from "d3";
     import IndividualLine from "./IndividualLine.svelte";
     import { LayerCake, Svg } from "layercake";
-    import Map1 from "./Map1.svelte";
+    import Map from "./Map.svelte";
     import {
         years,
         most_women,
@@ -82,7 +82,7 @@
         {#if mygeojson}
             <LayerCake data={mygeojson}>
                 <Svg>
-                    <Map1
+                    <Map
                         projectionName={"geoNaturalEarth1"}
                         {cumulative_isos}
                         {step}

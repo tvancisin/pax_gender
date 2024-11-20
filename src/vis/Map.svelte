@@ -1,85 +1,65 @@
 <script>
     import { getContext } from "svelte";
-    import { onDestroy } from "svelte";
     import * as geo from "d3-geo";
     import * as d3 from "d3";
 
-    export let mygeojson;
-    export let map_svg_width;
-    export let height;
+    const { data, width, height } = getContext("LayerCake");
+
     export let projectionName = "geoNaturalEarth1";
-    export let features = mygeojson.features;
+    export let features = $data.features;
     export let cumulative_isos;
-    export let scaleFactor = 1.1; // Adjust this value to control zoom level
+    export let step;
 
-    let projection;
-    let geoPath;
-
-    $: {
-        // Set the initial projection with fitSize
-        projection = geo[projectionName]().fitSize(
-            [map_svg_width, height],
-            mygeojson,
-        );
-
-        // Apply custom scaling
-        projection.scale(projection.scale() * scaleFactor);
-
-
-        // Define the geoPath with the updated projection
-        geoPath = geo.geoPath(projection);
+    $: if (step == "2") {
+        d3.select(".map-group").style("visibility", "visible")
+    } else if (step == "1") {
+        d3.select(".map-group").style("visibility", "hidden")
     }
 
-    // Handle highlighted colors for different steps
+    // $: console.log(cumulative_isos);
+    
+
     $: if (cumulative_isos) {
         let filteredIsos = cumulative_isos.filter((iso) => iso !== "");
-        d3.selectAll(".country").style("fill", "white");
+        d3.selectAll(".country").style("fill", " #4d4d4d");
         filteredIsos.forEach((iso) => {
-            d3.selectAll("." + iso).style("fill", "black");
+            d3.selectAll("." + iso).style("fill", "#f6f1d6");
         });
     }
 
-    // Function to set initial fill color
+    $: projection = geo[projectionName]().fitSize([$width, $height], $data);
+    $: geoPath = geo.geoPath(projection);
+
+    function polygon_hover(feature) {
+        // console.log(feature);
+    }
+
     function initial_fill(polygon) {
         return cumulative_isos.includes(polygon.properties.adm0_iso)
-            ? "black"
-            : "white";
+            ? "#f6f1d6"
+            : "#4d4d4d";
     }
 
-    // Resize handler to maintain responsiveness
-    function updateProjection() {
-        projection
-            .fitSize([map_svg_width, height], mygeojson)
-            .scale(projection.scale() * scaleFactor);
-        geoPath = geo.geoPath(projection);
-    }
-
-    // Add event listener for resize
-    window.addEventListener("resize", updateProjection);
-    onDestroy(() => window.removeEventListener("resize", updateProjection));
-
-    function polygon_hover(d) {}
 </script>
 
-{#if features && cumulative_isos}
-    <svg width={map_svg_width} {height}>
-        <g class="map-group">
-            {#each features as feature}
-                <path
-                    fill={initial_fill(feature)}
-                    class={"country " + feature.properties.adm0_iso}
-                    d={geoPath(feature)}
-                    on:mouseenter={polygon_hover(feature)}
-                ></path>
-            {/each}
-        </g>
-    </svg>
-{/if}
+<g class="map-group">
+    {#each features as feature}
+        <path
+            fill={initial_fill(feature)}
+            class={"country " + feature.properties.adm0_iso}
+            d={geoPath(feature)}
+            on:mouseenter={polygon_hover(feature)}
+        ></path>
+    {/each}
+
+</g>
 
 <style>
+    .map-group {
+        visibility: hidden;
+    }
     .country {
-        stroke: rgb(126, 126, 126);
+        stroke:none;
         stroke-width: 0.5px;
-        shape-rendering: geometricPrecision;
     }
 </style>
