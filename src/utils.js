@@ -361,7 +361,7 @@ export function full_grid_filter(pax, innerHeight, innerWidth, initialPaxCount, 
       y: y,
       width: rectWidth,
       height: rectHeight,
-        info: d.Agt
+      info: d.Agt
     };
   });
 

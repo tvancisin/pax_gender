@@ -89,6 +89,7 @@
                             y={d.y}
                             width={d.width}
                             height={d.height}
+                            info={d.info}
                         />
                     {/each}
                 </g>

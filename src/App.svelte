@@ -282,8 +282,6 @@
 	</p>
 </Filler> -->
 
-<Divider />
-
 <!-- RECTANGLES -->
 <Scroller {threshold} bind:id={id["rect"]} splitscreen={false} shadow={false}>
 	<div slot="background">
@@ -314,21 +312,14 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Out of the 2055 agreements, only 436 contain references to
-					gender.
-				</p>
-			</div>
-		</section>
-		<!-- <section data-id="rect03">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					That's less than a quarter, despite United Nations Security
+					gender. That's less than a quarter, despite United Nations Security
 					Council Resolution 1325 which urges all actors to increase
 					the participation of women and incorporate gender
 					perspectives in all United Nations peace and security
 					efforts.
 				</p>
 			</div>
-		</section> -->
+		</section>
 	</div>
 </Scroller>
 
@@ -589,25 +580,12 @@
 	</div>
 </Scroller> -->
 
-<!-- <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
-	<p class="text-big">What do we do with the agreements we gather?</p>
-</Filler> -->
-
-<!-- <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">
-		PA-X Gender physicalization project. [include video and screenshots
-		here]
-	</p>
-</Filler> -->
-
 <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
 	<p class="text-big">
 		How do we gather the agreements? How are they processed? [where to
 		include provenance?<br /> beginning/end/between sections?]
 	</p>
 </Filler>
-
-<Divider shadow={true} />
 
 <Scroller {threshold} bind:id={id["prov"]} splitscreen={false} shadow={true}>
 	<div slot="background">
@@ -637,7 +615,6 @@
 	</div>
 </Scroller>
 
-<!-- <ONSFooter /> -->
 
 <style>
 	/* Styles specific to elements within the demo */

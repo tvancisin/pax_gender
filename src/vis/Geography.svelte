@@ -73,8 +73,6 @@
         return "'" + tick.toString().slice(-2);
     }
 
-    $: console.log(cumulative_isos);
-    
     // $: console.log("rendered data: ", rendered_data);
     // $: console.log("central points: ", central_points);
 </script>

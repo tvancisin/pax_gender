@@ -48,6 +48,7 @@
                 y: yScale(index),
                 width: xScale.bandwidth(),
                 height: 3,
+                info: d.Agt
             };
 
             index += 1; // Increment index for the next entry in the same year
@@ -73,6 +74,7 @@
                 y: yScale(index),
                 width: xScale.bandwidth(),
                 height: 3,
+                info: d.Agt
             };
 
             index += 1; // Increment index for the next entry in the same year
@@ -100,6 +102,7 @@
                 y: yPosition,
                 width: xScale.bandwidth(),
                 height: 3,
+                info: d.info
             };
         });
     } else if (step == "3") {
@@ -125,6 +128,7 @@
                 y: yPosition,
                 width: xScale.bandwidth(),
                 height: 3,
+                info: d.info
             };
         });
     } else if (step == "4") {
@@ -157,6 +161,7 @@
                 y: yPosition,
                 width: elementWidth,
                 height: 3,
+                info: d.info
             };
         });
         d3.selectAll(".gender_text").style("visibility", "hidden");
@@ -221,6 +226,7 @@
                 y: yPosition,
                 width: elementWidth,
                 height: agt_height,
+                info: d.Agt
             };
         });
     }
@@ -265,6 +271,7 @@
                                 y={d.y}
                                 width={d.width}
                                 height={d.height}
+                                info={d.info}
                             />
                         {/each}
 
