@@ -265,12 +265,13 @@
 
 <!-- <Divider /> -->
 
-<!-- <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">
-		<strong>Peace Process</strong> is an attempt to bring political and/or
-		military <br /> protagonists to an agreement that could end their conflict.
-	</p>
-</Filler> -->
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+	<p class="text-big">What's a peace agreement?</p>
+</Filler>
+
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+	<p class="text-big">[peace agreement definition]</p>
+</Filler>
 
 <!-- <Divider /> -->
 
@@ -280,11 +281,7 @@
 		<figure>
 			<div class="col-wide height-full">
 				<div class="rect">
-					<Rectangles
-						{pax_stages}
-						{pax}
-						{step}
-					/>
+					<Rectangles {pax_stages} {pax} {step} />
 				</div>
 			</div>
 		</figure>
@@ -304,54 +301,28 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Out of the 2055 agreements, only 436 contain references to
-					gender. That's less than a quarter, despite United Nations Security
-					Council Resolution 1325 which urges all actors to increase
-					the participation of women and incorporate gender
-					perspectives in all United Nations peace and security
-					efforts.
+					gender.<br /> That's less than a quarter.
 				</p>
 			</div>
 		</section>
 	</div>
 </Scroller>
+<!-- , despite United Nations
+					Security Council Resolution 1325 which urges all actors to
+					increase the participation of women and incorporate gender
+					perspectives in all United Nations peace and security
+					efforts. -->
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">Peace Process Stages</p>
+	<p class="text-big">
+		Why should gender be taken into consideration in peace agreements?
+	</p>
 </Filler>
 
-<!-- STAGES -->
-<Scroller {threshold} bind:id={id["stage"]} splitscreen={false} shadow={false}>
-	<div slot="background">
-		<figure>
-			<div class="col-wide height-full">
-				<div class="stage">
-					<Stages
-						{pax_stages}
-						{pax}
-						{step}
-					/>
-				</div>
-			</div>
-		</figure>
-	</div>
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+	<p class="text-big">[explanation]</p>
+</Filler>
 
-	<div slot="foreground">
-		<section data-id="stage01">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Dividing all PA-X agreements into different peace process
-					stages shows the predominance of Partial and Pre-Negotiation
-					agreements
-				</p>
-			</div>
-		</section>
-		<section data-id="stage02">
-			<div class="col-medium">
-				<p style="text-align: center;">PA-X Gender agreements</p>
-			</div>
-		</section>
-	</div>
-</Scroller>
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">Timeline</p>
@@ -405,6 +376,40 @@
 				<p style="text-align: center;">
 					afghanistan agreements with highlighted gender text
 				</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
+
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+	<p class="text-big">Peace Process Stages</p>
+</Filler>
+
+<!-- STAGES -->
+<Scroller {threshold} bind:id={id["stage"]} splitscreen={false} shadow={false}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				<div class="stage">
+					<Stages {pax_stages} {pax} {step} />
+				</div>
+			</div>
+		</figure>
+	</div>
+
+	<div slot="foreground">
+		<section data-id="stage01">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Dividing all PA-X agreements into different peace process
+					stages shows the predominance of Partial and Pre-Negotiation
+					agreements
+				</p>
+			</div>
+		</section>
+		<section data-id="stage02">
+			<div class="col-medium">
+				<p style="text-align: center;">PA-X Gender agreements</p>
 			</div>
 		</section>
 	</div>
@@ -494,7 +499,6 @@
 		</section>
 	</div>
 </Scroller>
-
 
 <style>
 	/* Styles specific to elements within the demo */
