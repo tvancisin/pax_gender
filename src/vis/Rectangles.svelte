@@ -2,16 +2,10 @@
     import * as d3 from "d3";
     import IndividualLine from "./IndividualLine.svelte";
     import { LayerCake, Svg } from "layercake";
-    import {
-        years,
-        full_grid,
-        full_grid_filter,
-    } from "../utils";
+    import { years, full_grid, full_grid_filter } from "../utils";
 
     export let pax;
     export let pax_stages;
-    export let mygeojson;
-    export let pax_timeline;
     export let step;
 
     let tooltip = { visible: false, x: 0, y: 0, info: "" }; // Tooltip state
@@ -19,7 +13,6 @@
     let width = 400;
     let height = 400;
     let rendered_data;
-    let wom_first_pax;
     let gap = 2;
     let initialPaxCount;
     let innerWidth, innerHeight, xScale, yScale;
@@ -61,14 +54,6 @@
         );
         d3.selectAll(".ind_rect").style("fill", "#F6F1D6");
     } else if (step == "rect02") {
-        //0 height for non-gender
-        // rendered_data = full_grid_hide_non_gender(
-        //     pax,
-        //     innerHeight,
-        //     innerWidth,
-        //     initialPaxCount,
-        //     gap,
-        // );
         //full grid gender
         rendered_data = full_grid_filter(
             pax,
@@ -77,24 +62,7 @@
             initialPaxCount,
             gap,
         );
-        // d3.selectAll(".non-gender").style("fill", "gray");
     }
-
-    // else if (step == "rect03") {
-
-    //     //full grid gender
-    //     rendered_data = full_grid_filter(
-    //         pax,
-    //         innerHeight,
-    //         innerWidth,
-    //         initialPaxCount,
-    //         gap,
-    //     );
-    // }
-
-    // else if (step == "rect04") {
-    //     console.log("heeeee");
-    // }
 
     function formatMobile(tick) {
         return "'" + tick.toString().slice(-2);
@@ -102,8 +70,26 @@
 
     // Event handlers for tooltip
     const handleHover = (event) => {
+        let dyn_x;
+        let dyn_y;
+        if (event.detail.x >= innerWidth / 2) {
+            dyn_x = event.detail.x - 140;
+        } else if (event.detail.x < innerWidth / 2) {
+            dyn_x = event.detail.x + 70;
+        }
 
-        tooltip = { visible: true, x: event.detail.x, y: event.detail.y, info: event.detail.info };
+        if (event.detail.y >= innerHeight / 2) {
+            dyn_y = event.detail.y - 50;
+        } else if (event.detail.y < innerHeight / 2) {
+            dyn_y = event.detail.y;
+        }
+
+        tooltip = {
+            visible: true,
+            x: dyn_x,
+            y: dyn_y,
+            info: event.detail.info,
+        };
     };
 
     const handleLeave = () => {
@@ -139,9 +125,9 @@
         {#if tooltip.visible}
             <div
                 class="tooltip"
-                style="position: absolute; left: {tooltip.x + 70}px; top: {tooltip.y + 40}px;"
+                style="position: absolute; left: {tooltip.x}px; top: {tooltip.y}px;"
             >
-                 <p>{tooltip.info}</p>
+                <p>{tooltip.info}</p>
             </div>
         {/if}
     </div>
@@ -157,10 +143,10 @@
         background-color: rgba(0, 0, 0, 0.8);
         color: white;
         padding: 10px;
-        border-radius: 4px;
+        border-radius: 2px;
         pointer-events: none;
         transition: opacity 0.3s ease;
-        width: 150px
+        width: 150px;
     }
 
     p {

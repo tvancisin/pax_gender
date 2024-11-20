@@ -3,29 +3,26 @@
     import IndividualLine from "./IndividualLine.svelte";
     import { LayerCake, Svg } from "layercake";
     import { years, pax_stages_grid, pax_stages_filter_grid } from "../utils";
-    import Point from "./Point.svelte";
 
     export let pax;
     export let pax_stages;
-    export let mygeojson;
-    export let pax_timeline;
     export let step;
 
     let width = 400;
     let height = 400;
     let rendered_data;
-    let current_central_points;
     let initialPaxCount;
     let innerWidth, innerHeight, xScale, yScale;
     let stages = [
-        "Partial",
         "Pre-Negotiation",
-        "Comprehensive",
         "Ceasefire",
+        "Partial",
+        "Comprehensive",
         "Implementation",
         "Renewal",
         "Other",
     ];
+
     const margin = { top: 20, right: 20, bottom: 20, left: 40 };
 
     $: innerWidth = width - margin.left - margin.right;
@@ -68,37 +65,35 @@
     // $: console.log("rendered data: ", rendered_data);
 </script>
 
-{#if rendered_data && mygeojson && pax_timeline}
+{#if rendered_data}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
-        {#if mygeojson}
-            <LayerCake data={mygeojson}>
-                <Svg>
-                    <g
-                        class="timeline"
-                        transform="translate({margin.left}, {margin.top})"
-                    >
-                        {#each stages as d, i}
-                            <text
-                                x={column_width * i + i * 2}
-                                y={innerHeight + 10}
-                                fill="white"
-                                font-size="10px">{d}</text
-                            >
-                        {/each}
+        <LayerCake>
+            <Svg>
+                <g
+                    class="timeline"
+                    transform="translate({margin.left}, {margin.top})"
+                >
+                    {#each stages as d, i}
+                        <text
+                            x={column_width * i + i * 2}
+                            y={innerHeight + 10}
+                            fill="white"
+                            font-size="10px">{d}</text
+                        >
+                    {/each}
 
-                        {#each rendered_data as d, i}
-                            <IndividualLine
-                                {i}
-                                x={d.x}
-                                y={d.y}
-                                width={d.width}
-                                height={d.height}
-                            />
-                        {/each}
-                    </g>
-                </Svg>
-            </LayerCake>
-        {/if}
+                    {#each rendered_data as d, i}
+                        <IndividualLine
+                            {i}
+                            x={d.x}
+                            y={d.y}
+                            width={d.width}
+                            height={d.height}
+                        />
+                    {/each}
+                </g>
+            </Svg>
+        </LayerCake>
     </div>
 {/if}
 

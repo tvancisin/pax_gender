@@ -3,9 +3,6 @@
     import { cubicOut } from "svelte/easing";
     import { createEventDispatcher } from "svelte"; // Import the dispatcher
 
-    import * as d3 from "d3";
-    import { generateHandwrittenLine, lineGenerator } from "../utils";
-
     export let x;
     export let y;
     export let width;
@@ -45,7 +42,7 @@
     const handleMouseLeave = () => {
         setTimeout(() => {
             isHovered = false;
-        }, 100); // Delay before transitioning back
+        }, 0); // Delay before transitioning back
         // Dispatch the custom event to clear the tooltip
         dispatch("leave");
     };
@@ -68,7 +65,7 @@
 <style>
     rect {
         fill: #f6f1d6;
-        transition: fill 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smooth transition */
+        /* transition: fill 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); Smooth transition */
     }
 
     rect.is-hovered {

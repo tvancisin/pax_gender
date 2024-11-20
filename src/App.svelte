@@ -235,7 +235,8 @@
 
 		//group by agreement stages
 		pax_stages = d3.groups(pax, (d) => d.Stage);
-		console.log(pax_stages);
+		let order = ["Pre", "Cea", "SubPar", "SubComp", "Imp", "Ren", "Oth"];
+		pax_stages.sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]));
 
 		//group by date for timeline vis
 		pax_gender_timeline = d3.groups(pax_gender, (d) =>
@@ -290,10 +291,8 @@
 			<div class="col-wide height-full">
 				<div class="rect">
 					<Rectangles
-						{mygeojson}
 						{pax_stages}
 						{pax}
-						{pax_timeline}
 						{step}
 					/>
 				</div>
@@ -305,7 +304,8 @@
 		<section data-id="rect01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					PA-X maintains the biggest database of peace agreements in the world.<br />
+					PA-X maintains the biggest database of peace agreements in
+					the world.<br />
 					Every rectangle in this view represents one of 2055 agreements.
 				</p>
 			</div>
@@ -343,10 +343,8 @@
 			<div class="col-wide height-full">
 				<div class="stage">
 					<Stages
-						{mygeojson}
 						{pax_stages}
 						{pax}
-						{pax_timeline}
 						{step}
 					/>
 				</div>
