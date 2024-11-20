@@ -543,12 +543,12 @@
 	</div>
 </Scroller> -->
 
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+<!-- <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
 		Within the 436 peace agreements that do contain references to women and
 		gender, how much attention is in fact given to this topic?
 	</p>
-</Filler>
+</Filler> -->
 
 <!-- <Scroller {threshold} bind:id={id["rect"]} splitscreen={false}>
 	<div slot="background">
@@ -593,12 +593,12 @@
 	<p class="text-big">What do we do with the agreements we gather?</p>
 </Filler> -->
 
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+<!-- <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
 		PA-X Gender physicalization project. [include video and screenshots
 		here]
 	</p>
-</Filler>
+</Filler> -->
 
 <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
 	<p class="text-big">
