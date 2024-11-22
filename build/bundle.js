@@ -21979,25 +21979,25 @@ var app = (function () {
     			if (!src_url_equal(img.src, img_src_value = "./img/logo.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Office for National Statistics");
     			attr_dev(img, "class", "svelte-1qeemad");
-    			add_location(img, file, 20, 4, 547);
+    			add_location(img, file, 20, 4, 527);
     			attr_dev(picture, "class", "svelte-1qeemad");
-    			add_location(picture, file, 19, 3, 532);
+    			add_location(picture, file, 19, 3, 513);
     			attr_dev(a, "href", "https://pax.peaceagreements.org/agreements/wggsearch");
     			attr_dev(a, "target", "_blank");
     			attr_dev(a, "class", "svelte-1qeemad");
-    			add_location(a, file, 15, 2, 436);
+    			add_location(a, file, 15, 2, 421);
     			attr_dev(div, "class", "col-wide middle");
     			set_style(div, "margin-left", "0px");
     			set_style(div, "margin-top", "0px");
     			toggle_class(div, "center", /*center*/ ctx[2]);
-    			add_location(div, file, 14, 1, 350);
+    			add_location(div, file, 14, 1, 336);
 
     			attr_dev(nav, "style", nav_style_value = "border-bottom-color: " + themes[/*theme*/ ctx[0]]['muted'] + "; " + (/*filled*/ ctx[1]
     			? 'background-color: ' + themes[/*theme*/ ctx[0]]['background'] + ';'
     			: ''));
 
     			attr_dev(nav, "class", "svelte-1qeemad");
-    			add_location(nav, file, 9, 0, 204);
+    			add_location(nav, file, 9, 0, 195);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -23470,15 +23470,15 @@ var app = (function () {
     			svelte_scroller_foreground = element("svelte-scroller-foreground");
     			if (foreground_slot) foreground_slot.c();
     			set_custom_element_data(svelte_scroller_background, "class", "svelte-1byeste");
-    			add_location(svelte_scroller_background, file$5, 201, 2, 5102);
+    			add_location(svelte_scroller_background, file$5, 201, 2, 4901);
     			set_custom_element_data(svelte_scroller_background_container, "class", "background-container svelte-1byeste");
-    			add_location(svelte_scroller_background_container, file$5, 197, 1, 4998);
+    			add_location(svelte_scroller_background_container, file$5, 197, 1, 4801);
     			set_custom_element_data(svelte_scroller_foreground, "class", "svelte-1byeste");
-    			add_location(svelte_scroller_foreground, file$5, 206, 1, 5269);
+    			add_location(svelte_scroller_foreground, file$5, 206, 1, 5063);
     			set_custom_element_data(svelte_scroller_outer, "style", /*shadow_css*/ ctx[6]);
     			set_custom_element_data(svelte_scroller_outer, "class", "svelte-1byeste");
     			toggle_class(svelte_scroller_outer, "splitscreen", /*splitscreen*/ ctx[0]);
-    			add_location(svelte_scroller_outer, file$5, 196, 0, 4917);
+    			add_location(svelte_scroller_outer, file$5, 196, 0, 4721);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24112,10 +24112,10 @@ var app = (function () {
     			toggle_class(div, "col-wide", /*wide*/ ctx[1]);
     			toggle_class(div, "height-full", !/*short*/ ctx[2]);
     			toggle_class(div, "short", /*short*/ ctx[2]);
-    			add_location(div, file$6, 19, 1, 446);
+    			add_location(div, file$6, 19, 1, 427);
     			attr_dev(section, "style", section_style_value = "color: white}; " + /*shadow_css*/ ctx[3] + "; background-color: black};");
     			attr_dev(section, "class", "svelte-1odf9sx");
-    			add_location(section, file$6, 16, 0, 367);
+    			add_location(section, file$6, 16, 0, 351);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24334,13 +24334,13 @@ var app = (function () {
     			div = element("div");
     			hr_1 = element("hr");
     			set_style(hr_1, "color", themes[/*theme*/ ctx[0]]);
-    			attr_dev(hr_1, "class", "svelte-igjsqd");
-    			add_location(hr_1, file$7, 17, 4, 403);
+    			attr_dev(hr_1, "class", "svelte-148ht4i");
+    			add_location(hr_1, file$7, 17, 4, 386);
     			attr_dev(div, "class", "col-medium");
     			attr_dev(div, "style", /*shadow_css*/ ctx[1]);
-    			add_location(div, file$7, 16, 1, 354);
+    			add_location(div, file$7, 16, 1, 338);
     			attr_dev(section, "style", section_style_value = "color: " + themes[/*theme*/ ctx[0]]['text'] + "; " + /*shadow_css*/ ctx[1] + ";");
-    			add_location(section, file$7, 15, 0, 288);
+    			add_location(section, file$7, 15, 0, 273);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -26514,9 +26514,9 @@ var app = (function () {
     			attr_dev(rect, "y", "0");
     			attr_dev(rect, "width", /*width*/ ctx[0]);
     			attr_dev(rect, "height", /*$tH*/ ctx[3]);
-    			add_location(rect, file$c, 26, 4, 629);
+    			add_location(rect, file$c, 26, 4, 603);
     			attr_dev(g, "transform", g_transform_value = "translate(" + /*$tX*/ ctx[1] + " " + /*$tY*/ ctx[2] + ")");
-    			add_location(g, file$c, 25, 0, 585);
+    			add_location(g, file$c, 25, 0, 560);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -30906,7 +30906,7 @@ var app = (function () {
     			create_component(layercake.$$.fragment);
     			attr_dev(div, "class", "wrapper svelte-zaiuf5");
     			add_render_callback(() => /*div_elementresize_handler*/ ctx[11].call(div));
-    			add_location(div, file$h, 68, 4, 1856);
+    			add_location(div, file$h, 68, 4, 1788);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -30966,7 +30966,7 @@ var app = (function () {
     			attr_dev(text_1, "y", text_1_y_value = /*innerHeight*/ ctx[2] + 12);
     			attr_dev(text_1, "fill", "white");
     			attr_dev(text_1, "font-size", "12px");
-    			add_location(text_1, file$h, 76, 24, 2188);
+    			add_location(text_1, file$h, 76, 24, 2112);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, text_1, anchor);
@@ -31098,7 +31098,7 @@ var app = (function () {
 
     			attr_dev(g, "class", "timeline");
     			attr_dev(g, "transform", g_transform_value = "translate(" + /*margin*/ ctx[6].left + ", " + /*margin*/ ctx[6].top + ")");
-    			add_location(g, file$h, 71, 16, 1987);
+    			add_location(g, file$h, 71, 16, 1916);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, g, anchor);
@@ -31571,7 +31571,7 @@ var app = (function () {
     			if (if_block) if_block.c();
     			attr_dev(div, "class", "wrapper svelte-bwh7x5");
     			add_render_callback(() => /*div_elementresize_handler*/ ctx[13].call(div));
-    			add_location(div, file$i, 102, 4, 2720);
+    			add_location(div, file$i, 102, 4, 2618);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -31720,7 +31720,7 @@ var app = (function () {
 
     			attr_dev(g, "class", "timeline");
     			attr_dev(g, "transform", g_transform_value = "translate(" + /*margin*/ ctx[4].left + ", " + /*margin*/ ctx[4].top + ")");
-    			add_location(g, file$i, 105, 16, 2851);
+    			add_location(g, file$i, 105, 16, 2746);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, g, anchor);
@@ -31865,12 +31865,12 @@ var app = (function () {
     			p = element("p");
     			t = text(t_value);
     			attr_dev(p, "class", "svelte-bwh7x5");
-    			add_location(p, file$i, 129, 16, 3742);
+    			add_location(p, file$i, 129, 16, 3613);
     			attr_dev(div, "class", "tooltip svelte-bwh7x5");
     			set_style(div, "position", "absolute");
     			set_style(div, "left", /*tooltip*/ ctx[2].x + "px");
     			set_style(div, "top", /*tooltip*/ ctx[2].y + "px");
-    			add_location(div, file$i, 125, 12, 3586);
+    			add_location(div, file$i, 125, 12, 3461);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -33528,7 +33528,7 @@ var app = (function () {
     			if (if_block) if_block.c();
     			attr_dev(div, "class", "wrapper svelte-1yxjh2k");
     			add_render_callback(() => /*div_elementresize_handler*/ ctx[12].call(div));
-    			add_location(div, file$l, 80, 4, 2553);
+    			add_location(div, file$l, 80, 4, 2473);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -34118,7 +34118,7 @@ var app = (function () {
     const { Object: Object_1$1 } = globals;
     const file$m = "src\\App.svelte";
 
-    // (251:0) <Header   bgcolor="white"   bgfixed={false}   theme="black"   center={true}   short={false}  >
+    // (251:0) <Header  bgcolor="white"  bgfixed={false}  theme="black"  center={true}  short={false} >
     function create_default_slot_8(ctx) {
     	let h1;
     	let t1;
@@ -34133,13 +34133,13 @@ var app = (function () {
     			h1.textContent = "PA-X Gender";
     			t1 = space();
     			p = element("p");
-    			t2 = text("This scrollytelling visualization uses PA-X database to show how and to\r\n\t\twhat ");
+    			t2 = text("This scrollytelling visualization uses PA-X database to show how and to\n\t\twhat ");
     			br = element("br");
-    			t3 = text("\r\n\t\textent is gender taken into consideration in peacebuilding across the world.");
-    			add_location(h1, file$m, 257, 1, 6409);
-    			add_location(br, file$m, 260, 7, 6543);
+    			t3 = text("\n\t\textent is gender taken into consideration in peacebuilding across the world.");
+    			add_location(h1, file$m, 257, 1, 6152);
+    			add_location(br, file$m, 260, 7, 6283);
     			set_style(p, "margin-top", "5px");
-    			add_location(p, file$m, 258, 1, 6432);
+    			add_location(p, file$m, 258, 1, 6174);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h1, anchor);
@@ -34161,7 +34161,7 @@ var app = (function () {
     		block,
     		id: create_default_slot_8.name,
     		type: "slot",
-    		source: "(251:0) <Header   bgcolor=\\\"white\\\"   bgfixed={false}   theme=\\\"black\\\"   center={true}   short={false}  >",
+    		source: "(251:0) <Header  bgcolor=\\\"white\\\"  bgfixed={false}  theme=\\\"black\\\"  center={true}  short={false} >",
     		ctx
     	});
 
@@ -34177,7 +34177,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "What's a peace agreement?";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 268, 1, 6754);
+    			add_location(p, file$m, 268, 1, 6477);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34199,7 +34199,7 @@ var app = (function () {
     	return block;
     }
 
-    // (272:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (273:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_6(ctx) {
     	let p;
 
@@ -34208,7 +34208,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "[peace agreement definition]";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 272, 1, 6897);
+    			add_location(p, file$m, 273, 1, 6617);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34223,14 +34223,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_6.name,
     		type: "slot",
-    		source: "(272:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(273:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (280:1) 
+    // (281:1) 
     function create_background_slot_4(ctx) {
     	let div2;
     	let figure;
@@ -34256,12 +34256,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(rectangles.$$.fragment);
     			attr_dev(div0, "class", "rect svelte-ypoop9");
-    			add_location(div0, file$m, 282, 4, 7170);
+    			add_location(div0, file$m, 283, 4, 6871);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$m, 281, 3, 7130);
-    			add_location(figure, file$m, 280, 2, 7117);
+    			add_location(div1, file$m, 282, 3, 6832);
+    			add_location(figure, file$m, 281, 2, 6820);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$m, 279, 1, 7090);
+    			add_location(div2, file$m, 280, 1, 6794);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34297,14 +34297,14 @@ var app = (function () {
     		block,
     		id: create_background_slot_4.name,
     		type: "slot",
-    		source: "(280:1) ",
+    		source: "(281:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (290:1) 
+    // (291:1) 
     function create_foreground_slot_4(ctx) {
     	let div2;
     	let section0;
@@ -34327,32 +34327,32 @@ var app = (function () {
     			section0 = element("section");
     			div0 = element("div");
     			p0 = element("p");
-    			t0 = text("PA-X maintains the biggest database of peace agreements in\r\n\t\t\t\t\tthe world.");
+    			t0 = text("PA-X maintains the biggest database of peace agreements in\n\t\t\t\t\tthe world.");
     			br0 = element("br");
-    			t1 = text("\r\n\t\t\t\t\tEvery rectangle in this view represents one of 2055 agreements.");
+    			t1 = text("\n\t\t\t\t\tEvery rectangle in this view represents one of 2055 agreements.");
     			t2 = space();
     			section1 = element("section");
     			div1 = element("div");
     			p1 = element("p");
-    			t3 = text("Out of the 2055 agreements, only 436 contain references to\r\n\t\t\t\t\tgender.");
+    			t3 = text("Out of the 2055 agreements, only 436 contain references to\n\t\t\t\t\tgender.");
     			br1 = element("br");
     			t4 = text(" That's less than a quarter.");
-    			add_location(br0, file$m, 294, 15, 7486);
+    			add_location(br0, file$m, 295, 15, 7175);
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$m, 292, 4, 7373);
+    			add_location(p0, file$m, 293, 4, 7064);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$m, 291, 3, 7343);
+    			add_location(div0, file$m, 292, 3, 7035);
     			attr_dev(section0, "data-id", "rect01");
-    			add_location(section0, file$m, 290, 2, 7312);
-    			add_location(br1, file$m, 303, 12, 7772);
+    			add_location(section0, file$m, 291, 2, 7005);
+    			add_location(br1, file$m, 304, 12, 7452);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$m, 301, 4, 7662);
+    			add_location(p1, file$m, 302, 4, 7344);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$m, 300, 3, 7632);
+    			add_location(div1, file$m, 301, 3, 7315);
     			attr_dev(section1, "data-id", "rect02");
-    			add_location(section1, file$m, 299, 2, 7601);
+    			add_location(section1, file$m, 300, 2, 7285);
     			attr_dev(div2, "slot", "foreground");
-    			add_location(div2, file$m, 289, 1, 7285);
+    			add_location(div2, file$m, 290, 1, 6979);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34380,14 +34380,14 @@ var app = (function () {
     		block,
     		id: create_foreground_slot_4.name,
     		type: "slot",
-    		source: "(290:1) ",
+    		source: "(291:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (316:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (314:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_5(ctx) {
     	let p;
 
@@ -34396,7 +34396,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Why should gender be taken into consideration in peace agreements?";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 316, 1, 8186);
+    			add_location(p, file$m, 314, 1, 7631);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34411,30 +34411,43 @@ var app = (function () {
     		block,
     		id: create_default_slot_5.name,
     		type: "slot",
-    		source: "(316:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(314:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (322:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (320:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_4(ctx) {
-    	let p;
+    	let video;
+    	let source;
+    	let source_src_value;
+    	let t;
 
     	const block = {
     		c: function create() {
-    			p = element("p");
-    			p.textContent = "[explanation]";
-    			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 322, 1, 8377);
+    			video = element("video");
+    			source = element("source");
+    			t = text("\n        Your browser does not support the video tag.");
+    			if (!src_url_equal(source.src, source_src_value = "./img/laura_captions.mp4")) attr_dev(source, "src", source_src_value);
+    			attr_dev(source, "type", "video/mp4");
+    			add_location(source, file$m, 322, 8, 7960);
+    			video.controls = true;
+    			set_style(video, "max-width", "85%");
+    			set_style(video, "height", "auto");
+    			set_style(video, "margin", "auto");
+    			set_style(video, "border-radius", "5px");
+    			add_location(video, file$m, 321, 0, 7863);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, p, anchor);
+    			insert_dev(target, video, anchor);
+    			append_dev(video, source);
+    			append_dev(video, t);
     		},
     		p: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(p);
+    			if (detaching) detach_dev(video);
     		}
     	};
 
@@ -34442,14 +34455,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_4.name,
     		type: "slot",
-    		source: "(322:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(320:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (327:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (329:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_3(ctx) {
     	let p;
 
@@ -34458,7 +34471,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Timeline";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 327, 1, 8510);
+    			add_location(p, file$m, 329, 1, 8175);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34473,14 +34486,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_3.name,
     		type: "slot",
-    		source: "(327:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(329:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (333:1) 
+    // (337:1) 
     function create_background_slot_3(ctx) {
     	let div2;
     	let figure;
@@ -34509,12 +34522,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(timeline.$$.fragment);
     			attr_dev(div0, "class", "time svelte-ypoop9");
-    			add_location(div0, file$m, 335, 4, 8733);
+    			add_location(div0, file$m, 339, 4, 8403);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$m, 334, 3, 8693);
-    			add_location(figure, file$m, 333, 2, 8680);
+    			add_location(div1, file$m, 338, 3, 8364);
+    			add_location(figure, file$m, 337, 2, 8352);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$m, 332, 1, 8653);
+    			add_location(div2, file$m, 336, 1, 8326);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34553,14 +34566,14 @@ var app = (function () {
     		block,
     		id: create_background_slot_3.name,
     		type: "slot",
-    		source: "(333:1) ",
+    		source: "(337:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (350:1) 
+    // (354:1) 
     function create_foreground_slot_3(ctx) {
     	let div5;
     	let section0;
@@ -34589,7 +34602,7 @@ var app = (function () {
     			section0 = element("section");
     			div0 = element("div");
     			p0 = element("p");
-    			p0.textContent = "All PA-X agreements over time, each line represents an\r\n\t\t\t\t\tagreement.";
+    			p0.textContent = "All PA-X agreements over time, each line represents an\n\t\t\t\t\tagreement.";
     			t1 = space();
     			section1 = element("section");
     			div1 = element("div");
@@ -34611,37 +34624,37 @@ var app = (function () {
     			p4 = element("p");
     			p4.textContent = "afghanistan agreements with highlighted gender text";
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$m, 352, 4, 9023);
+    			add_location(p0, file$m, 356, 4, 8676);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$m, 351, 3, 8993);
+    			add_location(div0, file$m, 355, 3, 8647);
     			attr_dev(section0, "data-id", "time01");
-    			add_location(section0, file$m, 350, 2, 8962);
+    			add_location(section0, file$m, 354, 2, 8617);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$m, 360, 4, 9232);
+    			add_location(p1, file$m, 364, 4, 8877);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$m, 359, 3, 9202);
+    			add_location(div1, file$m, 363, 3, 8848);
     			attr_dev(section1, "data-id", "time02");
-    			add_location(section1, file$m, 358, 2, 9171);
+    			add_location(section1, file$m, 362, 2, 8818);
     			set_style(p2, "text-align", "center");
-    			add_location(p2, file$m, 365, 4, 9379);
+    			add_location(p2, file$m, 369, 4, 9019);
     			attr_dev(div2, "class", "col-medium svelte-ypoop9");
-    			add_location(div2, file$m, 364, 3, 9349);
+    			add_location(div2, file$m, 368, 3, 8990);
     			attr_dev(section2, "data-id", "time03");
-    			add_location(section2, file$m, 363, 2, 9318);
+    			add_location(section2, file$m, 367, 2, 8960);
     			set_style(p3, "text-align", "center");
-    			add_location(p3, file$m, 370, 4, 9515);
+    			add_location(p3, file$m, 374, 4, 9150);
     			attr_dev(div3, "class", "col-medium svelte-ypoop9");
-    			add_location(div3, file$m, 369, 3, 9485);
+    			add_location(div3, file$m, 373, 3, 9121);
     			attr_dev(section3, "data-id", "time04");
-    			add_location(section3, file$m, 368, 2, 9454);
+    			add_location(section3, file$m, 372, 2, 9091);
     			set_style(p4, "text-align", "center");
-    			add_location(p4, file$m, 375, 4, 9662);
+    			add_location(p4, file$m, 379, 4, 9292);
     			attr_dev(div4, "class", "col-medium svelte-ypoop9");
-    			add_location(div4, file$m, 374, 3, 9632);
+    			add_location(div4, file$m, 378, 3, 9263);
     			attr_dev(section4, "data-id", "time05");
-    			add_location(section4, file$m, 373, 2, 9601);
+    			add_location(section4, file$m, 377, 2, 9233);
     			attr_dev(div5, "slot", "foreground");
-    			add_location(div5, file$m, 349, 1, 8935);
+    			add_location(div5, file$m, 353, 1, 8591);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div5, anchor);
@@ -34675,14 +34688,14 @@ var app = (function () {
     		block,
     		id: create_foreground_slot_3.name,
     		type: "slot",
-    		source: "(350:1) ",
+    		source: "(354:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (384:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (388:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_2(ctx) {
     	let p;
 
@@ -34691,7 +34704,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Peace Process Stages";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 384, 1, 9891);
+    			add_location(p, file$m, 388, 1, 9512);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34706,14 +34719,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(384:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(388:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (390:1) 
+    // (394:1) 
     function create_background_slot_2(ctx) {
     	let div2;
     	let figure;
@@ -34739,12 +34752,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(stages.$$.fragment);
     			attr_dev(div0, "class", "stage svelte-ypoop9");
-    			add_location(div0, file$m, 392, 4, 10129);
+    			add_location(div0, file$m, 396, 4, 9742);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$m, 391, 3, 10089);
-    			add_location(figure, file$m, 390, 2, 10076);
+    			add_location(div1, file$m, 395, 3, 9703);
+    			add_location(figure, file$m, 394, 2, 9691);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$m, 389, 1, 10049);
+    			add_location(div2, file$m, 393, 1, 9665);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34780,14 +34793,14 @@ var app = (function () {
     		block,
     		id: create_background_slot_2.name,
     		type: "slot",
-    		source: "(390:1) ",
+    		source: "(394:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (400:1) 
+    // (404:1) 
     function create_foreground_slot_2(ctx) {
     	let div2;
     	let section0;
@@ -34804,26 +34817,26 @@ var app = (function () {
     			section0 = element("section");
     			div0 = element("div");
     			p0 = element("p");
-    			p0.textContent = "Dividing all PA-X agreements into different peace process\r\n\t\t\t\t\tstages shows the predominance of Partial and Pre-Negotiation\r\n\t\t\t\t\tagreements";
+    			p0.textContent = "Dividing all PA-X agreements into different peace process\n\t\t\t\t\tstages shows the predominance of Partial and Pre-Negotiation\n\t\t\t\t\tagreements";
     			t1 = space();
     			section1 = element("section");
     			div1 = element("div");
     			p1 = element("p");
     			p1.textContent = "PA-X Gender agreements";
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$m, 402, 4, 10330);
+    			add_location(p0, file$m, 406, 4, 9933);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$m, 401, 3, 10300);
+    			add_location(div0, file$m, 405, 3, 9904);
     			attr_dev(section0, "data-id", "stage01");
-    			add_location(section0, file$m, 400, 2, 10268);
+    			add_location(section0, file$m, 404, 2, 9873);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$m, 411, 4, 10610);
+    			add_location(p1, file$m, 415, 4, 10204);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$m, 410, 3, 10580);
+    			add_location(div1, file$m, 414, 3, 10175);
     			attr_dev(section1, "data-id", "stage02");
-    			add_location(section1, file$m, 409, 2, 10548);
+    			add_location(section1, file$m, 413, 2, 10144);
     			attr_dev(div2, "slot", "foreground");
-    			add_location(div2, file$m, 399, 1, 10241);
+    			add_location(div2, file$m, 403, 1, 9847);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34845,14 +34858,14 @@ var app = (function () {
     		block,
     		id: create_foreground_slot_2.name,
     		type: "slot",
-    		source: "(400:1) ",
+    		source: "(404:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (418:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (422:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_1$4(ctx) {
     	let p;
 
@@ -34861,7 +34874,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Geography";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 418, 1, 10797);
+    			add_location(p, file$m, 422, 1, 10384);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34876,14 +34889,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1$4.name,
     		type: "slot",
-    		source: "(418:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(422:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (424:1) 
+    // (428:1) 
     function create_background_slot_1(ctx) {
     	let div2;
     	let figure;
@@ -34913,12 +34926,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(geography.$$.fragment);
     			attr_dev(div0, "class", "map svelte-ypoop9");
-    			add_location(div0, file$m, 426, 4, 11019);
+    			add_location(div0, file$m, 430, 4, 10598);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$m, 425, 3, 10979);
-    			add_location(figure, file$m, 424, 2, 10966);
+    			add_location(div1, file$m, 429, 3, 10559);
+    			add_location(figure, file$m, 428, 2, 10547);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$m, 423, 1, 10939);
+    			add_location(div2, file$m, 427, 1, 10521);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34958,14 +34971,14 @@ var app = (function () {
     		block,
     		id: create_background_slot_1.name,
     		type: "slot",
-    		source: "(424:1) ",
+    		source: "(428:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (442:1) 
+    // (446:1) 
     function create_foreground_slot_1(ctx) {
     	let div4;
     	let section0;
@@ -35007,31 +35020,31 @@ var app = (function () {
     			p3 = element("p");
     			p3.textContent = "references to un 1325";
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$m, 444, 4, 11331);
+    			add_location(p0, file$m, 448, 4, 10892);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$m, 443, 3, 11301);
+    			add_location(div0, file$m, 447, 3, 10863);
     			attr_dev(section0, "data-id", "map01");
-    			add_location(section0, file$m, 442, 2, 11271);
+    			add_location(section0, file$m, 446, 2, 10834);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$m, 449, 4, 11483);
+    			add_location(p1, file$m, 453, 4, 11039);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$m, 448, 3, 11453);
+    			add_location(div1, file$m, 452, 3, 11010);
     			attr_dev(section1, "data-id", "map02");
-    			add_location(section1, file$m, 447, 2, 11423);
+    			add_location(section1, file$m, 451, 2, 10981);
     			set_style(p2, "text-align", "center");
-    			add_location(p2, file$m, 456, 4, 11651);
+    			add_location(p2, file$m, 460, 4, 11200);
     			attr_dev(div2, "class", "col-medium svelte-ypoop9");
-    			add_location(div2, file$m, 455, 3, 11621);
+    			add_location(div2, file$m, 459, 3, 11171);
     			attr_dev(section2, "data-id", "map03");
-    			add_location(section2, file$m, 454, 2, 11591);
+    			add_location(section2, file$m, 458, 2, 11142);
     			set_style(p3, "text-align", "center");
-    			add_location(p3, file$m, 461, 4, 11792);
+    			add_location(p3, file$m, 465, 4, 11336);
     			attr_dev(div3, "class", "col-medium svelte-ypoop9");
-    			add_location(div3, file$m, 460, 3, 11762);
+    			add_location(div3, file$m, 464, 3, 11307);
     			attr_dev(section3, "data-id", "map04");
-    			add_location(section3, file$m, 459, 2, 11732);
+    			add_location(section3, file$m, 463, 2, 11278);
     			attr_dev(div4, "slot", "foreground");
-    			add_location(div4, file$m, 441, 1, 11244);
+    			add_location(div4, file$m, 445, 1, 10808);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
@@ -35061,14 +35074,14 @@ var app = (function () {
     		block,
     		id: create_foreground_slot_1.name,
     		type: "slot",
-    		source: "(442:1) ",
+    		source: "(446:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (468:0) <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
+    // (472:0) <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
     function create_default_slot$4(ctx) {
     	let p;
     	let t0;
@@ -35078,12 +35091,12 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			p = element("p");
-    			t0 = text("How do we gather the agreements? How are they processed? [where to\r\n\t\tinclude provenance?");
+    			t0 = text("How do we gather the agreements? How are they processed? [where to\n\t\tinclude provenance?");
     			br = element("br");
     			t1 = text(" beginning/end/between sections?]");
-    			add_location(br, file$m, 470, 21, 12089);
+    			add_location(br, file$m, 474, 21, 11624);
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 468, 1, 11976);
+    			add_location(p, file$m, 472, 1, 11513);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -35101,14 +35114,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$4.name,
     		type: "slot",
-    		source: "(468:0) <Filler theme=\\\"dark\\\" short={true} wide={true} center={true} shadow={true}>",
+    		source: "(472:0) <Filler theme=\\\"dark\\\" short={true} wide={true} center={true} shadow={true}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (476:1) 
+    // (480:1) 
     function create_background_slot(ctx) {
     	let div2;
     	let figure;
@@ -35127,14 +35140,14 @@ var app = (function () {
     			attr_dev(img, "id", "agreement");
     			if (!src_url_equal(img.src, img_src_value = "./img/sources.jpg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "class", "svelte-ypoop9");
-    			add_location(img, file$m, 479, 5, 12341);
+    			add_location(img, file$m, 483, 5, 11867);
     			attr_dev(div0, "class", "close_read svelte-ypoop9");
-    			add_location(div0, file$m, 478, 4, 12310);
+    			add_location(div0, file$m, 482, 4, 11837);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$m, 477, 3, 12270);
-    			add_location(figure, file$m, 476, 2, 12257);
+    			add_location(div1, file$m, 481, 3, 11798);
+    			add_location(figure, file$m, 480, 2, 11786);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$m, 475, 1, 12230);
+    			add_location(div2, file$m, 479, 1, 11760);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -35153,14 +35166,14 @@ var app = (function () {
     		block,
     		id: create_background_slot.name,
     		type: "slot",
-    		source: "(476:1) ",
+    		source: "(480:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (486:1) 
+    // (490:1) 
     function create_foreground_slot(ctx) {
     	let div2;
     	let section0;
@@ -35185,26 +35198,26 @@ var app = (function () {
     			section1 = element("section");
     			div1 = element("div");
     			p1 = element("p");
-    			t2 = text("translation/transcription/coding/data entry\r\n\t\t\t\t\t");
+    			t2 = text("translation/transcription/coding/data entry\n\t\t\t\t\t");
     			img = element("img");
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$m, 488, 4, 12525);
+    			add_location(p0, file$m, 492, 4, 12042);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$m, 487, 3, 12495);
+    			add_location(div0, file$m, 491, 3, 12013);
     			attr_dev(section0, "data-id", "prov01");
-    			add_location(section0, file$m, 486, 2, 12464);
+    			add_location(section0, file$m, 490, 2, 11983);
     			attr_dev(img, "id", "agreement");
     			if (!src_url_equal(img.src, img_src_value = "./img/diagram.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "class", "svelte-ypoop9");
-    			add_location(img, file$m, 495, 5, 12745);
+    			add_location(img, file$m, 499, 5, 12255);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$m, 493, 4, 12657);
+    			add_location(p1, file$m, 497, 4, 12169);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$m, 492, 3, 12627);
+    			add_location(div1, file$m, 496, 3, 12140);
     			attr_dev(section1, "data-id", "prov02");
-    			add_location(section1, file$m, 491, 2, 12596);
+    			add_location(section1, file$m, 495, 2, 12110);
     			attr_dev(div2, "slot", "foreground");
-    			add_location(div2, file$m, 485, 1, 12437);
+    			add_location(div2, file$m, 489, 1, 11957);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -35228,7 +35241,7 @@ var app = (function () {
     		block,
     		id: create_foreground_slot.name,
     		type: "slot",
-    		source: "(486:1) ",
+    		source: "(490:1) ",
     		ctx
     	});
 
@@ -35240,34 +35253,42 @@ var app = (function () {
     	let t0;
     	let header;
     	let t1;
-    	let filler0;
+    	let divider0;
     	let t2;
-    	let filler1;
+    	let filler0;
     	let t3;
+    	let filler1;
+    	let t4;
+    	let divider1;
+    	let t5;
     	let scroller0;
     	let updating_id;
-    	let t4;
-    	let filler2;
-    	let t5;
-    	let filler3;
     	let t6;
-    	let filler4;
+    	let divider2;
     	let t7;
+    	let filler2;
+    	let t8;
+    	let filler3;
+    	let t9;
+    	let filler4;
+    	let t10;
+    	let divider3;
+    	let t11;
     	let scroller1;
     	let updating_id_1;
-    	let t8;
+    	let t12;
     	let filler5;
-    	let t9;
+    	let t13;
     	let scroller2;
     	let updating_id_2;
-    	let t10;
+    	let t14;
     	let filler6;
-    	let t11;
+    	let t15;
     	let scroller3;
     	let updating_id_3;
-    	let t12;
+    	let t16;
     	let filler7;
-    	let t13;
+    	let t17;
     	let scroller4;
     	let updating_id_4;
     	let current;
@@ -35289,6 +35310,8 @@ var app = (function () {
     			},
     			$$inline: true
     		});
+
+    	divider0 = new Divider({ $$inline: true });
 
     	filler0 = new Filler({
     			props: {
@@ -35316,6 +35339,8 @@ var app = (function () {
     			$$inline: true
     		});
 
+    	divider1 = new Divider({ $$inline: true });
+
     	function scroller0_id_binding(value) {
     		/*scroller0_id_binding*/ ctx[9](value);
     	}
@@ -35337,6 +35362,7 @@ var app = (function () {
 
     	scroller0 = new Scroller({ props: scroller0_props, $$inline: true });
     	binding_callbacks.push(() => bind(scroller0, 'id', scroller0_id_binding));
+    	divider2 = new Divider({ $$inline: true });
 
     	filler2 = new Filler({
     			props: {
@@ -35376,6 +35402,8 @@ var app = (function () {
     			},
     			$$inline: true
     		});
+
+    	divider3 = new Divider({ $$inline: true });
 
     	function scroller1_id_binding(value) {
     		/*scroller1_id_binding*/ ctx[10](value);
@@ -35510,30 +35538,38 @@ var app = (function () {
     			t0 = space();
     			create_component(header.$$.fragment);
     			t1 = space();
-    			create_component(filler0.$$.fragment);
+    			create_component(divider0.$$.fragment);
     			t2 = space();
-    			create_component(filler1.$$.fragment);
+    			create_component(filler0.$$.fragment);
     			t3 = space();
-    			create_component(scroller0.$$.fragment);
+    			create_component(filler1.$$.fragment);
     			t4 = space();
-    			create_component(filler2.$$.fragment);
+    			create_component(divider1.$$.fragment);
     			t5 = space();
-    			create_component(filler3.$$.fragment);
+    			create_component(scroller0.$$.fragment);
     			t6 = space();
-    			create_component(filler4.$$.fragment);
+    			create_component(divider2.$$.fragment);
     			t7 = space();
-    			create_component(scroller1.$$.fragment);
+    			create_component(filler2.$$.fragment);
     			t8 = space();
-    			create_component(filler5.$$.fragment);
+    			create_component(filler3.$$.fragment);
     			t9 = space();
-    			create_component(scroller2.$$.fragment);
+    			create_component(filler4.$$.fragment);
     			t10 = space();
-    			create_component(filler6.$$.fragment);
+    			create_component(divider3.$$.fragment);
     			t11 = space();
-    			create_component(scroller3.$$.fragment);
+    			create_component(scroller1.$$.fragment);
     			t12 = space();
-    			create_component(filler7.$$.fragment);
+    			create_component(filler5.$$.fragment);
     			t13 = space();
+    			create_component(scroller2.$$.fragment);
+    			t14 = space();
+    			create_component(filler6.$$.fragment);
+    			t15 = space();
+    			create_component(scroller3.$$.fragment);
+    			t16 = space();
+    			create_component(filler7.$$.fragment);
+    			t17 = space();
     			create_component(scroller4.$$.fragment);
     		},
     		l: function claim(nodes) {
@@ -35544,30 +35580,38 @@ var app = (function () {
     			insert_dev(target, t0, anchor);
     			mount_component(header, target, anchor);
     			insert_dev(target, t1, anchor);
-    			mount_component(filler0, target, anchor);
+    			mount_component(divider0, target, anchor);
     			insert_dev(target, t2, anchor);
-    			mount_component(filler1, target, anchor);
+    			mount_component(filler0, target, anchor);
     			insert_dev(target, t3, anchor);
-    			mount_component(scroller0, target, anchor);
+    			mount_component(filler1, target, anchor);
     			insert_dev(target, t4, anchor);
-    			mount_component(filler2, target, anchor);
+    			mount_component(divider1, target, anchor);
     			insert_dev(target, t5, anchor);
-    			mount_component(filler3, target, anchor);
+    			mount_component(scroller0, target, anchor);
     			insert_dev(target, t6, anchor);
-    			mount_component(filler4, target, anchor);
+    			mount_component(divider2, target, anchor);
     			insert_dev(target, t7, anchor);
-    			mount_component(scroller1, target, anchor);
+    			mount_component(filler2, target, anchor);
     			insert_dev(target, t8, anchor);
-    			mount_component(filler5, target, anchor);
+    			mount_component(filler3, target, anchor);
     			insert_dev(target, t9, anchor);
-    			mount_component(scroller2, target, anchor);
+    			mount_component(filler4, target, anchor);
     			insert_dev(target, t10, anchor);
-    			mount_component(filler6, target, anchor);
+    			mount_component(divider3, target, anchor);
     			insert_dev(target, t11, anchor);
-    			mount_component(scroller3, target, anchor);
+    			mount_component(scroller1, target, anchor);
     			insert_dev(target, t12, anchor);
-    			mount_component(filler7, target, anchor);
+    			mount_component(filler5, target, anchor);
     			insert_dev(target, t13, anchor);
+    			mount_component(scroller2, target, anchor);
+    			insert_dev(target, t14, anchor);
+    			mount_component(filler6, target, anchor);
+    			insert_dev(target, t15, anchor);
+    			mount_component(scroller3, target, anchor);
+    			insert_dev(target, t16, anchor);
+    			mount_component(filler7, target, anchor);
+    			insert_dev(target, t17, anchor);
     			mount_component(scroller4, target, anchor);
     			current = true;
     		},
@@ -35705,12 +35749,16 @@ var app = (function () {
     			if (current) return;
     			transition_in(onsheader.$$.fragment, local);
     			transition_in(header.$$.fragment, local);
+    			transition_in(divider0.$$.fragment, local);
     			transition_in(filler0.$$.fragment, local);
     			transition_in(filler1.$$.fragment, local);
+    			transition_in(divider1.$$.fragment, local);
     			transition_in(scroller0.$$.fragment, local);
+    			transition_in(divider2.$$.fragment, local);
     			transition_in(filler2.$$.fragment, local);
     			transition_in(filler3.$$.fragment, local);
     			transition_in(filler4.$$.fragment, local);
+    			transition_in(divider3.$$.fragment, local);
     			transition_in(scroller1.$$.fragment, local);
     			transition_in(filler5.$$.fragment, local);
     			transition_in(scroller2.$$.fragment, local);
@@ -35723,12 +35771,16 @@ var app = (function () {
     		o: function outro(local) {
     			transition_out(onsheader.$$.fragment, local);
     			transition_out(header.$$.fragment, local);
+    			transition_out(divider0.$$.fragment, local);
     			transition_out(filler0.$$.fragment, local);
     			transition_out(filler1.$$.fragment, local);
+    			transition_out(divider1.$$.fragment, local);
     			transition_out(scroller0.$$.fragment, local);
+    			transition_out(divider2.$$.fragment, local);
     			transition_out(filler2.$$.fragment, local);
     			transition_out(filler3.$$.fragment, local);
     			transition_out(filler4.$$.fragment, local);
+    			transition_out(divider3.$$.fragment, local);
     			transition_out(scroller1.$$.fragment, local);
     			transition_out(filler5.$$.fragment, local);
     			transition_out(scroller2.$$.fragment, local);
@@ -35743,30 +35795,38 @@ var app = (function () {
     			if (detaching) detach_dev(t0);
     			destroy_component(header, detaching);
     			if (detaching) detach_dev(t1);
-    			destroy_component(filler0, detaching);
+    			destroy_component(divider0, detaching);
     			if (detaching) detach_dev(t2);
-    			destroy_component(filler1, detaching);
+    			destroy_component(filler0, detaching);
     			if (detaching) detach_dev(t3);
-    			destroy_component(scroller0, detaching);
+    			destroy_component(filler1, detaching);
     			if (detaching) detach_dev(t4);
-    			destroy_component(filler2, detaching);
+    			destroy_component(divider1, detaching);
     			if (detaching) detach_dev(t5);
-    			destroy_component(filler3, detaching);
+    			destroy_component(scroller0, detaching);
     			if (detaching) detach_dev(t6);
-    			destroy_component(filler4, detaching);
+    			destroy_component(divider2, detaching);
     			if (detaching) detach_dev(t7);
-    			destroy_component(scroller1, detaching);
+    			destroy_component(filler2, detaching);
     			if (detaching) detach_dev(t8);
-    			destroy_component(filler5, detaching);
+    			destroy_component(filler3, detaching);
     			if (detaching) detach_dev(t9);
-    			destroy_component(scroller2, detaching);
+    			destroy_component(filler4, detaching);
     			if (detaching) detach_dev(t10);
-    			destroy_component(filler6, detaching);
+    			destroy_component(divider3, detaching);
     			if (detaching) detach_dev(t11);
-    			destroy_component(scroller3, detaching);
+    			destroy_component(scroller1, detaching);
     			if (detaching) detach_dev(t12);
-    			destroy_component(filler7, detaching);
+    			destroy_component(filler5, detaching);
     			if (detaching) detach_dev(t13);
+    			destroy_component(scroller2, detaching);
+    			if (detaching) detach_dev(t14);
+    			destroy_component(filler6, detaching);
+    			if (detaching) detach_dev(t15);
+    			destroy_component(scroller3, detaching);
+    			if (detaching) detach_dev(t16);
+    			destroy_component(filler7, detaching);
+    			if (detaching) detach_dev(t17);
     			destroy_component(scroller4, detaching);
     		}
     	};
