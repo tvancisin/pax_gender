@@ -263,17 +263,18 @@
 	</p>
 </Header>
 
-<!-- <Divider /> -->
+<Divider />
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">What's a peace agreement?</p>
 </Filler>
 
+
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">[peace agreement definition]</p>
 </Filler>
 
-<!-- <Divider /> -->
+<Divider />
 
 <!-- RECTANGLES -->
 <Scroller {threshold} bind:id={id["rect"]} splitscreen={false} shadow={false}>
@@ -307,11 +308,8 @@
 		</section>
 	</div>
 </Scroller>
-<!-- , despite United Nations
-					Security Council Resolution 1325 which urges all actors to
-					increase the participation of women and incorporate gender
-					perspectives in all United Nations peace and security
-					efforts. -->
+
+<Divider />
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
@@ -320,13 +318,19 @@
 </Filler>
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">[explanation]</p>
+	<!-- <p class="text-big">[explanation]</p> -->
+<video controls style="max-width: 85%; height: auto; margin: auto; border-radius: 5px;">
+        <source src="./img/laura_captions.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
 </Filler>
 
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">Timeline</p>
 </Filler>
+
+<Divider />
 
 <!-- TIME -->
 <Scroller {threshold} bind:id={id["time"]} splitscreen={false} shadow={false}>

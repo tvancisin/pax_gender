@@ -21,10 +21,10 @@
 
 <style>
   hr {
-    width: 200px;
-    color: white;
+    width: 80%;
+    color: rgb(121, 121, 121);
     border: none;
-    border-top: 2px solid;
+    border-top: 1px solid;
     /* margin: 40px auto -10px auto; */
   }
 </style>
