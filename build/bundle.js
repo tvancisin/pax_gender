@@ -21979,25 +21979,25 @@ var app = (function () {
     			if (!src_url_equal(img.src, img_src_value = "./img/logo.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Office for National Statistics");
     			attr_dev(img, "class", "svelte-1qeemad");
-    			add_location(img, file, 20, 4, 527);
+    			add_location(img, file, 20, 4, 547);
     			attr_dev(picture, "class", "svelte-1qeemad");
-    			add_location(picture, file, 19, 3, 513);
+    			add_location(picture, file, 19, 3, 532);
     			attr_dev(a, "href", "https://pax.peaceagreements.org/agreements/wggsearch");
     			attr_dev(a, "target", "_blank");
     			attr_dev(a, "class", "svelte-1qeemad");
-    			add_location(a, file, 15, 2, 421);
+    			add_location(a, file, 15, 2, 436);
     			attr_dev(div, "class", "col-wide middle");
     			set_style(div, "margin-left", "0px");
     			set_style(div, "margin-top", "0px");
     			toggle_class(div, "center", /*center*/ ctx[2]);
-    			add_location(div, file, 14, 1, 336);
+    			add_location(div, file, 14, 1, 350);
 
     			attr_dev(nav, "style", nav_style_value = "border-bottom-color: " + themes[/*theme*/ ctx[0]]['muted'] + "; " + (/*filled*/ ctx[1]
     			? 'background-color: ' + themes[/*theme*/ ctx[0]]['background'] + ';'
     			: ''));
 
     			attr_dev(nav, "class", "svelte-1qeemad");
-    			add_location(nav, file, 9, 0, 195);
+    			add_location(nav, file, 9, 0, 204);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -23470,15 +23470,15 @@ var app = (function () {
     			svelte_scroller_foreground = element("svelte-scroller-foreground");
     			if (foreground_slot) foreground_slot.c();
     			set_custom_element_data(svelte_scroller_background, "class", "svelte-1byeste");
-    			add_location(svelte_scroller_background, file$5, 201, 2, 4901);
+    			add_location(svelte_scroller_background, file$5, 201, 2, 5102);
     			set_custom_element_data(svelte_scroller_background_container, "class", "background-container svelte-1byeste");
-    			add_location(svelte_scroller_background_container, file$5, 197, 1, 4801);
+    			add_location(svelte_scroller_background_container, file$5, 197, 1, 4998);
     			set_custom_element_data(svelte_scroller_foreground, "class", "svelte-1byeste");
-    			add_location(svelte_scroller_foreground, file$5, 206, 1, 5063);
+    			add_location(svelte_scroller_foreground, file$5, 206, 1, 5269);
     			set_custom_element_data(svelte_scroller_outer, "style", /*shadow_css*/ ctx[6]);
     			set_custom_element_data(svelte_scroller_outer, "class", "svelte-1byeste");
     			toggle_class(svelte_scroller_outer, "splitscreen", /*splitscreen*/ ctx[0]);
-    			add_location(svelte_scroller_outer, file$5, 196, 0, 4721);
+    			add_location(svelte_scroller_outer, file$5, 196, 0, 4917);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24112,10 +24112,10 @@ var app = (function () {
     			toggle_class(div, "col-wide", /*wide*/ ctx[1]);
     			toggle_class(div, "height-full", !/*short*/ ctx[2]);
     			toggle_class(div, "short", /*short*/ ctx[2]);
-    			add_location(div, file$6, 19, 1, 427);
+    			add_location(div, file$6, 19, 1, 446);
     			attr_dev(section, "style", section_style_value = "color: white}; " + /*shadow_css*/ ctx[3] + "; background-color: black};");
     			attr_dev(section, "class", "svelte-1odf9sx");
-    			add_location(section, file$6, 16, 0, 351);
+    			add_location(section, file$6, 16, 0, 367);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24335,12 +24335,12 @@ var app = (function () {
     			hr_1 = element("hr");
     			set_style(hr_1, "color", themes[/*theme*/ ctx[0]]);
     			attr_dev(hr_1, "class", "svelte-148ht4i");
-    			add_location(hr_1, file$7, 17, 4, 386);
+    			add_location(hr_1, file$7, 17, 4, 403);
     			attr_dev(div, "class", "col-medium");
     			attr_dev(div, "style", /*shadow_css*/ ctx[1]);
-    			add_location(div, file$7, 16, 1, 338);
+    			add_location(div, file$7, 16, 1, 354);
     			attr_dev(section, "style", section_style_value = "color: " + themes[/*theme*/ ctx[0]]['text'] + "; " + /*shadow_css*/ ctx[1] + ";");
-    			add_location(section, file$7, 15, 0, 273);
+    			add_location(section, file$7, 15, 0, 288);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -26514,9 +26514,9 @@ var app = (function () {
     			attr_dev(rect, "y", "0");
     			attr_dev(rect, "width", /*width*/ ctx[0]);
     			attr_dev(rect, "height", /*$tH*/ ctx[3]);
-    			add_location(rect, file$c, 26, 4, 603);
+    			add_location(rect, file$c, 26, 4, 629);
     			attr_dev(g, "transform", g_transform_value = "translate(" + /*$tX*/ ctx[1] + " " + /*$tY*/ ctx[2] + ")");
-    			add_location(g, file$c, 25, 0, 560);
+    			add_location(g, file$c, 25, 0, 585);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -30906,7 +30906,7 @@ var app = (function () {
     			create_component(layercake.$$.fragment);
     			attr_dev(div, "class", "wrapper svelte-zaiuf5");
     			add_render_callback(() => /*div_elementresize_handler*/ ctx[11].call(div));
-    			add_location(div, file$h, 68, 4, 1788);
+    			add_location(div, file$h, 68, 4, 1856);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -30966,7 +30966,7 @@ var app = (function () {
     			attr_dev(text_1, "y", text_1_y_value = /*innerHeight*/ ctx[2] + 12);
     			attr_dev(text_1, "fill", "white");
     			attr_dev(text_1, "font-size", "12px");
-    			add_location(text_1, file$h, 76, 24, 2112);
+    			add_location(text_1, file$h, 76, 24, 2188);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, text_1, anchor);
@@ -31098,7 +31098,7 @@ var app = (function () {
 
     			attr_dev(g, "class", "timeline");
     			attr_dev(g, "transform", g_transform_value = "translate(" + /*margin*/ ctx[6].left + ", " + /*margin*/ ctx[6].top + ")");
-    			add_location(g, file$h, 71, 16, 1916);
+    			add_location(g, file$h, 71, 16, 1987);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, g, anchor);
@@ -31571,7 +31571,7 @@ var app = (function () {
     			if (if_block) if_block.c();
     			attr_dev(div, "class", "wrapper svelte-bwh7x5");
     			add_render_callback(() => /*div_elementresize_handler*/ ctx[13].call(div));
-    			add_location(div, file$i, 102, 4, 2618);
+    			add_location(div, file$i, 102, 4, 2720);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -31720,7 +31720,7 @@ var app = (function () {
 
     			attr_dev(g, "class", "timeline");
     			attr_dev(g, "transform", g_transform_value = "translate(" + /*margin*/ ctx[4].left + ", " + /*margin*/ ctx[4].top + ")");
-    			add_location(g, file$i, 105, 16, 2746);
+    			add_location(g, file$i, 105, 16, 2851);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, g, anchor);
@@ -31865,12 +31865,12 @@ var app = (function () {
     			p = element("p");
     			t = text(t_value);
     			attr_dev(p, "class", "svelte-bwh7x5");
-    			add_location(p, file$i, 129, 16, 3613);
+    			add_location(p, file$i, 129, 16, 3742);
     			attr_dev(div, "class", "tooltip svelte-bwh7x5");
     			set_style(div, "position", "absolute");
     			set_style(div, "left", /*tooltip*/ ctx[2].x + "px");
     			set_style(div, "top", /*tooltip*/ ctx[2].y + "px");
-    			add_location(div, file$i, 125, 12, 3461);
+    			add_location(div, file$i, 125, 12, 3586);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -31986,7 +31986,7 @@ var app = (function () {
     	let width = 400;
     	let height = 400;
     	let rendered_data;
-    	let gap = 2;
+    	let gap = 3;
     	let initialPaxCount;
     	let innerWidth, innerHeight, xScale, yScale;
     	const margin = { top: 20, right: 20, bottom: 20, left: 40 };
@@ -32202,20 +32202,14 @@ var app = (function () {
 
     function get_each_context$4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[17] = list[i];
+    	child_ctx[16] = list[i];
+    	child_ctx[18] = i;
     	return child_ctx;
     }
 
     function get_each_context_1$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[17] = list[i];
-    	child_ctx[21] = i;
-    	return child_ctx;
-    }
-
-    function get_each_context_2(ctx, list, i) {
-    	const child_ctx = ctx.slice();
-    	child_ctx[22] = list[i];
+    	child_ctx[19] = list[i];
     	return child_ctx;
     }
 
@@ -32231,13 +32225,13 @@ var app = (function () {
     			div = element("div");
     			if (if_block) if_block.c();
     			attr_dev(div, "class", "wrapper svelte-nb8zsm");
-    			add_render_callback(() => /*div_elementresize_handler*/ ctx[16].call(div));
-    			add_location(div, file$j, 241, 4, 8276);
+    			add_render_callback(() => /*div_elementresize_handler*/ ctx[13].call(div));
+    			add_location(div, file$j, 241, 4, 8462);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			if (if_block) if_block.m(div, null);
-    			div_resize_listener = add_iframe_resize_listener(div, /*div_elementresize_handler*/ ctx[16].bind(div));
+    			div_resize_listener = add_iframe_resize_listener(div, /*div_elementresize_handler*/ ctx[13].bind(div));
     			current = true;
     		},
     		p: function update(ctx, dirty) {
@@ -32317,7 +32311,7 @@ var app = (function () {
     			const layercake_changes = {};
     			if (dirty & /*mygeojson*/ 1) layercake_changes.data = /*mygeojson*/ ctx[0];
 
-    			if (dirty & /*$$scope, gender_text, rendered_data, xScale, innerHeight, innerWidth*/ 33554928) {
+    			if (dirty & /*$$scope, xScale, rendered_data, innerHeight, innerWidth*/ 4194544) {
     				layercake_changes.$$scope = { dirty, ctx };
     			}
 
@@ -32349,13 +32343,13 @@ var app = (function () {
     }
 
     // (251:28) {#each years as tick}
-    function create_each_block_2(ctx) {
+    function create_each_block_1$1(ctx) {
     	let g;
     	let text_1;
 
-    	let t_value = (/*innerWidth*/ ctx[5] > 380
-    	? /*tick*/ ctx[22]
-    	: formatMobile$2(/*tick*/ ctx[22])) + "";
+    	let t_value = (/*innerWidth*/ ctx[4] > 380
+    	? /*tick*/ ctx[19]
+    	: formatMobile$2(/*tick*/ ctx[19])) + "";
 
     	let t;
     	let g_class_value;
@@ -32368,10 +32362,10 @@ var app = (function () {
     			t = text(t_value);
     			attr_dev(text_1, "y", "1");
     			attr_dev(text_1, "class", "svelte-nb8zsm");
-    			add_location(text_1, file$j, 257, 36, 9076);
-    			attr_dev(g, "class", g_class_value = "tick tick-" + /*tick*/ ctx[22] + " svelte-nb8zsm");
-    			attr_dev(g, "transform", g_transform_value = "translate(" + (/*xScale*/ ctx[7](/*tick*/ ctx[22]) + /*xScale*/ ctx[7].bandwidth() / 2) + "," + (/*innerHeight*/ ctx[6] + 15) + ")");
-    			add_location(g, file$j, 251, 32, 8738);
+    			add_location(text_1, file$j, 257, 36, 9262);
+    			attr_dev(g, "class", g_class_value = "tick tick-" + /*tick*/ ctx[19] + " svelte-nb8zsm");
+    			attr_dev(g, "transform", g_transform_value = "translate(" + (/*xScale*/ ctx[6](/*tick*/ ctx[19]) + /*xScale*/ ctx[6].bandwidth() / 2) + "," + (/*innerHeight*/ ctx[5] + 15) + ")");
+    			add_location(g, file$j, 251, 32, 8924);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, g, anchor);
@@ -32379,11 +32373,11 @@ var app = (function () {
     			append_dev(text_1, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*innerWidth*/ 32 && t_value !== (t_value = (/*innerWidth*/ ctx[5] > 380
-    			? /*tick*/ ctx[22]
-    			: formatMobile$2(/*tick*/ ctx[22])) + "")) set_data_dev(t, t_value);
+    			if (dirty & /*innerWidth*/ 16 && t_value !== (t_value = (/*innerWidth*/ ctx[4] > 380
+    			? /*tick*/ ctx[19]
+    			: formatMobile$2(/*tick*/ ctx[19])) + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*xScale, innerHeight*/ 192 && g_transform_value !== (g_transform_value = "translate(" + (/*xScale*/ ctx[7](/*tick*/ ctx[22]) + /*xScale*/ ctx[7].bandwidth() / 2) + "," + (/*innerHeight*/ ctx[6] + 15) + ")")) {
+    			if (dirty & /*xScale, innerHeight*/ 96 && g_transform_value !== (g_transform_value = "translate(" + (/*xScale*/ ctx[6](/*tick*/ ctx[19]) + /*xScale*/ ctx[6].bandwidth() / 2) + "," + (/*innerHeight*/ ctx[5] + 15) + ")")) {
     				attr_dev(g, "transform", g_transform_value);
     			}
     		},
@@ -32394,7 +32388,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block_2.name,
+    		id: create_each_block_1$1.name,
     		type: "each",
     		source: "(251:28) {#each years as tick}",
     		ctx
@@ -32404,18 +32398,18 @@ var app = (function () {
     }
 
     // (267:24) {#each rendered_data as d, i}
-    function create_each_block_1$1(ctx) {
+    function create_each_block$4(ctx) {
     	let individualline;
     	let current;
 
     	individualline = new IndividualLine({
     			props: {
-    				i: /*i*/ ctx[21],
-    				x: /*d*/ ctx[17].x,
-    				y: /*d*/ ctx[17].y,
-    				width: /*d*/ ctx[17].width,
-    				height: /*d*/ ctx[17].height,
-    				info: /*d*/ ctx[17].info
+    				i: /*i*/ ctx[18],
+    				x: /*d*/ ctx[16].x,
+    				y: /*d*/ ctx[16].y,
+    				width: /*d*/ ctx[16].width,
+    				height: /*d*/ ctx[16].height,
+    				info: /*d*/ ctx[16].info
     			},
     			$$inline: true
     		});
@@ -32430,11 +32424,11 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const individualline_changes = {};
-    			if (dirty & /*rendered_data*/ 256) individualline_changes.x = /*d*/ ctx[17].x;
-    			if (dirty & /*rendered_data*/ 256) individualline_changes.y = /*d*/ ctx[17].y;
-    			if (dirty & /*rendered_data*/ 256) individualline_changes.width = /*d*/ ctx[17].width;
-    			if (dirty & /*rendered_data*/ 256) individualline_changes.height = /*d*/ ctx[17].height;
-    			if (dirty & /*rendered_data*/ 256) individualline_changes.info = /*d*/ ctx[17].info;
+    			if (dirty & /*rendered_data*/ 128) individualline_changes.x = /*d*/ ctx[16].x;
+    			if (dirty & /*rendered_data*/ 128) individualline_changes.y = /*d*/ ctx[16].y;
+    			if (dirty & /*rendered_data*/ 128) individualline_changes.width = /*d*/ ctx[16].width;
+    			if (dirty & /*rendered_data*/ 128) individualline_changes.height = /*d*/ ctx[16].height;
+    			if (dirty & /*rendered_data*/ 128) individualline_changes.info = /*d*/ ctx[16].info;
     			individualline.$set(individualline_changes);
     		},
     		i: function intro(local) {
@@ -32453,64 +32447,9 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block_1$1.name,
-    		type: "each",
-    		source: "(267:24) {#each rendered_data as d, i}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (278:24) {#each gender_text as d}
-    function create_each_block$4(ctx) {
-    	let rect;
-    	let rect_x_value;
-    	let rect_y_value;
-    	let rect_width_value;
-    	let rect_height_value;
-
-    	const block = {
-    		c: function create() {
-    			rect = svg_element("rect");
-    			attr_dev(rect, "class", "gender_text");
-    			attr_dev(rect, "x", rect_x_value = /*d*/ ctx[17].x + 2);
-    			attr_dev(rect, "y", rect_y_value = +/*d*/ ctx[17].y);
-    			attr_dev(rect, "width", rect_width_value = /*d*/ ctx[17].width - 4);
-    			attr_dev(rect, "height", rect_height_value = /*d*/ ctx[17].height);
-    			attr_dev(rect, "fill", "black");
-    			add_location(rect, file$j, 278, 28, 9931);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, rect, anchor);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*gender_text*/ 16 && rect_x_value !== (rect_x_value = /*d*/ ctx[17].x + 2)) {
-    				attr_dev(rect, "x", rect_x_value);
-    			}
-
-    			if (dirty & /*gender_text*/ 16 && rect_y_value !== (rect_y_value = +/*d*/ ctx[17].y)) {
-    				attr_dev(rect, "y", rect_y_value);
-    			}
-
-    			if (dirty & /*gender_text*/ 16 && rect_width_value !== (rect_width_value = /*d*/ ctx[17].width - 4)) {
-    				attr_dev(rect, "width", rect_width_value);
-    			}
-
-    			if (dirty & /*gender_text*/ 16 && rect_height_value !== (rect_height_value = /*d*/ ctx[17].height)) {
-    				attr_dev(rect, "height", rect_height_value);
-    			}
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(rect);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
     		id: create_each_block$4.name,
     		type: "each",
-    		source: "(278:24) {#each gender_text as d}",
+    		source: "(267:24) {#each rendered_data as d, i}",
     		ctx
     	});
 
@@ -32521,18 +32460,12 @@ var app = (function () {
     function create_default_slot_1$2(ctx) {
     	let g1;
     	let g0;
-    	let each1_anchor;
+    	let rect;
+    	let rect_x_value;
+    	let rect_y_value;
     	let g1_transform_value;
     	let current;
-    	let each_value_2 = years;
-    	validate_each_argument(each_value_2);
-    	let each_blocks_2 = [];
-
-    	for (let i = 0; i < each_value_2.length; i += 1) {
-    		each_blocks_2[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
-    	}
-
-    	let each_value_1 = /*rendered_data*/ ctx[8];
+    	let each_value_1 = years;
     	validate_each_argument(each_value_1);
     	let each_blocks_1 = [];
 
@@ -32540,11 +32473,7 @@ var app = (function () {
     		each_blocks_1[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
     	}
 
-    	const out = i => transition_out(each_blocks_1[i], 1, 1, () => {
-    		each_blocks_1[i] = null;
-    	});
-
-    	let each_value = /*gender_text*/ ctx[4];
+    	let each_value = /*rendered_data*/ ctx[7];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -32552,48 +32481,45 @@ var app = (function () {
     		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
     	}
 
+    	const out = i => transition_out(each_blocks[i], 1, 1, () => {
+    		each_blocks[i] = null;
+    	});
+
     	const block = {
     		c: function create() {
     			g1 = svg_element("g");
     			g0 = svg_element("g");
 
-    			for (let i = 0; i < each_blocks_2.length; i += 1) {
-    				each_blocks_2[i].c();
-    			}
-
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				each_blocks_1[i].c();
     			}
-
-    			each1_anchor = empty();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
+    			rect = svg_element("rect");
     			attr_dev(g0, "class", "axis x-axis svelte-nb8zsm");
-    			add_location(g0, file$j, 249, 24, 8630);
+    			add_location(g0, file$j, 249, 24, 8816);
+    			attr_dev(rect, "x", rect_x_value = /*xScale*/ ctx[6]("2000") + /*xScale*/ ctx[6].bandwidth() / 2);
+    			attr_dev(rect, "y", rect_y_value = 500);
+    			attr_dev(rect, "width", "1");
+    			attr_dev(rect, "height", "300");
+    			attr_dev(rect, "fill", "white");
+    			add_location(rect, file$j, 277, 24, 10063);
     			attr_dev(g1, "class", "timeline");
-    			attr_dev(g1, "transform", g1_transform_value = "translate(" + /*margin*/ ctx[9].left + ", " + /*margin*/ ctx[9].top + ")");
-    			add_location(g1, file$j, 245, 20, 8461);
+    			attr_dev(g1, "transform", g1_transform_value = "translate(" + /*margin*/ ctx[8].left + ", " + /*margin*/ ctx[8].top + ")");
+    			add_location(g1, file$j, 245, 20, 8647);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, g1, anchor);
     			append_dev(g1, g0);
 
-    			for (let i = 0; i < each_blocks_2.length; i += 1) {
-    				if (each_blocks_2[i]) {
-    					each_blocks_2[i].m(g0, null);
-    				}
-    			}
-
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				if (each_blocks_1[i]) {
-    					each_blocks_1[i].m(g1, null);
+    					each_blocks_1[i].m(g0, null);
     				}
     			}
-
-    			append_dev(g1, each1_anchor);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				if (each_blocks[i]) {
@@ -32601,35 +32527,12 @@ var app = (function () {
     				}
     			}
 
+    			append_dev(g1, rect);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*years, xScale, innerHeight, innerWidth, formatMobile*/ 224) {
-    				each_value_2 = years;
-    				validate_each_argument(each_value_2);
-    				let i;
-
-    				for (i = 0; i < each_value_2.length; i += 1) {
-    					const child_ctx = get_each_context_2(ctx, each_value_2, i);
-
-    					if (each_blocks_2[i]) {
-    						each_blocks_2[i].p(child_ctx, dirty);
-    					} else {
-    						each_blocks_2[i] = create_each_block_2(child_ctx);
-    						each_blocks_2[i].c();
-    						each_blocks_2[i].m(g0, null);
-    					}
-    				}
-
-    				for (; i < each_blocks_2.length; i += 1) {
-    					each_blocks_2[i].d(1);
-    				}
-
-    				each_blocks_2.length = each_value_2.length;
-    			}
-
-    			if (dirty & /*rendered_data*/ 256) {
-    				each_value_1 = /*rendered_data*/ ctx[8];
+    			if (dirty & /*years, xScale, innerHeight, innerWidth, formatMobile*/ 112) {
+    				each_value_1 = years;
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -32638,26 +32541,22 @@ var app = (function () {
 
     					if (each_blocks_1[i]) {
     						each_blocks_1[i].p(child_ctx, dirty);
-    						transition_in(each_blocks_1[i], 1);
     					} else {
     						each_blocks_1[i] = create_each_block_1$1(child_ctx);
     						each_blocks_1[i].c();
-    						transition_in(each_blocks_1[i], 1);
-    						each_blocks_1[i].m(g1, each1_anchor);
+    						each_blocks_1[i].m(g0, null);
     					}
     				}
 
-    				group_outros();
-
-    				for (i = each_value_1.length; i < each_blocks_1.length; i += 1) {
-    					out(i);
+    				for (; i < each_blocks_1.length; i += 1) {
+    					each_blocks_1[i].d(1);
     				}
 
-    				check_outros();
+    				each_blocks_1.length = each_value_1.length;
     			}
 
-    			if (dirty & /*gender_text*/ 16) {
-    				each_value = /*gender_text*/ ctx[4];
+    			if (dirty & /*rendered_data*/ 128) {
+    				each_value = /*rendered_data*/ ctx[7];
     				validate_each_argument(each_value);
     				let i;
 
@@ -32666,41 +32565,48 @@ var app = (function () {
 
     					if (each_blocks[i]) {
     						each_blocks[i].p(child_ctx, dirty);
+    						transition_in(each_blocks[i], 1);
     					} else {
     						each_blocks[i] = create_each_block$4(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(g1, null);
+    						transition_in(each_blocks[i], 1);
+    						each_blocks[i].m(g1, rect);
     					}
     				}
 
-    				for (; i < each_blocks.length; i += 1) {
-    					each_blocks[i].d(1);
+    				group_outros();
+
+    				for (i = each_value.length; i < each_blocks.length; i += 1) {
+    					out(i);
     				}
 
-    				each_blocks.length = each_value.length;
+    				check_outros();
+    			}
+
+    			if (!current || dirty & /*xScale*/ 64 && rect_x_value !== (rect_x_value = /*xScale*/ ctx[6]("2000") + /*xScale*/ ctx[6].bandwidth() / 2)) {
+    				attr_dev(rect, "x", rect_x_value);
     			}
     		},
     		i: function intro(local) {
     			if (current) return;
 
-    			for (let i = 0; i < each_value_1.length; i += 1) {
-    				transition_in(each_blocks_1[i]);
+    			for (let i = 0; i < each_value.length; i += 1) {
+    				transition_in(each_blocks[i]);
     			}
 
     			current = true;
     		},
     		o: function outro(local) {
-    			each_blocks_1 = each_blocks_1.filter(Boolean);
+    			each_blocks = each_blocks.filter(Boolean);
 
-    			for (let i = 0; i < each_blocks_1.length; i += 1) {
-    				transition_out(each_blocks_1[i]);
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				transition_out(each_blocks[i]);
     			}
 
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(g1);
-    			destroy_each(each_blocks_2, detaching);
     			destroy_each(each_blocks_1, detaching);
     			destroy_each(each_blocks, detaching);
     		}
@@ -32741,7 +32647,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const svg_changes = {};
 
-    			if (dirty & /*$$scope, gender_text, rendered_data, xScale, innerHeight, innerWidth*/ 33554928) {
+    			if (dirty & /*$$scope, xScale, rendered_data, innerHeight, innerWidth*/ 4194544) {
     				svg_changes.$$scope = { dirty, ctx };
     			}
 
@@ -32775,7 +32681,7 @@ var app = (function () {
     function create_fragment$j(ctx) {
     	let if_block_anchor;
     	let current;
-    	let if_block = /*rendered_data*/ ctx[8] && /*mygeojson*/ ctx[0] && /*pax_timeline*/ ctx[1] && create_if_block$8(ctx);
+    	let if_block = /*rendered_data*/ ctx[7] && /*mygeojson*/ ctx[0] && /*pax_timeline*/ ctx[1] && create_if_block$8(ctx);
 
     	const block = {
     		c: function create() {
@@ -32791,11 +32697,11 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
-    			if (/*rendered_data*/ ctx[8] && /*mygeojson*/ ctx[0] && /*pax_timeline*/ ctx[1]) {
+    			if (/*rendered_data*/ ctx[7] && /*mygeojson*/ ctx[0] && /*pax_timeline*/ ctx[1]) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
 
-    					if (dirty & /*rendered_data, mygeojson, pax_timeline*/ 259) {
+    					if (dirty & /*rendered_data, mygeojson, pax_timeline*/ 131) {
     						transition_in(if_block, 1);
     					}
     				} else {
@@ -32849,7 +32755,6 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Timeline', slots, []);
     	let { pax } = $$props;
-    	let { pax_stages } = $$props;
     	let { mygeojson } = $$props;
     	let { pax_timeline } = $$props;
     	let { step } = $$props;
@@ -32864,10 +32769,6 @@ var app = (function () {
     	$$self.$$.on_mount.push(function () {
     		if (pax === undefined && !('pax' in $$props || $$self.$$.bound[$$self.$$.props['pax']])) {
     			console.warn("<Timeline> was created without expected prop 'pax'");
-    		}
-
-    		if (pax_stages === undefined && !('pax_stages' in $$props || $$self.$$.bound[$$self.$$.props['pax_stages']])) {
-    			console.warn("<Timeline> was created without expected prop 'pax_stages'");
     		}
 
     		if (mygeojson === undefined && !('mygeojson' in $$props || $$self.$$.bound[$$self.$$.props['mygeojson']])) {
@@ -32887,7 +32788,7 @@ var app = (function () {
     		}
     	});
 
-    	const writable_props = ['pax', 'pax_stages', 'mygeojson', 'pax_timeline', 'step', 'afghanistan'];
+    	const writable_props = ['pax', 'mygeojson', 'pax_timeline', 'step', 'afghanistan'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Timeline> was created with unknown prop '${key}'`);
@@ -32901,12 +32802,11 @@ var app = (function () {
     	}
 
     	$$self.$$set = $$props => {
-    		if ('pax' in $$props) $$invalidate(10, pax = $$props.pax);
-    		if ('pax_stages' in $$props) $$invalidate(11, pax_stages = $$props.pax_stages);
+    		if ('pax' in $$props) $$invalidate(9, pax = $$props.pax);
     		if ('mygeojson' in $$props) $$invalidate(0, mygeojson = $$props.mygeojson);
     		if ('pax_timeline' in $$props) $$invalidate(1, pax_timeline = $$props.pax_timeline);
-    		if ('step' in $$props) $$invalidate(12, step = $$props.step);
-    		if ('afghanistan' in $$props) $$invalidate(13, afghanistan = $$props.afghanistan);
+    		if ('step' in $$props) $$invalidate(10, step = $$props.step);
+    		if ('afghanistan' in $$props) $$invalidate(11, afghanistan = $$props.afghanistan);
     	};
 
     	$$self.$capture_state = () => ({
@@ -32916,7 +32816,6 @@ var app = (function () {
     		Svg,
     		years,
     		pax,
-    		pax_stages,
     		mygeojson,
     		pax_timeline,
     		step,
@@ -32935,21 +32834,20 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('pax' in $$props) $$invalidate(10, pax = $$props.pax);
-    		if ('pax_stages' in $$props) $$invalidate(11, pax_stages = $$props.pax_stages);
+    		if ('pax' in $$props) $$invalidate(9, pax = $$props.pax);
     		if ('mygeojson' in $$props) $$invalidate(0, mygeojson = $$props.mygeojson);
     		if ('pax_timeline' in $$props) $$invalidate(1, pax_timeline = $$props.pax_timeline);
-    		if ('step' in $$props) $$invalidate(12, step = $$props.step);
-    		if ('afghanistan' in $$props) $$invalidate(13, afghanistan = $$props.afghanistan);
+    		if ('step' in $$props) $$invalidate(10, step = $$props.step);
+    		if ('afghanistan' in $$props) $$invalidate(11, afghanistan = $$props.afghanistan);
     		if ('width' in $$props) $$invalidate(2, width = $$props.width);
     		if ('height' in $$props) $$invalidate(3, height = $$props.height);
-    		if ('rendered_data' in $$props) $$invalidate(8, rendered_data = $$props.rendered_data);
-    		if ('gender_text' in $$props) $$invalidate(4, gender_text = $$props.gender_text);
-    		if ('innerWidth' in $$props) $$invalidate(5, innerWidth = $$props.innerWidth);
-    		if ('innerHeight' in $$props) $$invalidate(6, innerHeight = $$props.innerHeight);
-    		if ('xScale' in $$props) $$invalidate(7, xScale = $$props.xScale);
-    		if ('yScale' in $$props) $$invalidate(14, yScale = $$props.yScale);
-    		if ('yHeight' in $$props) $$invalidate(15, yHeight = $$props.yHeight);
+    		if ('rendered_data' in $$props) $$invalidate(7, rendered_data = $$props.rendered_data);
+    		if ('gender_text' in $$props) gender_text = $$props.gender_text;
+    		if ('innerWidth' in $$props) $$invalidate(4, innerWidth = $$props.innerWidth);
+    		if ('innerHeight' in $$props) $$invalidate(5, innerHeight = $$props.innerHeight);
+    		if ('xScale' in $$props) $$invalidate(6, xScale = $$props.xScale);
+    		if ('yScale' in $$props) $$invalidate(12, yScale = $$props.yScale);
+    		if ('yHeight' in $$props) yHeight = $$props.yHeight;
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -32958,32 +32856,32 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*width*/ 4) {
-    			 $$invalidate(5, innerWidth = width - margin.left - margin.right);
+    			 $$invalidate(4, innerWidth = width - margin.left - margin.right);
     		}
 
     		if ($$self.$$.dirty & /*height*/ 8) {
-    			 $$invalidate(6, innerHeight = height - margin.top - margin.bottom);
+    			 $$invalidate(5, innerHeight = height - margin.top - margin.bottom);
     		}
 
-    		if ($$self.$$.dirty & /*innerWidth*/ 32) {
-    			 $$invalidate(7, xScale = band().domain(years).range([0, innerWidth]).padding(0.1));
+    		if ($$self.$$.dirty & /*innerWidth*/ 16) {
+    			 $$invalidate(6, xScale = band().domain(years).range([0, innerWidth]).padding(0.1));
     		}
 
-    		if ($$self.$$.dirty & /*innerHeight*/ 64) {
-    			 $$invalidate(14, yScale = linear$2().domain([0, 100]).range([innerHeight, 0]));
+    		if ($$self.$$.dirty & /*innerHeight*/ 32) {
+    			 $$invalidate(12, yScale = linear$2().domain([0, 100]).range([innerHeight, 0]));
     		}
 
-    		if ($$self.$$.dirty & /*innerHeight*/ 64) {
-    			 $$invalidate(15, yHeight = linear$2().domain([0, 40000]).range([0, innerHeight]));
+    		if ($$self.$$.dirty & /*innerHeight*/ 32) {
+    			 yHeight = linear$2().domain([0, 40000]).range([0, innerHeight]);
     		}
 
-    		if ($$self.$$.dirty & /*pax, pax_stages, xScale, yScale*/ 19584) {
+    		if ($$self.$$.dirty & /*pax, xScale, yScale*/ 4672) {
     			//initial functions
-    			 if (pax && pax_stages) {
+    			 if (pax) {
     				let previousYear = null; // Track the last year seen
     				let index = 0; // Index that resets for each new year
 
-    				$$invalidate(8, rendered_data = pax.map(d => {
+    				$$invalidate(7, rendered_data = pax.map(d => {
     					const currentYear = d.Dat.substring(6, 10);
 
     					// Reset index if the year has changed
@@ -33006,7 +32904,7 @@ var app = (function () {
     			}
     		}
 
-    		if ($$self.$$.dirty & /*step, pax, xScale, yScale, innerHeight, innerWidth, afghanistan, gender_text, yHeight*/ 62704) {
+    		if ($$self.$$.dirty & /*step, pax, xScale, yScale, innerHeight*/ 5728) {
     			//steps
     			 if (step == "1") {
     				//full timeline
@@ -33014,7 +32912,7 @@ var app = (function () {
 
     				let index = 0; // Index that resets for each new year
 
-    				$$invalidate(8, rendered_data = pax.map(d => {
+    				$$invalidate(7, rendered_data = pax.map(d => {
     					const currentYear = d.Dat.substring(6, 10);
 
     					// Reset index if the year has changed
@@ -33040,7 +32938,7 @@ var app = (function () {
 
     				let index = -1; // Index that changes based on GeWom value
 
-    				$$invalidate(8, rendered_data = pax.map(d => {
+    				$$invalidate(7, rendered_data = pax.map(d => {
     					const currentYear = d.Dat.substring(6, 10);
 
     					// Reset index if the year has changed
@@ -33060,139 +32958,7 @@ var app = (function () {
     						info: d.info
     					};
     				}));
-    			} else if (step == "3") {
-    				select(".axis").style("visibility", "visible");
-
-    				//afghanistan only
-    				let previousYear = null; // Track the last year seen
-
-    				let index = -1; // Index that changes based on GeWom value
-
-    				$$invalidate(8, rendered_data = pax.map(d => {
-    					const currentYear = d.Dat.substring(6, 10);
-
-    					// Reset index if the year has changed
-    					if (currentYear !== previousYear) {
-    						index = -1;
-    						previousYear = currentYear;
-    					}
-
-    					// Determine y position based on GeWom value
-    					const yPosition = d.Con === "Afghanistan"
-    					? yScale(++index)
-    					: innerHeight + 100;
-
-    					return {
-    						x: xScale(currentYear),
-    						y: yPosition,
-    						width: xScale.bandwidth(),
-    						height: 3,
-    						info: d.info
-    					};
-    				}));
-    			} else if (step == "4") {
-    				select(".axis").style("visibility", "hidden");
-
-    				//spreading afghanistan agts
-    				let index = 0; // Index that changes based on GeWom value
-
-    				$$invalidate(8, rendered_data = pax.map(d => {
-    					// Calculate the width of each part and apply a gap
-    					const partWidth = innerWidth / 22;
-
-    					const elementWidth = partWidth - 4; // Leave 4px gap
-
-    					// Set x position based on the current index
-    					const xPosition = index * partWidth;
-
-    					// Determine y position based on GeWom value
-    					const yPosition = d.Con === "Afghanistan" ? 10 : innerHeight + 100;
-
-    					// Increment index only if d.Con is "Afghanistan"
-    					if (d.Con === "Afghanistan") {
-    						index++;
-
-    						// Reset index if it exceeds 22 parts to loop back
-    						if (index >= 22) {
-    							index = 0;
-    						}
-    					}
-
-    					return {
-    						x: xPosition,
-    						y: yPosition,
-    						width: elementWidth,
-    						height: 3,
-    						info: d.info
-    					};
-    				}));
-
-    				selectAll(".gender_text").style("visibility", "hidden");
-    			} else if (step == "5") {
-    				selectAll(".gender_text").style("visibility", "visible");
-
-    				//lenghts of agreements and gender text highlight
-    				$$invalidate(4, gender_text = []); // Reset before populating it in this step
-
-    				function construct_gender(id, x, w, h, y) {
-    					let filteredResults = afghanistan.filter(item => item.AgtID === id);
-
-    					if (filteredResults.length !== 0) {
-    						filteredResults.forEach(d => {
-    							// Push the new object into the persistent `blaa` array
-    							gender_text.push({
-    								x,
-    								y: y + h / 100 * d.provisionLocation,
-    								width: w,
-    								height: 3
-    							});
-    						});
-
-    						// Reassign to itself to trigger reactivity
-    						$$invalidate(4, gender_text = [...gender_text]);
-    					}
-    				}
-
-    				let index = 0; // Index that changes based on GeWom value
-
-    				$$invalidate(8, rendered_data = pax.map(d => {
-    					// Calculate the width of each part and apply a gap
-    					const partWidth = innerWidth / 22;
-
-    					const elementWidth = partWidth - 4; // Leave 4px gap
-
-    					// Set x position based on the current index
-    					let xPosition = index * partWidth;
-
-    					let agt_height;
-    					let yPosition;
-
-    					// Increment index only if d.Con is "Afghanistan"
-    					if (d.Con === "Afghanistan") {
-    						index++;
-
-    						// Reset index if it exceeds 22 parts to loop back
-    						if (index >= 22) {
-    							index = 0;
-    						}
-
-    						yPosition = 10;
-    						agt_height = yHeight(d.N_characters);
-    						construct_gender(d.AgtId, xPosition, elementWidth, agt_height, yPosition);
-    					} else {
-    						yPosition = innerHeight + 100;
-    						agt_height = 0;
-    					}
-
-    					return {
-    						x: xPosition,
-    						y: yPosition,
-    						width: elementWidth,
-    						height: agt_height,
-    						info: d.Agt
-    					};
-    				}));
-    			}
+    			} else ;
     		}
     	};
 
@@ -33201,18 +32967,15 @@ var app = (function () {
     		pax_timeline,
     		width,
     		height,
-    		gender_text,
     		innerWidth,
     		innerHeight,
     		xScale,
     		rendered_data,
     		margin,
     		pax,
-    		pax_stages,
     		step,
     		afghanistan,
     		yScale,
-    		yHeight,
     		div_elementresize_handler
     	];
     }
@@ -33222,12 +32985,11 @@ var app = (function () {
     		super(options);
 
     		init(this, options, instance$j, create_fragment$j, safe_not_equal, {
-    			pax: 10,
-    			pax_stages: 11,
+    			pax: 9,
     			mygeojson: 0,
     			pax_timeline: 1,
-    			step: 12,
-    			afghanistan: 13
+    			step: 10,
+    			afghanistan: 11
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -33243,14 +33005,6 @@ var app = (function () {
     	}
 
     	set pax(value) {
-    		throw new Error("<Timeline>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get pax_stages() {
-    		throw new Error("<Timeline>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set pax_stages(value) {
     		throw new Error("<Timeline>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
@@ -33528,7 +33282,7 @@ var app = (function () {
     			if (if_block) if_block.c();
     			attr_dev(div, "class", "wrapper svelte-1yxjh2k");
     			add_render_callback(() => /*div_elementresize_handler*/ ctx[12].call(div));
-    			add_location(div, file$l, 80, 4, 2473);
+    			add_location(div, file$l, 80, 4, 2553);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -34118,7 +33872,7 @@ var app = (function () {
     const { Object: Object_1$1 } = globals;
     const file$m = "src\\App.svelte";
 
-    // (251:0) <Header  bgcolor="white"  bgfixed={false}  theme="black"  center={true}  short={false} >
+    // (251:0) <Header   bgcolor="white"   bgfixed={false}   theme="black"   center={true}   short={false}  >
     function create_default_slot_8(ctx) {
     	let h1;
     	let t1;
@@ -34133,13 +33887,13 @@ var app = (function () {
     			h1.textContent = "PA-X Gender";
     			t1 = space();
     			p = element("p");
-    			t2 = text("This scrollytelling visualization uses PA-X database to show how and to\n\t\twhat ");
+    			t2 = text("This scrollytelling visualization uses PA-X database to show how and to\r\n\t\twhat ");
     			br = element("br");
-    			t3 = text("\n\t\textent is gender taken into consideration in peacebuilding across the world.");
-    			add_location(h1, file$m, 257, 1, 6152);
-    			add_location(br, file$m, 260, 7, 6283);
+    			t3 = text("\r\n\t\textent is gender taken into consideration in peacebuilding across the world.");
+    			add_location(h1, file$m, 257, 1, 6409);
+    			add_location(br, file$m, 260, 7, 6543);
     			set_style(p, "margin-top", "5px");
-    			add_location(p, file$m, 258, 1, 6174);
+    			add_location(p, file$m, 258, 1, 6432);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h1, anchor);
@@ -34161,7 +33915,7 @@ var app = (function () {
     		block,
     		id: create_default_slot_8.name,
     		type: "slot",
-    		source: "(251:0) <Header  bgcolor=\\\"white\\\"  bgfixed={false}  theme=\\\"black\\\"  center={true}  short={false} >",
+    		source: "(251:0) <Header   bgcolor=\\\"white\\\"   bgfixed={false}   theme=\\\"black\\\"   center={true}   short={false}  >",
     		ctx
     	});
 
@@ -34177,7 +33931,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "What's a peace agreement?";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 268, 1, 6477);
+    			add_location(p, file$m, 268, 1, 6745);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34208,7 +33962,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "[peace agreement definition]";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 273, 1, 6617);
+    			add_location(p, file$m, 273, 1, 6890);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34256,12 +34010,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(rectangles.$$.fragment);
     			attr_dev(div0, "class", "rect svelte-ypoop9");
-    			add_location(div0, file$m, 283, 4, 6871);
+    			add_location(div0, file$m, 283, 4, 7154);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$m, 282, 3, 6832);
-    			add_location(figure, file$m, 281, 2, 6820);
+    			add_location(div1, file$m, 282, 3, 7114);
+    			add_location(figure, file$m, 281, 2, 7101);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$m, 280, 1, 6794);
+    			add_location(div2, file$m, 280, 1, 7074);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34327,32 +34081,32 @@ var app = (function () {
     			section0 = element("section");
     			div0 = element("div");
     			p0 = element("p");
-    			t0 = text("PA-X maintains the biggest database of peace agreements in\n\t\t\t\t\tthe world.");
+    			t0 = text("PA-X maintains the biggest database of peace agreements in\r\n\t\t\t\t\tthe world.");
     			br0 = element("br");
-    			t1 = text("\n\t\t\t\t\tEvery rectangle in this view represents one of 2055 agreements.");
+    			t1 = text("\r\n\t\t\t\t\tEvery rectangle in this view represents one of 2055 agreements.");
     			t2 = space();
     			section1 = element("section");
     			div1 = element("div");
     			p1 = element("p");
-    			t3 = text("Out of the 2055 agreements, only 436 contain references to\n\t\t\t\t\tgender.");
+    			t3 = text("Out of the 2055 agreements, only 436 contain references to\r\n\t\t\t\t\tgender.");
     			br1 = element("br");
     			t4 = text(" That's less than a quarter.");
-    			add_location(br0, file$m, 295, 15, 7175);
+    			add_location(br0, file$m, 295, 15, 7470);
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$m, 293, 4, 7064);
+    			add_location(p0, file$m, 293, 4, 7357);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$m, 292, 3, 7035);
+    			add_location(div0, file$m, 292, 3, 7327);
     			attr_dev(section0, "data-id", "rect01");
-    			add_location(section0, file$m, 291, 2, 7005);
-    			add_location(br1, file$m, 304, 12, 7452);
+    			add_location(section0, file$m, 291, 2, 7296);
+    			add_location(br1, file$m, 304, 12, 7756);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$m, 302, 4, 7344);
+    			add_location(p1, file$m, 302, 4, 7646);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$m, 301, 3, 7315);
+    			add_location(div1, file$m, 301, 3, 7616);
     			attr_dev(section1, "data-id", "rect02");
-    			add_location(section1, file$m, 300, 2, 7285);
+    			add_location(section1, file$m, 300, 2, 7585);
     			attr_dev(div2, "slot", "foreground");
-    			add_location(div2, file$m, 290, 1, 6979);
+    			add_location(div2, file$m, 290, 1, 7269);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34396,7 +34150,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Why should gender be taken into consideration in peace agreements?";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 314, 1, 7631);
+    			add_location(p, file$m, 314, 1, 7945);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34429,16 +34183,16 @@ var app = (function () {
     		c: function create() {
     			video = element("video");
     			source = element("source");
-    			t = text("\n        Your browser does not support the video tag.");
+    			t = text("\r\n        Your browser does not support the video tag.");
     			if (!src_url_equal(source.src, source_src_value = "./img/laura_captions.mp4")) attr_dev(source, "src", source_src_value);
     			attr_dev(source, "type", "video/mp4");
-    			add_location(source, file$m, 322, 8, 7960);
+    			add_location(source, file$m, 322, 8, 8282);
     			video.controls = true;
     			set_style(video, "max-width", "85%");
     			set_style(video, "height", "auto");
     			set_style(video, "margin", "auto");
     			set_style(video, "border-radius", "5px");
-    			add_location(video, file$m, 321, 0, 7863);
+    			add_location(video, file$m, 321, 0, 8184);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, video, anchor);
@@ -34471,7 +34225,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Timeline";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 329, 1, 8175);
+    			add_location(p, file$m, 329, 1, 8504);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34505,7 +34259,6 @@ var app = (function () {
     	timeline = new Timeline({
     			props: {
     				mygeojson: /*mygeojson*/ ctx[2],
-    				pax_stages: /*pax_stages*/ ctx[7],
     				pax: /*pax*/ ctx[3],
     				pax_timeline: /*pax_timeline*/ ctx[5],
     				step: /*step*/ ctx[1],
@@ -34522,12 +34275,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(timeline.$$.fragment);
     			attr_dev(div0, "class", "time svelte-ypoop9");
-    			add_location(div0, file$m, 339, 4, 8403);
+    			add_location(div0, file$m, 339, 4, 8742);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$m, 338, 3, 8364);
-    			add_location(figure, file$m, 337, 2, 8352);
+    			add_location(div1, file$m, 338, 3, 8702);
+    			add_location(figure, file$m, 337, 2, 8689);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$m, 336, 1, 8326);
+    			add_location(div2, file$m, 336, 1, 8662);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34540,7 +34293,6 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const timeline_changes = {};
     			if (dirty & /*mygeojson*/ 4) timeline_changes.mygeojson = /*mygeojson*/ ctx[2];
-    			if (dirty & /*pax_stages*/ 128) timeline_changes.pax_stages = /*pax_stages*/ ctx[7];
     			if (dirty & /*pax*/ 8) timeline_changes.pax = /*pax*/ ctx[3];
     			if (dirty & /*pax_timeline*/ 32) timeline_changes.pax_timeline = /*pax_timeline*/ ctx[5];
     			if (dirty & /*step*/ 2) timeline_changes.step = /*step*/ ctx[1];
@@ -34573,7 +34325,7 @@ var app = (function () {
     	return block;
     }
 
-    // (354:1) 
+    // (353:1) 
     function create_foreground_slot_3(ctx) {
     	let div5;
     	let section0;
@@ -34602,7 +34354,7 @@ var app = (function () {
     			section0 = element("section");
     			div0 = element("div");
     			p0 = element("p");
-    			p0.textContent = "All PA-X agreements over time, each line represents an\n\t\t\t\t\tagreement.";
+    			p0.textContent = "All PA-X agreements over time, each line represents an\r\n\t\t\t\t\tagreement.";
     			t1 = space();
     			section1 = element("section");
     			div1 = element("div");
@@ -34624,37 +34376,37 @@ var app = (function () {
     			p4 = element("p");
     			p4.textContent = "afghanistan agreements with highlighted gender text";
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$m, 356, 4, 8676);
+    			add_location(p0, file$m, 355, 4, 9012);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$m, 355, 3, 8647);
+    			add_location(div0, file$m, 354, 3, 8982);
     			attr_dev(section0, "data-id", "time01");
-    			add_location(section0, file$m, 354, 2, 8617);
+    			add_location(section0, file$m, 353, 2, 8951);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$m, 364, 4, 8877);
+    			add_location(p1, file$m, 363, 4, 9221);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$m, 363, 3, 8848);
+    			add_location(div1, file$m, 362, 3, 9191);
     			attr_dev(section1, "data-id", "time02");
-    			add_location(section1, file$m, 362, 2, 8818);
+    			add_location(section1, file$m, 361, 2, 9160);
     			set_style(p2, "text-align", "center");
-    			add_location(p2, file$m, 369, 4, 9019);
+    			add_location(p2, file$m, 368, 4, 9368);
     			attr_dev(div2, "class", "col-medium svelte-ypoop9");
-    			add_location(div2, file$m, 368, 3, 8990);
+    			add_location(div2, file$m, 367, 3, 9338);
     			attr_dev(section2, "data-id", "time03");
-    			add_location(section2, file$m, 367, 2, 8960);
+    			add_location(section2, file$m, 366, 2, 9307);
     			set_style(p3, "text-align", "center");
-    			add_location(p3, file$m, 374, 4, 9150);
+    			add_location(p3, file$m, 373, 4, 9504);
     			attr_dev(div3, "class", "col-medium svelte-ypoop9");
-    			add_location(div3, file$m, 373, 3, 9121);
+    			add_location(div3, file$m, 372, 3, 9474);
     			attr_dev(section3, "data-id", "time04");
-    			add_location(section3, file$m, 372, 2, 9091);
+    			add_location(section3, file$m, 371, 2, 9443);
     			set_style(p4, "text-align", "center");
-    			add_location(p4, file$m, 379, 4, 9292);
+    			add_location(p4, file$m, 378, 4, 9651);
     			attr_dev(div4, "class", "col-medium svelte-ypoop9");
-    			add_location(div4, file$m, 378, 3, 9263);
+    			add_location(div4, file$m, 377, 3, 9621);
     			attr_dev(section4, "data-id", "time05");
-    			add_location(section4, file$m, 377, 2, 9233);
+    			add_location(section4, file$m, 376, 2, 9590);
     			attr_dev(div5, "slot", "foreground");
-    			add_location(div5, file$m, 353, 1, 8591);
+    			add_location(div5, file$m, 352, 1, 8924);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div5, anchor);
@@ -34688,14 +34440,14 @@ var app = (function () {
     		block,
     		id: create_foreground_slot_3.name,
     		type: "slot",
-    		source: "(354:1) ",
+    		source: "(353:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (388:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (387:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_2(ctx) {
     	let p;
 
@@ -34704,7 +34456,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Peace Process Stages";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 388, 1, 9512);
+    			add_location(p, file$m, 387, 1, 9880);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34719,14 +34471,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(388:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(387:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (394:1) 
+    // (393:1) 
     function create_background_slot_2(ctx) {
     	let div2;
     	let figure;
@@ -34752,12 +34504,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(stages.$$.fragment);
     			attr_dev(div0, "class", "stage svelte-ypoop9");
-    			add_location(div0, file$m, 396, 4, 9742);
+    			add_location(div0, file$m, 395, 4, 10118);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$m, 395, 3, 9703);
-    			add_location(figure, file$m, 394, 2, 9691);
+    			add_location(div1, file$m, 394, 3, 10078);
+    			add_location(figure, file$m, 393, 2, 10065);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$m, 393, 1, 9665);
+    			add_location(div2, file$m, 392, 1, 10038);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34793,14 +34545,14 @@ var app = (function () {
     		block,
     		id: create_background_slot_2.name,
     		type: "slot",
-    		source: "(394:1) ",
+    		source: "(393:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (404:1) 
+    // (403:1) 
     function create_foreground_slot_2(ctx) {
     	let div2;
     	let section0;
@@ -34817,26 +34569,26 @@ var app = (function () {
     			section0 = element("section");
     			div0 = element("div");
     			p0 = element("p");
-    			p0.textContent = "Dividing all PA-X agreements into different peace process\n\t\t\t\t\tstages shows the predominance of Partial and Pre-Negotiation\n\t\t\t\t\tagreements";
+    			p0.textContent = "Dividing all PA-X agreements into different peace process\r\n\t\t\t\t\tstages shows the predominance of Partial and Pre-Negotiation\r\n\t\t\t\t\tagreements";
     			t1 = space();
     			section1 = element("section");
     			div1 = element("div");
     			p1 = element("p");
     			p1.textContent = "PA-X Gender agreements";
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$m, 406, 4, 9933);
+    			add_location(p0, file$m, 405, 4, 10319);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$m, 405, 3, 9904);
+    			add_location(div0, file$m, 404, 3, 10289);
     			attr_dev(section0, "data-id", "stage01");
-    			add_location(section0, file$m, 404, 2, 9873);
+    			add_location(section0, file$m, 403, 2, 10257);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$m, 415, 4, 10204);
+    			add_location(p1, file$m, 414, 4, 10599);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$m, 414, 3, 10175);
+    			add_location(div1, file$m, 413, 3, 10569);
     			attr_dev(section1, "data-id", "stage02");
-    			add_location(section1, file$m, 413, 2, 10144);
+    			add_location(section1, file$m, 412, 2, 10537);
     			attr_dev(div2, "slot", "foreground");
-    			add_location(div2, file$m, 403, 1, 9847);
+    			add_location(div2, file$m, 402, 1, 10230);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34858,14 +34610,14 @@ var app = (function () {
     		block,
     		id: create_foreground_slot_2.name,
     		type: "slot",
-    		source: "(404:1) ",
+    		source: "(403:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (422:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+    // (421:0) <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
     function create_default_slot_1$4(ctx) {
     	let p;
 
@@ -34874,7 +34626,7 @@ var app = (function () {
     			p = element("p");
     			p.textContent = "Geography";
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 422, 1, 10384);
+    			add_location(p, file$m, 421, 1, 10786);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -34889,14 +34641,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1$4.name,
     		type: "slot",
-    		source: "(422:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
+    		source: "(421:0) <Filler theme=\\\"light\\\" short={true} wide={true} center={true} shadow={false}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (428:1) 
+    // (427:1) 
     function create_background_slot_1(ctx) {
     	let div2;
     	let figure;
@@ -34926,12 +34678,12 @@ var app = (function () {
     			div0 = element("div");
     			create_component(geography.$$.fragment);
     			attr_dev(div0, "class", "map svelte-ypoop9");
-    			add_location(div0, file$m, 430, 4, 10598);
+    			add_location(div0, file$m, 429, 4, 11008);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$m, 429, 3, 10559);
-    			add_location(figure, file$m, 428, 2, 10547);
+    			add_location(div1, file$m, 428, 3, 10968);
+    			add_location(figure, file$m, 427, 2, 10955);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$m, 427, 1, 10521);
+    			add_location(div2, file$m, 426, 1, 10928);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -34971,14 +34723,14 @@ var app = (function () {
     		block,
     		id: create_background_slot_1.name,
     		type: "slot",
-    		source: "(428:1) ",
+    		source: "(427:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (446:1) 
+    // (445:1) 
     function create_foreground_slot_1(ctx) {
     	let div4;
     	let section0;
@@ -35020,31 +34772,31 @@ var app = (function () {
     			p3 = element("p");
     			p3.textContent = "references to un 1325";
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$m, 448, 4, 10892);
+    			add_location(p0, file$m, 447, 4, 11320);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$m, 447, 3, 10863);
+    			add_location(div0, file$m, 446, 3, 11290);
     			attr_dev(section0, "data-id", "map01");
-    			add_location(section0, file$m, 446, 2, 10834);
+    			add_location(section0, file$m, 445, 2, 11260);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$m, 453, 4, 11039);
+    			add_location(p1, file$m, 452, 4, 11472);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$m, 452, 3, 11010);
+    			add_location(div1, file$m, 451, 3, 11442);
     			attr_dev(section1, "data-id", "map02");
-    			add_location(section1, file$m, 451, 2, 10981);
+    			add_location(section1, file$m, 450, 2, 11412);
     			set_style(p2, "text-align", "center");
-    			add_location(p2, file$m, 460, 4, 11200);
+    			add_location(p2, file$m, 459, 4, 11640);
     			attr_dev(div2, "class", "col-medium svelte-ypoop9");
-    			add_location(div2, file$m, 459, 3, 11171);
+    			add_location(div2, file$m, 458, 3, 11610);
     			attr_dev(section2, "data-id", "map03");
-    			add_location(section2, file$m, 458, 2, 11142);
+    			add_location(section2, file$m, 457, 2, 11580);
     			set_style(p3, "text-align", "center");
-    			add_location(p3, file$m, 465, 4, 11336);
+    			add_location(p3, file$m, 464, 4, 11781);
     			attr_dev(div3, "class", "col-medium svelte-ypoop9");
-    			add_location(div3, file$m, 464, 3, 11307);
+    			add_location(div3, file$m, 463, 3, 11751);
     			attr_dev(section3, "data-id", "map04");
-    			add_location(section3, file$m, 463, 2, 11278);
+    			add_location(section3, file$m, 462, 2, 11721);
     			attr_dev(div4, "slot", "foreground");
-    			add_location(div4, file$m, 445, 1, 10808);
+    			add_location(div4, file$m, 444, 1, 11233);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
@@ -35074,14 +34826,14 @@ var app = (function () {
     		block,
     		id: create_foreground_slot_1.name,
     		type: "slot",
-    		source: "(446:1) ",
+    		source: "(445:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (472:0) <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
+    // (471:0) <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
     function create_default_slot$4(ctx) {
     	let p;
     	let t0;
@@ -35091,12 +34843,12 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			p = element("p");
-    			t0 = text("How do we gather the agreements? How are they processed? [where to\n\t\tinclude provenance?");
+    			t0 = text("How do we gather the agreements? How are they processed? [where to\r\n\t\tinclude provenance?");
     			br = element("br");
     			t1 = text(" beginning/end/between sections?]");
-    			add_location(br, file$m, 474, 21, 11624);
+    			add_location(br, file$m, 473, 21, 12078);
     			attr_dev(p, "class", "text-big");
-    			add_location(p, file$m, 472, 1, 11513);
+    			add_location(p, file$m, 471, 1, 11965);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -35114,14 +34866,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$4.name,
     		type: "slot",
-    		source: "(472:0) <Filler theme=\\\"dark\\\" short={true} wide={true} center={true} shadow={true}>",
+    		source: "(471:0) <Filler theme=\\\"dark\\\" short={true} wide={true} center={true} shadow={true}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (480:1) 
+    // (479:1) 
     function create_background_slot(ctx) {
     	let div2;
     	let figure;
@@ -35140,14 +34892,14 @@ var app = (function () {
     			attr_dev(img, "id", "agreement");
     			if (!src_url_equal(img.src, img_src_value = "./img/sources.jpg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "class", "svelte-ypoop9");
-    			add_location(img, file$m, 483, 5, 11867);
+    			add_location(img, file$m, 482, 5, 12330);
     			attr_dev(div0, "class", "close_read svelte-ypoop9");
-    			add_location(div0, file$m, 482, 4, 11837);
+    			add_location(div0, file$m, 481, 4, 12299);
     			attr_dev(div1, "class", "col-wide height-full");
-    			add_location(div1, file$m, 481, 3, 11798);
-    			add_location(figure, file$m, 480, 2, 11786);
+    			add_location(div1, file$m, 480, 3, 12259);
+    			add_location(figure, file$m, 479, 2, 12246);
     			attr_dev(div2, "slot", "background");
-    			add_location(div2, file$m, 479, 1, 11760);
+    			add_location(div2, file$m, 478, 1, 12219);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -35166,14 +34918,14 @@ var app = (function () {
     		block,
     		id: create_background_slot.name,
     		type: "slot",
-    		source: "(480:1) ",
+    		source: "(479:1) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (490:1) 
+    // (489:1) 
     function create_foreground_slot(ctx) {
     	let div2;
     	let section0;
@@ -35198,26 +34950,26 @@ var app = (function () {
     			section1 = element("section");
     			div1 = element("div");
     			p1 = element("p");
-    			t2 = text("translation/transcription/coding/data entry\n\t\t\t\t\t");
+    			t2 = text("translation/transcription/coding/data entry\r\n\t\t\t\t\t");
     			img = element("img");
     			set_style(p0, "text-align", "center");
-    			add_location(p0, file$m, 492, 4, 12042);
+    			add_location(p0, file$m, 491, 4, 12514);
     			attr_dev(div0, "class", "col-medium svelte-ypoop9");
-    			add_location(div0, file$m, 491, 3, 12013);
+    			add_location(div0, file$m, 490, 3, 12484);
     			attr_dev(section0, "data-id", "prov01");
-    			add_location(section0, file$m, 490, 2, 11983);
+    			add_location(section0, file$m, 489, 2, 12453);
     			attr_dev(img, "id", "agreement");
     			if (!src_url_equal(img.src, img_src_value = "./img/diagram.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "class", "svelte-ypoop9");
-    			add_location(img, file$m, 499, 5, 12255);
+    			add_location(img, file$m, 498, 5, 12734);
     			set_style(p1, "text-align", "center");
-    			add_location(p1, file$m, 497, 4, 12169);
+    			add_location(p1, file$m, 496, 4, 12646);
     			attr_dev(div1, "class", "col-medium svelte-ypoop9");
-    			add_location(div1, file$m, 496, 3, 12140);
+    			add_location(div1, file$m, 495, 3, 12616);
     			attr_dev(section1, "data-id", "prov02");
-    			add_location(section1, file$m, 495, 2, 12110);
+    			add_location(section1, file$m, 494, 2, 12585);
     			attr_dev(div2, "slot", "foreground");
-    			add_location(div2, file$m, 489, 1, 11957);
+    			add_location(div2, file$m, 488, 1, 12426);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -35241,7 +34993,7 @@ var app = (function () {
     		block,
     		id: create_foreground_slot.name,
     		type: "slot",
-    		source: "(490:1) ",
+    		source: "(489:1) ",
     		ctx
     	});
 
@@ -35673,7 +35425,7 @@ var app = (function () {
     			filler4.$set(filler4_changes);
     			const scroller1_changes = {};
 
-    			if (dirty & /*$$scope, mygeojson, pax_stages, pax, pax_timeline, step, afghanistan*/ 8389038) {
+    			if (dirty & /*$$scope, mygeojson, pax, pax_timeline, step, afghanistan*/ 8388910) {
     				scroller1_changes.$$scope = { dirty, ctx };
     			}
 
