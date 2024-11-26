@@ -13,7 +13,7 @@
     let width = 400;
     let height = 400;
     let rendered_data;
-    let gap = 2;
+    let gap = 3;
     let initialPaxCount;
     let innerWidth, innerHeight, xScale, yScale;
     const margin = { top: 20, right: 20, bottom: 20, left: 40 };

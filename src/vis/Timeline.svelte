@@ -5,7 +5,6 @@
     import { years } from "../utils";
 
     export let pax;
-    export let pax_stages;
     export let mygeojson;
     export let pax_timeline;
     export let step;
@@ -31,12 +30,11 @@
     $: yHeight = d3.scaleLinear().domain([0, 40000]).range([0, innerHeight]);
 
     //initial functions
-    $: if (pax && pax_stages) {
+    $: if (pax) {
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that resets for each new year
         rendered_data = pax.map((d) => {
             const currentYear = d.Dat.substring(6, 10);
-
             // Reset index if the year has changed
             if (currentYear !== previousYear) {
                 index = 0;
@@ -48,7 +46,7 @@
                 y: yScale(index),
                 width: xScale.bandwidth(),
                 height: 3,
-                info: d.Agt
+                info: d.Agt,
             };
 
             index += 1; // Increment index for the next entry in the same year
@@ -74,7 +72,7 @@
                 y: yScale(index),
                 width: xScale.bandwidth(),
                 height: 3,
-                info: d.Agt
+                info: d.Agt,
             };
 
             index += 1; // Increment index for the next entry in the same year
@@ -102,134 +100,136 @@
                 y: yPosition,
                 width: xScale.bandwidth(),
                 height: 3,
-                info: d.info
+                info: d.info,
             };
         });
     } else if (step == "3") {
-        d3.select(".axis").style("visibility", "visible");
-        //afghanistan only
-        let previousYear = null; // Track the last year seen
-        let index = -1; // Index that changes based on GeWom value
-        rendered_data = pax.map((d) => {
-            const currentYear = d.Dat.substring(6, 10);
-
-            // Reset index if the year has changed
-            if (currentYear !== previousYear) {
-                index = -1;
-                previousYear = currentYear;
-            }
-
-            // Determine y position based on GeWom value
-            const yPosition =
-                d.Con === "Afghanistan" ? yScale(++index) : innerHeight + 100;
-
-            return {
-                x: xScale(currentYear),
-                y: yPosition,
-                width: xScale.bandwidth(),
-                height: 3,
-                info: d.info
-            };
-        });
-    } else if (step == "4") {
-        d3.select(".axis").style("visibility", "hidden");
-        //spreading afghanistan agts
-        let index = 0; // Index that changes based on GeWom value
-        rendered_data = pax.map((d) => {
-            // Calculate the width of each part and apply a gap
-            const partWidth = innerWidth / 22;
-            const elementWidth = partWidth - 4; // Leave 4px gap
-
-            // Set x position based on the current index
-            const xPosition = index * partWidth;
-
-            // Determine y position based on GeWom value
-            const yPosition =
-                d.Con === "Afghanistan" ? 10 : innerHeight + 100;
-
-            // Increment index only if d.Con is "Afghanistan"
-            if (d.Con === "Afghanistan") {
-                index++;
-                // Reset index if it exceeds 22 parts to loop back
-                if (index >= 22) {
-                    index = 0;
-                }
-            }
-
-            return {
-                x: xPosition,
-                y: yPosition,
-                width: elementWidth,
-                height: 3,
-                info: d.info
-            };
-        });
-        d3.selectAll(".gender_text").style("visibility", "hidden");
-    } else if (step == "5") {
-        d3.selectAll(".gender_text").style("visibility", "visible");
-        //lenghts of agreements and gender text highlight
-        gender_text = []; // Reset before populating it in this step
-        function construct_gender(id, x, w, h, y) {
-            let filteredResults = afghanistan.filter(
-                (item) => item.AgtID === id,
-            );
-
-            if (filteredResults.length !== 0) {
-                filteredResults.forEach((d) => {
-                    // Push the new object into the persistent `blaa` array
-                    gender_text.push({
-                        x: x,
-                        y: y + (h / 100) * d.provisionLocation,
-                        width: w,
-                        height: 3,
-                    });
-                });
-                // Reassign to itself to trigger reactivity
-                gender_text = [...gender_text];
-            }
-        }
-
-        let index = 0; // Index that changes based on GeWom value
-        rendered_data = pax.map((d) => {
-            // Calculate the width of each part and apply a gap
-            const partWidth = innerWidth / 22;
-            const elementWidth = partWidth - 4; // Leave 4px gap
-
-            // Set x position based on the current index
-            let xPosition = index * partWidth;
-            let agt_height;
-            let yPosition;
-            // Increment index only if d.Con is "Afghanistan"
-            if (d.Con === "Afghanistan") {
-                index++;
-                // Reset index if it exceeds 22 parts to loop back
-                if (index >= 22) {
-                    index = 0;
-                }
-
-                yPosition = 10;
-                agt_height = yHeight(d.N_characters);
-                construct_gender(
-                    d.AgtId,
-                    xPosition,
-                    elementWidth,
-                    agt_height,
-                    yPosition,
-                );
-            } else {
-                yPosition = innerHeight + 100;
-                agt_height = 0;
-            }
-
-            return {
-                x: xPosition,
-                y: yPosition,
-                width: elementWidth,
-                height: agt_height,
-                info: d.Agt
-            };
-        });
     }
+    // else if (step == "3") {
+    //     d3.select(".axis").style("visibility", "visible");
+    //     //afghanistan only
+    //     let previousYear = null; // Track the last year seen
+    //     let index = -1; // Index that changes based on GeWom value
+    //     rendered_data = pax.map((d) => {
+    //         const currentYear = d.Dat.substring(6, 10);
+
+    //         // Reset index if the year has changed
+    //         if (currentYear !== previousYear) {
+    //             index = -1;
+    //             previousYear = currentYear;
+    //         }
+
+    //         // Determine y position based on GeWom value
+    //         const yPosition =
+    //             d.Con === "Afghanistan" ? yScale(++index) : innerHeight + 100;
+
+    //         return {
+    //             x: xScale(currentYear),
+    //             y: yPosition,
+    //             width: xScale.bandwidth(),
+    //             height: 3,
+    //             info: d.info
+    //         };
+    //     });
+    // } else if (step == "4") {
+    //     d3.select(".axis").style("visibility", "hidden");
+    //     //spreading afghanistan agts
+    //     let index = 0; // Index that changes based on GeWom value
+    //     rendered_data = pax.map((d) => {
+    //         // Calculate the width of each part and apply a gap
+    //         const partWidth = innerWidth / 22;
+    //         const elementWidth = partWidth - 4; // Leave 4px gap
+
+    //         // Set x position based on the current index
+    //         const xPosition = index * partWidth;
+
+    //         // Determine y position based on GeWom value
+    //         const yPosition =
+    //             d.Con === "Afghanistan" ? 10 : innerHeight + 100;
+
+    //         // Increment index only if d.Con is "Afghanistan"
+    //         if (d.Con === "Afghanistan") {
+    //             index++;
+    //             // Reset index if it exceeds 22 parts to loop back
+    //             if (index >= 22) {
+    //                 index = 0;
+    //             }
+    //         }
+
+    //         return {
+    //             x: xPosition,
+    //             y: yPosition,
+    //             width: elementWidth,
+    //             height: 3,
+    //             info: d.info
+    //         };
+    //     });
+    //     d3.selectAll(".gender_text").style("visibility", "hidden");
+    // } else if (step == "5") {
+    //     d3.selectAll(".gender_text").style("visibility", "visible");
+    //     //lenghts of agreements and gender text highlight
+    //     gender_text = []; // Reset before populating it in this step
+    //     function construct_gender(id, x, w, h, y) {
+    //         let filteredResults = afghanistan.filter(
+    //             (item) => item.AgtID === id,
+    //         );
+
+    //         if (filteredResults.length !== 0) {
+    //             filteredResults.forEach((d) => {
+    //                 // Push the new object into the persistent `blaa` array
+    //                 gender_text.push({
+    //                     x: x,
+    //                     y: y + (h / 100) * d.provisionLocation,
+    //                     width: w,
+    //                     height: 3,
+    //                 });
+    //             });
+    //             // Reassign to itself to trigger reactivity
+    //             gender_text = [...gender_text];
+    //         }
+    //     }
+
+    // let index = 0; // Index that changes based on GeWom value
+    // rendered_data = pax.map((d) => {
+    //     // Calculate the width of each part and apply a gap
+    //     const partWidth = innerWidth / 22;
+    //     const elementWidth = partWidth - 4; // Leave 4px gap
+
+    //     // Set x position based on the current index
+    //     let xPosition = index * partWidth;
+    //     let agt_height;
+    //     let yPosition;
+    //     // Increment index only if d.Con is "Afghanistan"
+    //     if (d.Con === "Afghanistan") {
+    //         index++;
+    //         // Reset index if it exceeds 22 parts to loop back
+    //         if (index >= 22) {
+    //             index = 0;
+    //         }
+
+    //         yPosition = 10;
+    //         agt_height = yHeight(d.N_characters);
+    //         construct_gender(
+    //             d.AgtId,
+    //             xPosition,
+    //             elementWidth,
+    //             agt_height,
+    //             yPosition,
+    //         );
+    //     } else {
+    //         yPosition = innerHeight + 100;
+    //         agt_height = 0;
+    //     }
+
+    //     return {
+    //         x: xPosition,
+    //         y: yPosition,
+    //         width: elementWidth,
+    //         height: agt_height,
+    //         info: d.Agt
+    //     };
+    // });
+    // }
 
     function formatMobile(tick) {
         return "'" + tick.toString().slice(-2);
@@ -275,7 +275,15 @@
                             />
                         {/each}
 
-                        {#each gender_text as d}
+                        <rect
+                            x={xScale("2000") + xScale.bandwidth() / 2}
+                            y={500}
+                            width="1"
+                            height="300"
+                            fill="white"
+                        />
+
+                        <!-- {#each gender_text as d}
                             <rect
                                 class="gender_text"
                                 x={d.x + 2}
@@ -284,7 +292,7 @@
                                 height={d.height}
                                 fill="black"
                             />
-                        {/each}
+                        {/each} -->
                     </g>
                 </Svg>
             </LayerCake>

@@ -340,7 +340,6 @@
 				<div class="time">
 					<Timeline
 						{mygeojson}
-						{pax_stages}
 						{pax}
 						{pax_timeline}
 						{step}
