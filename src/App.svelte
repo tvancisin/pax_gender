@@ -319,7 +319,7 @@
 					controls
 					style="max-width: 100%; height: auto; margin: auto; border-radius: 2px;"
 				>
-					<source src="./img/laura_captions.mp4" type="video/mp4" />
+					<source src="./img/laura_final.mp4" type="video/mp4" />
 					Your browser does not support the video tag.
 				</video>
 			</div>
