@@ -103,7 +103,9 @@
                 info: d.info,
             };
         });
+        d3.selectAll(".un_resolution").style("visibility", "hidden")
     } else if (step == "3") {
+        d3.selectAll(".un_resolution").style("visibility", "visible")
     }
     // else if (step == "3") {
     //     d3.select(".axis").style("visibility", "visible");
@@ -275,13 +277,20 @@
                             />
                         {/each}
 
-                        <rect
+                        <rect class="un_resolution"
                             x={xScale("2000") + xScale.bandwidth() / 2}
-                            y={500}
+                            y={20}
                             width="1"
-                            height="300"
+                            height={innerHeight - 100}
                             fill="white"
                         />
+
+                        <text
+                            class="un_resolution"
+                            x={xScale("2000") + xScale.bandwidth()}
+                            y={20}
+                            fill="white">UN Resolution 1325</text
+                        >
 
                         <!-- {#each gender_text as d}
                             <rect
@@ -308,6 +317,10 @@
     .tick {
         font-size: 0.725em;
         font-weight: 200;
+    }
+
+    .un_resolution {
+        visibility: hidden;
     }
 
     .tick text {

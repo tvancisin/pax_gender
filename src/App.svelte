@@ -256,10 +256,10 @@
 	short={false}
 >
 	<h1>PA-X Gender</h1>
-	<p style="margin-top: 5px">
+	<p>
 		This scrollytelling visualization uses PA-X database to show how and to
-		what <br />
-		extent is gender taken into consideration in peacebuilding across the world.
+		what extent women, girls and gender are taken into consideration in
+		peace agreements around the world.
 	</p>
 </Header>
 
@@ -268,7 +268,6 @@
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">What's a peace agreement?</p>
 </Filler>
-
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">[peace agreement definition]</p>
@@ -306,25 +305,43 @@
 				</p>
 			</div>
 		</section>
+		<section data-id="rect03">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Why should gender be taken into consideration in peace
+					agreements?
+				</p>
+			</div>
+		</section>
+		<section data-id="rect04">
+			<div class="col-medium" style="text-align: center;">
+				<video
+					controls
+					style="max-width: 100%; height: auto; margin: auto; border-radius: 2px;"
+				>
+					<source src="./img/laura_captions.mp4" type="video/mp4" />
+					Your browser does not support the video tag.
+				</video>
+			</div>
+		</section>
 	</div>
 </Scroller>
 
-<Divider />
-
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+<!-- <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
 		Why should gender be taken into consideration in peace agreements?
 	</p>
 </Filler>
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<!-- <p class="text-big">[explanation]</p> -->
-<video controls style="max-width: 85%; height: auto; margin: auto; border-radius: 5px;">
-        <source src="./img/laura_captions.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-    </video>
-</Filler>
-
+	<video
+		controls
+		style="max-width: 80%; height: auto; margin: auto; border-radius: 5px;"
+	>
+		<source src="./img/laura_captions.mp4" type="video/mp4" />
+		Your browser does not support the video tag.
+	</video>
+</Filler> -->
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">Timeline</p>
@@ -366,12 +383,17 @@
 		</section>
 		<section data-id="time03">
 			<div class="col-medium">
-				<p style="text-align: center;">Afghanistan</p>
+				<p style="text-align: center;">UN Resolution</p>
 			</div>
 		</section>
 		<section data-id="time04">
 			<div class="col-medium">
-				<p style="text-align: center;">afghanistan agreements</p>
+				<p style="text-align: center;">
+					Despite it being 25 years since the Resolution which urged
+					all actors to incorporate gender perspectives when
+					negotiating and implementing peace agreements, we have seen
+					only a minor increase.
+				</p>
 			</div>
 		</section>
 		<section data-id="time05">
