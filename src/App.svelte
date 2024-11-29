@@ -316,6 +316,7 @@
 		<section data-id="rect04">
 			<div class="col-medium" style="text-align: center;">
 				<video
+				poster="./img/rect1.png"
 					controls
 					style="max-width: 100%; height: auto; margin: auto; border-radius: 2px;"
 				>
@@ -344,7 +345,7 @@
 </Filler> -->
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">Timeline</p>
+	<p class="text-big">Peace Agreements over Time</p>
 </Filler>
 
 <Divider />

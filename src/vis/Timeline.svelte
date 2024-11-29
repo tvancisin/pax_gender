@@ -106,6 +106,33 @@
         d3.selectAll(".un_resolution").style("visibility", "hidden")
     } else if (step == "3") {
         d3.selectAll(".un_resolution").style("visibility", "visible")
+    } else if (step == "4") {
+        //only pax gender
+        let previousYear = null; // Track the last year seen
+        let index = 0; // Index that changes based on GeWom value
+        rendered_data = pax.map((d) => {
+            const currentYear = d.Dat.substring(6, 10);
+
+            // Reset index if the year has changed
+            if (currentYear !== previousYear) {
+                index = 0;
+                previousYear = currentYear;
+            }
+
+            // Determine y position based on GeWom value
+            const yPosition =
+                d.GeWom === "1" ? yScale((++index) * 3) : innerHeight + 100;
+
+            return {
+                x: xScale(currentYear),
+                y: yPosition,
+                width: xScale.bandwidth(),
+                height: 20,
+                info: d.info,
+            };
+        });
+        d3.selectAll(".un_resolution").style("visibility", "hidden")
+
     }
     // else if (step == "3") {
     //     d3.select(".axis").style("visibility", "visible");
