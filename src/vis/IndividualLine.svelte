@@ -15,7 +15,7 @@
 
     // Define position tween parameters with staggered delay
     const positionTweenParams = {
-        delay: (i / 5) * Math.random(), // Delay increases with index
+        delay: (i / 4) * Math.random(), // Delay increases with index
         duration: 300,
         easing: cubicOut,
     };
@@ -57,6 +57,7 @@
         height={$tHeight}
         rx="1"
         fill="#F6F1D6"
+        stroke="gray"
         class:is-hovered={isHovered}
     />
 </g>

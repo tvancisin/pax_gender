@@ -3,6 +3,7 @@
     import IndividualLine from "./IndividualLine.svelte";
     import { LayerCake, Svg } from "layercake";
     import { years, full_grid, full_grid_filter } from "../utils";
+    import Background from "./background.svelte";
 
     export let pax;
     export let pax_stages;
@@ -13,7 +14,7 @@
     let width = 400;
     let height = 400;
     let rendered_data;
-    let gap = 3;
+    let background_data;
     let initialPaxCount;
     let innerWidth, innerHeight, xScale, yScale;
     const margin = { top: 20, right: 20, bottom: 20, left: 40 };
@@ -38,8 +39,15 @@
             innerHeight,
             innerWidth,
             initialPaxCount,
-            gap,
         );
+        background_data = full_grid(
+            pax,
+            innerHeight,
+            innerWidth,
+            initialPaxCount,
+        );
+
+        
     }
 
     //steps
@@ -50,7 +58,6 @@
             innerHeight,
             innerWidth,
             initialPaxCount,
-            gap,
         );
         d3.selectAll(".ind_rect").style("fill", "#F6F1D6");
     } else if (step == "rect02") {
@@ -60,7 +67,6 @@
             innerHeight,
             innerWidth,
             initialPaxCount,
-            gap,
         );
     }
 
@@ -107,6 +113,17 @@
                     class="timeline"
                     transform="translate({margin.left}, {margin.top})"
                 >
+                    {#each background_data as d, i}
+                        <Background
+                            x={d.x}
+                            y={d.y}
+                            width={d.width}
+                            height={d.height}
+                            info={d.info}
+                            on:hover={handleHover}
+                            on:leave={handleLeave}
+                        />
+                    {/each}
                     {#each rendered_data as d, i}
                         <IndividualLine
                             {i}

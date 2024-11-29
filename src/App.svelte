@@ -122,6 +122,9 @@
 			time05: () => {
 				step = "5";
 			},
+			time06: () => {
+				step = "6";
+			},
 		},
 	};
 
@@ -266,11 +269,11 @@
 <Divider />
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">What's a peace agreement?</p>
-</Filler>
-
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">[peace agreement definition]</p>
+	<p class="text-big">
+		Peace agreement is a document produced after discussion with conflict
+		protagonists and mutually agreed to by some or all of them, addressing
+		conflict with a view to ending it.
+	</p>
 </Filler>
 
 <Divider />
@@ -314,35 +317,26 @@
 			</div>
 		</section>
 		<section data-id="rect04">
-			<div class="col-medium" style="text-align: center;">
+			<div class="col-vid" style="text-align: center;">
 				<video
-				poster="./img/rect1.png"
+					poster="./img/rect1.png"
 					controls
 					style="max-width: 100%; height: auto; margin: auto; border-radius: 2px;"
 				>
 					<source src="./img/laura_final.mp4" type="video/mp4" />
+					<track
+						src="captions_en"
+						kind="captions"
+						srclang="en"
+						label="english_captions"
+					/>
+
 					Your browser does not support the video tag.
 				</video>
 			</div>
 		</section>
 	</div>
 </Scroller>
-
-<!-- <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">
-		Why should gender be taken into consideration in peace agreements?
-	</p>
-</Filler>
-
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<video
-		controls
-		style="max-width: 80%; height: auto; margin: auto; border-radius: 5px;"
-	>
-		<source src="./img/laura_captions.mp4" type="video/mp4" />
-		Your browser does not support the video tag.
-	</video>
-</Filler> -->
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">Peace Agreements over Time</p>
@@ -384,11 +378,6 @@
 		</section>
 		<section data-id="time03">
 			<div class="col-medium">
-				<p style="text-align: center;">UN Resolution</p>
-			</div>
-		</section>
-		<section data-id="time04">
-			<div class="col-medium">
 				<p style="text-align: center;">
 					Despite it being 25 years since the Resolution which urged
 					all actors to incorporate gender perspectives when
@@ -397,11 +386,21 @@
 				</p>
 			</div>
 		</section>
-		<section data-id="time05">
+		<section data-id="time04">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					afghanistan agreements with highlighted gender text
+					Let's enlarge PA-X Gender Agreements
 				</p>
+			</div>
+		</section>
+		<section data-id="time05">
+			<div class="col-medium">
+				<p style="text-align: center;">Gender Quotas</p>
+			</div>
+		</section>
+		<section data-id="time06">
+			<div class="col-medium">
+				<p style="text-align: center;">UN 1325 mention</p>
 			</div>
 		</section>
 	</div>

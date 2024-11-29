@@ -136,6 +136,14 @@ small {
 	margin: 0px 24px;
 }
 
+.col-vid {
+	width: 80%;
+	background-color: rgba(0, 0, 0, 0.822);
+	/* max-width: 980px; */
+	margin: 0px 24px;
+	box-shadow: 0 0 3px 1px #6d6d6d;
+}
+
 .col-medium {
 	background-color: rgba(0, 0, 0, 0.822);
 	color: white;

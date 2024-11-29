@@ -239,8 +239,11 @@ export function get_current_central_points(pax) {
   return points;
 }
 
+
+//GRID
+let gap = 3;
 //initial grid construction
-export function full_grid(pax, innerHeight, innerWidth, initialPaxCount, gap) {
+export function full_grid(pax, innerHeight, innerWidth, initialPaxCount) {
   // Dynamically calculate the number of columns based on the width and the initial pax count
   let numCols = Math.ceil(
     Math.sqrt(initialPaxCount * (innerWidth / innerHeight)),
@@ -258,10 +261,10 @@ export function full_grid(pax, innerHeight, innerWidth, initialPaxCount, gap) {
   let rendered_data = pax.map((d, i) => {
 
     return {
-      x: (i % numCols) * (rectWidth + gap),
+      x: (i % numCols) * (rectWidth + gap) + Math.random() * 2 - 1,
       y:
         innerHeight -
-        (Math.floor(i / numCols) + 1) * (rectHeight + gap),
+        (Math.floor(i / numCols) + 1) * (rectHeight + gap) + Math.random() * 2 - 1,
       width: rectWidth,
       height: rectHeight,
       info: d.Agt
@@ -270,57 +273,8 @@ export function full_grid(pax, innerHeight, innerWidth, initialPaxCount, gap) {
   return rendered_data;
 }
 
-
-// //full grid but with filter
-// export function full_grid_hide_non_gender(pax, innerHeight, innerWidth, initialPaxCount, gap) {
-//   // Dynamically calculate the number of columns based on the width and the initial pax count
-//   let numCols = Math.ceil(
-//     Math.sqrt(initialPaxCount * (innerWidth / innerHeight)),
-//   );
-//   let numRows = Math.ceil(initialPaxCount / numCols);
-
-//   // Calculate available space after accounting for gaps
-//   let totalGapX = (numCols - 1) * gap;
-//   let totalGapY = (numRows - 1) * gap;
-
-//   // Compute the width and height of each rectangle, accounting for gaps
-//   let rectWidth = (innerWidth - totalGapX) / numCols;
-//   let rectHeight = (innerHeight - totalGapY) / numRows;
-
-//   let index = 0; // Only increment for GeWom === "1" entries
-
-//   let rendered_data = pax.map((d) => {
-//     // Calculate x and y based on current index
-//     const x = (index % numCols) * (rectWidth + gap);
-//     const y =
-//       innerHeight - (Math.floor(index / numCols) + 1) * (rectHeight + gap);
-
-//     index++; // Increment only for GeWom === "1"
-
-//     if (d.GeWom === "0") {
-//       // For entries with GeWom === "0", set them off-screen
-//       return {
-//         x: x,
-//         y: y,
-//         width: rectWidth,
-//         height: 0,
-//       };
-//     }
-
-
-//     return {
-//       x: x,
-//       y: y,
-//       width: rectWidth,
-//       height: rectHeight,
-//     };
-//   });
-
-//   return rendered_data;
-// }
-
 //full grid but with filter
-export function full_grid_filter(pax, innerHeight, innerWidth, initialPaxCount, gap) {
+export function full_grid_filter(pax, innerHeight, innerWidth, initialPaxCount) {
   // Dynamically calculate the number of columns based on the width and the initial pax count
   let numCols = Math.ceil(
     Math.sqrt(initialPaxCount * (innerWidth / innerHeight)),
@@ -344,15 +298,15 @@ export function full_grid_filter(pax, innerHeight, innerWidth, initialPaxCount, 
         x: (index % numCols) * (rectWidth + gap),
         y: innerHeight + 100,
         width: rectWidth,
-        height: 0,
+        height: rectHeight,
         info: d.Agt
       };
     }
 
     // Calculate x and y based on current index
-    const x = (index % numCols) * (rectWidth + gap);
+    const x = (index % numCols) * (rectWidth + gap) + Math.random() * 2 - 1;
     const y =
-      innerHeight - (Math.floor(index / numCols) + 1) * (rectHeight + gap);
+      innerHeight - (Math.floor(index / numCols) + 1) * (rectHeight + gap) + Math.random() * 2 - 1;
 
     index++; // Increment only for GeWom === "1"
 
@@ -493,3 +447,51 @@ export function pax_stages_filter_grid(
   });
   return rendered_data;
 }
+
+// //full grid but with filter
+// export function full_grid_hide_non_gender(pax, innerHeight, innerWidth, initialPaxCount, gap) {
+//   // Dynamically calculate the number of columns based on the width and the initial pax count
+//   let numCols = Math.ceil(
+//     Math.sqrt(initialPaxCount * (innerWidth / innerHeight)),
+//   );
+//   let numRows = Math.ceil(initialPaxCount / numCols);
+
+//   // Calculate available space after accounting for gaps
+//   let totalGapX = (numCols - 1) * gap;
+//   let totalGapY = (numRows - 1) * gap;
+
+//   // Compute the width and height of each rectangle, accounting for gaps
+//   let rectWidth = (innerWidth - totalGapX) / numCols;
+//   let rectHeight = (innerHeight - totalGapY) / numRows;
+
+//   let index = 0; // Only increment for GeWom === "1" entries
+
+//   let rendered_data = pax.map((d) => {
+//     // Calculate x and y based on current index
+//     const x = (index % numCols) * (rectWidth + gap);
+//     const y =
+//       innerHeight - (Math.floor(index / numCols) + 1) * (rectHeight + gap);
+
+//     index++; // Increment only for GeWom === "1"
+
+//     if (d.GeWom === "0") {
+//       // For entries with GeWom === "0", set them off-screen
+//       return {
+//         x: x,
+//         y: y,
+//         width: rectWidth,
+//         height: 0,
+//       };
+//     }
+
+
+//     return {
+//       x: x,
+//       y: y,
+//       width: rectWidth,
+//       height: rectHeight,
+//     };
+//   });
+
+//   return rendered_data;
+// }
