@@ -23,18 +23,35 @@
     export let step;
     export let central_points;
 
+    let transform = d3.zoomIdentity;
+    let newTransform;
+
     let width = 400;
     let height = 400;
-    let rendered_data;
-    let gap = 2;
-    let current_pax;
-    let current_years;
-    let current_central_points;
     let cumulative_isos;
-    let reorder = true;
-    let initialPaxCount;
     let innerWidth, innerHeight, xScale, yScale;
     const margin = { top: 20, right: 20, bottom: 20, left: 40 };
+
+    $: projection = d3.geoNaturalEarth1().fitSize([width, height], mygeojson);
+    $: pathGenerator = d3.geoPath(projection);
+
+    let countries = [];
+    $: if (mygeojson)
+        countries = mygeojson.features.map((feature) => {
+            return {
+                ...feature,
+                path: pathGenerator(feature),
+                bounds: pathGenerator.bounds(feature),
+                centroid: pathGenerator.centroid(feature), // Get the country's central point
+            };
+        });
+
+    let afg;
+    let x0, y0, x1, y1;
+    $: if (countries.length > 0) {
+        afg = countries.find((d) => d.properties.admin == "Afghanistan");
+        [[x0, y0], [x1, y1]] = afg.bounds;
+    }
 
     $: innerWidth = width - margin.left - margin.right;
     $: innerHeight = height - margin.top - margin.bottom;
@@ -53,6 +70,15 @@
         cumulative_isos = get_current_isos(pax);
     }
 
+    function smoothZoom(newTransform) {
+        const interpolate = d3.interpolateTransformSvg(transform, newTransform);
+        d3.transition()
+            .duration(750)
+            .tween("zoom", () => (t) => {
+                transform = interpolate(t);
+            });
+    }
+
     //steps
     $: if (step == "map_one") {
         cumulative_isos = get_current_isos(pax);
@@ -63,10 +89,22 @@
         let just_quotas = d3.groups(pax, (d) => d.WggIntLaw);
         cumulative_isos = get_current_isos(just_quotas[1][1]);
         // current_central_points = get_current_central_points(pax_gender);
+        smoothZoom(d3.zoomIdentity);
     } else if (step == "map_four") {
         let just_quotas = d3.groups(pax, (d) => d.WggUnsc);
         cumulative_isos = get_current_isos(just_quotas[1][1]);
         // current_central_points = get_current_central_points(pax_gender);
+        newTransform = d3.zoomIdentity
+            .translate(width / 2, height / 2)
+            .scale(
+                Math.min(
+                    8,
+                    0.9 / Math.max((x1 - x0) / width, (y1 - y0) / height),
+                ),
+            )
+            .translate(-(x0 + x1) / 2, -(y0 + y1) / 2);
+
+        smoothZoom(newTransform);
     }
 
     function formatMobile(tick) {
@@ -82,11 +120,7 @@
         {#if mygeojson}
             <LayerCake data={mygeojson}>
                 <Svg>
-                    <Map
-                        projectionName={"geoNaturalEarth1"}
-                        {cumulative_isos}
-                        {step}
-                    />
+                    <Map {countries} {transform} {cumulative_isos} />
                 </Svg>
             </LayerCake>
         {/if}

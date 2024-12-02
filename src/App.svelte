@@ -274,6 +274,7 @@
 		protagonists and mutually agreed to by some or all of them, addressing
 		conflict with a view to ending it.
 	</p>
+	<img src="./img/agt.PNG" style="width: 100%;">
 </Filler>
 
 <Divider />
@@ -308,35 +309,32 @@
 				</p>
 			</div>
 		</section>
-		<section data-id="rect03">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Why should gender be taken into consideration in peace
-					agreements?
-				</p>
-			</div>
-		</section>
-		<section data-id="rect04">
-			<div class="col-vid" style="text-align: center;">
-				<video
-					poster="./img/rect1.png"
-					controls
-					style="max-width: 100%; height: auto; margin: auto; border-radius: 2px;"
-				>
-					<source src="./img/laura_final.mp4" type="video/mp4" />
-					<track
-						src="captions_en"
-						kind="captions"
-						srclang="en"
-						label="english_captions"
-					/>
-
-					Your browser does not support the video tag.
-				</video>
-			</div>
-		</section>
 	</div>
 </Scroller>
+
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+	<p class="text-big">
+		Why should gender be taken into consideration in peace agreements?
+	</p>
+</Filler>
+
+<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+	<video
+		poster="./img/rect1.png"
+		controls
+		style="width: 90%; height: auto; margin: auto; border-radius: 2px;"
+	>
+		<source src="./img/laura_final.mp4" type="video/mp4" />
+		<track
+			src="captions_en"
+			kind="captions"
+			srclang="en"
+			label="english_captions"
+		/>
+
+		Your browser does not support the video tag.
+	</video>
+</Filler>
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">Peace Agreements over Time</p>
@@ -491,6 +489,11 @@
 </Scroller>
 
 <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
+</Filler>
+<Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
+</Filler>
+
+<Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
 	<p class="text-big">
 		How do we gather the agreements? How are they processed? [where to
 		include provenance?<br /> beginning/end/between sections?]
@@ -539,7 +542,6 @@
 	#agreement {
 		width: 100%;
 	}
-	.chart,
 	.rect,
 	.time,
 	.map,

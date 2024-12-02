@@ -3,30 +3,49 @@
     import { cubicOut } from "svelte/easing";
     import { createEventDispatcher } from "svelte"; // Import the dispatcher
 
+    export let i;
     export let x;
     export let y;
     export let width;
     export let height;
     export let info;
 
+    // Define position tween parameters with staggered delay
+    const positionTweenParams = {
+        delay: (i / 4) * Math.random(), // Delay increases with index
+        duration: 300,
+        easing: cubicOut,
+    };
+
+    const tX = tweened(null, positionTweenParams);
+    const tY = tweened(null, positionTweenParams);
+    const tWidth = tweened(null, { duration: 300, easing: cubicOut });
+    const tHeight = tweened(null, positionTweenParams);
+
+    // Update position tweens after size animation completes
+    $: tX.set(x);
+    $: tY.set(y);
+    $: tWidth.set(width);
+    $: tHeight.set(height);
+
 </script>
 
-<g transform="translate({x} {y})">
+<g transform="translate({$tX} {$tY})">
     <rect
         x="0"
         y="0"
-        width={width}
-        height={height}
+        width={$tWidth}
+        height={$tHeight}
         rx="1"
         fill="#F6F1D6"
         stroke="gray"
+        stroke-width="0.5"
     />
 </g>
 
 <style>
     rect {
         fill: rgb(0, 0, 0);
-        /* transition: fill 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); Smooth transition */
     }
 
 </style>

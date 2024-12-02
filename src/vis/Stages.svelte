@@ -3,6 +3,7 @@
     import IndividualLine from "./IndividualLine.svelte";
     import { LayerCake, Svg } from "layercake";
     import { years, pax_stages_grid, pax_stages_filter_grid } from "../utils";
+    import Background from "./background.svelte";
 
     export let pax;
     export let pax_stages;
@@ -11,6 +12,7 @@
     let width = 400;
     let height = 400;
     let rendered_data;
+    let background_data;
     let initialPaxCount;
     let innerWidth, innerHeight, xScale, yScale;
     let stages = [
@@ -42,6 +44,7 @@
         //prepare the initial grid
         initialPaxCount = pax.length;
         rendered_data = pax_stages_grid(pax_stages, innerHeight, innerWidth);
+        background_data = pax_stages_grid(pax_stages, innerHeight, innerWidth);
     }
 
     //steps
@@ -80,6 +83,16 @@
                             fill="white"
                             font-size="12px">{d}</text
                         >
+                    {/each}
+                    {#each background_data as d, i}
+                        <Background
+                            {i}
+                            x={d.x}
+                            y={d.y}
+                            width={d.width}
+                            height={d.height}
+                            info={d.info}
+                        />
                     {/each}
 
                     {#each rendered_data as d, i}

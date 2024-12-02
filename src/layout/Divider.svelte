@@ -1,23 +1,12 @@
 <script>
-	import { themes } from '../config.js';
-	import { getContext } from 'svelte';
+  import { themes } from "../config.js";
+  import { getContext } from "svelte";
 
-  export let theme = getContext('theme');
-  export let hr = true;
-  export let shadow;
-
-  let shadow_css = ``;
-	if (shadow) {
-		shadow_css = `background-color: #808080`;
-	}
+  export let theme = getContext("theme");
 
 </script>
 
-<section style="color: {themes[theme]['text']}; {shadow_css};">
-	<div class="col-medium" style={shadow_css}>
-    <hr style="color: {themes[theme]}"/>
-	</div>
-</section>
+<hr style="color: {themes[theme]}" />
 
 <style>
   hr {
@@ -28,4 +17,3 @@
     /* margin: 40px auto -10px auto; */
   }
 </style>
-

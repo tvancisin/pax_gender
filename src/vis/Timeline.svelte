@@ -3,6 +3,7 @@
     import IndividualLine from "./IndividualLine.svelte";
     import { LayerCake, Svg } from "layercake";
     import { years } from "../utils";
+    import Background from "./background.svelte";
 
     export let pax;
     export let mygeojson;
@@ -13,6 +14,7 @@
     let width = 400;
     let height = 400;
     let rendered_data;
+    let background_data;
     let innerWidth, innerHeight, xScale, yScale;
     const margin = { top: 20, right: 20, bottom: 20, left: 40 };
 
@@ -41,8 +43,27 @@
             }
 
             const result = {
-                x: xScale(currentYear),
-                y: yScale(index),
+                x: xScale(currentYear) + Math.random() * 2 - 1,
+                y: yScale(index) + Math.random() * 2 - 1,
+                width: xScale.bandwidth(),
+                height: 3,
+                info: d.Agt,
+            };
+
+            index += 1; // Increment index for the next entry in the same year
+            return result;
+        });
+        background_data = pax.map((d) => {
+            const currentYear = d.Dat.substring(6, 10);
+            // Reset index if the year has changed
+            if (currentYear !== previousYear) {
+                index = 0;
+                previousYear = currentYear;
+            }
+
+            const result = {
+                x: xScale(currentYear) + Math.random() * 2 - 1,
+                y: yScale(index) + Math.random() * 2 - 1,
                 width: xScale.bandwidth(),
                 height: 3,
                 info: d.Agt,
@@ -67,8 +88,8 @@
             }
 
             const result = {
-                x: xScale(currentYear),
-                y: yScale(index),
+                x: xScale(currentYear) + Math.random() * 2 - 1,
+                y: yScale(index) + Math.random() * 2 - 1,
                 width: xScale.bandwidth(),
                 height: 3,
                 info: d.Agt,
@@ -77,7 +98,7 @@
             index += 1; // Increment index for the next entry in the same year
             return result;
         });
-        d3.selectAll(".un_resolution").style("visibility", "hidden")
+        d3.selectAll(".un_resolution").style("visibility", "hidden");
     } else if (step == "2") {
         //only pax gender
         let previousYear = null; // Track the last year seen
@@ -96,15 +117,55 @@
                 d.GeWom === "1" ? yScale(++index) : innerHeight + 100;
 
             return {
-                x: xScale(currentYear),
-                y: yPosition,
+                x: xScale(currentYear) + Math.random() * 2 - 1,
+                y: yPosition + Math.random() * 2 - 1,
                 width: xScale.bandwidth(),
                 height: 3,
                 info: d.info,
             };
         });
-        d3.selectAll(".un_resolution").style("visibility", "visible")
+        background_data = pax.map((d) => {
+            const currentYear = d.Dat.substring(6, 10);
+            // Reset index if the year has changed
+            if (currentYear !== previousYear) {
+                index = 0;
+                previousYear = currentYear;
+            }
+
+            const result = {
+                x: xScale(currentYear) + Math.random() * 2 - 1,
+                y: yScale(index) + Math.random() * 2 - 1,
+                width: xScale.bandwidth(),
+                height: 3,
+                info: d.Agt,
+            };
+
+            index += 1; // Increment index for the next entry in the same year
+            return result;
+        });
+        d3.selectAll(".un_resolution").style("visibility", "visible");
     } else if (step == "3") {
+        let previousYear = null; // Track the last year seen
+        let index = -1; // Index that changes based on GeWom value
+        background_data = pax.map((d) => {
+            const currentYear = d.Dat.substring(6, 10);
+            // Reset index if the year has changed
+            if (currentYear !== previousYear) {
+                index = 0;
+                previousYear = currentYear;
+            }
+
+            const result = {
+                x: xScale(currentYear),
+                y: innerHeight + 100,
+                width: xScale.bandwidth(),
+                height: 0,
+                info: d.Agt,
+            };
+
+            index += 1; // Increment index for the next entry in the same year
+            return result;
+        });
     } else if (step == "4") {
         //enlarge pax gender
         let previousYear = null; // Track the last year seen
@@ -120,17 +181,17 @@
 
             // Determine y position based on GeWom value
             const yPosition =
-                d.GeWom === "1" ? yScale((++index) * 3) : innerHeight + 100;
+                d.GeWom === "1" ? yScale(++index * 3) : innerHeight + 100;
 
             return {
-                x: xScale(currentYear),
-                y: yPosition,
+                x: xScale(currentYear) + Math.random() * 2 - 1,
+                y: yPosition + Math.random() * 2 - 1,
                 width: xScale.bandwidth(),
-                height: 20,
+                height: 15,
                 info: d.info,
             };
         });
-        d3.selectAll(".un_resolution").style("visibility", "hidden")
+        d3.selectAll(".un_resolution").style("visibility", "hidden");
     } else if (step == "5") {
         //enlarge pax gender
         let previousYear = null; // Track the last year seen
@@ -146,13 +207,13 @@
 
             // Determine y position based on GeWom value
             const yPosition =
-                d.WggGenQuot === "1" ? yScale((++index) * 3) : innerHeight + 100;
+                d.WggGenQuot === "1" ? yScale(++index * 3) : innerHeight + 100;
 
             return {
-                x: xScale(currentYear),
-                y: yPosition,
+                x: xScale(currentYear) + Math.random() * 2 - 1,
+                y: yPosition + Math.random() * 2 - 1,
                 width: xScale.bandwidth(),
-                height: 20,
+                height: 15,
                 info: d.info,
             };
         });
@@ -171,18 +232,18 @@
 
             // Determine y position based on GeWom value
             const yPosition =
-                d.WggUnsc === "1" ? yScale((++index) * 3) : innerHeight + 100;
+                d.WggUnsc === "1" ? yScale(++index * 3) : innerHeight + 100;
+            const rect_height = d.WggUnsc === "1" ? 15 : 0;
 
             return {
-                x: xScale(currentYear),
-                y: yPosition,
+                x: xScale(currentYear) + Math.random() * 2 - 1,
+                y: yPosition + Math.random() * 2 - 1,
                 width: xScale.bandwidth(),
-                height: 20,
+                height: rect_height,
                 info: d.info,
             };
         });
     }
-
 
     // else if (step == "3") {
     //     d3.select(".axis").style("visibility", "visible");
@@ -342,6 +403,16 @@
                                 </g>
                             {/each}
                         </g>
+                        {#each background_data as d, i}
+                            <Background
+                                {i}
+                                x={d.x}
+                                y={d.y}
+                                width={d.width}
+                                height={d.height}
+                                info={d.info}
+                            />
+                        {/each}
 
                         {#each rendered_data as d, i}
                             <IndividualLine
@@ -354,7 +425,8 @@
                             />
                         {/each}
 
-                        <rect class="un_resolution"
+                        <rect
+                            class="un_resolution"
                             x={xScale("2000") + xScale.bandwidth() / 2}
                             y={20}
                             width="1"

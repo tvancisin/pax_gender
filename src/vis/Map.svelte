@@ -5,19 +5,9 @@
 
     const { data, width, height } = getContext("LayerCake");
 
-    export let projectionName = "geoNaturalEarth1";
-    export let features = $data.features;
     export let cumulative_isos;
-    export let step;
-
-    $: if (step == "2") {
-        d3.select(".map-group").style("visibility", "visible")
-    } else if (step == "1") {
-        d3.select(".map-group").style("visibility", "hidden")
-    }
-
-    // $: console.log(cumulative_isos);
-    
+    export let transform;
+    export let countries;
 
     $: if (cumulative_isos) {
         let filteredIsos = cumulative_isos.filter((iso) => iso !== "");
@@ -26,9 +16,6 @@
             d3.selectAll("." + iso).style("fill", "#f6f1d6");
         });
     }
-
-    $: projection = geo[projectionName]().fitSize([$width, $height], $data);
-    $: geoPath = geo.geoPath(projection);
 
     function polygon_hover(feature) {
         // console.log(feature);
@@ -42,24 +29,24 @@
 
 </script>
 
-<g class="map-group">
-    {#each features as feature}
+<g class="map-group" {transform}>
+    {#each countries as country}
         <path
-            fill={initial_fill(feature)}
-            class={"country " + feature.properties.adm0_iso}
-            d={geoPath(feature)}
-            on:mouseenter={polygon_hover(feature)}
+            fill={initial_fill(country)}
+            class={"country " + country.properties.adm0_iso}
+            stroke="#333333"
+            stroke-width="0.5"
+            d={country.path}
         ></path>
     {/each}
-
 </g>
 
 <style>
-    .map-group {
+    /* .map-group {
         visibility: hidden;
-    }
+    } */
     .country {
-        stroke:none;
+        stroke: none;
         stroke-width: 0.5px;
     }
 </style>

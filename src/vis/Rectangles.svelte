@@ -4,6 +4,9 @@
     import { LayerCake, Svg } from "layercake";
     import { years, full_grid, full_grid_filter } from "../utils";
     import Background from "./background.svelte";
+    import Canvas from "./Canvas.svelte";
+    import CanvasRectangle from "./CanvasRectangle.svelte";
+    import CanvasBackground from "./CanvasBackground.svelte";
 
     export let pax;
     export let pax_stages;
@@ -46,8 +49,6 @@
             innerWidth,
             initialPaxCount,
         );
-
-        
     }
 
     //steps
@@ -107,46 +108,65 @@
 
 {#if rendered_data}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
-        <LayerCake>
-            <Svg>
-                <g
-                    class="timeline"
-                    transform="translate({margin.left}, {margin.top})"
-                >
-                    {#each background_data as d, i}
-                        <Background
-                            x={d.x}
-                            y={d.y}
-                            width={d.width}
-                            height={d.height}
-                            info={d.info}
-                            on:hover={handleHover}
-                            on:leave={handleLeave}
-                        />
-                    {/each}
-                    {#each rendered_data as d, i}
-                        <IndividualLine
-                            {i}
-                            x={d.x}
-                            y={d.y}
-                            width={d.width}
-                            height={d.height}
-                            info={d.info}
-                            on:hover={handleHover}
-                            on:leave={handleLeave}
-                        />
-                    {/each}
-                </g>
-            </Svg>
-        </LayerCake>
-        {#if tooltip.visible}
+        <svg {width} {height}>
+            <g
+                class="timeline"
+                transform="translate({margin.left}, {margin.top})"
+            >
+                {#each background_data as d, i}
+                    <Background
+                        {i}
+                        x={d.x}
+                        y={d.y}
+                        width={d.width}
+                        height={d.height}
+                        info={d.info}
+                    />
+                {/each}
+                {#each rendered_data as d, i}
+                    <IndividualLine
+                        {i}
+                        x={d.x}
+                        y={d.y}
+                        width={d.width}
+                        height={d.height}
+                        info={d.info}
+                        on:hover={handleHover}
+                        on:leave={handleLeave}
+                    />
+                {/each}
+            </g>
+        </svg>
+
+        <!-- <Canvas {width} {height} --position="absolute">
+            {#each background_data as d, i}
+                <CanvasBackground
+                    x={d.x}
+                    y={d.y}
+                    width={d.width}
+                    height={d.height}
+                />
+            {/each}
+        </Canvas>
+        <Canvas {width} {height}>
+            {#each rendered_data as d, i}
+                <CanvasRectangle
+                    {i}
+                    x={d.x}
+                    y={d.y}
+                    width={d.width}
+                    height={d.height}
+                />
+            {/each}
+        </Canvas> -->
+        <!-- {#if tooltip.visible}
             <div
                 class="tooltip"
                 style="position: absolute; left: {tooltip.x}px; top: {tooltip.y}px;"
             >
                 <p>{tooltip.info}</p>
             </div>
-        {/if}
+        {/if} -->
     </div>
 {/if}
 

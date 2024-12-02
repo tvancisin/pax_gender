@@ -260,6 +260,7 @@ export function full_grid(pax, innerHeight, innerWidth, initialPaxCount) {
 
   let rendered_data = pax.map((d, i) => {
 
+
     return {
       x: (i % numCols) * (rectWidth + gap) + Math.random() * 2 - 1,
       y:
@@ -361,8 +362,8 @@ export function pax_stages_grid(pax_stages, innerHeight, innerWidth) {
       let y = innerHeight - (row + 1) * (cellHeight + cellGap);
 
       return {
-        x: x + col * (cellWidth + cellGap), // Horizontal position within column's grid
-        y: y, // Vertical position from bottom to top
+        x: x + col * (cellWidth + cellGap) + Math.random() * 2 - 1, // Horizontal position within column's grid
+        y: y + Math.random() * 2 - 1, // Vertical position from bottom to top
         width: cellWidth, // Adjusted width to fit screen
         height: cellHeight, // Adjusted height to fit screen
         info: d.Agt
@@ -437,8 +438,8 @@ export function pax_stages_filter_grid(
       }
 
       return {
-        x: x, // Horizontal position within column's grid
-        y: y, // Vertical position based on row
+        x: x + Math.random() * 2 - 1, // Horizontal position within column's grid
+        y: y + Math.random() * 2 - 1, // Vertical position based on row
         width: cellWidth, // Adjusted width to fit screen
         height: cellHeight, // Adjusted height to fit screen
         info: d.Agt
