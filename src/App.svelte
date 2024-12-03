@@ -2,7 +2,6 @@
 	// CORE IMPORTS
 	import * as d3 from "d3";
 	import { setContext, onMount } from "svelte";
-	import { getMotion } from "./utils.js";
 	import { themes } from "./config.js";
 	import ONSHeader from "./layout/ONSHeader.svelte";
 	import ONSFooter from "./layout/ONSFooter.svelte";
@@ -24,7 +23,7 @@
 	import Geography from "./vis/Geography.svelte";
 
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
-	let theme = "light";
+	let theme = "dark";
 	setContext("theme", theme);
 	setColors(themes, theme);
 
@@ -210,8 +209,6 @@
 			}
 		});
 
-		let quotas = d3.groups(pax, (d) => d.GeWom);
-
 		// Iterate through each object in the pax array
 		pax.forEach((paxItem) => {
 			// Find the corresponding item in pax_gender with the same AgtId
@@ -259,7 +256,7 @@
 	short={false}
 >
 	<h1>PA-X Gender</h1>
-	<p>
+	<p class="text-big">
 		This scrollytelling visualization uses PA-X database to show how and to
 		what extent women, girls and gender are taken into consideration in
 		peace agreements around the world.
@@ -269,12 +266,12 @@
 <Divider />
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">
+	<p style="font-size: 1.2em; padding:10px">
 		Peace agreement is a document produced after discussion with conflict
 		protagonists and mutually agreed to by some or all of them, addressing
 		conflict with a view to ending it.
 	</p>
-	<img src="./img/agt.PNG" style="width: 100%;">
+	<img src="./img/agt.PNG" alt="agreement example" style="width: 100%;" />
 </Filler>
 
 <Divider />
@@ -322,7 +319,7 @@
 	<video
 		poster="./img/rect1.png"
 		controls
-		style="width: 90%; height: auto; margin: auto; border-radius: 2px;"
+		style="width: 90%; height: auto; margin: auto; border-radius: 5px;"
 	>
 		<source src="./img/laura_final.mp4" type="video/mp4" />
 		<track
@@ -348,13 +345,7 @@
 		<figure>
 			<div class="col-wide height-full">
 				<div class="time">
-					<Timeline
-						{mygeojson}
-						{pax}
-						{pax_timeline}
-						{step}
-						{afghanistan}
-					/>
+					<Timeline {pax} {pax_timeline} {step} />
 				</div>
 			</div>
 		</figure>
@@ -393,12 +384,19 @@
 		</section>
 		<section data-id="time05">
 			<div class="col-medium">
-				<p style="text-align: center;">Gender Quotas</p>
+				<p style="text-align: center;">
+					Agreement provisions outlining a specific quota commitment,
+					or specifying particular numbers of women that are to
+					participate.
+				</p>
 			</div>
 		</section>
 		<section data-id="time06">
 			<div class="col-medium">
-				<p style="text-align: center;">UN 1325 mention</p>
+				<p style="text-align: center;">
+					Agreements with references to the UN Security Council
+					Resolution.
+				</p>
 			</div>
 		</section>
 	</div>
@@ -425,14 +423,19 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Dividing all PA-X agreements into different peace process
-					stages shows the predominance of Partial and Pre-Negotiation
-					agreements
+					stages shows the predominance of <strong
+						>Pre-Negotiation, Ceasefire, and Partial</strong
+					>
+					agreements.
 				</p>
 			</div>
 		</section>
 		<section data-id="stage02">
 			<div class="col-medium">
-				<p style="text-align: center;">PA-X Gender agreements</p>
+				<p style="text-align: center;">
+					The agreement stages division is rather different when only
+					looking at PA-X Gender agreements
+				</p>
 			</div>
 		</section>
 	</div>
@@ -451,7 +454,6 @@
 					<Geography
 						{mygeojson}
 						{central_points}
-						{pax_stages}
 						{pax}
 						{pax_timeline}
 						{pax_gender}
@@ -465,13 +467,17 @@
 	<div slot="foreground">
 		<section data-id="map01">
 			<div class="col-medium">
-				<p style="text-align: center;">all pax agreements geography</p>
+				<p style="text-align: center;">
+					Countries where peace agreements have been signed since
+					1990.
+				</p>
 			</div>
 		</section>
 		<section data-id="map02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					pax gender agreements geography
+					Countries with signed agreements that contain
+					references to gender.
 				</p>
 			</div>
 		</section>
@@ -488,10 +494,10 @@
 	</div>
 </Scroller>
 
-<Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
-</Filler>
-<Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
-</Filler>
+<Filler theme="dark" short={true} wide={true} center={true} shadow={true}
+></Filler>
+<Filler theme="dark" short={true} wide={true} center={true} shadow={true}
+></Filler>
 
 <Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
 	<p class="text-big">
@@ -505,7 +511,7 @@
 		<figure>
 			<div class="col-wide height-full">
 				<div class="close_read">
-					<img id="agreement" src="./img/sources.jpg" />
+					<img id="agreement" alt="notes" src="./img/sources.jpg" />
 				</div>
 			</div>
 		</figure>
@@ -521,7 +527,7 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					translation/transcription/coding/data entry
-					<img id="agreement" src="./img/diagram.png" />
+					<img id="agreement" alt="notes" src="./img/diagram.png" />
 				</p>
 			</div>
 		</section>
@@ -567,28 +573,4 @@
 		-moz-box-shadow: 0 0 3px 1px #6d6d6d;
 		box-shadow: 0 0 3px 1px #6d6d6d;
 	}
-	/* select {
-		max-width: 350px;
-	}
-	.chart-full {
-		margin: 0 20px;
-	}
-	.chart-sml {
-		font-size: 0.85em;
-	}
-	.media {
-		background-color: #f0f0f0;
-		display: -webkit-box;
-		display: -ms-flexbox;
-		display: flex;
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-ms-flex-flow: column;
-		flex-flow: column;
-		-webkit-box-pack: center;
-		-ms-flex-pack: center;
-		justify-content: center;
-		text-align: center;
-		color: #aaa;
-	} */
 </style>

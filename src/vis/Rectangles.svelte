@@ -1,12 +1,13 @@
 <script>
     import * as d3 from "d3";
     import IndividualLine from "./IndividualLine.svelte";
-    import { LayerCake, Svg } from "layercake";
     import { years, full_grid, full_grid_filter } from "../utils";
-    import Background from "./background.svelte";
-    import Canvas from "./Canvas.svelte";
-    import CanvasRectangle from "./CanvasRectangle.svelte";
-    import CanvasBackground from "./CanvasBackground.svelte";
+    import Background from "./BackgroundRectangle.svelte";
+
+    // canvas variation
+    // import Canvas from "./Canvas.svelte";
+    // import CanvasRectangle from "./CanvasRectangle.svelte";
+    // import CanvasBackground from "./CanvasBackground.svelte";
 
     export let pax;
     export let pax_stages;
@@ -43,6 +44,7 @@
             innerWidth,
             initialPaxCount,
         );
+        //background rect outlines
         background_data = full_grid(
             pax,
             innerHeight,

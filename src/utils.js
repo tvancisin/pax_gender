@@ -193,17 +193,43 @@ export let most_women = [
   "1990",
 ];
 
-//create iso array
-export function get_current_isos(data) {
-  let iso_array = [];
-  //construct array of iso's
-  data.forEach((d) => {
-    iso_array.push(d.Loc1ISO); // Reassign to iso_array
-  });
-  //remove duplicates
-  iso_array = [...new Set(iso_array)];
+// //create iso array
+// export function get_current_isos(data) {
+//   let iso_array = [];
+//   //construct array of iso's
+//   data.forEach((d) => {
+//     iso_array.push(d.Loc1ISO); // Reassign to iso_array
+//   });
+//   //remove duplicates
+//   console.log(iso_array);
+  
+//   // iso_array = [...new Set(iso_array)];
 
-  return iso_array;
+//   return iso_array;
+// }
+
+// Create ISO array with counters
+export function get_current_isos(data) {
+  const iso_counter = {};
+
+  // Construct an object to count occurrences of Loc1ISO
+  data.forEach((d) => {
+    if (iso_counter[d.Loc1ISO]) {
+      iso_counter[d.Loc1ISO]++;
+    } else {
+      iso_counter[d.Loc1ISO] = 1;
+    }
+  });
+
+  // Convert the object into an array of objects with ISO and count
+  const iso_array = Object.entries(iso_counter).map(([iso, count]) => ({
+    iso,
+    count,
+  }));
+
+  let filtered_iso = iso_array.filter((d) => d.iso != "")
+
+  return filtered_iso;
 }
 
 //central points for map

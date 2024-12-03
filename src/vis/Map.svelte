@@ -5,14 +5,13 @@
 
     const { data, width, height } = getContext("LayerCake");
 
-    export let cumulative_isos;
+    export let final_iso;
     export let transform;
     export let countries;
 
-    $: if (cumulative_isos) {
-        let filteredIsos = cumulative_isos.filter((iso) => iso !== "");
-        d3.selectAll(".country").style("fill", " #4d4d4d");
-        filteredIsos.forEach((iso) => {
+    $: if (final_iso) {
+        d3.selectAll(".country").style("fill", " black");
+        final_iso.forEach((iso) => {
             d3.selectAll("." + iso).style("fill", "#f6f1d6");
         });
     }
@@ -22,9 +21,9 @@
     }
 
     function initial_fill(polygon) {
-        return cumulative_isos.includes(polygon.properties.adm0_iso)
+        return final_iso.includes(polygon.properties.adm0_iso)
             ? "#f6f1d6"
-            : "#4d4d4d";
+            : "black";
     }
 
 </script>
@@ -34,7 +33,7 @@
         <path
             fill={initial_fill(country)}
             class={"country " + country.properties.adm0_iso}
-            stroke="#333333"
+            stroke="gray"
             stroke-width="0.5"
             d={country.path}
         ></path>
@@ -42,11 +41,7 @@
 </g>
 
 <style>
-    /* .map-group {
-        visibility: hidden;
-    } */
     .country {
-        stroke: none;
         stroke-width: 0.5px;
     }
 </style>

@@ -11,9 +11,8 @@
 <style>
   hr {
     width: 80%;
-    color: rgb(121, 121, 121);
+    color: rgb(66, 66, 66);
     border: none;
     border-top: 1px solid;
-    /* margin: 40px auto -10px auto; */
   }
 </style>

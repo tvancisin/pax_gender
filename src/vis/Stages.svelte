@@ -3,7 +3,7 @@
     import IndividualLine from "./IndividualLine.svelte";
     import { LayerCake, Svg } from "layercake";
     import { years, pax_stages_grid, pax_stages_filter_grid } from "../utils";
-    import Background from "./background.svelte";
+    import Background from "./BackgroundRectangle.svelte";
 
     export let pax;
     export let pax_stages;
@@ -78,10 +78,12 @@
                 >
                     {#each stages as d, i}
                         <text
-                            x={column_width * i + i * 2}
-                            y={innerHeight + 12}
+                            x={column_width * i + column_width/2}
+                            y={innerHeight + 14}
+                            text-anchor="middle"
+                            font-family="Montserrat"
                             fill="white"
-                            font-size="12px">{d}</text
+                            font-size="14px">{d}</text
                         >
                     {/each}
                     {#each background_data as d, i}

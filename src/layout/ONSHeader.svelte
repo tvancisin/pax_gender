@@ -3,7 +3,7 @@
 	import { getContext } from "svelte";
 
 	export let theme = getContext("theme");
-	export let filled = false;
+	export let filled = true;
 	export let center = true;
 </script>
 
@@ -12,18 +12,18 @@
 		? 'background-color: ' + themes[theme]['background'] + ';'
 		: ''}"
 >
-	<div class="col-wide middle" style="margin-left:0px; margin-top:0px" class:center>
+	<div class="col-wide" style="margin-left:0px; margin-top:0px" class:center>
 		<a
 			href="https://pax.peaceagreements.org/agreements/wggsearch"
 			target="_blank"
 		>
-			<picture>
-				<img
-					src="./img/logo.png"
-					alt="Office for National Statistics"
-				/>
-			</picture>
+			<img src="./img/logo.png" alt="PA-X Gender Logo" />
 		</a>
+		<img
+			class="peace_logo"
+			src="./img/PeaceRep_white.jpg"
+			alt="PeaceRep Logo"
+		/>
 	</div>
 </nav>
 
@@ -32,19 +32,19 @@
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		position: relative;
-		height: 46px;
-		margin-bottom: -46px;
+		height: 50px;
 		z-index: 1;
-	}
-	picture {
-		position: relative;
-		top: 3px;
-		padding: 0 5px;
+		margin-bottom: -50px;
 	}
 	img {
-		height: 45px;
+		height: 40px;
 	}
 	a img:hover {
 		cursor: pointer;
+	}
+	.peace_logo {
+		position: absolute;
+		right: 5px;
+		top: 3px;
 	}
 </style>
