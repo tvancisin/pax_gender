@@ -12,8 +12,6 @@
     export let step;
     export let central_points;
 
-    $: console.log(pax);
-
     let transform = d3.zoomIdentity;
     let newTransform;
 
@@ -55,19 +53,7 @@
 
     $: yScale = d3.scaleLinear().domain([0, 100]).range([innerHeight, 0]);
 
-    let final_iso = [];
-    //initial functions
-    $: if (pax) {
-        final_iso = [];
-
-        // current_central_points = get_current_central_points(pax);
-        cumulative_isos = get_current_isos(pax);
-        cumulative_isos.forEach((d) => {
-            final_iso.push(d.iso);
-        });
-        console.log(final_iso);
-    }
-
+    // zoom to afghanistan
     function smoothZoom(newTransform) {
         const interpolate = d3.interpolateTransformSvg(transform, newTransform);
         d3.transition()
@@ -77,52 +63,39 @@
             });
     }
 
+    //initial functions
+    $: if (pax) {
+        // current_central_points = get_current_central_points(pax);
+        cumulative_isos = get_current_isos(pax);
+    }
+
     //steps
     $: if (step == "map_one") {
-        final_iso = [];
         cumulative_isos = get_current_isos(pax);
-        cumulative_isos.forEach((d) => {
-            final_iso.push(d.iso);
-        });
     } else if (step == "map_two") {
-        final_iso = [];
         cumulative_isos = get_current_isos(pax_gender);
-        let bigger_than_one = cumulative_isos.filter((entry) => entry.count > 1); // Filter out entries with count of 1
-
-        bigger_than_one.forEach((d) => {
-            final_iso.push(d.iso);
-        });
-        console.log(final_iso);
-
-        // current_central_points = get_current_central_points(pax_gender);
-    } else if (step == "map_three") {
-        final_iso = [];
-        let just_quotas = d3.groups(pax, (d) => d.WggIntLaw);
-        cumulative_isos = get_current_isos(just_quotas[1][1]);
-        cumulative_isos.forEach((d) => {
-            final_iso.push(d.iso);
-        });
+        cumulative_isos = cumulative_isos.filter((entry) => entry.count > 1);
         // current_central_points = get_current_central_points(pax_gender);
         smoothZoom(d3.zoomIdentity);
-    } else if (step == "map_four") {
-        final_iso = [];
-        let just_quotas = d3.groups(pax, (d) => d.WggUnsc);
-        cumulative_isos = get_current_isos(just_quotas[1][1]);
-        cumulative_isos.forEach((d) => {
-            final_iso.push(d.iso);
-        });
-        // current_central_points = get_current_central_points(pax_gender);
+    } else if (step == "map_three") {
         newTransform = d3.zoomIdentity
             .translate(width / 2, height / 2)
             .scale(
                 Math.min(
-                    8,
+                    4,
                     0.9 / Math.max((x1 - x0) / width, (y1 - y0) / height),
                 ),
             )
             .translate(-(x0 + x1) / 2, -(y0 + y1) / 2);
 
         smoothZoom(newTransform);
+        // let just_quotas = d3.groups(pax, (d) => d.WggIntLaw);
+        // cumulative_isos = get_current_isos(just_quotas[1][1]);
+        // // current_central_points = get_current_central_points(pax_gender);
+    } else if (step == "map_four") {
+        // let just_quotas = d3.groups(pax, (d) => d.WggUnsc);
+        // cumulative_isos = get_current_isos(just_quotas[1][1]);
+        // current_central_points = get_current_central_points(pax_gender);
     }
 
     function formatMobile(tick) {
@@ -136,9 +109,13 @@
 {#if mygeojson && pax_timeline}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
         {#if mygeojson}
-            <LayerCake data={mygeojson}>
+            <LayerCake>
                 <Svg>
-                    <Map {countries} {transform} {final_iso} />
+                    <Map
+                        {countries}
+                        {transform}
+                        {cumulative_isos}
+                    />
                 </Svg>
             </LayerCake>
         {/if}

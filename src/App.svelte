@@ -469,28 +469,30 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Countries where peace agreements have been signed since
-					1990.
+					1990. The brighter the colour, the more signed agreements.
 				</p>
 			</div>
 		</section>
 		<section data-id="map02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Countries with signed agreements that contain
+					Countries with at least 2 signed agreements containing
 					references to gender.
 				</p>
 			</div>
 		</section>
 		<section data-id="map03">
 			<div class="col-medium">
-				<p style="text-align: center;">international law</p>
+				<p style="text-align: center;">
+					Let's have a closer look at Afghanistan.
+				</p>
 			</div>
 		</section>
-		<section data-id="map04">
+		<!-- <section data-id="map04">
 			<div class="col-medium">
 				<p style="text-align: center;">references to un 1325</p>
 			</div>
-		</section>
+		</section> -->
 	</div>
 </Scroller>
 
