@@ -317,11 +317,12 @@
 
 <Filler theme="light" short={true} wide={true} center={true} shadow={false}>
 	<video
-		poster="./img/rect1.png"
+		poster="./img/lr_bl.png"
+		preload="none"
 		controls
-		style="width: 90%; height: auto; margin: auto; border-radius: 5px;"
+		style="width: 80%; height: auto; margin: auto; border-radius: 5px;"
 	>
-		<source src="./img/laura_final.mp4" type="video/mp4" />
+		<source src="./img/laura.mp4" type="video/mp4" />
 		<track
 			src="captions_en"
 			kind="captions"
