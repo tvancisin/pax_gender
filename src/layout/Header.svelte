@@ -1,10 +1,5 @@
 <script>
-  import { themes } from '../config.js';
-	import { getContext } from 'svelte';
-
-	export let theme = getContext('theme');
   export let bgimage = null;
-  export let bgcolor = null;
   export let bgfixed = false;
   export let center = true;
   export let short = false;

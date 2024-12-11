@@ -9,7 +9,7 @@
     export let pax_gender;
     export let step;
     export let central_points;
-    export let mygeojson;
+    // export let mygeojson;
 
     let width = 400;
     let height = 400;

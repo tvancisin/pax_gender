@@ -33,9 +33,12 @@
 	let id = {}; // Object to hold visible section IDs of Scroller components
 	let idPrev = {}; // Object to keep track of previous IDs, to compare for changes
 	onMount(() => {
-		setTimeout(() => {
-			window.scrollTo(0, 0);
-		}, 1000);
+		// scroll to top on loading the page
+		if ("scrollRestoration" in history) {
+			history.scrollRestoration = "manual";
+		}
+		window.scrollTo({ top: 0, behavior: "auto" });
+
 		idPrev = { ...id };
 	});
 
@@ -248,13 +251,7 @@
 
 <ONSHeader filled={false} center={false} />
 
-<Header
-	bgcolor="white"
-	bgfixed={false}
-	theme="black"
-	center={true}
-	short={false}
->
+<Header bgfixed={false} center={true} short={false}>
 	<h1>PA-X Gender</h1>
 	<p class="text-big">
 		This scrollytelling visualization uses PA-X database to show how and to
@@ -265,7 +262,7 @@
 
 <Divider />
 
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+<Filler short={true} wide={true} center={true} shadow={false}>
 	<p style="font-size: 1.2em; padding:10px">
 		Peace agreement is a document produced after discussion with conflict
 		protagonists and mutually agreed to by some or all of them, addressing
@@ -282,7 +279,7 @@
 		<figure>
 			<div class="col-wide height-full">
 				<div class="rect">
-					<Rectangles {pax_stages} {pax} {step} />
+					<Rectangles {pax} {step} />
 				</div>
 			</div>
 		</figure>
@@ -309,16 +306,15 @@
 	</div>
 </Scroller>
 
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+<Filler short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
 		Why should gender be taken into consideration in peace agreements?
 	</p>
 </Filler>
 
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+<Filler short={true} wide={true} center={true} shadow={false}>
 	<video
 		poster="./img/lr_bl.png"
-		preload="none"
 		controls
 		style="width: 80%; height: auto; margin: auto; border-radius: 5px;"
 	>
@@ -334,7 +330,7 @@
 	</video>
 </Filler>
 
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+<Filler short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">Peace Agreements over Time</p>
 </Filler>
 
@@ -403,7 +399,7 @@
 	</div>
 </Scroller>
 
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+<Filler short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">Peace Process Stages</p>
 </Filler>
 
@@ -442,7 +438,7 @@
 	</div>
 </Scroller>
 
-<Filler theme="light" short={true} wide={true} center={true} shadow={false}>
+<Filler short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">Geography</p>
 </Filler>
 
@@ -497,12 +493,10 @@
 	</div>
 </Scroller>
 
-<Filler theme="dark" short={true} wide={true} center={true} shadow={true}
-></Filler>
-<Filler theme="dark" short={true} wide={true} center={true} shadow={true}
-></Filler>
+<Filler short={true} wide={true} center={true} shadow={true}></Filler>
+<Filler short={true} wide={true} center={true} shadow={true}></Filler>
 
-<Filler theme="dark" short={true} wide={true} center={true} shadow={true}>
+<Filler short={true} wide={true} center={true} shadow={true}>
 	<p class="text-big">
 		How do we gather the agreements? How are they processed? [where to
 		include provenance?<br /> beginning/end/between sections?]

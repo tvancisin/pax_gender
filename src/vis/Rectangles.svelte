@@ -10,7 +10,6 @@
     // import CanvasBackground from "./CanvasBackground.svelte";
 
     export let pax;
-    export let pax_stages;
     export let step;
 
     let tooltip = { visible: false, x: 0, y: 0, info: "" }; // Tooltip state
@@ -35,7 +34,7 @@
     $: yScale = d3.scaleLinear().domain([0, 100]).range([innerHeight, 0]);
 
     //initial functions
-    $: if (pax && pax_stages) {
+    $: if (pax) {
         //prepare the initial grid
         initialPaxCount = pax.length;
         rendered_data = full_grid(
@@ -55,6 +54,8 @@
 
     //steps
     $: if (step == "rect01") {
+        console.log("step 1 rect");
+
         // full grid
         rendered_data = full_grid(
             pax,
@@ -178,7 +179,7 @@
         position: relative;
     }
 
-    .tooltip {
+    /* .tooltip {
         background-color: rgba(0, 0, 0, 0.8);
         color: white;
         padding: 10px;
@@ -191,5 +192,5 @@
     p {
         margin: 5px;
         font-size: 12px;
-    }
+    } */
 </style>

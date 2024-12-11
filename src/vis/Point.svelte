@@ -61,12 +61,12 @@
 </g>
 
 <style>
-	circle {
+	/* circle {
 		fill: yellow;
 		stroke: black;
 		stroke-width: 1;
 	}
 	line {
 		stroke: black;
-	}
+	} */
 </style>
