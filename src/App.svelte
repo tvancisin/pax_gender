@@ -6,14 +6,9 @@
 	import ONSHeader from "./layout/ONSHeader.svelte";
 	import ONSFooter from "./layout/ONSFooter.svelte";
 	import Header from "./layout/Header.svelte";
-	import Section from "./layout/Section.svelte";
-	import Media from "./layout/Media.svelte";
 	import Scroller from "./layout/Scroller.svelte";
 	import Filler from "./layout/Filler.svelte";
 	import Divider from "./layout/Divider.svelte";
-	import Toggle from "./ui/Toggle.svelte";
-	import Arrow from "./ui/Arrow.svelte";
-	import Em from "./ui/Em.svelte";
 	import Lines from "./vis/Lines.svelte";
 	import Stages from "./vis/Stages.svelte";
 	import Rectangles from "./vis/Rectangles.svelte";
@@ -21,6 +16,7 @@
 	import { centralPointsStore } from "./store";
 	import Timeline from "./vis/Timeline.svelte";
 	import Geography from "./vis/Geography.svelte";
+	import OnsFooter from "./layout/ONSFooter.svelte";
 
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
 	let theme = "dark";
@@ -29,7 +25,6 @@
 
 	// CONFIG FOR SCROLLER COMPONENTS
 	const threshold = 0.65;
-	// State
 	let id = {}; // Object to hold visible section IDs of Scroller components
 	let idPrev = {}; // Object to keep track of previous IDs, to compare for changes
 	onMount(() => {
@@ -42,39 +37,15 @@
 		idPrev = { ...id };
 	});
 
-	// Element bindings
-	// let map = null; // Bound to mapbox 'map' instance once initialised
-	let step = null;
-
 	// Actions for Scroller components
+	let step = null;
 	const actions = {
-		map: {
-			// Actions for <Scroller/> with id="map"
-			map01: () => {
-				step = "map_one";
-			},
-			map02: () => {
-				step = "map_two";
-			},
-			map03: () => {
-				step = "map_three";
-			},
-			map04: () => {
-				step = "map_four";
-			},
-		},
 		rect: {
 			rect01: () => {
 				step = "rect01";
 			},
 			rect02: () => {
 				step = "rect02";
-			},
-			rect03: () => {
-				step = "rect03";
-			},
-			rect04: () => {
-				step = "rect04";
 			},
 		},
 		chart: {
@@ -92,20 +63,6 @@
 			},
 			chart05: () => {
 				step = "five";
-			},
-		},
-		stage: {
-			stage01: () => {
-				step = "stage01";
-			},
-			stage02: () => {
-				step = "stage02";
-			},
-			stage03: () => {
-				step = "stage03";
-			},
-			stage04: () => {
-				step = "stage04";
 			},
 		},
 		time: {
@@ -126,6 +83,34 @@
 			},
 			time06: () => {
 				step = "6";
+			},
+		},
+		stage: {
+			stage01: () => {
+				step = "stage01";
+			},
+			stage02: () => {
+				step = "stage02";
+			},
+			stage03: () => {
+				step = "stage03";
+			},
+			stage04: () => {
+				step = "stage04";
+			},
+		},
+		map: {
+			map01: () => {
+				step = "map_one";
+			},
+			map02: () => {
+				step = "map_two";
+			},
+			map03: () => {
+				step = "map_three";
+			},
+			map04: () => {
+				step = "map_four";
 			},
 		},
 	};
@@ -263,10 +248,11 @@
 <Divider />
 
 <Filler short={true} wide={true} center={true} shadow={false}>
-	<p style="font-size: 1.2em; padding:10px">
-		Peace agreement is a document produced after discussion with conflict
-		protagonists and mutually agreed to by some or all of them, addressing
-		conflict with a view to ending it.
+	<p style="font-size: 1.1em; margin-bottom:40px">
+		<strong>Peace agreement</strong> is a document produced after discussion
+		with conflict protagonists and mutually agreed to by some or all of them,
+		addressing conflict with a view to ending it. Below is a ceasefire agreement
+		from 1990 Nicaragua.
 	</p>
 	<img src="./img/agt.PNG" alt="agreement example" style="width: 100%;" />
 </Filler>
@@ -289,9 +275,9 @@
 		<section data-id="rect01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					PA-X maintains the biggest database of peace agreements in
-					the world.<br />
-					Every rectangle in this view represents one of 2055 agreements.
+					Every rectangle in this view represents one of 2055
+					agreements in PA-X database. PA-X maintains world's biggest
+					database of peace agreements.<br />
 				</p>
 			</div>
 		</section>
@@ -306,13 +292,16 @@
 	</div>
 </Scroller>
 
+<!-- <Filler short={true} wide={true} center={true} shadow={false}>
+	<p class="text-big">
+		Why should gender be taken into consideration in peace agreements?
+	</p>
+</Filler> -->
+
 <Filler short={true} wide={true} center={true} shadow={false}>
 	<p class="text-big">
 		Why should gender be taken into consideration in peace agreements?
 	</p>
-</Filler>
-
-<Filler short={true} wide={true} center={true} shadow={false}>
 	<video
 		poster="./img/lr_bl.png"
 		controls
@@ -536,15 +525,19 @@
 	:global(svelte-scroller-foreground) {
 		pointer-events: none !important;
 	}
+
 	:global(svelte-scroller-foreground section div) {
 		pointer-events: all !important;
 	}
+
 	img {
 		width: 20%;
 	}
+
 	#agreement {
 		width: 100%;
 	}
+
 	.rect,
 	.time,
 	.map,

@@ -13,7 +13,7 @@
   
     function draw(ctx) {
         ctx.strokeStyle = "gray";
-        ctx.strokeRect(x, y, width, height);
+        ctx.strokeRect(x + 1, y + 5, width, height);
     }
   
     onMount(() => {

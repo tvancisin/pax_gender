@@ -1,7 +1,6 @@
 <script>
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
-    import { createEventDispatcher } from "svelte"; // Import the dispatcher
 
     export let i;
     export let x;

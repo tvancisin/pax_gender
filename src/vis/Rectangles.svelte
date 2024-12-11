@@ -5,9 +5,9 @@
     import Background from "./BackgroundRectangle.svelte";
 
     // canvas variation
-    // import Canvas from "./Canvas.svelte";
-    // import CanvasRectangle from "./CanvasRectangle.svelte";
-    // import CanvasBackground from "./CanvasBackground.svelte";
+    import Canvas from "./Canvas.svelte";
+    import CanvasRectangle from "./CanvasRectangle.svelte";
+    import CanvasBackground from "./CanvasBackground.svelte";
 
     export let pax;
     export let step;
@@ -54,8 +54,6 @@
 
     //steps
     $: if (step == "rect01") {
-        console.log("step 1 rect");
-
         // full grid
         rendered_data = full_grid(
             pax,

@@ -69,7 +69,8 @@
 
 <style>
 	    canvas {
-        position: var(--position, relative);
-        top: 0px;
+        position: var(--position, absolute);
+        /* top: 15px;
+		left: 35px; */
     }
 </style>

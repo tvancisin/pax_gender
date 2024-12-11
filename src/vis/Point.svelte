@@ -8,12 +8,13 @@
 	const { data, width, height } = getContext("LayerCake");
 
 	export let projectionName = "geoNaturalEarth1";
-	export let pointsData = [];
+	// export let pointsData = [];
 	export let line_width;
 	export let pax_timeline;
 
 	let innerWidth, innerHeight, xScale, yScale;
 	const margin = { top: 20, right: 20, bottom: 20, left: 40 };
+	const xTicks = [1995, 2000, 2005, 2010, 2015, 2020];
 
 	$: innerWidth = line_width - margin.left - margin.right;
 	$: console.log(innerWidth);

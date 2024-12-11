@@ -265,7 +265,7 @@
                                 xScale.bandwidth() / 2},{innerHeight + 17})"
                         >
                             <text y="1"
-                                >{innerWidth > 380
+                                >{innerWidth > 800
                                     ? tick
                                     : formatMobile(tick)}</text
                             >
@@ -306,7 +306,7 @@
                     class="un_resolution"
                     x={xScale("2000") + xScale.bandwidth()}
                     y={20}
-                    fill="white">UN Security Council Resolution 1325</text
+                    fill="white">UN Resolution 1325</text
                 >
             </g>
         </svg>
@@ -333,6 +333,18 @@
         font-size: 12px;
         font-family: "Montserrat";
         font-weight: 400;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        .tick text {
+            font-size: 11px;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .tick text {
+            font-size: 10px;
+        }
     }
 
     .x-axis .tick text {

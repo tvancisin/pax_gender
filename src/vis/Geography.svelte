@@ -72,17 +72,20 @@
     //steps
     $: if (step == "map_one") {
         cumulative_isos = get_current_isos(pax);
+        console.log(cumulative_isos);
+        
     } else if (step == "map_two") {
         cumulative_isos = get_current_isos(pax_gender);
         cumulative_isos = cumulative_isos.filter((entry) => entry.count > 1);
         // current_central_points = get_current_central_points(pax_gender);
         smoothZoom(d3.zoomIdentity);
     } else if (step == "map_three") {
+        cumulative_isos = [{iso: 'AFG', count: 100}]
         newTransform = d3.zoomIdentity
             .translate(width / 2, height / 2)
             .scale(
                 Math.min(
-                    4,
+                    2,
                     0.9 / Math.max((x1 - x0) / width, (y1 - y0) / height),
                 ),
             )
