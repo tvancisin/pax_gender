@@ -1,8 +1,8 @@
 <script>
     import * as d3 from "d3";
-    import IndividualLine from "./IndividualLine.svelte";
     import { years, full_grid, full_grid_filter } from "../utils";
     import Background from "./BackgroundRectangle.svelte";
+    import IndividualRectangle from "./IndividualRectangle.svelte";
 
     // canvas variation
     import Canvas from "./Canvas.svelte";
@@ -13,7 +13,6 @@
     export let step;
 
     let tooltip = { visible: false, x: 0, y: 0, info: "" }; // Tooltip state
-
     let width = 400;
     let height = 400;
     let rendered_data;
@@ -33,6 +32,8 @@
 
     $: yScale = d3.scaleLinear().domain([0, 100]).range([innerHeight, 0]);
 
+    $: console.log(step);
+    
     //initial functions
     $: if (pax) {
         //prepare the initial grid
@@ -61,7 +62,6 @@
             innerWidth,
             initialPaxCount,
         );
-        d3.selectAll(".ind_rect").style("fill", "#F6F1D6");
     } else if (step == "rect02") {
         //full grid gender
         rendered_data = full_grid_filter(
@@ -125,13 +125,14 @@
                     />
                 {/each}
                 {#each rendered_data as d, i}
-                    <IndividualLine
+                    <IndividualRectangle
                         {i}
                         x={d.x}
                         y={d.y}
                         width={d.width}
                         height={d.height}
                         info={d.info}
+                        id={d.id}
                         on:hover={handleHover}
                         on:leave={handleLeave}
                     />

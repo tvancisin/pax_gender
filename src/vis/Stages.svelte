@@ -1,6 +1,6 @@
 <script>
     import * as d3 from "d3";
-    import IndividualLine from "./IndividualLine.svelte";
+    import IndividualRectangle from "./IndividualRectangle.svelte";
     import { LayerCake, Svg } from "layercake";
     import { years, pax_stages_grid, pax_stages_filter_grid } from "../utils";
     import Background from "./BackgroundRectangle.svelte";
@@ -98,13 +98,14 @@
                     {/each}
 
                     {#each rendered_data as d, i}
-                        <IndividualLine
+                        <IndividualRectangle
                             {i}
                             x={d.x}
                             y={d.y}
                             width={d.width}
                             height={d.height}
                             info={d.info}
+                            id={d.id}
                         />
                     {/each}
                 </g>

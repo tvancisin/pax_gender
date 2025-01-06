@@ -1,5 +1,4 @@
 <script>
-
 	export let center = true;
 	export let wide = false;
 	export let short = false;
@@ -7,13 +6,11 @@
 
 	let shadow_css = ``;
 	if (shadow) {
-		shadow_css = `box-shadow: inset 0 10px 10px -8px rgba(0, 0, 0, 1)`;
+		shadow_css = `box-shadow: 0 10px 10px -8px rgba(50, 50, 50, 1)`;
 	}
 </script>
 
-<section
-	style="color: white}; {shadow_css}; background-color: black};"
->
+<section>
 	<div
 		class="middle"
 		class:center
@@ -28,9 +25,6 @@
 
 <style>
 	section {
-		padding: 36px 0;
-	}
-	.short {
-		min-height: 70vh;
+		margin: 50px;
 	}
 </style>

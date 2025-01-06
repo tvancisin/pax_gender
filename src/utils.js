@@ -244,6 +244,7 @@ export function full_grid(pax, innerHeight, innerWidth, initialPaxCount) {
         (Math.floor(i / numCols) + 1) * (rectHeight + gap) + Math.random() * 2 - 1,
       width: rectWidth,
       height: rectHeight,
+      id: d.AgtId,
       info: d.Agt
     };
   });
@@ -342,7 +343,8 @@ export function pax_stages_grid(pax_stages, innerHeight, innerWidth) {
         y: y + Math.random() * 2 - 1, // Vertical position from bottom to top
         width: cellWidth, // Adjusted width to fit screen
         height: cellHeight, // Adjusted height to fit screen
-        info: d.Agt
+        info: d.Agt,
+        id: d.AgtId,
       };
     });
   });
@@ -394,7 +396,8 @@ export function pax_stages_filter_grid(
           y: innerHeight + 100, // Off-screen y position
           width: cellWidth,
           height: 0,
-          info: d.Agt
+          info: d.Agt,
+          id: d.AgtId,
         };
       }
 

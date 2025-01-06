@@ -1,6 +1,6 @@
 <script>
     import * as d3 from "d3";
-    import IndividualLine from "./IndividualLine.svelte";
+    import IndividualRectangle from "./IndividualRectangle.svelte";
     import { years } from "../utils";
     import Background from "./BackgroundRectangle.svelte";
 
@@ -91,6 +91,7 @@
                 width: xScale.bandwidth(),
                 height: 3,
                 info: d.Agt,
+                id: "id" + d.AgtId,
             };
 
             index += 1; // Increment index for the next entry in the same year
@@ -120,6 +121,7 @@
                 width: xScale.bandwidth(),
                 height: 3,
                 info: d.info,
+                id: "id" + d.AgtId,
             };
         });
         background_data = pax.map((d) => {
@@ -187,10 +189,12 @@
                 width: xScale.bandwidth(),
                 height: 15,
                 info: d.info,
+                id: "id" + d.AgtId,
             };
         });
         d3.selectAll(".un_resolution").style("visibility", "hidden");
     } else if (step == "5") {
+        d3.select("#example").style("opacity", 0);
         //enlarge pax gender
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that changes based on GeWom value
@@ -205,7 +209,7 @@
 
             // Determine y position based on GeWom value
             const yPosition =
-                d.WggGenQuot === "1" ? yScale(++index * 3) : innerHeight + 100;
+                d.WggRehab === "1" ? yScale(++index * 3) : innerHeight + 100;
 
             return {
                 x: xScale(currentYear) + Math.random() * 2 - 1,
@@ -213,9 +217,11 @@
                 width: xScale.bandwidth(),
                 height: 15,
                 info: d.info,
+                id: "id" + d.AgtId,
             };
         });
     } else if (step == "6") {
+        d3.select("#example").style("opacity", 1);
         //enlarge pax gender
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that changes based on GeWom value
@@ -239,6 +245,7 @@
                 width: xScale.bandwidth(),
                 height: rect_height,
                 info: d.info,
+                id: "id" + d.AgtId,
             };
         });
     }
@@ -283,8 +290,9 @@
                     />
                 {/each}
                 {#each rendered_data as d, i}
-                    <IndividualLine
+                    <IndividualRectangle
                         {i}
+                        id={d.id}
                         x={d.x}
                         y={d.y}
                         width={d.width}
@@ -310,6 +318,9 @@
                 >
             </g>
         </svg>
+        <div id="example">
+            <img src="./img/full_agt.png" alt="agt" />
+        </div>
     </div>
 {/if}
 
@@ -349,5 +360,25 @@
 
     .x-axis .tick text {
         text-anchor: middle;
+    }
+
+    #example {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%; /* Full width of the parent/container */
+        height: 100%; /* Full height of the parent/container if needed */
+        display: flex; /* Enables flexbox for centering */
+        justify-content: center; /* Horizontally centers the image */
+        align-items: center; /* Vertically centers the image */
+        overflow: hidden; /* Prevents content overflow */
+        opacity: 0;
+        transition: 0.5s ease;
+    }
+
+    #example img {
+        max-width: 70%; /* Ensures the image scales within the width of its container */
+        height: auto; /* Maintains the aspect ratio of the image */
+        display: block; /* Removes extra space below the image (from inline elements) */
     }
 </style>

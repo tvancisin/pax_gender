@@ -16,7 +16,8 @@
 	import { centralPointsStore } from "./store";
 	import Timeline from "./vis/Timeline.svelte";
 	import Geography from "./vis/Geography.svelte";
-	import OnsFooter from "./layout/ONSFooter.svelte";
+
+	let mapLoaded = false;
 
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
 	let theme = "dark";
@@ -27,17 +28,18 @@
 	const threshold = 0.65;
 	let id = {}; // Object to hold visible section IDs of Scroller components
 	let idPrev = {}; // Object to keep track of previous IDs, to compare for changes
+
+	// SCROLL TO TOP ON MOUNT
 	onMount(() => {
 		// scroll to top on loading the page
 		if ("scrollRestoration" in history) {
 			history.scrollRestoration = "manual";
 		}
 		window.scrollTo({ top: 0, behavior: "auto" });
-
 		idPrev = { ...id };
 	});
 
-	// Actions for Scroller components
+	// STEPS
 	let step = null;
 	const actions = {
 		rect: {
@@ -206,12 +208,12 @@
 
 			// If a matching item is found, add the WggPar and WggImplSign values
 			if (genderItem) {
-				paxItem.WggGenQuot = genderItem.WggGenQuot;
+				paxItem.WggRehab = genderItem.WggRehab;
 				paxItem.WggIntLaw = genderItem.WggIntLaw;
 				paxItem.WggUnsc = genderItem.WggUnsc;
 			} else {
 				// Optionally handle cases where no matching item is found
-				paxItem.WggGenQuot = "0";
+				paxItem.WggRehab = "0";
 				paxItem.WggIntLaw = "0";
 				paxItem.WggUnsc = "0";
 			}
@@ -232,13 +234,48 @@
 		);
 		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(6, 10));
 	});
+
+	//map loaded, show start button
+	function handleMapLoaded() {
+		mapLoaded = true;
+		document.getElementById("loading_text").style.visibility = "hidden";
+		document.getElementById("loading_button").style.visibility = "visible";
+	}
+
+	//clicking on screen or button after map is loaded
+	function handleScreenClick(event) {
+		// Recalculate width and height
+		// width = window.innerWidth;
+		// height = window.innerHeight;
+
+		if (mapLoaded) {
+			document.getElementById("loading_screen").style.visibility =
+				"hidden";
+			document.getElementById("loading_button").style.visibility =
+				"hidden";
+			document.documentElement.style.overflow = "visible"; // For <html>
+			document.body.style.overflow = "visible"; // For <body>
+		}
+	}
 </script>
+
+<div
+	role="presentation"
+	id="loading_screen"
+	style="height: calc(var(--vh, 1vh) * 100);"
+	on:click={handleScreenClick}
+>
+	<button id="loading_button" on:click={handleScreenClick}
+		>Visualization</button
+	>
+	<p id="loading_text">loading...</p>
+</div>
 
 <ONSHeader filled={false} center={false} />
 
 <Header bgfixed={false} center={true} short={false}>
 	<h1>PA-X Gender</h1>
-	<p class="text-big">
+	<p>
 		This scrollytelling visualization uses PA-X database to show how and to
 		what extent women, girls and gender are taken into consideration in
 		peace agreements around the world.
@@ -247,14 +284,18 @@
 
 <Divider />
 
-<Filler short={true} wide={true} center={true} shadow={false}>
-	<p style="font-size: 1.1em; margin-bottom:40px">
-		<strong>Peace agreement</strong> is a document produced after discussion
+<Filler short={true} wide={true} center={true} shadow={true}>
+	<img
+		src="./img/toncontin.png"
+		alt="peace agreement example"
+		style="width: 100%;"
+	/>
+	<p>
+		A <strong>peace agreement</strong> is a document produced after discussion
 		with conflict protagonists and mutually agreed to by some or all of them,
 		addressing conflict with a view to ending it. Below is a ceasefire agreement
 		from 1990 Nicaragua.
 	</p>
-	<img src="./img/agt.PNG" alt="agreement example" style="width: 100%;" />
 </Filler>
 
 <Divider />
@@ -276,8 +317,8 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Every rectangle in this view represents one of 2055
-					agreements in PA-X database. PA-X maintains world's biggest
-					database of peace agreements.<br />
+					agreements in the PA-X Peace Agreement Database, the most
+					expansive collection of peace agreements data in the world.
 				</p>
 			</div>
 		</section>
@@ -292,20 +333,17 @@
 	</div>
 </Scroller>
 
-<!-- <Filler short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">
-		Why should gender be taken into consideration in peace agreements?
-	</p>
-</Filler> -->
+<Divider />
+
+<Filler short={false} wide={true} center={true} shadow={false}>
+	<p>Why should peace agreements incorporate a gender perspective?</p>
+</Filler>
 
 <Filler short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">
-		Why should gender be taken into consideration in peace agreements?
-	</p>
 	<video
 		poster="./img/lr_bl.png"
 		controls
-		style="width: 80%; height: auto; margin: auto; border-radius: 5px;"
+		style="width: 80%; height: auto; margin: auto; border-radius: 3px;"
 	>
 		<source src="./img/laura.mp4" type="video/mp4" />
 		<track
@@ -319,8 +357,50 @@
 	</video>
 </Filler>
 
-<Filler short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">Peace Agreements over Time</p>
+<Filler short={false} wide={true} center={true} shadow={false}>
+	<p>
+		In 2000, the United Nations Security Council passed Resolution 1325 on
+		Women, Peace, and Security, calling on all actors involved in
+		negotiating and implementing peace agreements to adopt a gender
+		perspective, including:
+	</p>
+	<div id="icons">
+		<div class="icon-item">
+			<img
+				src="./img/fir.svg"
+				alt="peace agreement example"
+				style="height: 100px;"
+			/>
+			<p style="text-align: left; font-size: 14px">
+				Responding to the special needs of women and girls during
+				repatriation, resettlement, rehabilitation, reintegration and
+				post-conflict reconstruction
+			</p>
+		</div>
+		<div class="icon-item">
+			<img
+				src="./img/sec.svg"
+				alt="peace agreement example"
+				style="height: 100px;"
+			/>
+			<p style="text-align: left; font-size: 14px">
+				Supporting local women’s and indigenous initiatives for conflict
+				resolution, and involving women in all implementation mechanisms
+			</p>
+		</div>
+		<div class="icon-item">
+			<img
+				src="./img/thi.svg"
+				alt="peace agreement example"
+				style="height: 100px;"
+			/>
+			<p style="text-align: left; font-size: 14px">
+				Ensuring the protection of human rights of women and girls,
+				particularly relating to the constitution, the electoral system,
+				the police and the judiciary
+			</p>
+		</div>
+	</div>
 </Filler>
 
 <Divider />
@@ -341,39 +421,42 @@
 		<section data-id="time01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					All PA-X agreements over time, each line represents an
-					agreement.
+					Each line represents a peace agreements listed on PA-X that
+					was reached between 1990 and 2023.
 				</p>
 			</div>
 		</section>
 		<section data-id="time02">
 			<div class="col-medium">
-				<p style="text-align: center;">PA-X Gender agreements</p>
+				<p style="text-align: center;">
+					PA-X Gender agreements over time.
+				</p>
 			</div>
 		</section>
 		<section data-id="time03">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Despite it being 25 years since the Resolution which urged
-					all actors to incorporate gender perspectives when
-					negotiating and implementing peace agreements, we have seen
-					only a minor increase.
+					It's crucial to emphasize that gender references can differ
+					hugely in terms of their substantive quality and
+					specificity, ranging from detailed commitments to rhetorical
+					references to 'women'.
 				</p>
 			</div>
 		</section>
 		<section data-id="time04">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Let's enlarge PA-X Gender Agreements
+					Let's enlarge PA-X Gender agreements and see how they have
+					included gender measures called for by UNSCR 1325.
 				</p>
 			</div>
 		</section>
 		<section data-id="time05">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Agreement provisions outlining a specific quota commitment,
-					or specifying particular numbers of women that are to
-					participate.
+					These peace agreements included references to the special
+					needs of women and girls during rehabilitation and
+					reconstruction.
 				</p>
 			</div>
 		</section>
@@ -444,6 +527,7 @@
 						{pax_timeline}
 						{pax_gender}
 						{step}
+						on:mapLoaded={handleMapLoaded}
 					/>
 				</div>
 			</div>
@@ -497,7 +581,7 @@
 		<figure>
 			<div class="col-wide height-full">
 				<div class="close_read">
-					<img id="agreement" alt="notes" src="./img/sources.jpg" />
+					<!-- <img id="agreement" alt="notes" src="./img/sources.jpg" /> -->
 				</div>
 			</div>
 		</figure>
@@ -513,7 +597,7 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					translation/transcription/coding/data entry
-					<img id="agreement" alt="notes" src="./img/diagram.png" />
+					<!-- <img id="agreement" alt="notes" src="./img/diagram.png" /> -->
 				</p>
 			</div>
 		</section>
@@ -521,6 +605,46 @@
 </Scroller>
 
 <style>
+	#loading_screen {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		background-color: black;
+		z-index: 3;
+		display: flex;
+		justify-content: center;
+	}
+
+	#loading_text {
+		position: absolute;
+		top: 40%;
+		color: rgb(255, 255, 255);
+	}
+
+	#loading_button {
+		position: absolute;
+		top: 40%;
+		font-family: "Montserrat";
+		background-color: white;
+		color: black;
+		border: 1px solid gray;
+		border-radius: 4px;
+		padding: 10px 15px;
+		font-size: 16px;
+		cursor: pointer;
+		transition:
+			background-color 0.3s ease,
+			color 0.3s ease;
+		visibility: hidden;
+	}
+
+	#loading_button:hover {
+		background-color: steelblue;
+		color: black;
+	}
+
 	/* Styles specific to elements within the demo */
 	:global(svelte-scroller-foreground) {
 		pointer-events: none !important;
@@ -528,14 +652,6 @@
 
 	:global(svelte-scroller-foreground section div) {
 		pointer-events: all !important;
-	}
-
-	img {
-		width: 20%;
-	}
-
-	#agreement {
-		width: 100%;
 	}
 
 	.rect,
@@ -546,21 +662,31 @@
 		width: calc(100% - 5px);
 	}
 
+	#icons {
+		margin: 50px;
+		display: flex;
+		flex-wrap: wrap; /* Allows items to wrap onto the next line */
+		justify-content: space-between; /* Adjust spacing between items */
+	}
+
+	.icon-item {
+		flex: 1 1 calc(33.33% - 10px); /* Ensure three items per row, with some spacing */
+		margin: 5px; /* Adds spacing between items */
+		text-align: center; /* Center content inside the items */
+		padding: 20px; /* Example padding */
+		box-sizing: border-box; /* Ensures padding is included in width calculation */
+	}
+
+	@media (max-width: 768px) {
+		.icon-item {
+			flex: 1 1 100%; /* Items stack on top of each other on small screens */
+		}
+	}
+
 	.close_read {
 		display: flex;
 		justify-content: center; /* Centers horizontally */
 		align-items: center; /* Centers vertically */
 		height: 100%; /* Takes up the full height of the parent */
-	}
-
-	#agreement {
-		max-width: 100%; /* Ensures the image doesn't overflow */
-		max-height: 100%; /* Ensures the image fits inside the container */
-	}
-
-	.col-medium {
-		-webkit-box-shadow: 0 0 3px 1px #6d6d6d;
-		-moz-box-shadow: 0 0 3px 1px #6d6d6d;
-		box-shadow: 0 0 3px 1px #6d6d6d;
 	}
 </style>

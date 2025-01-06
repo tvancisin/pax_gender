@@ -1,9 +1,12 @@
 <script>
+    import { createEventDispatcher } from "svelte";
     import * as d3 from "d3";
     import { LayerCake, Svg } from "layercake";
     import Map from "./Map.svelte";
     import { years, get_current_isos } from "../utils";
     import Point from "./Point.svelte";
+
+    const dispatch = createEventDispatcher();
 
     export let pax;
     export let mygeojson;
@@ -67,20 +70,20 @@
     $: if (pax) {
         // current_central_points = get_current_central_points(pax);
         cumulative_isos = get_current_isos(pax);
+        dispatch("mapLoaded");
     }
 
     //steps
     $: if (step == "map_one") {
         cumulative_isos = get_current_isos(pax);
         console.log(cumulative_isos);
-        
     } else if (step == "map_two") {
         cumulative_isos = get_current_isos(pax_gender);
         cumulative_isos = cumulative_isos.filter((entry) => entry.count > 1);
         // current_central_points = get_current_central_points(pax_gender);
         smoothZoom(d3.zoomIdentity);
     } else if (step == "map_three") {
-        cumulative_isos = [{iso: 'AFG', count: 100}]
+        cumulative_isos = [{ iso: "AFG", count: 30 }];
         newTransform = d3.zoomIdentity
             .translate(width / 2, height / 2)
             .scale(
@@ -114,11 +117,7 @@
         {#if mygeojson}
             <LayerCake>
                 <Svg>
-                    <Map
-                        {countries}
-                        {transform}
-                        {cumulative_isos}
-                    />
+                    <Map {countries} {transform} {cumulative_isos} />
                 </Svg>
             </LayerCake>
         {/if}
