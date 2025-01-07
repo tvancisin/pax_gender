@@ -36,12 +36,15 @@
 		z-index: 1;
 		margin-bottom: -50px;
 	}
+
 	img {
 		height: 40px;
 	}
+
 	a img:hover {
 		cursor: pointer;
 	}
+
 	.peace_logo {
 		position: absolute;
 		right: 5px;

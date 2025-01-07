@@ -1,5 +1,3 @@
-import { csvParse, autoType } from 'd3-dsv';
-import { feature } from 'topojson-client';
 import * as d3 from "d3";
 import { centralPointsStore } from './store';
 
@@ -152,7 +150,7 @@ export let most_women = [
 //   });
 //   //remove duplicates
 //   console.log(iso_array);
-  
+
 //   // iso_array = [...new Set(iso_array)];
 
 //   return iso_array;

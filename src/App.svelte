@@ -86,6 +86,12 @@
 			time06: () => {
 				step = "6";
 			},
+			time07: () => {
+				step = "7";
+			},
+			time08: () => {
+				step = "8";
+			},
 		},
 		stage: {
 			stage01: () => {
@@ -165,7 +171,6 @@
 		central_points = data[2];
 		centralPointsStore.set(central_points);
 		pax_gender_text = data[3];
-		pax_gender_text = data[3];
 		corr_text = data[4];
 		wgg_text = data[5];
 		afghanistan = data[6];
@@ -209,12 +214,12 @@
 			// If a matching item is found, add the WggPar and WggImplSign values
 			if (genderItem) {
 				paxItem.WggRehab = genderItem.WggRehab;
-				paxItem.WggIntLaw = genderItem.WggIntLaw;
+				paxItem.WggImplRole = genderItem.WggImplRole;
 				paxItem.WggUnsc = genderItem.WggUnsc;
 			} else {
 				// Optionally handle cases where no matching item is found
 				paxItem.WggRehab = "0";
-				paxItem.WggIntLaw = "0";
+				paxItem.WggImplRole = "0";
 				paxItem.WggUnsc = "0";
 			}
 		});
@@ -463,8 +468,34 @@
 		<section data-id="time06">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Agreements with references to the UN Security Council
-					Resolution.
+					For example, the Lome Agreement for Sierra Leone in 1999
+					acknowledged women's victimization during the war, and
+					stated that 'special attention shall be accorded to their
+					needs and potentials in formulating and implementing
+					national rehabilitation, reconstruction and development
+					programmes, to enable them to play a central role in the
+					moral, social and physical reconstruction of Sierra Leone.'
+				</p>
+			</div>
+		</section>
+		<section data-id="time07">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Turning to involving women in all implementation mechanisms,
+					these peace agreements included references to women playing
+					a role in implementing the agreement.
+				</p>
+			</div>
+		</section>
+		<section data-id="time08">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					For example, the 2016 Final Agreement between the Colombian
+					Government and the FARC set up a special forum comprising
+					representatives from 6 national and regional Colombian
+					women's organisations, to work with the implementation
+					commission on monitoring and guaranteeing the rights of
+					women in the implementation of the peace agreement.
 				</p>
 			</div>
 		</section>
@@ -612,9 +643,9 @@
 		top: 0px;
 		left: 0px;
 		background-color: black;
-		z-index: 3;
 		display: flex;
 		justify-content: center;
+		z-index: 3;
 	}
 
 	#loading_text {
@@ -624,34 +655,26 @@
 	}
 
 	#loading_button {
+		font-family: "Montserrat";
+		font-size: 16px;
+		font-weight: 400;
 		position: absolute;
 		top: 40%;
-		font-family: "Montserrat";
 		background-color: white;
 		color: black;
-		border: 1px solid gray;
-		border-radius: 4px;
+		border: 1px solid rgb(69, 69, 69);
+		border-radius: 2px;
 		padding: 10px 15px;
-		font-size: 16px;
 		cursor: pointer;
 		transition:
-			background-color 0.3s ease,
-			color 0.3s ease;
+			background-color 0.2s ease,
+			color 0.2s ease;
 		visibility: hidden;
 	}
 
 	#loading_button:hover {
-		background-color: steelblue;
-		color: black;
-	}
-
-	/* Styles specific to elements within the demo */
-	:global(svelte-scroller-foreground) {
-		pointer-events: none !important;
-	}
-
-	:global(svelte-scroller-foreground section div) {
-		pointer-events: all !important;
+		background-color: black;
+		color: white;
 	}
 
 	.rect,

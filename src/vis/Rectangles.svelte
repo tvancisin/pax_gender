@@ -32,8 +32,6 @@
 
     $: yScale = d3.scaleLinear().domain([0, 100]).range([innerHeight, 0]);
 
-    $: console.log(step);
-    
     //initial functions
     $: if (pax) {
         //prepare the initial grid

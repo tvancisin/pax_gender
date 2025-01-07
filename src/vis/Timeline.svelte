@@ -195,7 +195,9 @@
         d3.selectAll(".un_resolution").style("visibility", "hidden");
     } else if (step == "5") {
         d3.select("#example").style("opacity", 0);
-        //enlarge pax gender
+    } else if (step == "6") {
+        imageSource = "./img/full_agt.png";
+        d3.select("#example").style("opacity", 1);
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that changes based on GeWom value
         rendered_data = pax.map((d) => {
@@ -220,9 +222,8 @@
                 id: "id" + d.AgtId,
             };
         });
-    } else if (step == "6") {
-        d3.select("#example").style("opacity", 1);
-        //enlarge pax gender
+    } else if (step == "7") {
+        d3.select("#example").style("opacity", 0);
         let previousYear = null; // Track the last year seen
         let index = 0; // Index that changes based on GeWom value
         rendered_data = pax.map((d) => {
@@ -236,8 +237,8 @@
 
             // Determine y position based on GeWom value
             const yPosition =
-                d.WggUnsc === "1" ? yScale(++index * 3) : innerHeight + 100;
-            const rect_height = d.WggUnsc === "1" ? 15 : 0;
+                d.WggImplRole === "1" ? yScale(++index * 3) : innerHeight + 100;
+            const rect_height = d.WggImplRole === "1" ? 15 : 0;
 
             return {
                 x: xScale(currentYear) + Math.random() * 2 - 1,
@@ -248,6 +249,9 @@
                 id: "id" + d.AgtId,
             };
         });
+    } else if (step == "8") {
+        d3.select("#example").style("opacity", 1);
+        imageSource = "./img/example_2.png";
     }
 
     function formatMobile(tick) {
@@ -255,6 +259,8 @@
     }
 
     // $: console.log("rendered data: ", rendered_data);
+
+    let imageSource = "./img/full_agt.png";
 </script>
 
 {#if rendered_data && pax_timeline}
@@ -319,7 +325,7 @@
             </g>
         </svg>
         <div id="example">
-            <img src="./img/full_agt.png" alt="agt" />
+            <img class="example_img" src={imageSource} alt="agt" />
         </div>
     </div>
 {/if}
@@ -369,15 +375,16 @@
         width: 100%; /* Full width of the parent/container */
         height: 100%; /* Full height of the parent/container if needed */
         display: flex; /* Enables flexbox for centering */
-        justify-content: center; /* Horizontally centers the image */
-        align-items: center; /* Vertically centers the image */
+        justify-content: center;
         overflow: hidden; /* Prevents content overflow */
         opacity: 0;
         transition: 0.5s ease;
     }
 
     #example img {
-        max-width: 70%; /* Ensures the image scales within the width of its container */
+        position: absolute;
+        top: 0px;
+        max-width: 90%; /* Ensures the image scales within the width of its container */
         height: auto; /* Maintains the aspect ratio of the image */
         display: block; /* Removes extra space below the image (from inline elements) */
     }
