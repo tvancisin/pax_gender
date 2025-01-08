@@ -89,9 +89,6 @@
 			time07: () => {
 				step = "7";
 			},
-			time08: () => {
-				step = "8";
-			},
 		},
 		stage: {
 			stage01: () => {
@@ -451,21 +448,13 @@
 		<section data-id="time04">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Let's enlarge PA-X Gender agreements and see how they have
-					included gender measures called for by UNSCR 1325.
-				</p>
-			</div>
-		</section>
-		<section data-id="time05">
-			<div class="col-medium">
-				<p style="text-align: center;">
 					These peace agreements included references to the special
 					needs of women and girls during rehabilitation and
 					reconstruction.
 				</p>
 			</div>
 		</section>
-		<section data-id="time06">
+		<section data-id="time05">
 			<div class="col-medium">
 				<p style="text-align: center;">
 					For example, the Lome Agreement for Sierra Leone in 1999
@@ -478,7 +467,7 @@
 				</p>
 			</div>
 		</section>
-		<section data-id="time07">
+		<section data-id="time06">
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Turning to involving women in all implementation mechanisms,
@@ -487,7 +476,7 @@
 				</p>
 			</div>
 		</section>
-		<section data-id="time08">
+		<section data-id="time07">
 			<div class="col-medium">
 				<p style="text-align: center;">
 					For example, the 2016 Final Agreement between the Colombian
@@ -652,6 +641,8 @@
 		position: absolute;
 		top: 40%;
 		color: rgb(255, 255, 255);
+		margin: 0px;
+		font-weight: 300;
 	}
 
 	#loading_button {
@@ -660,8 +651,8 @@
 		font-weight: 400;
 		position: absolute;
 		top: 40%;
-		background-color: white;
-		color: black;
+		background-color: black;
+		color: white;
 		border: 1px solid rgb(69, 69, 69);
 		border-radius: 2px;
 		padding: 10px 15px;
@@ -673,8 +664,8 @@
 	}
 
 	#loading_button:hover {
-		background-color: black;
-		color: white;
+		background-color: white;
+		color: black;
 	}
 
 	.rect,
