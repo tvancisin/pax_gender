@@ -89,6 +89,12 @@
 			time07: () => {
 				step = "7";
 			},
+			time08: () => {
+				step = "8";
+			},
+			time09: () => {
+				step = "9";
+			},
 		},
 		stage: {
 			stage01: () => {
@@ -212,12 +218,12 @@
 			if (genderItem) {
 				paxItem.WggRehab = genderItem.WggRehab;
 				paxItem.WggImplRole = genderItem.WggImplRole;
-				paxItem.WggUnsc = genderItem.WggUnsc;
+				paxItem.WggHR = genderItem.WggHR;
 			} else {
 				// Optionally handle cases where no matching item is found
 				paxItem.WggRehab = "0";
 				paxItem.WggImplRole = "0";
-				paxItem.WggUnsc = "0";
+				paxItem.WggHR = "0";
 			}
 		});
 
@@ -448,7 +454,7 @@
 		<section data-id="time04">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					These peace agreements included references to the special
+					The highlighted agreements include references to the special
 					needs of women and girls during rehabilitation and
 					reconstruction.
 				</p>
@@ -485,6 +491,28 @@
 					women's organisations, to work with the implementation
 					commission on monitoring and guaranteeing the rights of
 					women in the implementation of the peace agreement.
+				</p>
+			</div>
+		</section>
+		<section data-id="time08">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Turning to the protection of human rights of women and
+					girls, these peace agreements include references to
+					international human rights laws relating to women and
+					gender, including specific human rights standards.
+				</p>
+			</div>
+		</section>
+		<section data-id="time09">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					For example, in a 1996 peace agreement from Guatemala, the
+					government agreed to revise national legislation to
+					eliminate all forms of discrimination against women, and to
+					give effect to the government commitments deriving from the
+					ratification of the Convention on the Elimination of All
+					Forms of Discrimination against Women.
 				</p>
 			</div>
 		</section>
@@ -643,11 +671,12 @@
 		color: rgb(255, 255, 255);
 		margin: 0px;
 		font-weight: 300;
+		font-size: 16px;
 	}
 
 	#loading_button {
 		font-family: "Montserrat";
-		font-size: 16px;
+		font-size: 14px;
 		font-weight: 400;
 		position: absolute;
 		top: 40%;

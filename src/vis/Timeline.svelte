@@ -1,6 +1,5 @@
 <script>
     import * as d3 from "d3";
-    import { onDestroy } from "svelte";
     import IndividualRectangle from "./IndividualRectangle.svelte";
     import { years } from "../utils";
     import Background from "./BackgroundRectangle.svelte";
@@ -14,16 +13,14 @@
     let rendered_data;
     let background_data;
     let innerWidth, innerHeight, xScale, yScale;
-    const margin = { top: 20, right: 20, bottom: 20, left: 40 };
+    let imageX;
+    let imageSource = "./img/lome.png";
+    let exampleImg;
+    let imageHeight; // Reactive variable for the image height
+    let margin = { top: 20, right: 20, bottom: 20, left: 40 };
 
     $: innerWidth = width - margin.left - margin.right;
     $: innerHeight = height - margin.top - margin.bottom;
-
-    // source for initial image
-    let imageSource = "./img/example_2.png";
-
-    let exampleImg;
-    let imageHeight; // Reactive variable for the image height
 
     // Attach event listener to window resize
     window.addEventListener("resize", updateImageHeight);
@@ -37,239 +34,103 @@
     $: yScale = d3.scaleLinear().domain([0, 100]).range([innerHeight, 0]);
     $: yHeight = d3.scaleLinear().domain([0, 40000]).range([0, innerHeight]);
 
+    function position_calc(pax, innerWidth, filter) {
+        let previousYear = null; // Track the last year seen
+        let index;
+        index = filter === "none" ? 0 : -1;
+
+        let calculated_positions = pax.map((d) => {
+            let yPosition;
+
+            const currentYear = d.Dat.substring(6, 10);
+            // Reset index if the year has changed
+            if (currentYear !== previousYear) {
+                index = filter === "none" ? 0 : -1;
+                previousYear = currentYear;
+            }
+
+            if (filter == "none") {
+                yPosition = yScale(index);
+            } else {
+                yPosition =
+                    d[filter] === "1" ? yScale(++index) : innerHeight + 100;
+            }
+
+            const result = {
+                x: xScale(currentYear) + Math.random() * 2 - 1,
+                y: yPosition + Math.random() * 2 - 1,
+                width: xScale.bandwidth(),
+                height: 3,
+                info: d.Agt,
+            };
+
+            if (filter === "none") index++;
+            return result;
+        });
+        return calculated_positions;
+    }
+
+    let agt_path_year = "1999";
     //initial functions
     $: if (pax) {
-        let previousYear = null; // Track the last year seen
-        let index = 0; // Index that resets for each new year
-
         // background unfilled rectangles
-        background_data = pax.map((d) => {
-            const currentYear = d.Dat.substring(6, 10);
-            // Reset index if the year has changed
-            if (currentYear !== previousYear) {
-                index = 0;
-                previousYear = currentYear;
-            }
-
-            const result = {
-                x: xScale(currentYear) + Math.random() * 2 - 1,
-                y: yScale(index) + Math.random() * 2 - 1,
-                width: xScale.bandwidth(),
-                height: 4,
-                info: d.Agt,
-            };
-
-            index += 1; // Increment index for the next entry in the same year
-            return result;
-        });
-
+        background_data = position_calc(pax, innerWidth, "none");
         // filled rectangles
-        rendered_data = pax.map((d) => {
-            const currentYear = d.Dat.substring(6, 10);
-            // Reset index if the year has changed
-            if (currentYear !== previousYear) {
-                index = 0;
-                previousYear = currentYear;
-            }
-
-            const result = {
-                x: xScale(currentYear) + Math.random() * 2 - 1,
-                y: yScale(index) + Math.random() * 2 - 1,
-                width: xScale.bandwidth(),
-                height: 4,
-                info: d.Agt,
-            };
-
-            index += 1; // Increment index for the next entry in the same year
-            return result;
-        });
+        rendered_data = position_calc(pax, innerWidth, "none");
     }
     //steps
     $: if (step == "1") {
-        //full timeline
-        let previousYear = null; // Track the last year seen
-        let index = 0; // Index that resets for each new year
-        rendered_data = pax.map((d) => {
-            const currentYear = d.Dat.substring(6, 10);
-
-            // Reset index if the year has changed
-            if (currentYear !== previousYear) {
-                index = 0;
-                previousYear = currentYear;
-            }
-
-            const result = {
-                x: xScale(currentYear) + Math.random() * 2 - 1,
-                y: yScale(index) + Math.random() * 2 - 1,
-                width: xScale.bandwidth(),
-                height: 3,
-                info: d.Agt,
-                id: "id" + d.AgtId,
-            };
-
-            index += 1; // Increment index for the next entry in the same year
-            return result;
-        });
         d3.selectAll(".un_resolution").style("visibility", "hidden");
+        // all agreements
+        rendered_data = position_calc(pax, innerWidth, "none");
     } else if (step == "2") {
-        let previousYear = null; // Track the last year seen
-        let index = -1; // Index that changes based on GeWom value
-
-        // background unfilled rectangles
-        background_data = pax.map((d) => {
-            const currentYear = d.Dat.substring(6, 10);
-
-            // Reset index if the year has changed
-            if (currentYear !== previousYear) {
-                index = 0;
-                previousYear = currentYear;
-            }
-
-            const result = {
-                x: xScale(currentYear) + Math.random() * 2 - 1,
-                y: yScale(index) + Math.random() * 2 - 1,
-                width: xScale.bandwidth(),
-                height: 3,
-                info: d.Agt,
-            };
-
-            index += 1; // Increment index for the next entry in the same year
-            return result;
-        });
-
-        // filled rectangles
-        rendered_data = pax.map((d) => {
-            const currentYear = d.Dat.substring(6, 10);
-
-            // Reset index if the year has changed
-            if (currentYear !== previousYear) {
-                index = -1;
-                previousYear = currentYear;
-            }
-
-            // Determine y position based on GeWom value
-            const yPosition =
-                d.GeWom === "1" ? yScale(++index) : innerHeight + 100;
-
-            return {
-                x: xScale(currentYear) + Math.random() * 2 - 1,
-                y: yPosition + Math.random() * 2 - 1,
-                width: xScale.bandwidth(),
-                height: 3,
-                info: d.info,
-                id: "id" + d.AgtId,
-            };
-        });
-
-        // show UN resolution line
         d3.selectAll(".un_resolution").style("visibility", "visible");
+        // gender agreements
+        rendered_data = position_calc(pax, innerWidth, "GeWom");
     } else if (step == "3") {
+        d3.selectAll(".un_resolution").style("visibility", "visible");
+        // gender agreements
+        rendered_data = position_calc(pax, innerWidth, "GeWom");
     } else if (step == "4") {
-        // hide UN resolution line
         d3.selectAll(".un_resolution").style("visibility", "hidden");
-
-        let previousYear = null; // Track the last year seen
-        let index = -1; // Index that changes based on GeWom value
-
-        // filled rectangles, only wggrehab
-        rendered_data = pax.map((d) => {
-            const currentYear = d.Dat.substring(6, 10);
-
-            // Reset index if the year has changed
-            if (currentYear !== previousYear) {
-                index = -1;
-                previousYear = currentYear;
-            }
-
-            // Determine y position based on GeWom value
-            const yPosition =
-                d.WggRehab === "1" ? yScale(++index) : innerHeight + 100;
-
-            return {
-                x: xScale(currentYear) + Math.random() * 2 - 1,
-                y: yPosition + Math.random() * 2 - 1,
-                width: xScale.bandwidth(),
-                height: 3,
-                info: d.info,
-                id: "id" + d.AgtId,
-            };
-        });
         d3.selectAll("#example").style("opacity", 0);
+        // rehabilitation agreements
+        rendered_data = position_calc(pax, innerWidth, "WggRehab");
     } else if (step == "5") {
         d3.selectAll("#example").style("opacity", 1);
+        imageSource = "./img/lome.png";
+        agt_path_year = "1999";
+        // rehabilitation agreements
+        rendered_data = position_calc(pax, innerWidth, "WggRehab");
     } else if (step == "6") {
-        imageSource = "./img/full_agt.png";
-        d3.select("#example").style("opacity", 1);
-        let previousYear = null; // Track the last year seen
-        let index = 0; // Index that changes based on GeWom value
-        rendered_data = pax.map((d) => {
-            const currentYear = d.Dat.substring(6, 10);
-
-            // Reset index if the year has changed
-            if (currentYear !== previousYear) {
-                index = 0;
-                previousYear = currentYear;
-            }
-
-            // Determine y position based on GeWom value
-            const yPosition =
-                d.WggRehab === "1" ? yScale(++index * 3) : innerHeight + 100;
-
-            return {
-                x: xScale(currentYear) + Math.random() * 2 - 1,
-                y: yPosition + Math.random() * 2 - 1,
-                width: xScale.bandwidth(),
-                height: 3,
-                info: d.info,
-                id: "id" + d.AgtId,
-            };
-        });
+        d3.selectAll("#example").style("opacity", 0);
+        // implementation agreements
+        rendered_data = position_calc(pax, innerWidth, "WggImplRole");
     } else if (step == "7") {
-        d3.select("#example").style("opacity", 0);
-        let previousYear = null; // Track the last year seen
-        let index = 0; // Index that changes based on GeWom value
-        rendered_data = pax.map((d) => {
-            const currentYear = d.Dat.substring(6, 10);
-
-            // Reset index if the year has changed
-            if (currentYear !== previousYear) {
-                index = 0;
-                previousYear = currentYear;
-            }
-
-            // Determine y position based on GeWom value
-            const yPosition =
-                d.WggImplRole === "1" ? yScale(++index * 3) : innerHeight + 100;
-            const rect_height = d.WggImplRole === "1" ? 15 : 0;
-
-            return {
-                x: xScale(currentYear) + Math.random() * 2 - 1,
-                y: yPosition + Math.random() * 2 - 1,
-                width: xScale.bandwidth(),
-                height: rect_height,
-                info: d.info,
-                id: "id" + d.AgtId,
-            };
-        });
+        d3.selectAll("#example").style("opacity", 1);
+        imageSource = "./img/colombia.png";
+        agt_path_year = "2016";
+        // implementation agreements
+        rendered_data = position_calc(pax, innerWidth, "WggImplRole");
     } else if (step == "8") {
-        d3.select("#example").style("opacity", 1);
-        imageSource = "./img/example_2.png";
+        d3.selectAll("#example").style("opacity", 0);
+        // human rights agreements
+        rendered_data = position_calc(pax, innerWidth, "WggHR");
+    } else if (step == "9") {
+        imageSource = "./img/guatemala.png";
+        d3.selectAll("#example").style("opacity", 1);
+        agt_path_year = "1996";
     }
-
     function formatMobile(tick) {
         return "'" + tick.toString().slice(-2);
     }
-    let imageX;
-
-    $: console.log(imageX);
-    
 
     // Function to update the height of the image
     function updateImageHeight() {
         if (exampleImg) {
             const rect = exampleImg.getBoundingClientRect();
             imageHeight = rect.height; // Image height
-            imageX = rect.x; // X position
+            imageX = rect.x; // Image x position
         }
     }
 
@@ -278,9 +139,10 @@
         lineEnd = innerHeight - (innerHeight - imageHeight);
     }
 
+    $: console.log(step);
+
     // Call the function on initial load to set the height
     updateImageHeight();
-    
 </script>
 
 {#if rendered_data && pax_timeline}
@@ -347,8 +209,8 @@
                     /> -->
                     <path
                         id="example"
-                        d={`M ${xScale("1999")},${innerHeight - 10} 
-                       C ${xScale("1999")},${innerHeight - 100} 
+                        d={`M ${xScale(agt_path_year)},${innerHeight - 10} 
+                       C ${xScale(agt_path_year)},${innerHeight - 100} 
                          ${imageX - margin.left},${lineEnd + 100} 
                          ${imageX - margin.left},${lineEnd}`}
                         fill="none"
