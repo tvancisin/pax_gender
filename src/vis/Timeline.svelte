@@ -139,8 +139,6 @@
         lineEnd = innerHeight - (innerHeight - imageHeight);
     }
 
-    $: console.log(step);
-
     // Call the function on initial load to set the height
     updateImageHeight();
 </script>

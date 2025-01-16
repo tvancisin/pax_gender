@@ -16,6 +16,7 @@
 	import { centralPointsStore } from "./store";
 	import Timeline from "./vis/Timeline.svelte";
 	import Geography from "./vis/Geography.svelte";
+	import Afghanistan from "./vis/Afghanistan.svelte";
 
 	let mapLoaded = false;
 
@@ -122,6 +123,17 @@
 			},
 			map04: () => {
 				step = "map_four";
+			},
+		},
+		afgh: {
+			afgh01: () => {
+				step = "afgh01";
+			},
+			afgh02: () => {
+				step = "afgh02";
+			},
+			afgh03: () => {
+				step = "afgh03";
 			},
 		},
 	};
@@ -667,9 +679,53 @@
 
 <Filler short={false} wide={true} center={true} shadow={true}></Filler>
 
-<!-- <Filler short={true} wide={true} center={true} shadow={true}></Filler>
+<!-- TIME -->
+<Scroller
+	{threshold}
+	bind:id={id["afgh"]}
+	splitscreen={false}
+	shadow={false}
+>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				<div class="afgh">
+					<Afghanistan {pax} {pax_timeline} {step} {afghanistan} />
+				</div>
+			</div>
+		</figure>
+	</div>
 
-<Filler short={true} wide={true} center={true} shadow={true}>
+	<div slot="foreground">
+		<section data-id="afgh01">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Each line represents a peace agreements listed on PA-X that
+					was reached between 1990 and 2023.
+				</p>
+			</div>
+		</section>
+		<section data-id="afgh02">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					PA-X Gender agreements over time.
+				</p>
+			</div>
+		</section>
+		<section data-id="afgh03">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					It's crucial to emphasize that gender references can differ
+					hugely in terms of their substantive quality and
+					specificity, ranging from detailed commitments to rhetorical
+					references to 'women'.
+				</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
+
+<!-- <Filler short={true} wide={true} center={true} shadow={true}>
 	<p class="text-big">
 		How do we gather the agreements? How are they processed? [where to
 		include provenance?<br /> beginning/end/between sections?]
@@ -752,7 +808,8 @@
 	.rect,
 	.time,
 	.map,
-	.stage {
+	.stage,
+	.afgh {
 		margin-top: 40px;
 		width: calc(100% - 5px);
 	}
