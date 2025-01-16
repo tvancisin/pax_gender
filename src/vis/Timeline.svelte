@@ -199,14 +199,6 @@
                 />
 
                 {#if lineEnd}
-                    <!-- <line
-                        class="lome_agt_line"
-                        x1={xScale("1999")}
-                        y1={innerHeight - 10}
-                        x2={xScale("1990")}
-                        y2={lineEnd}
-                        stroke="white"
-                    /> -->
                     <path
                         id="example"
                         d={`M ${xScale(agt_path_year)},${innerHeight - 10} 

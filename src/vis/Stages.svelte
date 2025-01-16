@@ -1,7 +1,6 @@
 <script>
     import * as d3 from "d3";
     import IndividualRectangle from "./IndividualRectangle.svelte";
-    import { LayerCake, Svg } from "layercake";
     import { years, pax_stages_grid, pax_stages_filter_grid } from "../utils";
     import Background from "./BackgroundRectangle.svelte";
 
@@ -10,6 +9,10 @@
     export let step;
 
     let width = 400;
+    let imageSource = "./img/africa.png";
+    let exampleImg;
+    let imageX;
+    let imageHeight; // Reactive variable for the image height
     let height = 400;
     let rendered_data;
     let background_data;
@@ -59,10 +62,27 @@
             innerWidth,
             "GeWom",
         );
+        d3.selectAll("#example_stage").style("opacity", 0);
+    } else if (step == "stage03") {
+        d3.selectAll("#example_stage").style("opacity", 1);
     }
 
     function formatMobile(tick) {
         return "'" + tick.toString().slice(-2);
+    }
+
+    // Function to update the height of the image
+    function updateImageHeight() {
+        if (exampleImg) {
+            const rect = exampleImg.getBoundingClientRect();
+            imageHeight = rect.height; // Image height
+            imageX = rect.x; // Image x position
+        }
+    }
+
+    let lineEnd;
+    $: if (innerHeight) {
+        lineEnd = innerHeight - (innerHeight - imageHeight);
     }
 
     // $: console.log("rendered data: ", rendered_data);
@@ -70,47 +90,67 @@
 
 {#if rendered_data}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
-        <LayerCake>
-            <Svg>
-                <g
-                    class="timeline"
-                    transform="translate({margin.left}, {margin.top})"
-                >
-                    {#each stages as d, i}
-                        <text
-                            x={column_width * i + column_width/2}
-                            y={innerHeight + 14}
-                            text-anchor="middle"
-                            font-family="Montserrat"
-                            fill="white"
-                            font-size="14px">{d}</text
-                        >
-                    {/each}
-                    {#each background_data as d, i}
-                        <Background
-                            {i}
-                            x={d.x}
-                            y={d.y}
-                            width={d.width}
-                            height={d.height}
-                            info={d.info}
-                        />
-                    {/each}
+        <svg {width} {height}>
+            <g
+                class="timeline"
+                transform="translate({margin.left}, {margin.top})"
+            >
+                {#each stages as d, i}
+                    <text
+                        x={column_width * i + column_width / 2}
+                        y={innerHeight + 14}
+                        text-anchor="middle"
+                        font-family="Montserrat"
+                        fill="white"
+                        font-size="14px">{d}</text
+                    >
+                {/each}
+                {#each background_data as d, i}
+                    <Background
+                        {i}
+                        x={d.x}
+                        y={d.y}
+                        width={d.width}
+                        height={d.height}
+                        info={d.info}
+                    />
+                {/each}
 
-                    {#each rendered_data as d, i}
-                        <IndividualRectangle
-                            {i}
-                            x={d.x}
-                            y={d.y}
-                            width={d.width}
-                            height={d.height}
-                            info={d.info}
-                            id={d.id}
-                        />
-                    {/each}
-                </g>
-            </Svg>
-        </LayerCake>
+                {#each rendered_data as d, i}
+                    <IndividualRectangle
+                        {i}
+                        x={d.x}
+                        y={d.y}
+                        width={d.width}
+                        height={d.height}
+                        info={d.info}
+                        id={d.id}
+                    />
+                {/each}
+            </g>
+            {#if lineEnd}
+                <path
+                    id="example_stage"
+                    d={`M ${column_width*2},${innerHeight - 30} 
+                       C ${column_width*2},${innerHeight - 100} 
+                         ${imageX },${lineEnd + 100} 
+                         ${imageX},${lineEnd}`}
+                    fill="none"
+                    stroke="white"
+                    stroke-width="1"
+                    opacity="0"
+                />
+            {/if}
+        </svg>
+        <div id="example_stage">
+            <img
+                class="example_img"
+                src={imageSource}
+                alt="agt"
+                bind:this={exampleImg}
+                on:load={updateImageHeight}
+            />
+        </div>
     </div>
 {/if}
 
@@ -118,5 +158,25 @@
     .wrapper {
         height: 90vh;
         position: relative;
+    }
+    #example_stage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%; /* Full width of the parent/container */
+        height: 100%; /* Full height of the parent/container if needed */
+        display: flex; /* Enables flexbox for centering */
+        justify-content: center;
+        overflow: hidden; /* Prevents content overflow */
+        opacity: 0;
+        transition: 0.5s ease;
+    }
+
+    #example_stage img {
+        position: absolute;
+        top: 0px;
+        max-width: 80%; /* Ensures the image scales within the width of its container */
+        height: auto; /* Maintains the aspect ratio of the image */
+        display: block; /* Removes extra space below the image (from inline elements) */
     }
 </style>

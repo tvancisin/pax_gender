@@ -282,10 +282,16 @@
 <ONSHeader filled={false} center={false} />
 
 <Header bgfixed={false} center={true} short={false}>
-	<h1>PA-X Gender</h1>
+	<img
+		class="peace_logo"
+		src="./img/gen_logo.svg"
+		alt="peacerep logo"
+		style="width: 50%;"
+	/>
+	<!-- <h1>PA-X Gender</h1> -->
 	<p>
 		This scrollytelling visualization uses PA-X database to show how and to
-		what extent women, girls and gender are taken into consideration in
+		what extent <br /> women, girls and gender are taken into consideration in
 		peace agreements around the world.
 	</p>
 </Header>
@@ -519,9 +525,42 @@
 	</div>
 </Scroller>
 
-<Filler short={true} wide={true} center={true} shadow={false}>
-	<p class="text-big">Peace Process Stages</p>
+<Filler short={false} wide={true} center={true} shadow={false}>
+	<p>When does gender get discussed in peace processes?</p>
 </Filler>
+
+<Filler short={false} wide={true} center={true} shadow={true}>
+	<img
+		src="./img/messy_1.png"
+		alt="peace agreement example"
+		style="width: 100%;"
+	/>
+	<p>
+		If peace negotiations went smoothly from one stage to the next, they
+		would be represented by this blue line going steadily up.
+	</p>
+</Filler>
+
+<Filler short={false} wide={true} center={true} shadow={true}>
+	<img
+		src="./img/messy_2.png"
+		alt="peace agreement example"
+		style="width: 100%;"
+	/>
+	<p>
+		Instead, peace processes frequently involve a series of back-and-forth
+		movements, reflecting the reality that progress is rarely uniform or
+		predictable.
+	</p>
+</Filler>
+
+<!-- <Filler short={false} wide={true} center={true} shadow={true}>
+	<p>
+		Dividing all PA-X agreements into different peace process stages shows
+		the predominance of Pre-Negotiation, Ceasefire, and Substantive
+		(Partial) agreements.
+	</p>
+</Filler> -->
 
 <!-- STAGES -->
 <Scroller {threshold} bind:id={id["stage"]} splitscreen={false} shadow={false}>
@@ -550,15 +589,27 @@
 		<section data-id="stage02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					The agreement stages division is rather different when only
-					looking at PA-X Gender agreements
+					A common perception is that dealing with 'gender' must wait
+					until comprehensive stages of negotiations, so that
+					pre-negotiation or ceasefire talks can focus on more
+					'urgent' issues.
+				</p>
+			</div>
+		</section>
+		<section data-id="stage03">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					For example, the 2014 Brazzaville Agreement on Cessation of
+					Hostilities in Central African Republic included sexual
+					violence as an act that parties would cease under the
+					agreement.
 				</p>
 			</div>
 		</section>
 	</div>
 </Scroller>
 
-<Filler short={true} wide={true} center={true} shadow={false}>
+<Filler short={false} wide={true} center={true} shadow={false}>
 	<p class="text-big">Geography</p>
 </Filler>
 
@@ -614,22 +665,23 @@
 	</div>
 </Scroller>
 
-<Filler short={true} wide={true} center={true} shadow={true}></Filler>
-<Filler short={true} wide={true} center={true} shadow={true}></Filler>
+<Filler short={false} wide={true} center={true} shadow={true}></Filler>
+
+<!-- <Filler short={true} wide={true} center={true} shadow={true}></Filler>
 
 <Filler short={true} wide={true} center={true} shadow={true}>
 	<p class="text-big">
 		How do we gather the agreements? How are they processed? [where to
 		include provenance?<br /> beginning/end/between sections?]
 	</p>
-</Filler>
+</Filler> -->
 
-<Scroller {threshold} bind:id={id["prov"]} splitscreen={false} shadow={true}>
+<!-- <Scroller {threshold} bind:id={id["prov"]} splitscreen={false} shadow={true}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
 				<div class="close_read">
-					<!-- <img id="agreement" alt="notes" src="./img/sources.jpg" /> -->
+					<img id="agreement" alt="notes" src="./img/sources.jpg" />
 				</div>
 			</div>
 		</figure>
@@ -645,12 +697,12 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					translation/transcription/coding/data entry
-					<!-- <img id="agreement" alt="notes" src="./img/diagram.png" /> -->
+					<img id="agreement" alt="notes" src="./img/diagram.png" />
 				</p>
 			</div>
 		</section>
 	</div>
-</Scroller>
+</Scroller> -->
 
 <style>
 	#loading_screen {
