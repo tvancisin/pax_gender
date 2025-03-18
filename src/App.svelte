@@ -20,6 +20,12 @@
 
 	let mapLoaded = false;
 
+	// SCROLLER REFS
+	let scrollerRefRectangles;
+	let scrollerRefTime;
+	let scrollerRefStages;
+	let scrollerRefGeo;
+
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
 	let theme = "dark";
 	setContext("theme", theme);
@@ -38,6 +44,127 @@
 		}
 		window.scrollTo({ top: 0, behavior: "auto" });
 		idPrev = { ...id };
+
+		// indicator circle and lines
+		const circle = document.querySelector(".circle");
+		const indicator = document.querySelector("#indicator");
+		const lineRect = document.querySelector(".scroll-line-rect");
+		const lineTime = document.querySelector(".scroll-line-time");
+		const lineStage = document.querySelector(".scroll-line-stage");
+		const lineGeo = document.querySelector(".scroll-line-geo");
+
+		if (!circle || !indicator) return;
+
+		const setFixedLinePosition = () => {
+			let docHeight =
+				document.documentElement.scrollHeight - window.innerHeight;
+
+			if (docHeight <= 0) {
+				requestAnimationFrame(setFixedLinePosition);
+				return;
+			}
+
+			const indicatorHeight = indicator.clientHeight;
+
+			// Position lineRect
+			if (scrollerRefRectangles instanceof HTMLElement) {
+				const scrollerRect =
+					scrollerRefRectangles.getBoundingClientRect();
+				const scrollerTop = scrollerRect.top + window.scrollY;
+				const scrollerPercent = scrollerTop / docHeight;
+				const linePositionRectangles =
+					scrollerPercent * indicatorHeight;
+				lineRect.style.top = `${linePositionRectangles}px`;
+
+				// Add click listener to lineRect
+				lineRect.addEventListener("click", () => {
+					scrollerRefRectangles.scrollIntoView({
+						behavior: "smooth",
+						block: "start",
+					});
+				});
+			}
+
+			// Position lineTime
+			if (scrollerRefTime instanceof HTMLElement) {
+				const scrollerRectTime =
+					scrollerRefTime.getBoundingClientRect();
+				const scrollerTopTime = scrollerRectTime.top + window.scrollY;
+				const scrollerPercentTime = scrollerTopTime / docHeight;
+				const linePositionTime = scrollerPercentTime * indicatorHeight;
+				lineTime.style.top = `${linePositionTime}px`;
+
+				// Add click listener to lineTime
+				lineTime.addEventListener("click", () => {
+					scrollerRefTime.scrollIntoView({
+						behavior: "smooth",
+						block: "start",
+					});
+				});
+			}
+
+			// Position lineStage
+			if (scrollerRefStages instanceof HTMLElement) {
+				const scrollerRectStage =
+					scrollerRefStages.getBoundingClientRect();
+				const scrollerTopStage = scrollerRectStage.top + window.scrollY;
+				const scrollerPercentStage = scrollerTopStage / docHeight;
+				const linePositionStage =
+					scrollerPercentStage * indicatorHeight;
+				lineStage.style.top = `${linePositionStage}px`;
+
+				// Add click listener to lineStage
+				lineStage.addEventListener("click", () => {
+					scrollerRefStages.scrollIntoView({
+						behavior: "smooth",
+						block: "start",
+					});
+				});
+			}
+
+			// Position lineGeo
+			if (scrollerRefGeo instanceof HTMLElement) {
+				const scrollerRectGeo = scrollerRefGeo.getBoundingClientRect();
+				const scrollerTopGeo = scrollerRectGeo.top + window.scrollY;
+				const scrollerPercentGeo = scrollerTopGeo / docHeight;
+				const linePositionGeo = scrollerPercentGeo * indicatorHeight;
+				lineGeo.style.top = `${linePositionGeo}px`;
+
+				// Add click listener to lineGeo
+				lineGeo.addEventListener("click", () => {
+					scrollerRefGeo.scrollIntoView({
+						behavior: "smooth",
+						block: "start",
+					});
+				});
+			}
+		};
+
+		const updateCircle = () => {
+			const scrollTop = window.scrollY;
+			let docHeight =
+				document.documentElement.scrollHeight - window.innerHeight;
+
+			if (docHeight <= 0) return;
+
+			const indicatorHeight = indicator.clientHeight;
+			const circleMaxMove = indicatorHeight - circle.clientHeight;
+			const scrollPercent = scrollTop / docHeight;
+
+			// Move the scrolling circle dynamically
+			circle.style.top = `${scrollPercent * circleMaxMove}px`;
+		};
+
+		// Set the fixed line position once
+		requestAnimationFrame(setFixedLinePosition);
+
+		// Keep updating the circle, but not the line
+		window.addEventListener("scroll", updateCircle);
+
+		// Update the line positions on window resize
+		window.addEventListener("resize", () => {
+			requestAnimationFrame(setFixedLinePosition); // Recalculate line positions after resize
+		});
 	});
 
 	// STEPS
@@ -279,6 +406,14 @@
 	}
 </script>
 
+<div id="indicator">
+	<div class="circle"></div>
+	<div class="scroll-line-rect"></div>
+	<div class="scroll-line-time"></div>
+	<div class="scroll-line-stage"></div>
+	<div class="scroll-line-geo"></div>
+</div>
+
 <div
 	role="presentation"
 	id="loading_screen"
@@ -296,15 +431,15 @@
 <Header bgfixed={false} center={true} short={false}>
 	<img
 		class="peace_logo"
-		src="./img/gen_logo.svg"
+		src="./img/pax_gender.svg"
 		alt="peacerep logo"
-		style="width: 50%;"
+		style="width: 45%;"
 	/>
-	<!-- <h1>PA-X Gender</h1> -->
+	<h1>Gender</h1>
 	<p>
-		This scrollytelling visualization uses PA-X database to show how and to
-		what extent <br /> women, girls and gender are taken into consideration in
-		peace agreements around the world.
+		This visualization uses PA-X database to show how and to what extent
+		women, girls and gender are taken into consideration in peace agreements
+		around the world.
 	</p>
 </Header>
 
@@ -318,9 +453,8 @@
 	/>
 	<p>
 		A <strong>peace agreement</strong> is a document produced after discussion
-		with conflict protagonists and mutually agreed to by some or all of them,
-		addressing conflict with a view to ending it. Below is a ceasefire agreement
-		from 1990 Nicaragua.
+		with conflict protagonists and mutually agreed to by them, addressing conflict
+		with a view to ending it. Above is a ceasefire agreement from 1990 Nicaragua.
 	</p>
 </Filler>
 
@@ -331,7 +465,7 @@
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="rect">
+				<div class="rect" bind:this={scrollerRefRectangles}>
 					<Rectangles {pax} {step} />
 				</div>
 			</div>
@@ -436,7 +570,7 @@
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="time">
+				<div class="time" bind:this={scrollerRefTime}>
 					<Timeline {pax} {pax_timeline} {step} />
 				</div>
 			</div>
@@ -462,10 +596,10 @@
 		<section data-id="time03">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					It's crucial to emphasize that gender references can differ
-					hugely in terms of their substantive quality and
-					specificity, ranging from detailed commitments to rhetorical
-					references to 'women'.
+					Gender references differ hugely in terms of their
+					substantive quality and specificity, ranging from detailed
+					commitments to rhetorical references to 'women'. [make them
+					different opacity]
 				</p>
 			</div>
 		</section>
@@ -579,7 +713,7 @@
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="stage">
+				<div class="stage" bind:this={scrollerRefStages}>
 					<Stages {pax_stages} {pax} {step} />
 				</div>
 			</div>
@@ -630,7 +764,7 @@
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="map">
+				<div class="map" bind:this={scrollerRefGeo}>
 					<Geography
 						{mygeojson}
 						{central_points}
@@ -680,12 +814,7 @@
 <Filler short={false} wide={true} center={true} shadow={true}></Filler>
 
 <!-- TIME -->
-<Scroller
-	{threshold}
-	bind:id={id["afgh"]}
-	splitscreen={false}
-	shadow={false}
->
+<Scroller {threshold} bind:id={id["afgh"]} splitscreen={false} shadow={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
@@ -715,10 +844,9 @@
 		<section data-id="afgh03">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					It's crucial to emphasize that gender references can differ
-					hugely in terms of their substantive quality and
-					specificity, ranging from detailed commitments to rhetorical
-					references to 'women'.
+					Gender references can differ hugely in terms of their
+					substantive quality and specificity, ranging from detailed
+					commitments to rhetorical references to 'women'.
 				</p>
 			</div>
 		</section>
@@ -761,6 +889,46 @@
 </Scroller> -->
 
 <style>
+	#indicator {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 20px;
+		height: 100%;
+		background-color: red;
+		z-index: 100;
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+	}
+
+	.circle {
+		width: 15px;
+		height: 15px;
+		background-color: white;
+		border-radius: 50%;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		transition: top 0.1s linear;
+	}
+
+	:global(
+			.scroll-line-rect,
+			.scroll-line-stage,
+			.scroll-line-time,
+			.scroll-line-geo
+		) {
+		position: absolute;
+		left: 50%;
+		width: 100%;
+		height: 2px;
+		background-color: yellow;
+		transform: translateX(-50%);
+		cursor: pointer;
+	}
+
 	#loading_screen {
 		width: 100%;
 		height: 100%;
