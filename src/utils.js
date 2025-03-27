@@ -426,6 +426,7 @@ export function pax_stages_filter_grid(
   return rendered_data;
 }
 
+
 // //full grid but with filter
 // export function full_grid_hide_non_gender(pax, innerHeight, innerWidth, initialPaxCount, gap) {
 //   // Dynamically calculate the number of columns based on the width and the initial pax count

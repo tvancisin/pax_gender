@@ -20,8 +20,10 @@
 
 	let mapLoaded = false;
 
-	// SCROLLER REFS
+	// Scroll references
+	let scrollerRefAgreement;
 	let scrollerRefRectangles;
+	let scrollerRefReason;
 	let scrollerRefTime;
 	let scrollerRefStages;
 	let scrollerRefGeo;
@@ -36,7 +38,35 @@
 	let id = {}; // Object to hold visible section IDs of Scroller components
 	let idPrev = {}; // Object to keep track of previous IDs, to compare for changes
 
-	// SCROLL TO TOP ON MOUNT
+	// Custom smooth scroll function with slower speed
+	function smoothScrollTo(targetPosition, duration = 3000) {
+		const startPosition = window.scrollY;
+		const distance = targetPosition - startPosition;
+		let startTime = null;
+
+		function animationStep(currentTime) {
+			if (!startTime) startTime = currentTime;
+			const timeElapsed = currentTime - startTime;
+			const progress = Math.min(timeElapsed / duration, 1); // Ensures animation stops at 1
+
+			window.scrollTo(
+				0,
+				startPosition + distance * easeInOutQuad(progress),
+			);
+
+			if (timeElapsed < duration) {
+				requestAnimationFrame(animationStep);
+			}
+		}
+
+		function easeInOutQuad(t) {
+			return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; // Smooth easing function
+		}
+
+		requestAnimationFrame(animationStep);
+	}
+
+	// INIT functions
 	onMount(() => {
 		// scroll to top on loading the page
 		if ("scrollRestoration" in history) {
@@ -48,7 +78,9 @@
 		// indicator circle and lines
 		const circle = document.querySelector(".circle");
 		const indicator = document.querySelector("#indicator");
+		const lineAgmt = document.querySelector(".scroll-line-agmt");
 		const lineRect = document.querySelector(".scroll-line-rect");
+		const lineReason = document.querySelector(".scroll-line-reason");
 		const lineTime = document.querySelector(".scroll-line-time");
 		const lineStage = document.querySelector(".scroll-line-stage");
 		const lineGeo = document.querySelector(".scroll-line-geo");
@@ -67,21 +99,48 @@
 			const indicatorHeight = indicator.clientHeight;
 
 			// Position lineRect
+			if (scrollerRefAgreement instanceof HTMLElement) {
+				let scrollerAgmt = scrollerRefAgreement.getBoundingClientRect();
+				let scrollerTop = scrollerAgmt.top + window.scrollY;
+				let scrollerPercent = scrollerTop / docHeight;
+				let linePositionAgreement = scrollerPercent * indicatorHeight;
+				lineAgmt.style.top = `${linePositionAgreement}px`;
+
+				// Add click listener to lineRect
+				lineAgmt.addEventListener("click", () => {
+					smoothScrollTo(scrollerTop, 2000); // 3 seconds slow scroll
+				});
+			}
+
+			// Position lineRect
 			if (scrollerRefRectangles instanceof HTMLElement) {
-				const scrollerRect =
+				let scrollerRect =
 					scrollerRefRectangles.getBoundingClientRect();
-				const scrollerTop = scrollerRect.top + window.scrollY;
-				const scrollerPercent = scrollerTop / docHeight;
-				const linePositionRectangles =
-					scrollerPercent * indicatorHeight;
+				let scrollerTop = scrollerRect.top + window.scrollY;
+				let scrollerPercent = scrollerTop / docHeight;
+				let linePositionRectangles = scrollerPercent * indicatorHeight;
 				lineRect.style.top = `${linePositionRectangles}px`;
 
 				// Add click listener to lineRect
 				lineRect.addEventListener("click", () => {
-					scrollerRefRectangles.scrollIntoView({
-						behavior: "smooth",
-						block: "start",
-					});
+					smoothScrollTo(scrollerTop, 2000); // 3 seconds slow scroll
+				});
+			}
+
+			// Position lineReason
+			if (scrollerRefReason instanceof HTMLElement) {
+				let scrollerReason = scrollerRefReason.getBoundingClientRect();
+				console.log("here");
+
+				let scrollerTopReason = scrollerReason.top + window.scrollY;
+				let scrollerPercentReason = scrollerTopReason / docHeight;
+				let linePositionReason =
+					scrollerPercentReason * indicatorHeight;
+				lineReason.style.top = `${linePositionReason}px`;
+
+				// Add click listener to lineReason
+				lineReason.addEventListener("click", () => {
+					smoothScrollTo(scrollerTopReason, 2000); // 3 seconds slow scroll
 				});
 			}
 
@@ -96,10 +155,7 @@
 
 				// Add click listener to lineTime
 				lineTime.addEventListener("click", () => {
-					scrollerRefTime.scrollIntoView({
-						behavior: "smooth",
-						block: "start",
-					});
+					smoothScrollTo(scrollerTopTime, 2000); // 3 seconds slow scroll
 				});
 			}
 
@@ -115,10 +171,7 @@
 
 				// Add click listener to lineStage
 				lineStage.addEventListener("click", () => {
-					scrollerRefStages.scrollIntoView({
-						behavior: "smooth",
-						block: "start",
-					});
+					smoothScrollTo(scrollerTopStage, 3000); // 3 seconds slow scroll
 				});
 			}
 
@@ -132,10 +185,7 @@
 
 				// Add click listener to lineGeo
 				lineGeo.addEventListener("click", () => {
-					scrollerRefGeo.scrollIntoView({
-						behavior: "smooth",
-						block: "start",
-					});
+					smoothScrollTo(scrollerTopGeo, 3000); // 3 seconds slow scroll
 				});
 			}
 		};
@@ -391,10 +441,6 @@
 
 	//clicking on screen or button after map is loaded
 	function handleScreenClick(event) {
-		// Recalculate width and height
-		// width = window.innerWidth;
-		// height = window.innerHeight;
-
 		if (mapLoaded) {
 			document.getElementById("loading_screen").style.visibility =
 				"hidden";
@@ -408,10 +454,13 @@
 
 <div id="indicator">
 	<div class="circle"></div>
-	<div class="scroll-line-rect"></div>
-	<div class="scroll-line-time"></div>
-	<div class="scroll-line-stage"></div>
-	<div class="scroll-line-geo"></div>
+	<div class="line"></div>
+	<div class="scroll-line-agmt"><img src="./img/agmt.png" alt="rect" /></div>
+	<div class="scroll-line-rect"><img src="./img/recs.png" alt="rect" /></div>
+	<!-- <div class="scroll-line-reason"><img src="./img/fem.png" alt="rect" /></div> -->
+	<div class="scroll-line-time"><img src="./img/line.png" alt="rect" /></div>
+	<div class="scroll-line-stage"><img src="./img/bar.png" alt="rect" /></div>
+	<div class="scroll-line-geo"><img src="./img/globe.png" alt="rect" /></div>
 </div>
 
 <div
@@ -436,7 +485,7 @@
 		style="width: 45%;"
 	/>
 	<h1>Gender</h1>
-	<p>
+	<p style="margin: 20px">
 		This visualization uses PA-X database to show how and to what extent
 		women, girls and gender are taken into consideration in peace agreements
 		around the world.
@@ -445,20 +494,82 @@
 
 <Divider />
 
-<Filler short={true} wide={true} center={true} shadow={true}>
+<div class="filler" bind:this={scrollerRefAgreement}>
+	<p>
+		A <strong>peace agreement</strong> is a document produced after discussion
+		with conflict protagonists and mutually agreed to by them, addressing conflict
+		with a view to ending it. Below is a ceasefire agreement from 1990 Nicaragua.
+	</p>
+</div>
+
+<div class="filler">
 	<img
 		src="./img/toncontin.png"
 		alt="peace agreement example"
 		style="width: 100%;"
 	/>
+</div>
+
+<Filler short={false} wide={true} center={true} shadow={false}>
 	<p>
-		A <strong>peace agreement</strong> is a document produced after discussion
-		with conflict protagonists and mutually agreed to by them, addressing conflict
-		with a view to ending it. Above is a ceasefire agreement from 1990 Nicaragua.
+		PA-X contains 2055 peace agreements signed from 1990 and the map below
+		shows where in the world these agreements have been signed.
 	</p>
 </Filler>
 
-<Divider />
+<!-- Map -->
+<Scroller {threshold} bind:id={id["map"]} splitscreen={false} shadow={false}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				<div class="map" bind:this={scrollerRefGeo}>
+					<Geography
+						{mygeojson}
+						{central_points}
+						{pax}
+						{pax_timeline}
+						{pax_gender}
+						{step}
+						on:mapLoaded={handleMapLoaded}
+					/>
+				</div>
+			</div>
+		</figure>
+	</div>
+
+	<div slot="foreground">
+		<section data-id="map01">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					The brighter the colour, the more signed agreements.
+				</p>
+			</div>
+		</section>
+		<section data-id="map02">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Countries with at least 2 signed agreements containing
+					references to gender.
+				</p>
+			</div>
+		</section>
+		<!-- <section data-id="map03">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Let's have a closer look at Afghanistan.
+				</p>
+			</div>
+		</section> -->
+	</div>
+</Scroller>
+
+<div class="filler">
+	<p>
+		To get a better idea about how much is gender taken into consideration
+		in peace agreements, below is a visualization of all peace agreements
+		represented as rectangles.
+	</p>
+</div>
 
 <!-- RECTANGLES -->
 <Scroller {threshold} bind:id={id["rect"]} splitscreen={false} shadow={false}>
@@ -495,9 +606,11 @@
 
 <Divider />
 
-<Filler short={false} wide={true} center={true} shadow={false}>
-	<p>Why should peace agreements incorporate a gender perspective?</p>
-</Filler>
+<!-- <div class="filler" bind:this={scrollerRefReason}>
+	<p style="margin: 20px">
+		Why should peace agreements incorporate a gender perspective?
+	</p>
+</div>
 
 <Filler short={true} wide={true} center={true} shadow={false}>
 	<video
@@ -512,168 +625,19 @@
 			srclang="en"
 			label="english_captions"
 		/>
-
 		Your browser does not support the video tag.
 	</video>
-</Filler>
+</Filler> -->
 
-<Filler short={false} wide={true} center={true} shadow={false}>
-	<p>
-		In 2000, the United Nations Security Council passed Resolution 1325 on
-		Women, Peace, and Security, calling on all actors involved in
-		negotiating and implementing peace agreements to adopt a gender
-		perspective, including:
+
+
+<div class="filler" bind:this={scrollerRefStages}>
+	<p style="margin: 20px">
+		There are different stages of peace processes, from pre-negotiation to
+		implementation. If peace negotiations went smoothly from one stage to
+		the next, the process would look like this:
 	</p>
-	<div id="icons">
-		<div class="icon-item">
-			<img
-				src="./img/fir.svg"
-				alt="peace agreement example"
-				style="height: 100px;"
-			/>
-			<p style="text-align: left; font-size: 14px">
-				Responding to the special needs of women and girls during
-				repatriation, resettlement, rehabilitation, reintegration and
-				post-conflict reconstruction
-			</p>
-		</div>
-		<div class="icon-item">
-			<img
-				src="./img/sec.svg"
-				alt="peace agreement example"
-				style="height: 100px;"
-			/>
-			<p style="text-align: left; font-size: 14px">
-				Supporting local women’s and indigenous initiatives for conflict
-				resolution, and involving women in all implementation mechanisms
-			</p>
-		</div>
-		<div class="icon-item">
-			<img
-				src="./img/thi.svg"
-				alt="peace agreement example"
-				style="height: 100px;"
-			/>
-			<p style="text-align: left; font-size: 14px">
-				Ensuring the protection of human rights of women and girls,
-				particularly relating to the constitution, the electoral system,
-				the police and the judiciary
-			</p>
-		</div>
-	</div>
-</Filler>
-
-<Divider />
-
-<!-- TIME -->
-<Scroller {threshold} bind:id={id["time"]} splitscreen={false} shadow={false}>
-	<div slot="background">
-		<figure>
-			<div class="col-wide height-full">
-				<div class="time" bind:this={scrollerRefTime}>
-					<Timeline {pax} {pax_timeline} {step} />
-				</div>
-			</div>
-		</figure>
-	</div>
-
-	<div slot="foreground">
-		<section data-id="time01">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Each line represents a peace agreements listed on PA-X that
-					was reached between 1990 and 2023.
-				</p>
-			</div>
-		</section>
-		<section data-id="time02">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					PA-X Gender agreements over time.
-				</p>
-			</div>
-		</section>
-		<section data-id="time03">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Gender references differ hugely in terms of their
-					substantive quality and specificity, ranging from detailed
-					commitments to rhetorical references to 'women'. [make them
-					different opacity]
-				</p>
-			</div>
-		</section>
-		<section data-id="time04">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					The highlighted agreements include references to the special
-					needs of women and girls during rehabilitation and
-					reconstruction.
-				</p>
-			</div>
-		</section>
-		<section data-id="time05">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					For example, the Lome Agreement for Sierra Leone in 1999
-					acknowledged women's victimization during the war, and
-					stated that 'special attention shall be accorded to their
-					needs and potentials in formulating and implementing
-					national rehabilitation, reconstruction and development
-					programmes, to enable them to play a central role in the
-					moral, social and physical reconstruction of Sierra Leone.'
-				</p>
-			</div>
-		</section>
-		<section data-id="time06">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Turning to involving women in all implementation mechanisms,
-					these peace agreements included references to women playing
-					a role in implementing the agreement.
-				</p>
-			</div>
-		</section>
-		<section data-id="time07">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					For example, the 2016 Final Agreement between the Colombian
-					Government and the FARC set up a special forum comprising
-					representatives from 6 national and regional Colombian
-					women's organisations, to work with the implementation
-					commission on monitoring and guaranteeing the rights of
-					women in the implementation of the peace agreement.
-				</p>
-			</div>
-		</section>
-		<section data-id="time08">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Turning to the protection of human rights of women and
-					girls, these peace agreements include references to
-					international human rights laws relating to women and
-					gender, including specific human rights standards.
-				</p>
-			</div>
-		</section>
-		<section data-id="time09">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					For example, in a 1996 peace agreement from Guatemala, the
-					government agreed to revise national legislation to
-					eliminate all forms of discrimination against women, and to
-					give effect to the government commitments deriving from the
-					ratification of the Convention on the Elimination of All
-					Forms of Discrimination against Women.
-				</p>
-			</div>
-		</section>
-	</div>
-</Scroller>
-
-<Filler short={false} wide={true} center={true} shadow={false}>
-	<p>When does gender get discussed in peace processes?</p>
-</Filler>
+</div>
 
 <Filler short={false} wide={true} center={true} shadow={true}>
 	<img
@@ -681,11 +645,15 @@
 		alt="peace agreement example"
 		style="width: 100%;"
 	/>
-	<p>
-		If peace negotiations went smoothly from one stage to the next, they
-		would be represented by this blue line going steadily up.
-	</p>
 </Filler>
+
+<div class="filler">
+	<p style="margin: 20px">
+		Instead, peace processes frequently involve a series of back-and-forth
+		movements, reflecting the reality that progress is rarely uniform or
+		predictable.
+	</p>
+</div>
 
 <Filler short={false} wide={true} center={true} shadow={true}>
 	<img
@@ -693,27 +661,20 @@
 		alt="peace agreement example"
 		style="width: 100%;"
 	/>
-	<p>
-		Instead, peace processes frequently involve a series of back-and-forth
-		movements, reflecting the reality that progress is rarely uniform or
-		predictable.
-	</p>
 </Filler>
 
-<!-- <Filler short={false} wide={true} center={true} shadow={true}>
-	<p>
-		Dividing all PA-X agreements into different peace process stages shows
-		the predominance of Pre-Negotiation, Ceasefire, and Substantive
-		(Partial) agreements.
+<div class="filler">
+	<p style="margin: 20px">
+		At which stage of peace negotiations does gender get discussed?
 	</p>
-</Filler> -->
+</div>
 
 <!-- STAGES -->
 <Scroller {threshold} bind:id={id["stage"]} splitscreen={false} shadow={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="stage" bind:this={scrollerRefStages}>
+				<div class="stage">
 					<Stages {pax_stages} {pax} {step} />
 				</div>
 			</div>
@@ -755,66 +716,174 @@
 	</div>
 </Scroller>
 
+
+<Divider />
+
 <Filler short={false} wide={true} center={true} shadow={false}>
-	<p class="text-big">Geography</p>
+	<p>
+		In 2000, the United Nations Security Council passed Resolution 1325 on
+		Women, Peace, and Security, calling on all actors involved in
+		negotiating and implementing peace agreements to adopt a gender
+		perspective, including:
+	</p>
 </Filler>
 
-<!-- Map -->
-<Scroller {threshold} bind:id={id["map"]} splitscreen={false} shadow={false}>
+<Filler short={false} wide={true} center={true} shadow={false}>
+	<div id="icons">
+		<div class="icon-item">
+			<img
+				src="./img/fir.svg"
+				alt="peace agreement example"
+				style="height: 100px;"
+			/>
+			<p style="text-align: left; font-size: 14px">
+				Responding to the special needs of women and girls during
+				repatriation, resettlement, rehabilitation, reintegration and
+				post-conflict reconstruction
+			</p>
+		</div>
+		<div class="icon-item">
+			<img
+				src="./img/sec.svg"
+				alt="peace agreement example"
+				style="height: 100px;"
+			/>
+			<p style="text-align: left; font-size: 14px">
+				Supporting local women’s and indigenous initiatives for conflict
+				resolution, and involving women in all implementation mechanisms
+			</p>
+		</div>
+		<div class="icon-item">
+			<img
+				src="./img/thi.svg"
+				alt="peace agreement example"
+				style="height: 100px;"
+			/>
+			<p style="text-align: left; font-size: 14px">
+				Ensuring the protection of human rights of women and girls,
+				particularly relating to the constitution, the electoral system,
+				the police and the judiciary
+			</p>
+		</div>
+	</div>
+</Filler>
+
+<div class="filler" bind:this={scrollerRefTime}>
+	<p style="margin: 20px">
+		How did this influence the number of gender-related peace agreements
+		over time?
+	</p>
+</div>
+
+<!-- TIME -->
+<Scroller {threshold} bind:id={id["time"]} splitscreen={false} shadow={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="map" bind:this={scrollerRefGeo}>
-					<Geography
-						{mygeojson}
-						{central_points}
-						{pax}
-						{pax_timeline}
-						{pax_gender}
-						{step}
-						on:mapLoaded={handleMapLoaded}
-					/>
+				<div class="time">
+					<Timeline {pax} {pax_timeline} {step} />
 				</div>
 			</div>
 		</figure>
 	</div>
 
 	<div slot="foreground">
-		<section data-id="map01">
+		<section data-id="time01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Countries where peace agreements have been signed since
-					1990. The brighter the colour, the more signed agreements.
+					Each line represents a peace agreements listed in PA-X that
+					was reached between 1990 and 2023.
 				</p>
 			</div>
 		</section>
-		<section data-id="map02">
+		<section data-id="time02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Countries with at least 2 signed agreements containing
-					references to gender.
+					PA-X Gender agreements over time.
 				</p>
 			</div>
 		</section>
-		<section data-id="map03">
+		<section data-id="time03">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Let's have a closer look at Afghanistan.
+					What's important to consider is that gender references
+					differ hugely in terms of their substantive quality and
+					specificity, ranging from detailed commitments to rhetorical
+					references to 'women'. [make them different opacity]
 				</p>
 			</div>
 		</section>
-		<!-- <section data-id="map04">
+		<section data-id="time04">
 			<div class="col-medium">
-				<p style="text-align: center;">references to un 1325</p>
+				<p style="text-align: center;">
+					The highlighted agreements include references to the special
+					needs of women and girls during rehabilitation and
+					reconstruction.
+				</p>
 			</div>
-		</section> -->
+		</section>
+		<section data-id="time05">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					For example, the Lome Agreement for Sierra Leone in 1999
+					acknowledged women's victimization during the war, and
+					stated that 'special attention shall be accorded to their
+					needs and potentials in formulating and implementing
+					national rehabilitation, reconstruction and development
+					programmes, to enable them to play a central role in the
+					moral, social and physical reconstruction of Sierra Leone.'
+				</p>
+			</div>
+		</section>
+		<section data-id="time06">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					The highlighted peace agreements include references to women
+					playing a role in implementing the agreement.
+				</p>
+			</div>
+		</section>
+		<section data-id="time07">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					For example, the 2016 Final Agreement between the Colombian
+					Government and the FARC set up a special forum comprising
+					representatives from 6 national and regional Colombian
+					women's organisations, to work with the implementation
+					commission on monitoring and guaranteeing the rights of
+					women in the implementation of the peace agreement.
+				</p>
+			</div>
+		</section>
+		<section data-id="time08">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Turning to the protection of human rights of women and
+					girls, the highlighted peace agreements include references
+					to international human rights laws relating to women and
+					gender, including specific human rights standards.
+				</p>
+			</div>
+		</section>
+		<section data-id="time09">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					For example, in a 1996 peace agreement from Guatemala, the
+					government agreed to revise national legislation to
+					eliminate all forms of discrimination against women, and to
+					give effect to the government commitments deriving from the
+					ratification of the Convention on the Elimination of All
+					Forms of Discrimination against Women.
+				</p>
+			</div>
+		</section>
 	</div>
 </Scroller>
 
-<Filler short={false} wide={true} center={true} shadow={true}></Filler>
+<!-- <Filler short={false} wide={true} center={true} shadow={true}></Filler> -->
 
 <!-- TIME -->
-<Scroller {threshold} bind:id={id["afgh"]} splitscreen={false} shadow={false}>
+<!-- <Scroller {threshold} bind:id={id["afgh"]} splitscreen={false} shadow={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
@@ -851,41 +920,6 @@
 			</div>
 		</section>
 	</div>
-</Scroller>
-
-<!-- <Filler short={true} wide={true} center={true} shadow={true}>
-	<p class="text-big">
-		How do we gather the agreements? How are they processed? [where to
-		include provenance?<br /> beginning/end/between sections?]
-	</p>
-</Filler> -->
-
-<!-- <Scroller {threshold} bind:id={id["prov"]} splitscreen={false} shadow={true}>
-	<div slot="background">
-		<figure>
-			<div class="col-wide height-full">
-				<div class="close_read">
-					<img id="agreement" alt="notes" src="./img/sources.jpg" />
-				</div>
-			</div>
-		</figure>
-	</div>
-
-	<div slot="foreground">
-		<section data-id="prov01">
-			<div class="col-medium">
-				<p style="text-align: center;">sources</p>
-			</div>
-		</section>
-		<section data-id="prov02">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					translation/transcription/coding/data entry
-					<img id="agreement" alt="notes" src="./img/diagram.png" />
-				</p>
-			</div>
-		</section>
-	</div>
 </Scroller> -->
 
 <style>
@@ -893,40 +927,70 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		width: 20px;
+		width: 30px;
 		height: 100%;
-		background-color: red;
+		background-color: none;
 		z-index: 100;
 		display: flex;
 		justify-content: center;
 		align-items: flex-start;
 	}
 
+	.line {
+		position: fixed;
+		top: 0;
+		left: 0px;
+		width: 1px;
+		height: 100%;
+		background-color: rgb(110, 110, 110);
+		display: flex;
+	}
+
 	.circle {
-		width: 15px;
-		height: 15px;
+		width: 5px;
+		height: 5px;
 		background-color: white;
 		border-radius: 50%;
 		position: absolute;
+		/* border: 1px solid white; */
 		top: 0;
-		left: 50%;
+		left: 4px;
 		transform: translateX(-50%);
 		transition: top 0.1s linear;
 	}
 
 	:global(
+			.scroll-line-agmt,
 			.scroll-line-rect,
+			.scroll-line-reason,
 			.scroll-line-stage,
 			.scroll-line-time,
 			.scroll-line-geo
 		) {
 		position: absolute;
-		left: 50%;
 		width: 100%;
-		height: 2px;
-		background-color: yellow;
-		transform: translateX(-50%);
+		height: 5px;
+		/* background-color: yellow; */
 		cursor: pointer;
+	}
+
+	.scroll-line-agmt img,
+	.scroll-line-rect img,
+	.scroll-line-reason img,
+	.scroll-line-time img,
+	.scroll-line-stage img,
+	.scroll-line-geo img {
+		height: 20px;
+		padding-left: 8px;
+	}
+
+	.filler {
+		padding: 50px;
+		height: 100%;
+		justify-content: center;
+		display: flex;
+		flex-direction: column;
+		text-align: center;
 	}
 
 	#loading_screen {
@@ -938,7 +1002,7 @@
 		background-color: black;
 		display: flex;
 		justify-content: center;
-		z-index: 3;
+		z-index: 100;
 	}
 
 	#loading_text {
@@ -1001,12 +1065,5 @@
 		.icon-item {
 			flex: 1 1 100%; /* Items stack on top of each other on small screens */
 		}
-	}
-
-	.close_read {
-		display: flex;
-		justify-content: center; /* Centers horizontally */
-		align-items: center; /* Centers vertically */
-		height: 100%; /* Takes up the full height of the parent */
 	}
 </style>

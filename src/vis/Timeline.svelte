@@ -16,7 +16,7 @@
     let imageX;
     let imageSource = "./img/lome.png";
     let exampleImg;
-    let imageHeight; // Reactive variable for the image height
+    let imageHeight; 
     let margin = { top: 20, right: 20, bottom: 20, left: 40 };
 
     $: innerWidth = width - margin.left - margin.right;
@@ -32,7 +32,6 @@
         .padding(0.1);
 
     $: yScale = d3.scaleLinear().domain([0, 100]).range([innerHeight, 0]);
-    $: yHeight = d3.scaleLinear().domain([0, 40000]).range([0, innerHeight]);
 
     function position_calc(pax, innerWidth, filter) {
         let previousYear = null; // Track the last year seen
@@ -272,11 +271,11 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%; /* Full width of the parent/container */
-        height: 100%; /* Full height of the parent/container if needed */
-        display: flex; /* Enables flexbox for centering */
+        width: 100%;
+        height: 100%;
+        display: flex;
         justify-content: center;
-        overflow: hidden; /* Prevents content overflow */
+        overflow: hidden;
         opacity: 0;
         transition: 0.5s ease;
     }
@@ -284,8 +283,8 @@
     #example img {
         position: absolute;
         top: 0px;
-        max-width: 80%; /* Ensures the image scales within the width of its container */
-        height: auto; /* Maintains the aspect ratio of the image */
-        display: block; /* Removes extra space below the image (from inline elements) */
+        max-width: 80%;
+        height: auto;
+        display: block;
     }
 </style>
