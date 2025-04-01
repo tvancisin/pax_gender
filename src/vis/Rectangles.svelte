@@ -102,7 +102,12 @@
         tooltip = { ...tooltip, visible: false };
     };
 
-    // $: console.log("rendered data: ", rendered_data);
+    $: if (rendered_data) {
+        rendered_data.forEach((d) => {
+            if (d.info.includes("Toncontin")) {
+            }
+        });
+    }
 </script>
 
 {#if rendered_data}

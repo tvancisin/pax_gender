@@ -1,6 +1,304 @@
 import * as d3 from "d3";
 import { centralPointsStore } from './store';
 
+// Keys to count
+export let keysToCount = [
+  "WggPar",
+  "WggGenQuot",
+  "WggEffPart",
+  "WggCitizen",
+  "WggParOth",
+  "WggEq",
+  "WggEqGen",
+  "WggSocEq",
+  "WggEqOth",
+  "WggGrp",
+  "WggIndNom",
+  "WggRefDisp",
+  "WggPreg",
+  "WggGrpOth",
+  "WggIntLaw",
+  "WggHR",
+  "WggHrSta",
+  "WggUnsc",
+  "WggIntLawOth",
+  "WggNewInst",
+  "WggInstWom",
+  "WggInf",
+  "WggRecon",
+  "WggNewInstOth",
+  "WggVio",
+  "WggVioSex",
+  "WggVioGen",
+  "WggVioProt",
+  "WggVioOth",
+  "WggTraJus",
+  "WggPast",
+  "WggPri",
+  "WggTraJusOth",
+  "WggInstRef",
+  "WggConst",
+  "WggLawRef",
+  "WggJud",
+  "WggPol",
+  "WggDdr",
+  "WggPubAdm",
+  "WggInstRefOth",
+  "WggDev",
+  "WggDevGen",
+  "WggRehab",
+  "WggEdu",
+  "WggHea",
+  "WggRepro",
+  "WggDevOth",
+  "WggImpl",
+  "WggImplRole",
+  "WggImplSign",
+  "WggImplOth",
+  "WggOth",
+];
+
+// Define the hierarchy
+export let hierarchy = {
+  name: "pax",
+  children: [
+    {
+      name: "Participation",
+      colname: "level2",
+      key: "WggPar",
+      children: [
+        {
+          name: "Gender quotas",
+          colname: "level3",
+          key: "WggGenQuot",
+        },
+        {
+          name: "Effective participation",
+          colname: "level3",
+          key: "WggEffPart",
+        },
+        {
+          name: "Citizenship",
+          colname: "level3",
+          key: "WggCitizen",
+        },
+        { name: "Other", colname: "level3", key: "WggParOth" },
+      ],
+    },
+    {
+      name: "Equality",
+      colname: "level2",
+      key: "WggEq",
+      children: [
+        {
+          name: "Equality (general)",
+          colname: "level3",
+          key: "WggEqGen",
+        },
+        {
+          name: "Social equality",
+          colname: "level3",
+          key: "WggSocEq",
+        },
+        { name: "Other", colname: "level3", key: "WggEqOth" },
+      ],
+    },
+    {
+      name: "Particular groups of women",
+      colname: "level2",
+      key: "WggGrp",
+      children: [
+        {
+          name: "Indigenous/nomadic women",
+          colname: "level3",
+          key: "WggIndNom",
+        },
+        {
+          name: "Refugee / Displaced women",
+          colname: "level3",
+          key: "WggRefDisp",
+        },
+        {
+          name: "Pregnancy/Maternity",
+          colname: "level3",
+          key: "WggPreg",
+        },
+        { name: "Other", colname: "level3", key: "WggGrpOth" },
+      ],
+    },
+    {
+      name: "International law",
+      colname: "level2",
+      key: "WggIntLaw",
+      children: [
+        {
+          name: "General mentions of international human rights law",
+          colname: "level3",
+          key: "WggHR",
+        },
+        {
+          name: "International human rights standards",
+          colname: "level3",
+          key: "WggHrSta",
+        },
+        {
+          name: "References to UNSCR 1325",
+          colname: "level3",
+          key: "WggUnsc",
+        },
+        { name: "Other", colname: "level3", key: "WggIntLawOth" },
+      ],
+    },
+    {
+      name: "New Institutions",
+      colname: "level2",
+      key: "WggNewInst",
+      children: [
+        {
+          name: "Institutions for women",
+          colname: "level3",
+          key: "WggInstWom",
+        },
+        {
+          name: "Infrastructure (general)",
+          colname: "level3",
+          key: "WggInf",
+        },
+        {
+          name: "Reconciliation and Peace",
+          colname: "level3",
+          key: "WggRecon",
+        },
+        { name: "Other", colname: "level3", key: "WggNewInstOth" },
+      ],
+    },
+    {
+      name: "Violence Against women",
+      colname: "level2",
+      key: "WggVio",
+      children: [
+        {
+          name: "Sexual violence",
+          colname: "level3",
+          key: "WggVioSex",
+        },
+        {
+          name: "Gender-based violence / VAW (general)",
+          colname: "level3",
+          key: "WggVioGen",
+        },
+        {
+          name: "Protection (general)",
+          colname: "level3",
+          key: "WggVioProt",
+        },
+        { name: "Other", colname: "level3", key: "WggVioOth" },
+      ],
+    },
+    {
+      name: "Transitional Justice",
+      colname: "level2",
+      key: "WggTraJus",
+      children: [
+        {
+          name: "Past and gender",
+          colname: "level3",
+          key: "WggPast",
+        },
+        {
+          name: "Prisons, prisoner release",
+          colname: "level3",
+          key: "WggPri",
+        },
+        { name: "Other", colname: "level3", key: "WggTraJusOth" },
+      ],
+    },
+    {
+      name: "Institutional Reform",
+      colname: "level2",
+      key: "WggInstRef",
+      children: [
+        {
+          name: "Constitution-making/reform",
+          colname: "level3",
+          key: "WggConst",
+        },
+        {
+          name: "Emergency/criminal law/corruption reform",
+          colname: "level3",
+          key: "WggLawRef",
+        },
+        {
+          name: "Judiciary, judicial reform",
+          colname: "level3",
+          key: "WggJud",
+        },
+        { name: "Police", colname: "level3", key: "WggPol" },
+        {
+          name: "DDR, Army, Parastatal or rebel forces",
+          colname: "level3",
+          key: "WggDdr",
+        },
+        {
+          name: "Public administration",
+          colname: "level3",
+          key: "WggPubAdm",
+        },
+        { name: "Other", colname: "level3", key: "WggInstRefOth" },
+      ],
+    },
+    {
+      name: "Development",
+      colname: "level2",
+      key: "WggDev",
+      children: [
+        { name: "General", colname: "level3", key: "WggDevGen" },
+        {
+          name: "Rehabilitation and reconstruction",
+          colname: "level3",
+          key: "WggRehab",
+        },
+        { name: "Education", colname: "level3", key: "WggEdu" },
+        {
+          name: "Health (general)",
+          colname: "level3",
+          key: "WggHea",
+        },
+        {
+          name: "Reproductive rights",
+          colname: "level3",
+          key: "WggRepro",
+        },
+        { name: "Other", colname: "level3", key: "WggDevOth" },
+      ],
+    },
+    {
+      name: "Implementation",
+      colname: "level2",
+      key: "WggImpl",
+      children: [
+        {
+          name: "Women’s role and consideration in implementation of the agreement",
+          colname: "level3",
+          key: "WggImplRole",
+        },
+        {
+          name: "Signing or Witnessing agreement",
+          colname: "level3",
+          key: "WggImplSign",
+        },
+        { name: "Other", colname: "level3", key: "WggImplOth" },
+      ],
+    },
+    {
+      name: "Other",
+      colname: "level2",
+      key: "WggOth",
+      children: [{ name: "Other", colname: "level3", key: "WggOth" }],
+    },
+  ],
+};
+
 let central_points;
 
 // Subscribe to the store
@@ -275,6 +573,7 @@ export function full_grid_filter(pax, innerHeight, innerWidth, initialPaxCount) 
         y: innerHeight + 100,
         width: rectWidth,
         height: rectHeight,
+        id: d.AgtId,
         info: d.Agt
       };
     }
@@ -291,6 +590,7 @@ export function full_grid_filter(pax, innerHeight, innerWidth, initialPaxCount) 
       y: y,
       width: rectWidth,
       height: rectHeight,
+      id: d.AgtId,
       info: d.Agt
     };
   });
@@ -419,7 +719,8 @@ export function pax_stages_filter_grid(
         y: y + Math.random() * 2 - 1, // Vertical position based on row
         width: cellWidth, // Adjusted width to fit screen
         height: cellHeight, // Adjusted height to fit screen
-        info: d.Agt
+        info: d.Agt,
+        id: d.AgtId,
       };
     });
   });

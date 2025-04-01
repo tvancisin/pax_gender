@@ -3,6 +3,14 @@
 	import * as d3 from "d3";
 	import { setContext, onMount } from "svelte";
 	import { themes } from "./config.js";
+	import {
+		setColors,
+		getGEO,
+		getCSV,
+		keysToCount,
+		hierarchy,
+	} from "./utils.js";
+	import { centralPointsStore } from "./store";
 	import ONSHeader from "./layout/ONSHeader.svelte";
 	import ONSFooter from "./layout/ONSFooter.svelte";
 	import Header from "./layout/Header.svelte";
@@ -12,13 +20,10 @@
 	import Lines from "./vis/Lines.svelte";
 	import Stages from "./vis/Stages.svelte";
 	import Rectangles from "./vis/Rectangles.svelte";
-	import { setColors, getGEO, getCSV } from "./utils.js";
-	import { centralPointsStore } from "./store";
 	import Timeline from "./vis/Timeline.svelte";
 	import Geography from "./vis/Geography.svelte";
 	import Afghanistan from "./vis/Afghanistan.svelte";
-
-	let mapLoaded = false;
+	import Dendrogram from "./vis/Dendrogram.svelte";
 
 	// Scroll references
 	let scrollerRefAgreement;
@@ -27,6 +32,7 @@
 	let scrollerRefTime;
 	let scrollerRefStages;
 	let scrollerRefGeo;
+	let scrollerRefDend;
 
 	// Set theme globally (options are 'light', 'dark' or 'lightblue')
 	let theme = "dark";
@@ -43,26 +49,21 @@
 		const startPosition = window.scrollY;
 		const distance = targetPosition - startPosition;
 		let startTime = null;
-
 		function animationStep(currentTime) {
 			if (!startTime) startTime = currentTime;
 			const timeElapsed = currentTime - startTime;
 			const progress = Math.min(timeElapsed / duration, 1); // Ensures animation stops at 1
-
 			window.scrollTo(
 				0,
 				startPosition + distance * easeInOutQuad(progress),
 			);
-
 			if (timeElapsed < duration) {
 				requestAnimationFrame(animationStep);
 			}
 		}
-
 		function easeInOutQuad(t) {
 			return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; // Smooth easing function
 		}
-
 		requestAnimationFrame(animationStep);
 	}
 
@@ -84,6 +85,7 @@
 		const lineTime = document.querySelector(".scroll-line-time");
 		const lineStage = document.querySelector(".scroll-line-stage");
 		const lineGeo = document.querySelector(".scroll-line-geo");
+		const lineDend = document.querySelector(".scroll-line-dendr");
 
 		if (!circle || !indicator) return;
 
@@ -108,7 +110,7 @@
 
 				// Add click listener to lineRect
 				lineAgmt.addEventListener("click", () => {
-					smoothScrollTo(scrollerTop, 2000); // 3 seconds slow scroll
+					smoothScrollTo(scrollerTop, 2000);
 				});
 			}
 
@@ -123,7 +125,7 @@
 
 				// Add click listener to lineRect
 				lineRect.addEventListener("click", () => {
-					smoothScrollTo(scrollerTop, 2000); // 3 seconds slow scroll
+					smoothScrollTo(scrollerTop, 2000);
 				});
 			}
 
@@ -140,7 +142,7 @@
 
 				// Add click listener to lineReason
 				lineReason.addEventListener("click", () => {
-					smoothScrollTo(scrollerTopReason, 2000); // 3 seconds slow scroll
+					smoothScrollTo(scrollerTopReason, 2000);
 				});
 			}
 
@@ -155,7 +157,7 @@
 
 				// Add click listener to lineTime
 				lineTime.addEventListener("click", () => {
-					smoothScrollTo(scrollerTopTime, 2000); // 3 seconds slow scroll
+					smoothScrollTo(scrollerTopTime, 2000);
 				});
 			}
 
@@ -171,7 +173,7 @@
 
 				// Add click listener to lineStage
 				lineStage.addEventListener("click", () => {
-					smoothScrollTo(scrollerTopStage, 3000); // 3 seconds slow scroll
+					smoothScrollTo(scrollerTopStage, 2000);
 				});
 			}
 
@@ -185,7 +187,22 @@
 
 				// Add click listener to lineGeo
 				lineGeo.addEventListener("click", () => {
-					smoothScrollTo(scrollerTopGeo, 3000); // 3 seconds slow scroll
+					smoothScrollTo(scrollerTopGeo, 2000);
+				});
+			}
+
+			if (scrollerRefDend instanceof HTMLElement) {
+				const scrollerRectDend =
+					scrollerRefDend.getBoundingClientRect();
+				const scrollerTopDend = scrollerRectDend.top + window.scrollY;
+				const scrollerPercentDend = scrollerTopDend / docHeight;
+				const linePositionDend = scrollerPercentDend * indicatorHeight;
+
+				lineDend.style.top = `${linePositionDend}px`;
+
+				// Add click listener to lineGeo
+				lineDend.addEventListener("click", () => {
+					smoothScrollTo(scrollerTopDend, 2000);
 				});
 			}
 		};
@@ -357,6 +374,7 @@
 	let wgg_text;
 	let pax_stages;
 	let afghanistan;
+	let tree = [];
 	getCSV(path).then((data) => {
 		pax = data[0];
 		pax_gender = data[1];
@@ -366,6 +384,11 @@
 		corr_text = data[4];
 		wgg_text = data[5];
 		afghanistan = data[6];
+
+		const counter = {};
+		keysToCount.forEach((key) => {
+			counter[key] = 0;
+		});
 
 		// add text to every pax_gender agt
 		pax_gender.forEach((genderItem) => {
@@ -432,6 +455,7 @@
 		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(6, 10));
 	});
 
+	let mapLoaded = false;
 	//map loaded, show start button
 	function handleMapLoaded() {
 		mapLoaded = true;
@@ -457,10 +481,12 @@
 	<div class="line"></div>
 	<div class="scroll-line-agmt"><img src="./img/agmt.png" alt="rect" /></div>
 	<div class="scroll-line-rect"><img src="./img/recs.png" alt="rect" /></div>
-	<!-- <div class="scroll-line-reason"><img src="./img/fem.png" alt="rect" /></div> -->
 	<div class="scroll-line-time"><img src="./img/line.png" alt="rect" /></div>
 	<div class="scroll-line-stage"><img src="./img/bar.png" alt="rect" /></div>
 	<div class="scroll-line-geo"><img src="./img/globe.png" alt="rect" /></div>
+	<div class="scroll-line-dendr">
+		<img src="./img/dendr.png" alt="rect" />
+	</div>
 </div>
 
 <div
@@ -548,8 +574,8 @@
 		<section data-id="map02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Countries with at least 2 signed agreements containing
-					references to gender.
+					This map shows countries where agreements have contained at
+					least two references to gender.
 				</p>
 			</div>
 		</section>
@@ -629,13 +655,13 @@
 	</video>
 </Filler> -->
 
-
-
 <div class="filler" bind:this={scrollerRefStages}>
 	<p style="margin: 20px">
-		There are different stages of peace processes, from pre-negotiation to
-		implementation. If peace negotiations went smoothly from one stage to
-		the next, the process would look like this:
+		There are different stages of peace processes depending on the content
+		included in agreements: from pre-neogtiation/process agreements where
+		there are 'talks about talks', to ceasefires, to more comprehensive
+		agreements and implementation agreeements. If the process went smoothly
+		from one stage to the next it would look like this over time:
 	</p>
 </div>
 
@@ -715,7 +741,6 @@
 		</section>
 	</div>
 </Scroller>
-
 
 <Divider />
 
@@ -880,6 +905,48 @@
 	</div>
 </Scroller>
 
+<div class="filler" bind:this={scrollerRefDend}>
+	<p style="margin: 20px">
+		As you can see, agreements cover different topics. Sometimes a lot of
+		them and sometimes very few.
+	</p>
+</div>
+
+<Scroller {threshold} bind:id={id["afgh"]} splitscreen={false} shadow={false}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				<div class="afgh">
+					<Dendrogram {pax_gender} {step} />
+				</div>
+			</div>
+		</figure>
+	</div>
+
+	<div slot="foreground">
+		<section data-id="afgh01">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Distribution of gender-related topic in all PA-X gender
+					agreements.
+				</p>
+			</div>
+		</section>
+		<section data-id="afgh02">
+			<div class="col-medium">
+				<p style="text-align: center;">The Toncontin Agreement.</p>
+			</div>
+		</section>
+		<section data-id="afgh03">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					The Managua Protocol on Disarmament.
+				</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
+
 <!-- <Filler short={false} wide={true} center={true} shadow={true}></Filler> -->
 
 <!-- TIME -->
@@ -952,7 +1019,6 @@
 		background-color: white;
 		border-radius: 50%;
 		position: absolute;
-		/* border: 1px solid white; */
 		top: 0;
 		left: 4px;
 		transform: translateX(-50%);
@@ -962,21 +1028,20 @@
 	:global(
 			.scroll-line-agmt,
 			.scroll-line-rect,
-			.scroll-line-reason,
 			.scroll-line-stage,
 			.scroll-line-time,
-			.scroll-line-geo
+			.scroll-line-geo,
+			.scroll-line-dendr
 		) {
 		position: absolute;
 		width: 100%;
 		height: 5px;
-		/* background-color: yellow; */
 		cursor: pointer;
 	}
 
 	.scroll-line-agmt img,
 	.scroll-line-rect img,
-	.scroll-line-reason img,
+	.scroll-line-dendr img,
 	.scroll-line-time img,
 	.scroll-line-stage img,
 	.scroll-line-geo img {

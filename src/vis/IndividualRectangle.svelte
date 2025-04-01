@@ -57,7 +57,7 @@
 
 <g transform="translate({$tX} {$tY})">
     <rect
-        {id}
+        id= {"id_"+ id}
         x="0"
         y="0"
         width={$tWidth}
@@ -76,6 +76,10 @@
     rect {
         fill: #f6f1d6;
         /* transition: fill 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); */
+    }
+
+    :global(rect#id_589) {
+        fill: steelblue;
     }
 
     /* rect.is-hovered {

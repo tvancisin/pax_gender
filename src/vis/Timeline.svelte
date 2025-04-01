@@ -61,6 +61,7 @@
                 width: xScale.bandwidth(),
                 height: 3,
                 info: d.Agt,
+                id: d.AgtId
             };
 
             if (filter === "none") index++;
