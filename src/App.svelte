@@ -508,9 +508,9 @@
 		class="peace_logo"
 		src="./img/pax_gender.svg"
 		alt="peacerep logo"
-		style="width: 45%;"
+		style="width: 35%;"
 	/>
-	<h1>Gender</h1>
+	<h1>Women, Girls, and Gender in Peace Agreements</h1>
 	<p style="margin: 20px">
 		This visualization uses PA-X database to show how and to what extent
 		women, girls and gender are taken into consideration in peace agreements
@@ -524,8 +524,16 @@
 	<p>
 		A <strong>peace agreement</strong> is a document produced after discussion
 		with conflict protagonists and mutually agreed to by them, addressing conflict
-		with a view to ending it. Below is a ceasefire agreement from 1990 Nicaragua.
+		with a view to ending it.
 	</p>
+
+	<p>
+		<a
+			href="https://pax.peaceagreements.org/agreements/search/"
+			style="color:white">PA-X Database</a
+		> collects and archives formal, publicly-available, signed peace agreements.
+	</p>
+	<p>Below is a ceasefire agreement from 1990 Nicaragua.</p>
 </div>
 
 <div class="filler">
@@ -538,8 +546,11 @@
 
 <Filler short={false} wide={true} center={true} shadow={false}>
 	<p>
-		PA-X contains 2055 peace agreements signed from 1990 and the map below
-		shows where in the world these agreements have been signed.
+		PA-X contains 2,055 peace agreements that have been signed since 1990.
+	</p>
+	<p>
+		The map below shows the geographical spread of where these agreements
+		are from and the primary location of the conflict they are addressing.
 	</p>
 </Filler>
 
@@ -567,15 +578,16 @@
 		<section data-id="map01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					The brighter the colour, the more signed agreements.
+					The brighter colour (white) indicates a higher number of
+					peace agreements signed.
 				</p>
 			</div>
 		</section>
 		<section data-id="map02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					This map shows countries where agreements have contained at
-					least two references to gender.
+					Now, the map shows the number of peace agreements that
+					contain at least two references to women, girls and gender.
 				</p>
 			</div>
 		</section>
@@ -591,9 +603,9 @@
 
 <div class="filler">
 	<p>
-		To get a better idea about how much is gender taken into consideration
-		in peace agreements, below is a visualization of all peace agreements
-		represented as rectangles.
+		To get a better idea about how often women, girls and gender are taken
+		into consideration in peace agreements, below is a representation of all
+		peace agreements in PA-X.
 	</p>
 </div>
 
@@ -613,17 +625,17 @@
 		<section data-id="rect01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Every rectangle in this view represents one of 2055
-					agreements in the PA-X Peace Agreement Database, the most
-					expansive collection of peace agreements data in the world.
+					Every rectangle in this view represents one of the 2,055
+					formal agreements signed since 1990. You can see the example
+					of the Toncontin Agreement from earlier in blue.
 				</p>
 			</div>
 		</section>
 		<section data-id="rect02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Out of the 2055 agreements, only 436 contain references to
-					gender.<br /> That's less than a quarter.
+					Out of all these agreements, less than one-quarter contain
+					references to women, girls and gender (436 agreements).
 				</p>
 			</div>
 		</section>
@@ -632,13 +644,13 @@
 
 <Divider />
 
-<!-- <div class="filler" bind:this={scrollerRefReason}>
+<div class="filler">
 	<p style="margin: 20px">
 		Why should peace agreements incorporate a gender perspective?
 	</p>
 </div>
 
-<Filler short={true} wide={true} center={true} shadow={false}>
+<!-- <Filler short={true} wide={true} center={true} shadow={false}>
 	<video
 		poster="./img/lr_bl.png"
 		controls
@@ -655,13 +667,50 @@
 	</video>
 </Filler> -->
 
+<div class="filler">
+	<p>
+		<strong>Peace agreements can provide a formalised blueprint</strong> to
+		shape the political settlement that emerges from a peace deal, both
+		legally and socially.<br /><br /> This can have consequences for how women,
+		gender minorities, and sexual minorities may experience the transition that
+		the peace agreement stipulates.
+	</p>
+</div>
+
+<div class="filler">
+	<p>
+		<strong
+			>Peace agreements can create 'sticky' institutional arrangements
+			that can be hard to later re-negotiate.</strong
+		><br /><br /> Any gaps in how the peace agreement understands or responds
+		to gender, may become stuck and difficult to resolve through institutional
+		mechanisms.
+	</p>
+</div>
+
+<div class="filler">
+	<p>
+		<strong>Peace agreements are not gender neutral by default</strong> They
+		contain institutional configurations, security mechanisms and human
+		rights regimes that all shape different gender outcomes or impacts
+		women's lives.
+		<br />
+		<br />
+		<br />
+		<br />
+		Hear more on this from PeaceRep's Women Peace and Security expert, Laura
+		Wise in this short, informative video (3 mins).
+		<!-- ask laura about the video. youtube?  -->
+	</p>
+</div>
+
 <div class="filler" bind:this={scrollerRefStages}>
 	<p style="margin: 20px">
 		There are different stages of peace processes depending on the content
 		included in agreements: from pre-neogtiation/process agreements where
 		there are 'talks about talks', to ceasefires, to more comprehensive
-		agreements and implementation agreeements. If the process went smoothly
-		from one stage to the next it would look like this over time:
+		agreements and implementation agreeements.<br /><br /> If the process went
+		smoothly from one stage to the next it would look like this over time:
 	</p>
 </div>
 
@@ -677,7 +726,8 @@
 	<p style="margin: 20px">
 		Instead, peace processes frequently involve a series of back-and-forth
 		movements, reflecting the reality that progress is rarely uniform or
-		predictable.
+		predictable.<br /><br /> For example, here is the trajectory of the Philippines-Mindano
+		Process.
 	</p>
 </div>
 
@@ -687,11 +737,19 @@
 		alt="peace agreement example"
 		style="width: 100%;"
 	/>
+	<p>
+		Explore the trajectory of other processes in PA-X on our <a
+			href="https://pax.peaceagreements.org/visualizations/messy-peace-processes/"
+			target="_blank"
+			style="color: white;">Messy Timeline Visualization</a
+		>
+	</p>
 </Filler>
 
 <div class="filler">
 	<p style="margin: 20px">
-		At which stage of peace negotiations does gender get discussed?
+		At which stage of peace negotiations do women, girls or gender get
+		discussed?
 	</p>
 </div>
 
@@ -711,11 +769,11 @@
 		<section data-id="stage01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Dividing all PA-X agreements into different peace process
-					stages shows the predominance of <strong
-						>Pre-Negotiation, Ceasefire, and Partial</strong
-					>
-					agreements.
+					When viewing all PA-X agreements by the stage of the peace
+					process they were signed at, the chart below shows the
+					predominance of <strong>pre-negotiation/process</strong>,
+					<strong>ceasefire</strong>, and
+					<strong>substantive-partial</strong> agreements.
 				</p>
 			</div>
 		</section>
@@ -723,19 +781,23 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					A common perception is that dealing with 'gender' must wait
-					until comprehensive stages of negotiations, so that
-					pre-negotiation or ceasefire talks can focus on more
-					'urgent' issues.
+					until substantive stages of negotiations (partial and
+					comprehensive), so that the earlier pre-negotiation or
+					ceasefire talks can focus on more 'urgent' issues.
 				</p>
 			</div>
 		</section>
 		<section data-id="stage03">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					For example, the 2014 Brazzaville Agreement on Cessation of
-					Hostilities in Central African Republic included sexual
-					violence as an act that parties would cease under the
-					agreement.
+					For example, a ceasefire in Central African Republic in 2014
+					- the <a
+						href="https://pax.peaceagreements.org/media/documents/ag818_573ed266c7c9c.pdf"
+						target="_blank"
+						style="color: white;"
+						>Brazzaville Agreement on Cessation of Hostilities</a
+					> - included 'gender' by stipulating that under the agreement
+					the parties would cease the act of sexual violence.
 				</p>
 			</div>
 		</section>
@@ -816,15 +878,15 @@
 		<section data-id="time01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Each line represents a peace agreements listed in PA-X that
-					was reached between 1990 and 2023.
+					Each line represents a peace agreement listed in PA-X that
+					was signed between 1990 and 2023.
 				</p>
 			</div>
 		</section>
 		<section data-id="time02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					PA-X Gender agreements over time.
+					This are the agreements included in PA-X Gender.
 				</p>
 			</div>
 		</section>
@@ -834,29 +896,41 @@
 					What's important to consider is that gender references
 					differ hugely in terms of their substantive quality and
 					specificity, ranging from detailed commitments to rhetorical
-					references to 'women'. [make them different opacity]
+					references to 'women'.
+					<!-- [make them different opacity] -->
 				</p>
 			</div>
 		</section>
 		<section data-id="time04">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					The highlighted agreements include references to the special
-					needs of women and girls during rehabilitation and
-					reconstruction.
+					For example, only these highlighted agreements include
+					substantive references to the special needs of women and
+					girls during rehabilitation and reconstruction. However,
+					they often are not a large proportion of the agreement
+					focus.
 				</p>
 			</div>
 		</section>
 		<section data-id="time05">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					For example, the Lome Agreement for Sierra Leone in 1999
-					acknowledged women's victimization during the war, and
-					stated that 'special attention shall be accorded to their
-					needs and potentials in formulating and implementing
-					national rehabilitation, reconstruction and development
-					programmes, to enable them to play a central role in the
-					moral, social and physical reconstruction of Sierra Leone.'
+					One instance is the <a
+						href="https://pax.peaceagreements.org/media/documents/ag478_55d493ee828e7.pdf"
+						target="_blank"
+						style="color: white;">Lome Agreement</a
+					>
+					for Sierra Leone in 1999 that acknowledged women's victimization
+					during the war, and stated that
+					<i style="font-size: 18px;"
+						>'special attention shall be accorded to their needs and
+						potentials in formulating and implementing national
+						rehabilitation, reconstruction and development
+						programmes, to enable them to play a central role in the
+						moral, social and physical reconstruction of Sierra
+						Leone.'</i
+					> This was the only reference to gender (highlighted in red)
+					in the entire agreement text.
 				</p>
 			</div>
 		</section>
@@ -871,12 +945,15 @@
 		<section data-id="time07">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					For example, the 2016 Final Agreement between the Colombian
-					Government and the FARC set up a special forum comprising
-					representatives from 6 national and regional Colombian
-					women's organisations, to work with the implementation
-					commission on monitoring and guaranteeing the rights of
-					women in the implementation of the peace agreement.
+					For example, the 2016 <a
+						href="https://pax.peaceagreements.org/media/documents/ag1845_593e97bdd6f32.pdf"
+						target="_blank"
+						style="color: white;">Final Agreement</a
+					> between the Colombian Government and the FARC set up a special
+					forum comprising representatives from 6 national and regional
+					Colombian women's organisations, to work with the implementation
+					commission on monitoring and guaranteeing the rights of women
+					in the implementation of the peace agreement.
 				</p>
 			</div>
 		</section>
@@ -885,16 +962,19 @@
 				<p style="text-align: center;">
 					Turning to the protection of human rights of women and
 					girls, the highlighted peace agreements include references
-					to international human rights laws relating to women and
-					gender, including specific human rights standards.
+					to <strong>international human rights laws</strong> relating
+					to women and gender, including specific human rights standards.
 				</p>
 			</div>
 		</section>
 		<section data-id="time09">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					For example, in a 1996 peace agreement from Guatemala, the
-					government agreed to revise national legislation to
+					For example, in a 1996 <a
+						href="https://pax.peaceagreements.org/media/documents/ag291_5630f71a3ae07.pdf"
+						style="color: white;"
+						target="_blank">peace agreement from Guatemala</a
+					>, the government agreed to revise national legislation to
 					eliminate all forms of discrimination against women, and to
 					give effect to the government commitments deriving from the
 					ratification of the Convention on the Elimination of All
@@ -907,8 +987,11 @@
 
 <div class="filler" bind:this={scrollerRefDend}>
 	<p style="margin: 20px">
-		As you can see, agreements cover different topics. Sometimes a lot of
-		them and sometimes very few.
+		As you can see, peace agreements cover different topics related to
+		women, girls and gender. Sometimes there are a lot of topics addressed,
+		and sometimes there are very few. <br /><br />
+		Below shows a representation of all topics related to women, girls and gender
+		that are coded for all agreements in PA-X Gender.
 	</p>
 </div>
 
@@ -927,20 +1010,26 @@
 		<section data-id="afgh01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Distribution of gender-related topic in all PA-X gender
-					agreements.
+					This is the distribution of gender-related topic in all 436
+					agreements. You can see the majority of references across
+					all the agreements are regarding women's participation, and
+					sexual violence.
 				</p>
 			</div>
 		</section>
 		<section data-id="afgh02">
 			<div class="col-medium">
-				<p style="text-align: center;">The Toncontin Agreement.</p>
+				<p style="text-align: center;">
+					The earlier referenced Toncontin Agreement from 1990,
+					includes these gender-related topics.
+				</p>
 			</div>
 		</section>
 		<section data-id="afgh03">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					The Managua Protocol on Disarmament.
+					In contrast, the more recent 2016 Colombian Final Agreement
+					includes these topics.
 				</p>
 			</div>
 		</section>

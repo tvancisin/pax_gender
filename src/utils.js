@@ -474,7 +474,6 @@ export function get_current_isos(data) {
   }));
 
   let filtered_iso = iso_array.filter((d) => d.iso != "")
-
   return filtered_iso;
 }
 

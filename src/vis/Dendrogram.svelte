@@ -65,13 +65,15 @@
         let updatedTree = JSON.parse(JSON.stringify(hierarchy)); // Create a fresh copy
         countOccurrences(pax_gender, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
+        
+        d3.selectAll("path").style("stroke", "white");
 
-        d3.selectAll(".WggPast").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll(".WggTraJus").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll(".WggDev").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll(".WggRehab").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll(".WggImpl").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll(".WggImplOth").style("stroke", "rgb(74, 74, 74)");
+        // d3.selectAll(".WggPast").style("stroke", "rgb(74, 74, 74)");
+        // d3.selectAll(".WggTraJus").style("stroke", "rgb(74, 74, 74)");
+        // d3.selectAll(".WggDev").style("stroke", "rgb(74, 74, 74)");
+        // d3.selectAll(".WggRehab").style("stroke", "rgb(74, 74, 74)");
+        // d3.selectAll(".WggImpl").style("stroke", "rgb(74, 74, 74)");
+        // d3.selectAll(".WggImplOth").style("stroke", "rgb(74, 74, 74)");
     } else if (step == "afgh02") {
         console.log("step2");
         function splitArray(arr) {
@@ -85,6 +87,8 @@
         let updatedTree = JSON.parse(JSON.stringify(hierarchy)); // Create a fresh copy
         countOccurrences(split, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
+
+        d3.selectAll("path").style("stroke", "rgb(74, 74, 74)");
         d3.selectAll(".WggPast").style("stroke", "white");
         d3.selectAll(".WggTraJus").style("stroke", "white");
         d3.selectAll(".WggDev").style("stroke", "white");
@@ -92,10 +96,10 @@
         d3.selectAll(".WggImpl").style("stroke", "white");
         d3.selectAll(".WggImplOth").style("stroke", "white");
 
-        d3.selectAll(".WggDdr").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll(".WggInstRef").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll(".WggEq").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll(".WggSocEq").style("stroke", "rgb(74, 74, 74)");
+        // d3.selectAll(".WggDdr").style("stroke", "rgb(74, 74, 74)");
+        // d3.selectAll(".WggInstRef").style("stroke", "rgb(74, 74, 74)");
+        // d3.selectAll(".WggEq").style("stroke", "rgb(74, 74, 74)");
+        // d3.selectAll(".WggSocEq").style("stroke", "rgb(74, 74, 74)");
     } else if (step == "afgh03") {
         console.log("step3");
         function splitArray(arr) {
