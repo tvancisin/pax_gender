@@ -1,5 +1,4 @@
 <script>
-	// CORE IMPORTS
 	import * as d3 from "d3";
 	import { setContext, onMount } from "svelte";
 	import { themes } from "./config.js";
@@ -11,18 +10,14 @@
 		hierarchy,
 	} from "./utils.js";
 	import { centralPointsStore } from "./store";
-	import ONSHeader from "./layout/ONSHeader.svelte";
-	import ONSFooter from "./layout/ONSFooter.svelte";
 	import Header from "./layout/Header.svelte";
 	import Scroller from "./layout/Scroller.svelte";
 	import Filler from "./layout/Filler.svelte";
 	import Divider from "./layout/Divider.svelte";
-	import Lines from "./vis/Lines.svelte";
 	import Stages from "./vis/Stages.svelte";
 	import Rectangles from "./vis/Rectangles.svelte";
 	import Timeline from "./vis/Timeline.svelte";
 	import Geography from "./vis/Geography.svelte";
-	import Afghanistan from "./vis/Afghanistan.svelte";
 	import Dendrogram from "./vis/Dendrogram.svelte";
 
 	// Scroll references
@@ -362,28 +357,23 @@
 		"./data/pax_gender_text.csv",
 		"./data/text_corr.csv",
 		"./data/wgg_text.csv",
-		"./data/gender_provisions_afghanistan.csv",
 	];
 	let pax;
 	let pax_gender;
 	let pax_gender_text;
 	let corr_text;
-	let pax_gender_timeline;
 	let pax_timeline;
 	let central_points;
 	let wgg_text;
 	let pax_stages;
-	let afghanistan;
-	let tree = [];
 	getCSV(path).then((data) => {
+		centralPointsStore.set(central_points);
 		pax = data[0];
 		pax_gender = data[1];
 		central_points = data[2];
-		centralPointsStore.set(central_points);
 		pax_gender_text = data[3];
 		corr_text = data[4];
 		wgg_text = data[5];
-		afghanistan = data[6];
 
 		const counter = {};
 		keysToCount.forEach((key) => {
@@ -391,33 +381,31 @@
 		});
 
 		// add text to every pax_gender agt
-		pax_gender.forEach((genderItem) => {
-			const item = pax_gender_text.find(
-				(gender) => gender.AgtId === genderItem.AgtId,
-			);
+		// pax_gender.forEach((genderItem) => {
+		// 	const item = pax_gender_text.find(
+		// 		(gender) => gender.AgtId === genderItem.AgtId,
+		// 	);
 
-			const find_corr = corr_text.find(
-				(gender) => gender.AgtId === genderItem.AgtId,
-			);
+		// 	const find_corr = corr_text.find(
+		// 		(gender) => gender.AgtId === genderItem.AgtId,
+		// 	);
 
-			const detail_wgg = wgg_text.find(
-				(gender) => gender.AgtId === genderItem.AgtId,
-			);
+		// 	const detail_wgg = wgg_text.find(
+		// 		(gender) => gender.AgtId === genderItem.AgtId,
+		// 	);
 
-			const full_text = +find_corr.Text_length;
-			const women_text = item.GeWom.length;
-			const quotas_text = detail_wgg.WggGenQuot.length;
-			const law_text = detail_wgg.WggIntLaw.length;
-			const un_text = detail_wgg.WggUnsc.length;
+		// 	const quotas_text = detail_wgg.WggGenQuot.length;
+		// 	const law_text = detail_wgg.WggIntLaw.length;
+		// 	const un_text = detail_wgg.WggUnsc.length;
 
-			if (item) {
-				genderItem.text = item.GeWom;
-				genderItem.quotas = quotas_text;
-				genderItem.law = law_text;
-				genderItem.un = un_text;
-				genderItem.corr_char_no = +find_corr.Text_length;
-			}
-		});
+		// 	if (item) {
+		// 		genderItem.text = item.GeWom;
+		// 		genderItem.quotas = quotas_text;
+		// 		genderItem.law = law_text;
+		// 		genderItem.un = un_text;
+		// 		genderItem.corr_char_no = +find_corr.Text_length;
+		// 	}
+		// });
 
 		// Iterate through each object in the pax array
 		pax.forEach((paxItem) => {
@@ -448,10 +436,6 @@
 		let order = ["Pre", "Cea", "SubPar", "SubComp", "Imp", "Ren", "Oth"];
 		pax_stages.sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]));
 
-		//group by date for timeline vis
-		pax_gender_timeline = d3.groups(pax_gender, (d) =>
-			d.Dat.substring(0, 4),
-		);
 		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(6, 10));
 	});
 
@@ -476,6 +460,7 @@
 	}
 </script>
 
+<!-- navigation -->
 <div id="indicator">
 	<div class="circle"></div>
 	<div class="line"></div>
@@ -489,6 +474,7 @@
 	</div>
 </div>
 
+<!-- loading screen -->
 <div
 	role="presentation"
 	id="loading_screen"
@@ -501,20 +487,18 @@
 	<p id="loading_text">loading...</p>
 </div>
 
-<ONSHeader filled={false} center={false} />
-
-<Header bgfixed={false} center={true} short={false}>
+<Header center={true} short={false}>
 	<img
 		class="peace_logo"
 		src="./img/pax_gender.svg"
 		alt="peacerep logo"
-		style="width: 35%;"
+		style="width: 200px;"
 	/>
 	<h1>Women, Girls, and Gender in Peace Agreements</h1>
-	<p style="margin: 20px">
+	<p>
 		This visualization uses PA-X database to show how and to what extent
-		women, girls and gender are taken into consideration in peace agreements
-		around the world.
+		women, girls, and gender are taken into consideration in peace
+		agreements around the world.
 	</p>
 </Header>
 
@@ -1036,49 +1020,13 @@
 	</div>
 </Scroller>
 
-<!-- <Filler short={false} wide={true} center={true} shadow={true}></Filler> -->
-
-<!-- TIME -->
-<!-- <Scroller {threshold} bind:id={id["afgh"]} splitscreen={false} shadow={false}>
-	<div slot="background">
-		<figure>
-			<div class="col-wide height-full">
-				<div class="afgh">
-					<Afghanistan {pax} {pax_timeline} {step} {afghanistan} />
-				</div>
-			</div>
-		</figure>
-	</div>
-
-	<div slot="foreground">
-		<section data-id="afgh01">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Each line represents a peace agreements listed on PA-X that
-					was reached between 1990 and 2023.
-				</p>
-			</div>
-		</section>
-		<section data-id="afgh02">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					PA-X Gender agreements over time.
-				</p>
-			</div>
-		</section>
-		<section data-id="afgh03">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Gender references can differ hugely in terms of their
-					substantive quality and specificity, ranging from detailed
-					commitments to rhetorical references to 'women'.
-				</p>
-			</div>
-		</section>
-	</div>
-</Scroller> -->
-
 <style>
+	h1 {
+		font-size: 1em;
+	}
+	p {
+		font-size: 0.8em;
+	}
 	#indicator {
 		position: fixed;
 		top: 0;
