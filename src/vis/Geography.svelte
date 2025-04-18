@@ -76,7 +76,6 @@
     //steps
     $: if (step == "map_one") {
         cumulative_isos = get_current_isos(pax);
-        console.log(cumulative_isos);
     } else if (step == "map_two") {
         cumulative_isos = get_current_isos(pax_gender);
         cumulative_isos = cumulative_isos.filter((entry) => entry.count > 1);
@@ -107,9 +106,6 @@
     function formatMobile(tick) {
         return "'" + tick.toString().slice(-2);
     }
-
-    // $: console.log("rendered data: ", rendered_data);
-    // $: console.log("central points: ", central_points);
 </script>
 
 {#if mygeojson && pax_timeline}

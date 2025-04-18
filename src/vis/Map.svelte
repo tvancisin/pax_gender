@@ -49,8 +49,6 @@
             fill={initial_fill(country)}
             fill-opacity={opacity_calculator(country)}
             class={"country " + country.properties.adm0_iso}
-            stroke="#4d4d4d"
-            stroke-width="0.5"
             d={country.path}
         ></path>
     {/each}

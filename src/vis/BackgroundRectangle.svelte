@@ -26,7 +26,6 @@
     $: tY.set(y);
     $: tWidth.set(width);
     $: tHeight.set(height);
-
 </script>
 
 <g transform="translate({$tX} {$tY})">
@@ -36,15 +35,13 @@
         width={$tWidth}
         height={$tHeight}
         rx="1"
-        fill="#F6F1D6"
-        stroke="gray"
+        stroke="#595959"
         stroke-width="0.5"
     />
 </g>
 
 <style>
     rect {
-        fill: rgb(0, 0, 0);
+        fill: #001c23;
     }
-
 </style>

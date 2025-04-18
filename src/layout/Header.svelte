@@ -4,7 +4,7 @@
 
 </script>
 
-<header style="color: white}; background-color: black;" class:short>
+<header style="color: white; background-color: #001C23;" class:short>
   <div
     class="v-padded col-wide middle"
     style="position: relative"

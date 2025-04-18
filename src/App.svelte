@@ -502,33 +502,35 @@
 	</p>
 </Header>
 
-<Divider />
-
 <div class="filler" bind:this={scrollerRefAgreement}>
 	<p>
-		A <strong>peace agreement</strong> is a document produced after discussion
-		with conflict protagonists and mutually agreed to by them, addressing conflict
-		with a view to ending it.
-	</p>
-
-	<p>
+		A <strong>peace agreement</strong> is a document produced after
+		discussion with conflict protagonists and mutually agreed to by them,
+		addressing conflict with a view to ending it.
 		<a
 			href="https://pax.peaceagreements.org/agreements/search/"
 			style="color:white">PA-X Database</a
 		> collects and archives formal, publicly-available, signed peace agreements.
 	</p>
+
 	<p>Below is a ceasefire agreement from 1990 Nicaragua.</p>
 </div>
 
-<div class="filler">
-	<img
-		src="./img/toncontin.png"
-		alt="peace agreement example"
-		style="width: 100%;"
-	/>
+<div class="filler" style="padding: 50px;">
+	<a
+		href="https://pax.peaceagreements.org/agreements/wgg/589/"
+		target="_blank"
+		style="color: white;"
+	>
+		<img
+			src="./img/toncontin.png"
+			alt="peace agreement example"
+			style="width: 100%;"
+		/>
+	</a>
 </div>
 
-<Filler short={false} wide={true} center={true} shadow={false}>
+<div class="filler">
 	<p>
 		PA-X contains 2,055 peace agreements that have been signed since 1990.
 	</p>
@@ -536,7 +538,7 @@
 		The map below shows the geographical spread of where these agreements
 		are from and the primary location of the conflict they are addressing.
 	</p>
-</Filler>
+</div>
 
 <!-- Map -->
 <Scroller {threshold} bind:id={id["map"]} splitscreen={false} shadow={false}>
@@ -562,8 +564,8 @@
 		<section data-id="map01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					The brighter colour (white) indicates a higher number of
-					peace agreements signed.
+					Brighter colour (white) indicates a higher number of peace
+					agreements signed.
 				</p>
 			</div>
 		</section>
@@ -571,17 +573,10 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Now, the map shows the number of peace agreements that
-					contain at least two references to women, girls and gender.
+					contain at least two references to women, girls, and gender.
 				</p>
 			</div>
 		</section>
-		<!-- <section data-id="map03">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					Let's have a closer look at Afghanistan.
-				</p>
-			</div>
-		</section> -->
 	</div>
 </Scroller>
 
@@ -618,15 +613,13 @@
 		<section data-id="rect02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Out of all these agreements, less than one-quarter contain
-					references to women, girls and gender (436 agreements).
+					Out of all these agreements, less than a quarter contain
+					references to women, girls, and gender (436 agreements).
 				</p>
 			</div>
 		</section>
 	</div>
 </Scroller>
-
-<Divider />
 
 <div class="filler">
 	<p style="margin: 20px">
@@ -680,21 +673,21 @@
 		women's lives.
 		<br />
 		<br />
-		<br />
-		<br />
 		Hear more on this from PeaceRep's Women Peace and Security expert, Laura
 		Wise in this short, informative video (3 mins).
 		<!-- ask laura about the video. youtube?  -->
 	</p>
 </div>
 
+
 <div class="filler" bind:this={scrollerRefStages}>
 	<p style="margin: 20px">
-		There are different stages of peace processes depending on the content
-		included in agreements: from pre-neogtiation/process agreements where
-		there are 'talks about talks', to ceasefires, to more comprehensive
-		agreements and implementation agreeements.<br /><br /> If the process went
-		smoothly from one stage to the next it would look like this over time:
+		There are different <strong>stages of peace processes</strong> depending
+		on the content included in agreements: from pre-neogtiation/process
+		agreements where there are 'talks about talks', to ceasefires, to more
+		comprehensive agreements and implementation agreeements.<br /><br /> If the
+		process went smoothly from one stage to the next it would look like this
+		over time:
 	</p>
 </div>
 
@@ -732,7 +725,7 @@
 
 <div class="filler">
 	<p style="margin: 20px">
-		At which stage of peace negotiations do women, girls or gender get
+		At which stage of peace negotiations do women, girls, and gender get
 		discussed?
 	</p>
 </div>
@@ -788,16 +781,15 @@
 	</div>
 </Scroller>
 
-<Divider />
 
-<Filler short={false} wide={true} center={true} shadow={false}>
+<div class="filler">
 	<p>
 		In 2000, the United Nations Security Council passed Resolution 1325 on
 		Women, Peace, and Security, calling on all actors involved in
 		negotiating and implementing peace agreements to adopt a gender
 		perspective, including:
 	</p>
-</Filler>
+</div>
 
 <Filler short={false} wide={true} center={true} shadow={false}>
 	<div id="icons">
@@ -862,15 +854,14 @@
 		<section data-id="time01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Each line represents a peace agreement listed in PA-X that
-					was signed between 1990 and 2023.
+					Each line represents a peace agreement signed between 1990 and 2023.
 				</p>
 			</div>
 		</section>
 		<section data-id="time02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					This are the agreements included in PA-X Gender.
+					These are the agreements included in PA-X Gender.
 				</p>
 			</div>
 		</section>
@@ -1087,12 +1078,11 @@
 	}
 
 	.filler {
-		padding: 50px;
+		padding: 20%;
 		height: 100%;
 		justify-content: center;
 		display: flex;
 		flex-direction: column;
-		text-align: center;
 	}
 
 	#loading_screen {
@@ -1101,7 +1091,7 @@
 		position: absolute;
 		top: 0px;
 		left: 0px;
-		background-color: black;
+		background-color: #001C23;
 		display: flex;
 		justify-content: center;
 		z-index: 100;
@@ -1122,7 +1112,7 @@
 		font-weight: 400;
 		position: absolute;
 		top: 40%;
-		background-color: black;
+		background-color: #001C23;
 		color: white;
 		border: 1px solid rgb(69, 69, 69);
 		border-radius: 2px;
