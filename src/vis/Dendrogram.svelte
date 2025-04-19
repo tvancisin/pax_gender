@@ -10,6 +10,7 @@
     let height = 400;
     let root;
     let linksGenerator;
+    let radius = 100;
     let tree = [];
 
     function countOccurrences(data, hierarchy) {
@@ -31,15 +32,35 @@
         });
     }
 
+    function getWggAttributesByAgtId(dataArray, agtId) {
+        // Find the object with the matching AgtId
+        const agreement = dataArray.find((item) => item.AgtId === agtId);
+
+        if (!agreement) {
+            return []; // or throw an error / return null if preferred
+        }
+
+        // Collect keys that start with 'Wgg' and have value "1"
+        const wggAttributes = Object.entries(agreement)
+            .filter(([key, value]) => key.startsWith("Wgg") && value === "1")
+            .map(([key]) => key);
+
+        return wggAttributes;
+    }
+
     $: if (pax_gender) {
         let updatedTree = JSON.parse(JSON.stringify(hierarchy)); // Create a fresh copy
         countOccurrences(pax_gender, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
     }
 
-    $: radius = height; // Radius of the radial chart
+    $: if (width < height) {
+        radius = width; // Use width as the radius if it's larger
+    } else {
+        radius = height; // Use height as the radius if it's larger
+    }
 
-    $: if (height && tree) {
+    $: if (height || (width && tree)) {
         let cluster = d3.cluster().size([360, radius / 3]); // 360 means whole circle, radius - 60 means margin around dendrogram
 
         // Create hierarchy and apply cluster layout
@@ -58,15 +79,13 @@
             });
     }
 
-    // $: scaleRadius = d3.scaleLinear().domain([2, 200]).range([3, 25]);
-
     $: if (step == "afgh01") {
         console.log("step1");
         let updatedTree = JSON.parse(JSON.stringify(hierarchy)); // Create a fresh copy
         countOccurrences(pax_gender, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
 
-        d3.selectAll("path").style("stroke", "white");
+        d3.selectAll("path, text").style("stroke", "white");
     } else if (step == "afgh02") {
         console.log("step2");
         function splitArray(arr) {
@@ -80,13 +99,11 @@
         countOccurrences(split, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
 
-        d3.selectAll("path").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll(".WggPast").style("stroke", "white");
-        d3.selectAll(".WggTraJus").style("stroke", "white");
-        d3.selectAll(".WggDev").style("stroke", "white");
-        d3.selectAll(".WggRehab").style("stroke", "white");
-        d3.selectAll(".WggImpl").style("stroke", "white");
-        d3.selectAll(".WggImplOth").style("stroke", "white");
+        d3.selectAll("path, text").style("stroke", "rgb(74, 74, 74)");
+        const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, "589");
+        highlightedWggKeys.forEach((key) => {
+            d3.selectAll("." + key).style("stroke", "white");
+        });
     } else if (step == "afgh03") {
         console.log("step3");
         function splitArray(arr) {
@@ -100,18 +117,15 @@
         countOccurrences(split, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
 
-        d3.selectAll(".WggDev").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll(".WggRehab").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll(".WggImpl").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll(".WggImplOth").style("stroke", "rgb(74, 74, 74)");
+        d3.selectAll("path, text").style("stroke", "rgb(74, 74, 74)");
+        const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, "1845");
+        highlightedWggKeys.forEach((key) => {
+            d3.selectAll("." + key).style("stroke", "white");
+        });
 
-        d3.selectAll(".WggDdr").style("stroke", "white");
-        d3.selectAll(".WggInstRef").style("stroke", "white");
-        d3.selectAll(".WggEq").style("stroke", "white");
-        d3.selectAll(".WggSocEq").style("stroke", "white");
     }
 
-    $: console.log(tree);
+    $: console.log(pax_gender);
 </script>
 
 <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>

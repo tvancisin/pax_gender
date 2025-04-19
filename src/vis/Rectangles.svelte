@@ -124,7 +124,6 @@
                         y={d.y}
                         width={d.width}
                         height={d.height}
-                        info={d.info}
                     />
                 {/each}
                 {#each rendered_data as d, i}

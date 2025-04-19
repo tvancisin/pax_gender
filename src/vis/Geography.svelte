@@ -13,7 +13,7 @@
     export let pax_timeline;
     export let pax_gender;
     export let step;
-    export let central_points;
+    // export let central_points;
 
     let transform = d3.zoomIdentity;
     let newTransform;

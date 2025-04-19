@@ -7,7 +7,7 @@
     export let y;
     export let width;
     export let height;
-    export let info;
+    // export let info;
 
     // Define position tween parameters with staggered delay
     const positionTweenParams = {

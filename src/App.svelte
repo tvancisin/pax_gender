@@ -548,7 +548,6 @@
 				<div class="map" bind:this={scrollerRefGeo}>
 					<Geography
 						{mygeojson}
-						{central_points}
 						{pax}
 						{pax_timeline}
 						{pax_gender}
