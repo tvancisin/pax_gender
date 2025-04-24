@@ -462,8 +462,8 @@
 
 <!-- navigation -->
 <div id="indicator">
-	<div class="circle"></div>
 	<div class="line"></div>
+	<div class="circle"></div>
 	<div class="scroll-line-agmt"><img src="./img/agmt.png" alt="rect" /></div>
 	<div class="scroll-line-rect"><img src="./img/recs.png" alt="rect" /></div>
 	<div class="scroll-line-time"><img src="./img/line.png" alt="rect" /></div>
@@ -604,8 +604,7 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Every rectangle in this view represents one of the 2,055
-					formal agreements signed since 1990. You can see the example
-					of the Toncontin Agreement from earlier in blue.
+					formal agreements signed since 1990. 
 				</p>
 			</div>
 		</section>
@@ -1029,21 +1028,19 @@
 		justify-content: center;
 		align-items: flex-start;
 	}
-
 	.line {
 		position: fixed;
 		top: 0;
 		left: 0px;
-		width: 1px;
+		width: 2px;
 		height: 100%;
-		background-color: rgb(110, 110, 110);
+		background-color: rgb(72, 72, 72);
 		display: flex;
 	}
-
 	.circle {
-		width: 5px;
-		height: 5px;
-		background-color: white;
+		width: 7px;
+		height: 7px;
+		background-color: #fdd900;
 		border-radius: 50%;
 		position: absolute;
 		top: 0;
@@ -1051,7 +1048,6 @@
 		transform: translateX(-50%);
 		transition: top 0.1s linear;
 	}
-
 	:global(
 			.scroll-line-agmt,
 			.scroll-line-rect,
@@ -1102,19 +1098,19 @@
 		color: rgb(255, 255, 255);
 		margin: 0px;
 		font-weight: 300;
-		font-size: 16px;
+		font-size: 20px;
 	}
 
 	#loading_button {
 		font-family: "Montserrat";
-		font-size: 14px;
+		font-size: 18px;
 		font-weight: 400;
 		position: absolute;
 		top: 40%;
 		background-color: #001C23;
 		color: white;
-		border: 1px solid rgb(69, 69, 69);
-		border-radius: 2px;
+		border: 2px solid rgb(69, 69, 69);
+		border-radius: 5px;
 		padding: 10px 15px;
 		cursor: pointer;
 		transition:
@@ -1125,7 +1121,7 @@
 
 	#loading_button:hover {
 		background-color: white;
-		color: black;
+		color: #001C23;
 	}
 
 	.rect,

@@ -85,7 +85,8 @@
         countOccurrences(pax_gender, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
 
-        d3.selectAll("path, text").style("stroke", "white");
+        d3.selectAll("path").style("stroke", "white");
+        d3.selectAll("text").style("fill", "white");
     } else if (step == "afgh02") {
         console.log("step2");
         function splitArray(arr) {
@@ -99,10 +100,12 @@
         countOccurrences(split, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
 
-        d3.selectAll("path, text").style("stroke", "rgb(74, 74, 74)");
+        d3.selectAll("path").style("stroke", "rgb(74, 74, 74)");
+        d3.selectAll("text").style("fill", "rgb(74, 74, 74)");
         const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, "589");
         highlightedWggKeys.forEach((key) => {
-            d3.selectAll("." + key).style("stroke", "white");
+            d3.selectAll("path." + key).style("stroke", "white");
+            d3.selectAll("text." + key).style("fill", "white");
         });
     } else if (step == "afgh03") {
         console.log("step3");
@@ -117,10 +120,12 @@
         countOccurrences(split, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
 
-        d3.selectAll("path, text").style("stroke", "rgb(74, 74, 74)");
+        d3.selectAll("path").style("stroke", "rgb(74, 74, 74)");
+        d3.selectAll("text").style("fill", "rgb(74, 74, 74)");
         const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, "1845");
         highlightedWggKeys.forEach((key) => {
-            d3.selectAll("." + key).style("stroke", "white");
+            d3.selectAll("path." + key).style("stroke", "white");
+            d3.selectAll("text." + key).style("fill", "white");
         });
 
     }

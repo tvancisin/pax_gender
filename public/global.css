@@ -156,13 +156,14 @@ small {
 }
 
 .col-medium {
-	background-color: rgba(0, 0, 0, 0.822);
+	background-color: rgba(0, 0, 0, 0.9);
 	color: white;
 	width: 100%;
 	max-width: 680px;
 	margin: 0 24px;
 	font-size: 20px;
-	box-shadow: 0 0 8px 2px rgba(94, 94, 94, 0.3);
+	border-radius: 5px;
+	box-shadow: 0 0 8px 2px rgba(94, 94, 94, 0.1);
 }
 
 .col-narrow {

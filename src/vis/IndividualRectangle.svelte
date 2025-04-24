@@ -78,10 +78,6 @@
         /* transition: fill 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); */
     }
 
-    :global(rect#id_589) {
-        fill: steelblue;
-    }
-
     /* rect.is-hovered {
         fill: blue;
     } */
