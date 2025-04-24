@@ -53,9 +53,3 @@
         ></path>
     {/each}
 </g>
-
-<style>
-    .country {
-        stroke-width: 0.5px;
-    }
-</style>
