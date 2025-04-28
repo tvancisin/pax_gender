@@ -351,12 +351,13 @@
 
 	//LOAD PAX
 	let path = [
-		"./data/pax.csv",
-		"./data/pax_gender.csv",
+		"./data/pax_v9.csv",
+		"./data/pax_gender_v9.csv",
 		"./data/pax_central_points.csv",
 		"./data/pax_gender_text.csv",
 		"./data/text_corr.csv",
 		"./data/wgg_text.csv",
+		"./data/gender_categories.csv",
 	];
 	let pax;
 	let pax_gender;
@@ -366,6 +367,7 @@
 	let central_points;
 	let wgg_text;
 	let pax_stages;
+	let categories;
 	getCSV(path).then((data) => {
 		centralPointsStore.set(central_points);
 		pax = data[0];
@@ -374,6 +376,7 @@
 		pax_gender_text = data[3];
 		corr_text = data[4];
 		wgg_text = data[5];
+		categories = data[6];
 
 		const counter = {};
 		keysToCount.forEach((key) => {
@@ -428,7 +431,7 @@
 		});
 
 		pax.sort(function (x, y) {
-			return d3.ascending(x.Dat.substring(6, 10), y.Dat.substring(6, 10));
+			return d3.ascending(x.Dat.substring(0, 4), y.Dat.substring(0, 4));
 		});
 
 		//group by agreement stages
@@ -436,7 +439,8 @@
 		let order = ["Pre", "Cea", "SubPar", "SubComp", "Imp", "Ren", "Oth"];
 		pax_stages.sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]));
 
-		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(6, 10));
+		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(0, 4));
+		
 	});
 
 	let mapLoaded = false;
@@ -973,7 +977,7 @@
 		<figure>
 			<div class="col-wide height-full">
 				<div class="afgh">
-					<Dendrogram {pax_gender} {step} />
+					<Dendrogram {pax_gender} {step} {categories} />
 				</div>
 			</div>
 		</figure>

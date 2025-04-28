@@ -5,6 +5,7 @@
 
     export let pax_gender;
     export let step;
+    export let categories;
 
     let width = 400;
     let height = 400;
@@ -45,6 +46,8 @@
             .filter(([key, value]) => key.startsWith("Wgg") && value === "1")
             .map(([key]) => key);
 
+        wggAttributes.push("undefined")
+            
         return wggAttributes;
     }
 
@@ -85,7 +88,7 @@
         countOccurrences(pax_gender, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
 
-        d3.selectAll("path.link").style("stroke", "white");
+        d3.selectAll("path.link").style("stroke", "steelblue");
         d3.selectAll("text").style("fill", "white");
     } else if (step == "afgh02") {
         console.log("step2");
@@ -104,7 +107,7 @@
         d3.selectAll("text").style("fill", "rgb(74, 74, 74)");
         const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, "589");
         highlightedWggKeys.forEach((key) => {
-            d3.selectAll("path." + key).style("stroke", "white");
+            d3.selectAll("path." + key).style("stroke", "steelblue");
             d3.selectAll("text." + key).style("fill", "white");
         });
     } else if (step == "afgh03") {
@@ -124,7 +127,7 @@
         d3.selectAll("text").style("fill", "rgb(74, 74, 74)");
         const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, "1845");
         highlightedWggKeys.forEach((key) => {
-            d3.selectAll("path." + key).style("stroke", "white");
+            d3.selectAll("path." + key).style("stroke", "steelblue");
             d3.selectAll("text." + key).style("fill", "white");
         });
     }
@@ -144,7 +147,7 @@
 
                 <!-- Render Nodes (circles) -->
                 {#each root.descendants() as node}
-                    <Circle {node} />
+                    <Circle {node} {categories} />
                 {/each}
             </g>
         </svg>
@@ -159,6 +162,7 @@
 
     path {
         fill: none;
-        stroke: white;
+        stroke: steelblue;
+        stroke-width: 2;
     }
 </style>

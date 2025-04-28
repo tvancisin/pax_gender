@@ -41,7 +41,7 @@
         let calculated_positions = pax.map((d) => {
             let yPosition;
 
-            const currentYear = d.Dat.substring(6, 10);
+            const currentYear = d.Dat.substring(0, 4);
             // Reset index if the year has changed
             if (currentYear !== previousYear) {
                 index = filter === "none" ? 0 : -1;

@@ -5,20 +5,25 @@
     import { onMount } from "svelte";
 
     export let node;
-
+    export let categories;
+    
     let scaleRadius = d3.scaleLinear().domain([0, 200]).range([1.5, 25]);
-
-    // Tweened radius for smooth transitions
+    let textElement;
+    let bbox = { x: 0, y: 0, width: 0, height: 0 };
+    let name;
     let radius = tweened(0, { duration: 500, easing: cubicOut });
 
     // Update radius reactively
-    $: radius.set(node.data.count === undefined ? 0 : scaleRadius(node.data.count));
-
-    // Text and background management
-    let textElement;
-    let bbox = { x: 0, y: 0, width: 0, height: 0 };
+    $: radius.set(
+        node.data.count === undefined ? 0 : scaleRadius(node.data.count),
+    );
 
     $: label = node.data.key === undefined ? "pax_gender" : node.data.key;
+
+    $: if (label && categories) {
+        let category = categories.find((cat) => cat.id === label);
+        name = category ? category.name : null;
+    }
 
     // Update bounding box when label changes or on mount
     function updateBBox() {
@@ -35,9 +40,7 @@
     <circle r={$radius}></circle>
 
     <!-- Label group to apply same transform to rect and text -->
-    <g
-        transform="rotate({node.x >= 180 ? 180 : 0})"
-    >
+    <g transform="rotate({node.x >= 180 ? 180 : 0})">
         <!-- Background rectangle behind text -->
         <rect
             x={(node.x < 180 ? 0 : -0) + bbox.x - 2}
@@ -57,10 +60,10 @@
             dy="0.32em"
             text-anchor={node.x < 180 ? "start" : "end"}
             fill="#f6f1d6"
-            font-size="10"
+            font-size="12"
             class={"node " + node.data.key}
         >
-            {label}
+            {name}
         </text>
     </g>
 </g>

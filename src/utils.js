@@ -400,6 +400,7 @@ export let years = [
   "2021",
   "2022",
   "2023",
+  "2024"
 ];
 
 export let most_women = [

@@ -1,0 +1,57 @@
+﻿id,name
+pax_gender,Pax Gender
+WggCitizen,Citizenship
+WggDdr,DDR
+WggDev,Development
+WggDevGen,General (development)
+WggDevOth,Other (development)
+WggEdu,Education
+WggEffPart,Effective participation
+WggEq,Equality
+WggEqGen,Equality (general)
+WggEqOth,Equality (Other)
+WggGenQuot,Gender Quotas
+WggGrp,Groups of women
+WggGrpOth,Other (groups of women)
+WggHea,Health (general)
+WggHR,International HR Law
+WggHRSta,International HR standards
+WggHrSta,International HR standards
+WggImpl,Implementation
+WggImplOth,Other (implementation)
+WggImplRole,Role
+WggImplSign,Signing
+WggIndNom,Indigenous
+WggInf,Infrastructure (general)
+WggInstRef,Institutional Reform
+WggInstRefOth,Other (institutional reform)
+WggInstWom,Institutions for women
+WggIntLaw,International law
+WggIntLawOth,Other (international law)
+WggJud,Judiciary
+WggConst,Constitution
+WggLawCon,Constitution
+WggLawRef,Law
+WggNewInst,New Institutions
+WggNewInstOth,Other (new institutions)
+WggOth,Other
+WggPar,Participation
+WggParOth,Participation (other)
+WggPast,Past and gender
+WggPol,Police
+WggPreg,Pregnancy
+WggPri,Prisons
+WggPubAdm,Public administration
+WggRecon,Reconciliation
+WggRefDisp,Refugee
+WggRehab,Rehabilitation
+WggRepro,Reproductive rights
+WggSocEq,Social Equality
+WggTraJus,Transitional Justice
+WggTraJusOth,Other (transitional justice)
+WggUnsc,UNSCR 1325
+WggVio,Violence Against women
+WggVioGen,Gender-based violence
+WggVioOth,Other (violence against women)
+WggVioProt,Protection (general)
+WggVioSex,Sexual violence
