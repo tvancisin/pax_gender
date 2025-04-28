@@ -88,7 +88,7 @@
         countOccurrences(pax_gender, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
 
-        d3.selectAll("path.link").style("stroke", "steelblue");
+        d3.selectAll("path.link").style("stroke", "#808080");
         d3.selectAll("text").style("fill", "white");
     } else if (step == "afgh02") {
         console.log("step2");
@@ -107,7 +107,7 @@
         d3.selectAll("text").style("fill", "rgb(74, 74, 74)");
         const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, "589");
         highlightedWggKeys.forEach((key) => {
-            d3.selectAll("path." + key).style("stroke", "steelblue");
+            d3.selectAll("path." + key).style("stroke", "#808080");
             d3.selectAll("text." + key).style("fill", "white");
         });
     } else if (step == "afgh03") {
@@ -127,7 +127,7 @@
         d3.selectAll("text").style("fill", "rgb(74, 74, 74)");
         const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, "1845");
         highlightedWggKeys.forEach((key) => {
-            d3.selectAll("path." + key).style("stroke", "steelblue");
+            d3.selectAll("path." + key).style("stroke", "#808080");
             d3.selectAll("text." + key).style("fill", "white");
         });
     }
@@ -162,7 +162,7 @@
 
     path {
         fill: none;
-        stroke: steelblue;
+        stroke: #808080;
         stroke-width: 2;
     }
 </style>
