@@ -1107,7 +1107,7 @@
 
 	#loading_button {
 		font-family: "Montserrat";
-		font-size: 18px;
+		font-size: 16px;
 		font-weight: 400;
 		position: absolute;
 		top: 40%;

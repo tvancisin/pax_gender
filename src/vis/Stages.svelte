@@ -8,11 +8,12 @@
     export let pax_stages;
     export let step;
 
+    let tooltip = { visible: false, x: 0, y: 0, info: "" };
     let width = 400;
     let imageSource = "./img/africa.png";
     let exampleImg;
     let imageX;
-    let imageHeight; // Reactive variable for the image height
+    let imageHeight;
     let height = 400;
     let rendered_data;
     let background_data;
@@ -85,7 +86,33 @@
         lineEnd = innerHeight - (innerHeight - imageHeight);
     }
 
-    // $: console.log("rendered data: ", rendered_data);
+    // Event handlers for tooltip
+    const handleHover = (event) => {
+        let dyn_x;
+        let dyn_y;
+        if (event.detail.x >= innerWidth / 2) {
+            dyn_x = event.detail.x - 140;
+        } else if (event.detail.x < innerWidth / 2) {
+            dyn_x = event.detail.x + 70;
+        }
+
+        if (event.detail.y >= innerHeight / 2) {
+            dyn_y = event.detail.y - 50;
+        } else if (event.detail.y < innerHeight / 2) {
+            dyn_y = event.detail.y;
+        }
+
+        tooltip = {
+            visible: true,
+            x: dyn_x,
+            y: dyn_y,
+            info: event.detail.info,
+        };
+    };
+
+    const handleLeave = () => {
+        tooltip = { ...tooltip, visible: false };
+    };
 </script>
 
 {#if rendered_data}
@@ -124,15 +151,17 @@
                         height={d.height}
                         info={d.info}
                         id={d.id}
+                        on:hover={handleHover}
+                        on:leave={handleLeave}
                     />
                 {/each}
             </g>
             {#if lineEnd}
                 <path
                     id="example_stage"
-                    d={`M ${column_width*2},${innerHeight - 30} 
-                       C ${column_width*2},${innerHeight - 100} 
-                         ${imageX },${lineEnd + 100} 
+                    d={`M ${column_width * 2},${innerHeight - 30} 
+                       C ${column_width * 2},${innerHeight - 100} 
+                         ${imageX},${lineEnd + 100} 
                          ${imageX},${lineEnd}`}
                     fill="none"
                     stroke="white"
@@ -141,6 +170,14 @@
                 />
             {/if}
         </svg>
+        {#if tooltip.visible}
+            <div
+                class="tooltip"
+                style="position: absolute; left: {tooltip.x}px; top: {tooltip.y}px;"
+            >
+                <p>{tooltip.info}</p>
+            </div>
+        {/if}
         <div id="example_stage">
             <img
                 class="example_img"
@@ -162,20 +199,36 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%; /* Full width of the parent/container */
-        height: 100%; /* Full height of the parent/container if needed */
-        display: flex; /* Enables flexbox for centering */
+        width: 100%; 
+        height: 100%; 
+        display: flex; 
         justify-content: center;
-        overflow: hidden; /* Prevents content overflow */
+        overflow: hidden;
         opacity: 0;
         transition: 0.5s ease;
+        pointer-events: none;
     }
 
     #example_stage img {
         position: absolute;
         top: 0px;
-        max-width: 80%; /* Ensures the image scales within the width of its container */
-        height: auto; /* Maintains the aspect ratio of the image */
-        display: block; /* Removes extra space below the image (from inline elements) */
+        max-width: 80%; 
+        height: auto; 
+        display: block; 
+    }
+
+    .tooltip {
+        background-color: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 10px;
+        border-radius: 2px;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        width: 150px;
+    }
+
+    p {
+        margin: 5px;
+        font-size: 12px;
     }
 </style>

@@ -1,12 +1,13 @@
 <script>
     import * as d3 from "d3";
+    import { tick } from "svelte";
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
     import { onMount } from "svelte";
 
     export let node;
     export let categories;
-    
+
     let scaleRadius = d3.scaleLinear().domain([0, 200]).range([1.5, 25]);
     let textElement;
     let bbox = { x: 0, y: 0, width: 0, height: 0 };
@@ -34,10 +35,61 @@
 
     onMount(updateBBox);
     $: updateBBox();
+
+    //hover actions
+    let textWidth = 0;
+    let textEl;
+
+    async function updateTextWidth() {
+        await tick();
+        if (textEl) {
+            textWidth = textEl.getBBox().width;
+        }
+    }
+
+    let hover = {
+        iso: null,
+        x: 0,
+        y: 0,
+        visible: false,
+    };
+
+    function handleMouseOver(event, node) {
+        if (node) {
+            const [x, y] = d3.pointer(event);
+            hover = {
+                iso: node.data.count,
+                x,
+                y,
+                visible: true,
+            };
+        } else {
+            hover.visible = false;
+        }
+    }
+
+    function handleMouseMove(event) {
+        const [x, y] = d3.pointer(event);
+        hover.x = x;
+        hover.y = y;
+    }
+
+    function handleMouseOut() {
+        hover.visible = false;
+    }
+
+    $: if (hover.iso) {
+        updateTextWidth();
+    }
 </script>
 
 <g transform="rotate({node.x - 90})translate({node.y})">
-    <circle r={$radius}></circle>
+    <circle
+        r={$radius}
+        on:mouseover={(e) => handleMouseOver(e, node)}
+        on:mousemove={handleMouseMove}
+        on:mouseout={handleMouseOut}
+    ></circle>
 
     <!-- Label group to apply same transform to rect and text -->
     <g transform="rotate({node.x >= 180 ? 180 : 0})">
@@ -60,12 +112,36 @@
             dy="0.32em"
             text-anchor={node.x < 180 ? "start" : "end"}
             fill="#f6f1d6"
-            font-size="12"
+            font-size="10"
             class={"node " + node.data.key}
         >
             {name}
         </text>
     </g>
+    {#if hover.visible}
+        <g
+            transform="translate({hover.x + 10}, {hover.y -
+                10}) rotate({node.x >= 180 ? 180 : 0})"
+        >
+            <rect
+                x={node.x >= 180 ? -25 : 0}
+                y={node.x >= 180 ? -15 : 0}
+                width={textWidth + 10}
+                height="20"
+                fill="black"
+                rx="3"
+            />
+            <text
+                x={node.x >= 180 ? -20 : 5}
+                y={node.x >= 180 ? 0 : 15}
+                font-size="12"
+                fill="white"
+                bind:this={textEl}
+            >
+                {hover.iso}
+            </text>
+        </g>
+    {/if}
 </g>
 
 <style>

@@ -102,12 +102,6 @@
         tooltip = { ...tooltip, visible: false };
     };
 
-    $: if (rendered_data) {
-        rendered_data.forEach((d) => {
-            if (d.info.includes("Toncontin")) {
-            }
-        });
-    }
 </script>
 
 {#if rendered_data}
@@ -163,14 +157,14 @@
                 />
             {/each}
         </Canvas> -->
-        <!-- {#if tooltip.visible}
+        {#if tooltip.visible}
             <div
                 class="tooltip"
                 style="position: absolute; left: {tooltip.x}px; top: {tooltip.y}px;"
             >
                 <p>{tooltip.info}</p>
             </div>
-        {/if} -->
+        {/if}
     </div>
 {/if}
 
@@ -180,8 +174,8 @@
         position: relative;
     }
 
-    /* .tooltip {
-        background-color: rgba(0, 0, 0, 0.8);
+    .tooltip {
+        background-color: rgba(0, 0, 0, 0.9);
         color: white;
         padding: 10px;
         border-radius: 2px;
@@ -193,5 +187,5 @@
     p {
         margin: 5px;
         font-size: 12px;
-    } */
+    }
 </style>

@@ -8,6 +8,7 @@
     export let pax_timeline;
     export let step;
 
+    let tooltip = { visible: false, x: 0, y: 0, info: "" };
     let width = 400;
     let height = 400;
     let rendered_data;
@@ -16,7 +17,7 @@
     let imageX;
     let imageSource = "./img/lome.png";
     let exampleImg;
-    let imageHeight; 
+    let imageHeight;
     let margin = { top: 20, right: 20, bottom: 20, left: 40 };
 
     $: innerWidth = width - margin.left - margin.right;
@@ -61,7 +62,7 @@
                 width: xScale.bandwidth(),
                 height: 3,
                 info: d.Agt,
-                id: d.AgtId
+                id: d.AgtId,
             };
 
             if (filter === "none") index++;
@@ -141,6 +142,34 @@
 
     // Call the function on initial load to set the height
     updateImageHeight();
+
+    // Event handlers for tooltip
+    const handleHover = (event) => {
+        let dyn_x;
+        let dyn_y;
+        if (event.detail.x >= innerWidth / 2) {
+            dyn_x = event.detail.x - 140;
+        } else if (event.detail.x < innerWidth / 2) {
+            dyn_x = event.detail.x + 70;
+        }
+
+        if (event.detail.y >= innerHeight / 2) {
+            dyn_y = event.detail.y - 50;
+        } else if (event.detail.y < innerHeight / 2) {
+            dyn_y = event.detail.y;
+        }
+
+        tooltip = {
+            visible: true,
+            x: dyn_x,
+            y: dyn_y,
+            info: event.detail.info,
+        };
+    };
+
+    const handleLeave = () => {
+        tooltip = { ...tooltip, visible: false };
+    };
 </script>
 
 {#if rendered_data && pax_timeline}
@@ -183,6 +212,8 @@
                         width={d.width}
                         height={d.height}
                         info={d.info}
+                        on:hover={handleHover}
+                        on:leave={handleLeave}
                     />
                 {/each}
 
@@ -217,6 +248,14 @@
                 >
             </g>
         </svg>
+        {#if tooltip.visible}
+            <div
+                class="tooltip"
+                style="position: absolute; left: {tooltip.x}px; top: {tooltip.y}px;"
+            >
+                <p>{tooltip.info}</p>
+            </div>
+        {/if}
         <div id="example">
             <img
                 class="example_img"
@@ -278,6 +317,7 @@
         overflow: hidden;
         opacity: 0;
         transition: 0.5s ease;
+        pointer-events: none;
     }
 
     #example img {
@@ -286,5 +326,20 @@
         max-width: 80%;
         height: auto;
         display: block;
+    }
+
+    .tooltip {
+        background-color: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 10px;
+        border-radius: 2px;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        width: 150px;
+    }
+
+    p {
+        margin: 5px;
+        font-size: 12px;
     }
 </style>

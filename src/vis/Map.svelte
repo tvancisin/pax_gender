@@ -1,5 +1,4 @@
 <script>
-    import { getContext } from "svelte";
     import { tick } from "svelte";
     import * as d3 from "d3";
 

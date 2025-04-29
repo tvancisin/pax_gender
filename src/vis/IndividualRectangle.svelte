@@ -1,5 +1,4 @@
 <script>
-    import * as d3 from "d3";
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
     import { createEventDispatcher } from "svelte"; // Import the dispatcher
@@ -10,12 +9,7 @@
     export let width;
     export let height;
     export let info;
-    // export let step;
     export let i;
-
-    // $: if (step == "5") {
-    //     d3.select("#id685").style("fill", "blue");
-    // }
 
     const dispatch = createEventDispatcher();
 
@@ -41,6 +35,8 @@
     let isHovered = false;
 
     const handleMouseEnter = () => {
+        console.log("here");
+        
         isHovered = true;
         // Dispatch the custom event with necessary data
         dispatch("hover", { x, y, info });
@@ -57,7 +53,7 @@
 
 <g transform="translate({$tX} {$tY})">
     <rect
-        id= {"id_"+ id}
+        id={"id_" + id}
         x="0"
         y="0"
         width={$tWidth}
@@ -75,10 +71,10 @@
 <style>
     rect {
         fill: #f6f1d6;
-        /* transition: fill 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); */
+        transition: fill 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
 
-    /* rect.is-hovered {
-        fill: blue;
-    } */
+    rect.is-hovered {
+        fill: red;
+    }
 </style>
