@@ -440,7 +440,6 @@
 		pax_stages.sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]));
 
 		pax_timeline = d3.groups(pax, (d) => d.Dat.substring(0, 4));
-		
 	});
 
 	let mapLoaded = false;
@@ -470,7 +469,7 @@
 	<div class="circle"></div>
 	<div class="scroll-line-agmt"><img src="./img/agmt.png" alt="rect" /></div>
 	<div class="scroll-line-rect"><img src="./img/recs.png" alt="rect" /></div>
-	<div class="scroll-line-time"><img src="./img/line.png" alt="rect" /></div>
+	<div class="scroll-line-time"><img src="./img/time.png" alt="rect" /></div>
 	<div class="scroll-line-stage"><img src="./img/bar.png" alt="rect" /></div>
 	<div class="scroll-line-geo"><img src="./img/globe.png" alt="rect" /></div>
 	<div class="scroll-line-dendr">
@@ -492,32 +491,41 @@
 </div>
 
 <Header center={true} short={false}>
+	<i class="fa fa-info-circle" aria-hidden="true"></i>
+
 	<img
 		class="peace_logo"
-		src="./img/pax_gender.svg"
+		src="./img/pax.png"
 		alt="peacerep logo"
 		style="width: 200px;"
 	/>
 	<h1>Women, Girls, and Gender in Peace Agreements</h1>
-	<p>
-		This visualization uses PA-X database to show how and to what extent
-		women, girls, and gender are taken into consideration in peace
-		agreements around the world.
-	</p>
+	<div id="text_field" style="padding-left: 20%; padding-right:20%">
+		<p>
+			Marking the 25th Anniversary of the Women, Peace and Security
+			agenda, this visualization uses the PA-X database to show how and to
+			what extent women, girls, and gender are taken into consideration in
+			peace agreements around the world.
+		</p>
+	</div>
 </Header>
 
 <div class="filler" bind:this={scrollerRefAgreement}>
-	<p>
-		A <strong>peace agreement</strong> is a document produced after
-		discussion with conflict protagonists and mutually agreed to by them,
-		addressing conflict with a view to ending it.
-		<a
-			href="https://pax.peaceagreements.org/agreements/search/"
-			style="color:white">PA-X Database</a
-		> collects and archives formal, publicly-available, signed peace agreements.
-	</p>
-
-	<p>Below is a ceasefire agreement from 1990 Nicaragua.</p>
+	<div id="text_field">
+		<p style="text-align: center;">
+			A <strong>peace agreement</strong> is a document produced after
+			discussion with conflict protagonists and mutually agreed to by
+			them, addressing conflict with a view to ending it. <br /><br />
+			<a
+				href="https://pax.peaceagreements.org/agreements/search/"
+				style="color:white">PA-X Database</a
+			>
+			collects and archives formal, publicly-available, signed peace agreements.
+			PA-X Gender is a sub-database of PA-X that includes agreements that contain
+			mentions to Women, Girls or Gender. <br /><br />
+			Below is a ceasefire agreement from 1990 Nicaragua.
+		</p>
+	</div>
 </div>
 
 <div class="filler" style="padding: 50px;">
@@ -535,13 +543,141 @@
 </div>
 
 <div class="filler">
-	<p>
-		PA-X contains 2,055 peace agreements that have been signed since 1990.
-	</p>
-	<p>
-		The map below shows the geographical spread of where these agreements
-		are from and the primary location of the conflict they are addressing.
-	</p>
+	<div id="text_field">
+		<p style="text-align: center;">
+			In 2000, the United Nations Security Council passed Resolution 1325
+			on Women, Peace, and Security, calling on all actors involved in
+			negotiating and implementing peace agreements to adopt a gender
+			perspective, including the following:
+		</p>
+	</div>
+</div>
+
+<div id="icons">
+	<div class="icon-item">
+		<img
+			src="./img/fir.svg"
+			alt="peace agreement example"
+			style="height: 100px;"
+		/>
+		<p
+			style="text-align: center; font-size: 14px; padding-left: 10%; padding-right: 10%"
+		>
+			Responding to the special needs of women and girls during
+			repatriation, resettlement, rehabilitation, reintegration and
+			post-conflict reconstruction
+		</p>
+	</div>
+	<div class="icon-item">
+		<img
+			src="./img/sec.svg"
+			alt="peace agreement example"
+			style="height: 100px;"
+		/>
+		<p
+			style="text-align: center; font-size: 14px; padding-left: 10%; padding-right: 10%"
+		>
+			Supporting local women’s and indigenous initiatives for conflict
+			resolution, and involving women in all implementation mechanisms
+		</p>
+	</div>
+	<div class="icon-item">
+		<img
+			src="./img/thi.svg"
+			alt="peace agreement example"
+			style="height: 100px;"
+		/>
+		<p
+			style="text-align: center; font-size: 14px; padding-left: 10%; padding-right: 10%"
+		>
+			Ensuring the protection of human rights of women and girls,
+			particularly relating to the constitution, the electoral system, the
+			police and the judiciary
+		</p>
+	</div>
+</div>
+
+<div class="filler">
+	<div id="text_field">
+		<p style="text-align: center">
+			Why should peace agreements incorporate a gender perspective?
+		</p>
+	</div>
+</div>
+
+<div id="icons">
+	<div class="icon-item">
+		<img
+			src="./img/blueprint.png"
+			alt="peace agreement example"
+			style="height: 100px;"
+		/>
+		<p
+			style="text-align: center; font-size: 14px; padding-left: 5%; padding-right: 5%"
+		>
+			<strong
+				>Peace agreements can provide a formalised blueprint to shape
+				the political settlement that emerges from a peace deal.</strong
+			> <br /><br /> This can have consequences for how women, gender minorities,
+			and sexual minorities may experience the transition that the peace agreement
+			stipulates.
+		</p>
+	</div>
+	<div class="icon-item">
+		<img
+			src="./img/negotiation.png"
+			alt="peace agreement example"
+			style="height: 100px;"
+		/>
+		<p
+			style="text-align: center; font-size: 14px; padding-left: 5%; padding-right: 5%"
+		>
+			<strong
+				>Peace agreements can create 'sticky' institutional arrangements
+				that can be hard to later re-negotiate.</strong
+			> <br /><br />Any gaps in how the peace agreement understands or
+			responds to gender, may become stuck and difficult to resolve
+			through institutional mechanisms.
+		</p>
+	</div>
+	<div class="icon-item">
+		<img
+			src="./img/gender.png"
+			alt="peace agreement example"
+			style="height: 100px;"
+		/>
+		<p
+			style="text-align: center; font-size: 14px; padding-left: 5%; padding-right: 5%"
+		>
+			<strong>Peace agreements are not gender neutral by default.</strong
+			><br /><br />
+			They contain institutional configurations, security mechanisms and human
+			rights regimes that all shape different gender outcomes or impacts women's
+			lives.
+		</p>
+	</div>
+	<div id="text_field">
+		<p style="text-align: center;">
+			Hear more on this from PeaceRep's Women Peace and Security expert,
+			Laura Wise in this short, informative <a
+				href="https://www.youtube.com/watch?v=52GFh0r6Zj8"
+				target="_blank"
+				style="color: white;">video</a
+			> (3 mins).
+		</p>
+	</div>
+</div>
+
+<div class="filler">
+	<div id="text_field">
+		<p style="text-align: center;">
+			PA-X contains 2,055 peace agreements that have been signed since
+			1990.
+			<br /><br />
+			The map below shows the geographical spread of where these agreements
+			are from and the primary location of the conflict they are addressing.
+		</p>
+	</div>
 </div>
 
 <!-- Map -->
@@ -568,7 +704,12 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Brighter colour (white) indicates a higher number of peace
-					agreements signed.
+					agreements signed. <span style="color: gray;"
+						>[<i
+							>hover over a country for the exact number of peace
+							agreements</i
+						>]</span
+					>
 				</p>
 			</div>
 		</section>
@@ -584,11 +725,13 @@
 </Scroller>
 
 <div class="filler">
-	<p>
-		To get a better idea about how often women, girls and gender are taken
-		into consideration in peace agreements, below is a representation of all
-		peace agreements in PA-X.
-	</p>
+	<div id="text_field">
+		<p style="text-align: center;">
+			To get a better idea about how often women, girls and gender are
+			taken into consideration in peace agreements, below is a
+			representation of all peace agreements in PA-X.
+		</p>
+	</div>
 </div>
 
 <!-- RECTANGLES -->
@@ -608,7 +751,7 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Every rectangle in this view represents one of the 2,055
-					formal agreements signed since 1990. 
+					formal agreements signed since 1990.
 				</p>
 			</div>
 		</section>
@@ -623,74 +766,57 @@
 	</div>
 </Scroller>
 
-<div class="filler">
-	<p style="margin: 20px">
-		Why should peace agreements incorporate a gender perspective?
-	</p>
+<div class="filler" bind:this={scrollerRefTime}>
+	<div id="text_field">
+		<p style="text-align: center">
+			How did UNSCR 1325 influence the number of gender-related peace
+			agreements over time?
+		</p>
+	</div>
 </div>
 
-<!-- <Filler short={true} wide={true} center={true} shadow={false}>
-	<video
-		poster="./img/lr_bl.png"
-		controls
-		style="width: 80%; height: auto; margin: auto; border-radius: 3px;"
-	>
-		<source src="./img/laura.mp4" type="video/mp4" />
-		<track
-			src="captions_en"
-			kind="captions"
-			srclang="en"
-			label="english_captions"
-		/>
-		Your browser does not support the video tag.
-	</video>
-</Filler> -->
+<!-- TIME -->
+<Scroller {threshold} bind:id={id["time"]} splitscreen={false} shadow={false}>
+	<div slot="background">
+		<figure>
+			<div class="col-wide height-full">
+				<div class="time">
+					<Timeline {pax} {pax_timeline} {step} />
+				</div>
+			</div>
+		</figure>
+	</div>
 
-<div class="filler">
-	<p>
-		<strong>Peace agreements can provide a formalised blueprint</strong> to
-		shape the political settlement that emerges from a peace deal, both
-		legally and socially.<br /><br /> This can have consequences for how women,
-		gender minorities, and sexual minorities may experience the transition that
-		the peace agreement stipulates.
-	</p>
-</div>
-
-<div class="filler">
-	<p>
-		<strong
-			>Peace agreements can create 'sticky' institutional arrangements
-			that can be hard to later re-negotiate.</strong
-		><br /><br /> Any gaps in how the peace agreement understands or responds
-		to gender, may become stuck and difficult to resolve through institutional
-		mechanisms.
-	</p>
-</div>
-
-<div class="filler">
-	<p>
-		<strong>Peace agreements are not gender neutral by default</strong> They
-		contain institutional configurations, security mechanisms and human
-		rights regimes that all shape different gender outcomes or impacts
-		women's lives.
-		<br />
-		<br />
-		Hear more on this from PeaceRep's Women Peace and Security expert, Laura
-		Wise in this short, informative video (3 mins).
-		<!-- ask laura about the video. youtube?  -->
-	</p>
-</div>
-
+	<div slot="foreground">
+		<section data-id="time01">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Each line represents a peace agreement signed between 1990
+					and 2024.
+				</p>
+			</div>
+		</section>
+		<section data-id="time02">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					These are the agreements included in PA-X Gender.
+				</p>
+			</div>
+		</section>
+	</div>
+</Scroller>
 
 <div class="filler" bind:this={scrollerRefStages}>
-	<p style="margin: 20px">
-		There are different <strong>stages of peace processes</strong> depending
-		on the content included in agreements: from pre-neogtiation/process
-		agreements where there are 'talks about talks', to ceasefires, to more
-		comprehensive agreements and implementation agreeements.<br /><br /> If the
-		process went smoothly from one stage to the next it would look like this
-		over time:
-	</p>
+	<div id="text_field">
+		<p style="text-align: center">
+			There are different <strong>stages of peace processes</strong>
+			depending on the content included in agreements: from pre-neogtiation/process
+			agreements where there are 'talks about talks', to ceasefires, to more
+			comprehensive agreements and implementation agreeements.<br /><br />
+			If the process went smoothly from one stage to the next it would look
+			like this over time:
+		</p>
+	</div>
 </div>
 
 <Filler short={false} wide={true} center={true} shadow={true}>
@@ -702,12 +828,14 @@
 </Filler>
 
 <div class="filler">
-	<p style="margin: 20px">
-		Instead, peace processes frequently involve a series of back-and-forth
-		movements, reflecting the reality that progress is rarely uniform or
-		predictable.<br /><br /> For example, here is the trajectory of the Philippines-Mindano
-		Process.
-	</p>
+	<div id="text_field">
+		<p style="text-align:center">
+			Instead, peace processes frequently involve a series of
+			back-and-forth movements, reflecting the reality that progress is
+			rarely uniform or predictable.<br /><br /> For example, here is the trajectory
+			of the Philippines-Mindano Process.
+		</p>
+	</div>
 </div>
 
 <Filler short={false} wide={true} center={true} shadow={true}>
@@ -726,10 +854,12 @@
 </Filler>
 
 <div class="filler">
-	<p style="margin: 20px">
-		At which stage of peace negotiations do women, girls, and gender get
-		discussed?
-	</p>
+	<div id="text_field">
+		<p style="text-align: center">
+			At which stage of peace negotiations do women, girls, and gender get
+			discussed?
+		</p>
+	</div>
 </div>
 
 <!-- STAGES -->
@@ -783,61 +913,14 @@
 	</div>
 </Scroller>
 
-
-<div class="filler">
-	<p>
-		In 2000, the United Nations Security Council passed Resolution 1325 on
-		Women, Peace, and Security, calling on all actors involved in
-		negotiating and implementing peace agreements to adopt a gender
-		perspective, including:
-	</p>
-</div>
-
-<Filler short={false} wide={true} center={true} shadow={false}>
-	<div id="icons">
-		<div class="icon-item">
-			<img
-				src="./img/fir.svg"
-				alt="peace agreement example"
-				style="height: 100px;"
-			/>
-			<p style="text-align: left; font-size: 14px">
-				Responding to the special needs of women and girls during
-				repatriation, resettlement, rehabilitation, reintegration and
-				post-conflict reconstruction
-			</p>
-		</div>
-		<div class="icon-item">
-			<img
-				src="./img/sec.svg"
-				alt="peace agreement example"
-				style="height: 100px;"
-			/>
-			<p style="text-align: left; font-size: 14px">
-				Supporting local women’s and indigenous initiatives for conflict
-				resolution, and involving women in all implementation mechanisms
-			</p>
-		</div>
-		<div class="icon-item">
-			<img
-				src="./img/thi.svg"
-				alt="peace agreement example"
-				style="height: 100px;"
-			/>
-			<p style="text-align: left; font-size: 14px">
-				Ensuring the protection of human rights of women and girls,
-				particularly relating to the constitution, the electoral system,
-				the police and the judiciary
-			</p>
-		</div>
-	</div>
-</Filler>
-
 <div class="filler" bind:this={scrollerRefTime}>
-	<p style="margin: 20px">
-		How did this influence the number of gender-related peace agreements
-		over time?
-	</p>
+	<div id="text_field">
+		<p style="text-align: center">
+			Beyond the numbers, gender references differ hugely in terms of
+			their substantive quality and specificity, ranging from detailed
+			commitments to rhetorical references to 'women'.
+		</p>
+	</div>
 </div>
 
 <!-- TIME -->
@@ -856,25 +939,11 @@
 		<section data-id="time01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Each line represents a peace agreement signed between 1990 and 2023.
-				</p>
-			</div>
-		</section>
-		<section data-id="time02">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					These are the agreements included in PA-X Gender.
-				</p>
-			</div>
-		</section>
-		<section data-id="time03">
-			<div class="col-medium">
-				<p style="text-align: center;">
-					What's important to consider is that gender references
-					differ hugely in terms of their substantive quality and
-					specificity, ranging from detailed commitments to rhetorical
-					references to 'women'.
-					<!-- [make them different opacity] -->
+					Let’s explore gender reference quality and specificity
+					through three focus areas of a gender perspective according
+					to UNSCR 1325: women’s special needs during rehabilitation
+					and reconstruction, involving women in implementation, and
+					protecting the human rights of women and girls.
 				</p>
 			</div>
 		</section>
@@ -963,13 +1032,15 @@
 </Scroller>
 
 <div class="filler" bind:this={scrollerRefDend}>
-	<p style="margin: 20px">
-		As you can see, peace agreements cover different topics related to
-		women, girls and gender. Sometimes there are a lot of topics addressed,
-		and sometimes there are very few. <br /><br />
-		Below shows a representation of all topics related to women, girls and gender
-		that are coded for all agreements in PA-X Gender.
-	</p>
+	<div id="text_field">
+		<p style="text-align: center">
+			As you can see, peace agreements cover different topics related to
+			women, girls and gender. Sometimes there are a lot of topics
+			addressed, and sometimes there are very few. <br /><br />
+			Below shows a representation of all topics related to women, girls and
+			gender that are coded for all agreements in PA-X Gender.
+		</p>
+	</div>
 </div>
 
 <Scroller {threshold} bind:id={id["afgh"]} splitscreen={false} shadow={false}>
@@ -1077,7 +1148,8 @@
 	}
 
 	.filler {
-		padding: 20%;
+		padding-left: 20%;
+		padding-right: 20%;
 		height: 100%;
 		justify-content: center;
 		display: flex;
@@ -1090,7 +1162,7 @@
 		position: absolute;
 		top: 0px;
 		left: 0px;
-		background-color: #001C23;
+		background-color: #001c23;
 		display: flex;
 		justify-content: center;
 		z-index: 100;
@@ -1111,11 +1183,11 @@
 		font-weight: 400;
 		position: absolute;
 		top: 40%;
-		background-color: #001C23;
+		background-color: #001c23;
 		color: white;
-		border: 2px solid rgb(69, 69, 69);
+		border: 1px solid rgb(69, 69, 69);
 		border-radius: 5px;
-		padding: 10px 15px;
+		padding: 15px 15px;
 		cursor: pointer;
 		transition:
 			background-color 0.2s ease,
@@ -1125,7 +1197,7 @@
 
 	#loading_button:hover {
 		background-color: white;
-		color: #001C23;
+		color: #001c23;
 	}
 
 	.rect,
@@ -1138,23 +1210,37 @@
 	}
 
 	#icons {
-		margin: 50px;
+		margin: 100px;
 		display: flex;
-		flex-wrap: wrap; /* Allows items to wrap onto the next line */
-		justify-content: space-between; /* Adjust spacing between items */
+		flex-wrap: wrap;
+		justify-content: space-between;
 	}
 
 	.icon-item {
-		flex: 1 1 calc(33.33% - 10px); /* Ensure three items per row, with some spacing */
-		margin: 5px; /* Adds spacing between items */
-		text-align: center; /* Center content inside the items */
-		padding: 20px; /* Example padding */
-		box-sizing: border-box; /* Ensures padding is included in width calculation */
+		flex: 1 1 calc(33.33% - 10px);
+		margin: 5px;
+		text-align: center;
+		padding: 20px;
+		box-sizing: border-box;
 	}
 
 	@media (max-width: 768px) {
 		.icon-item {
-			flex: 1 1 100%; /* Items stack on top of each other on small screens */
+			flex: 1 1 100%;
 		}
+	}
+
+	#text_field {
+		padding-left: 10%;
+		padding-right: 10%;
+		display: flex;
+		margin: auto;
+	}
+
+	.fa-info-circle {
+		position: absolute;
+		top: 10px;
+		right: 5px;
+		font-size: 24px;
 	}
 </style>

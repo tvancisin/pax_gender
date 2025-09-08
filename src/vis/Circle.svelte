@@ -99,8 +99,7 @@
             y={bbox.y - 1}
             width={bbox.width + 4}
             height={bbox.height + 2}
-            fill="#001C23"
-            opacity="0.7"
+            fill={node.data.key == undefined ? "none" : "#001C23"}
             rx="2"
             ry="2"
         />
@@ -113,6 +112,7 @@
             text-anchor={node.x < 180 ? "start" : "end"}
             fill="#f6f1d6"
             font-size="10"
+            opactity={node.data.key == undefined ? 0 : 1}
             class={"node " + node.data.key}
         >
             {name}
@@ -147,5 +147,8 @@
 <style>
     circle {
         fill: #f6f1d6;
+    }
+    :global(.undefined) {
+        opacity: 0;
     }
 </style>
