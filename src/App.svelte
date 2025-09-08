@@ -1084,6 +1084,69 @@
 	</div>
 </Scroller>
 
+<div class="filler">
+	<div id="text_field">
+		<p style="text-align: center">
+			PA-X Gender shows that after 25 years since UNSCR 1325 was passed,
+			peace agreements still do not consistently incorporate a gender
+			perspective.
+			<br /><br />
+			However, women and their allies continue to push for peace processes
+			to recognise the importance of gender, both from within and outside of
+			formal institutions.
+			<br /><br />
+			PA-X Gender is an archive of processes where women were successful at
+			getting gender into peace agreements, and pays tribute to their historical
+			efforts.
+		</p>
+	</div>
+</div>
+
+<div class="filler">
+	<div id="text_field">
+		<p style="text-align: center">
+			Explore our research and data on gender in peace agreements, and how
+			this work informs Women, Peace and Security monitoring.
+			<br />
+			<br />
+			<a
+				href="https://www.peaceagreements.org/agreements/wggsearch/"
+				target="_blank">PA-X Gender Database</a
+			>
+			<br />
+			<br />
+			<a
+				href="https://peacerep.org/2025/07/24/women-peace-and-security-at-25/"
+				target="_blank"
+				>Women, Peace and Security at 25: Assessing Implementation
+				through Gender Perspectives in Peace Agreements</a
+			>
+			<br />
+			<br />
+			<a
+				href="https://peacerep.org/2024/10/28/un-report-cites-peacerep-research-on-stagnation-of-gender-references-in-peace-agreements/"
+				target="_blank"
+				>UN Report Cites PeaceRep Research on Stagnation of Gender
+				References in Peace Agreements</a
+			>
+			<br />
+			<br />
+			<a
+				href="https://peacerep.org/publication/principled-pragmatism-and-the-inclusion-project-implementing-a-gender-perspective-in-peace-agreements/"
+				target="_blank"
+				>Principled Pragmatism and the ‘Inclusion Project’: Implementing
+				a Gender Perspective in Peace Agreements</a
+			>
+			<br />
+			<br />
+			<a
+				href="https://peacerep.org/digital-resources/peacefem/"
+				target="_blank">PeaceFem</a
+			>
+		</p>
+	</div>
+</div>
+
 <style>
 	h1 {
 		font-size: 1em;
