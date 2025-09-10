@@ -13,7 +13,6 @@
 	import Header from "./layout/Header.svelte";
 	import Scroller from "./layout/Scroller.svelte";
 	import Filler from "./layout/Filler.svelte";
-	import Divider from "./layout/Divider.svelte";
 	import Stages from "./vis/Stages.svelte";
 	import Rectangles from "./vis/Rectangles.svelte";
 	import Timeline from "./vis/Timeline.svelte";
@@ -75,11 +74,11 @@
 		const circle = document.querySelector(".circle");
 		const indicator = document.querySelector("#indicator");
 		const lineAgmt = document.querySelector(".scroll-line-agmt");
+		const lineGeo = document.querySelector(".scroll-line-geo");
 		const lineRect = document.querySelector(".scroll-line-rect");
 		const lineReason = document.querySelector(".scroll-line-reason");
 		const lineTime = document.querySelector(".scroll-line-time");
 		const lineStage = document.querySelector(".scroll-line-stage");
-		const lineGeo = document.querySelector(".scroll-line-geo");
 		const lineDend = document.querySelector(".scroll-line-dendr");
 
 		if (!circle || !indicator) return;
@@ -127,12 +126,12 @@
 			// Position lineReason
 			if (scrollerRefReason instanceof HTMLElement) {
 				let scrollerReason = scrollerRefReason.getBoundingClientRect();
-				console.log("here");
-
 				let scrollerTopReason = scrollerReason.top + window.scrollY;
+				
 				let scrollerPercentReason = scrollerTopReason / docHeight;
 				let linePositionReason =
 					scrollerPercentReason * indicatorHeight;
+				console.log(linePositionReason);
 				lineReason.style.top = `${linePositionReason}px`;
 
 				// Add click listener to lineReason
@@ -464,7 +463,6 @@
 
 	let info_checker = 0;
 	function infoPressed() {
-		console.log("here");
 		if (info_checker % 2 == 0) {
 			d3.select(".info_div").style("top", "1px");
 		} else {
@@ -476,13 +474,14 @@
 
 <!-- navigation -->
 <div id="indicator">
-	<div class="line"></div>
+	<!-- <div class="line"></div> -->
 	<div class="circle"></div>
 	<div class="scroll-line-agmt"><img src="./img/agmt.png" alt="rect" /></div>
 	<div class="scroll-line-rect"><img src="./img/recs.png" alt="rect" /></div>
+	<div class="scroll-line-reason"><img src="./img/un.png" alt="rect" /></div>
 	<div class="scroll-line-time"><img src="./img/time.png" alt="rect" /></div>
 	<div class="scroll-line-stage"><img src="./img/bar.png" alt="rect" /></div>
-	<div class="scroll-line-geo"><img src="./img/globe.png" alt="rect" /></div>
+	<div class="scroll-line-geo"><img src="./img/glb.png" alt="rect" /></div>
 	<div class="scroll-line-dendr">
 		<img src="./img/dendr.png" alt="rect" />
 	</div>
@@ -529,6 +528,12 @@
 			peace agreements around the world.
 		</p>
 	</div>
+	<br />
+	<img
+		src="./img/scroll-down-white.svg"
+		alt="scroll down"
+		class="scroll-down-icon"
+	/>
 </Header>
 
 <div class="filler" bind:this={scrollerRefAgreement}>
@@ -787,7 +792,7 @@
 	</div>
 </Scroller>
 
-<div class="filler" bind:this={scrollerRefTime}>
+<div class="filler" bind:this={scrollerRefReason}>
 	<div id="text_field">
 		<p style="text-align: center">
 			How did UNSCR 1325 influence the number of gender-related peace
@@ -827,7 +832,7 @@
 	</div>
 </Scroller>
 
-<div class="filler" bind:this={scrollerRefStages}>
+<div class="filler">
 	<div id="text_field">
 		<p style="text-align: center">
 			There are different <strong>stages of peace processes</strong>
@@ -874,7 +879,7 @@
 	</p>
 </Filler>
 
-<div class="filler">
+<div bind:this={scrollerRefStages} class="filler">
 	<div id="text_field">
 		<p style="text-align: center">
 			At which stage of peace negotiations do women, girls, and gender get
@@ -1227,6 +1232,7 @@
 			.scroll-line-rect,
 			.scroll-line-stage,
 			.scroll-line-time,
+			.scroll-line-reason,
 			.scroll-line-geo,
 			.scroll-line-dendr
 		) {
@@ -1238,6 +1244,7 @@
 
 	.scroll-line-agmt img,
 	.scroll-line-rect img,
+	.scroll-line-reason img,
 	.scroll-line-dendr img,
 	.scroll-line-time img,
 	.scroll-line-stage img,
@@ -1413,7 +1420,22 @@
 	/* Small screens: stack vertically */
 	@media (max-width: 600px) {
 		.research_item {
-			flex: 0 1 80%; /* almost full width */
+			flex: 0 1 80%;
+		}
+	}
+
+	.scroll-down-icon {
+		height: 20px;
+		animation: bounce 1.5s infinite ease-in-out;
+	}
+
+	@keyframes bounce {
+		0%,
+		100% {
+			transform: translateY(0); /* start + end at original position */
+		}
+		50% {
+			transform: translateY(7px); /* move down */
 		}
 	}
 </style>
