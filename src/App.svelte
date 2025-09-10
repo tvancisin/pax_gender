@@ -461,6 +461,17 @@
 			document.body.style.overflow = "visible"; // For <body>
 		}
 	}
+
+	let info_checker = 0;
+	function infoPressed() {
+		console.log("here");
+		if (info_checker % 2 == 0) {
+			d3.select(".info_div").style("top", "1px");
+		} else {
+			d3.select(".info_div").style("top", "-100%");
+		}
+		info_checker += 1;
+	}
 </script>
 
 <!-- navigation -->
@@ -491,7 +502,17 @@
 </div>
 
 <Header center={true} short={false}>
-	<i class="fa fa-info-circle" aria-hidden="true"></i>
+	<button
+		class="info"
+		on:mouseenter={() => infoPressed()}
+		on:mouseleave={() => infoPressed()}
+		><i class="fa fa-info-circle" aria-hidden="true"></i></button
+	>
+	<div class="info_div">
+		<strong>Visualization</strong>: Tomas Vancisin<br /><strong
+			>Data Preparation</strong
+		>: Niamh Henry <br /> <strong>Text</strong>: Laura Wise
+	</div>
 
 	<img
 		class="peace_logo"
@@ -1087,14 +1108,14 @@
 <div class="filler">
 	<div id="text_field">
 		<p style="text-align: center">
-			PA-X Gender shows that after 25 years since UNSCR 1325 was passed,
-			peace agreements still do not consistently incorporate a gender
+			PA-X Gender shows that 25 years after UNSCR 1325 was passed, peace
+			agreements still do not consistently incorporate a gender
 			perspective.
-			<br /><br />
+			<br /><br /><br />
 			However, women and their allies continue to push for peace processes
 			to recognise the importance of gender, both from within and outside of
 			formal institutions.
-			<br /><br />
+			<br /><br /><br />
 			PA-X Gender is an archive of processes where women were successful at
 			getting gender into peace agreements, and pays tribute to their historical
 			efforts.
@@ -1102,48 +1123,63 @@
 	</div>
 </div>
 
-<div class="filler">
-	<div id="text_field">
-		<p style="text-align: center">
-			Explore our research and data on gender in peace agreements, and how
-			this work informs Women, Peace and Security monitoring.
-			<br />
-			<br />
+<div class="filler" style="padding-left: 10%; padding-right: 10%">
+	<p style="text-align: center">
+		Explore our research and data on gender in peace agreements, and how
+		this work informs Women, Peace and Security monitoring.
+	</p>
+	<div id="research_field">
+		<div class="research_item">
 			<a
 				href="https://www.peaceagreements.org/agreements/wggsearch/"
-				target="_blank">PA-X Gender Database</a
+				target="_blank"
 			>
-			<br />
-			<br />
+				<img src="./img/fife.png" alt="PA-X Gender Database" />
+			</a>
+			<p>PA-X Gender Database</p>
+		</div>
+		<div class="research_item">
 			<a
 				href="https://peacerep.org/2025/07/24/women-peace-and-security-at-25/"
 				target="_blank"
-				>Women, Peace and Security at 25: Assessing Implementation
-				through Gender Perspectives in Peace Agreements</a
 			>
-			<br />
-			<br />
+				<img
+					src="./img/one.png"
+					alt="Women, Peace and Security at 25"
+				/>
+			</a>
+			<p>UNSCR 1325</p>
+		</div>
+		<div class="research_item">
 			<a
 				href="https://peacerep.org/2024/10/28/un-report-cites-peacerep-research-on-stagnation-of-gender-references-in-peace-agreements/"
 				target="_blank"
-				>UN Report Cites PeaceRep Research on Stagnation of Gender
-				References in Peace Agreements</a
 			>
-			<br />
-			<br />
+				<img
+					src="./img/two.png"
+					alt="UN Report Cites PeaceRep Research"
+				/>
+			</a>
+			<p>UN Report</p>
+		</div>
+		<div class="research_item">
 			<a
 				href="https://peacerep.org/publication/principled-pragmatism-and-the-inclusion-project-implementing-a-gender-perspective-in-peace-agreements/"
 				target="_blank"
-				>Principled Pragmatism and the ‘Inclusion Project’: Implementing
-				a Gender Perspective in Peace Agreements</a
 			>
-			<br />
-			<br />
+				<img src="./img/four.png" alt="Principled Pragmatism Paper" />
+			</a>
+			<p>Inclusion Project</p>
+		</div>
+		<div class="research_item">
 			<a
 				href="https://peacerep.org/digital-resources/peacefem/"
-				target="_blank">PeaceFem</a
+				target="_blank"
 			>
-		</p>
+				<img src="./img/three.png" alt="PeaceFem App" />
+			</a>
+			<p>PeaceFem</p>
+		</div>
 	</div>
 </div>
 
@@ -1178,7 +1214,7 @@
 	.circle {
 		width: 7px;
 		height: 7px;
-		background-color: #fdd900;
+		background-color: white;
 		border-radius: 50%;
 		position: absolute;
 		top: 0;
@@ -1301,9 +1337,83 @@
 	}
 
 	.fa-info-circle {
+		font-size: 24px;
+	}
+
+	.info {
+		background-color: #04aa6d00;
+		border: none;
+		color: white;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
 		position: absolute;
 		top: 10px;
 		right: 5px;
-		font-size: 24px;
+		cursor: pointer;
+		transition: transform 0.1s ease-in-out;
+	}
+
+	.info:hover {
+		transform: scale(1.4);
+	}
+
+	.info_div {
+		position: absolute;
+		width: 200px;
+		top: -100%;
+		right: 40px;
+		font-size: 12px;
+		text-align: left;
+		background-color: black;
+		padding: 20px;
+	}
+
+	#research_field {
+		padding-top: 40px;
+		display: flex;
+		flex-wrap: wrap; /* allows wrapping */
+		justify-content: center;
+		gap: 5px; /* spacing between cards */
+	}
+
+	.research_item {
+		flex: 0 1 18%; /* ~5 per row on large screens */
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.research_item img {
+		width: 180px; /* fixed size for all images */
+		height: 250px; /* equal height */
+		object-fit: contain; /* no distortion */
+		display: block;
+		border-radius: 4px;
+		transition: transform 0.1s ease-in-out;
+	}
+
+	.research_item img:hover {
+		transform: scale(1.1);
+	}
+
+	.research_item p {
+		margin-top: 15px;
+		font-size: 12px;
+	}
+
+	/* Medium screens: fewer per row */
+	@media (max-width: 992px) {
+		.research_item {
+			flex: 0 1 30%; /* about 3 per row */
+		}
+	}
+
+	/* Small screens: stack vertically */
+	@media (max-width: 600px) {
+		.research_item {
+			flex: 0 1 80%; /* almost full width */
+		}
 	}
 </style>
