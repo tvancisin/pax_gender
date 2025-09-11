@@ -5,9 +5,9 @@
     import IndividualRectangle from "./IndividualRectangle.svelte";
 
     // canvas variation
-    import Canvas from "./Canvas.svelte";
-    import CanvasRectangle from "./CanvasRectangle.svelte";
-    import CanvasBackground from "./CanvasBackground.svelte";
+    // import Canvas from "./Canvas.svelte";
+    // import CanvasRectangle from "./CanvasRectangle.svelte";
+    // import CanvasBackground from "./CanvasBackground.svelte";
 
     export let pax;
     export let step;
@@ -60,6 +60,7 @@
             innerWidth,
             initialPaxCount,
         );
+
     } else if (step == "rect02") {
         //full grid gender
         rendered_data = full_grid_filter(
@@ -101,7 +102,6 @@
     const handleLeave = () => {
         tooltip = { ...tooltip, visible: false };
     };
-
 </script>
 
 {#if rendered_data}

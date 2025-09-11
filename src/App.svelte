@@ -39,28 +39,26 @@
 	let idPrev = {}; // Object to keep track of previous IDs, to compare for changes
 
 	// Custom smooth scroll function with slower speed
-	function smoothScrollTo(targetPosition, duration = 3000) {
-		const startPosition = window.scrollY;
-		const distance = targetPosition - startPosition;
+	function smoothScrollTo(targetPosition) {
+		const start = window.scrollY;
+		const distance = targetPosition - start;
+		const direction = distance > 0 ? 1 : -1;
+		const totalDistance = Math.abs(distance);
 		let startTime = null;
-		function animationStep(currentTime) {
+
+		function step(currentTime) {
 			if (!startTime) startTime = currentTime;
-			const timeElapsed = currentTime - startTime;
-			const progress = Math.min(timeElapsed / duration, 1); // Ensures animation stops at 1
-			window.scrollTo(
-				0,
-				startPosition + distance * easeInOutQuad(progress),
-			);
-			if (timeElapsed < duration) {
-				requestAnimationFrame(animationStep);
+			const elapsed = currentTime - startTime;
+			const traveled = Math.min(elapsed * 5, totalDistance);
+			window.scrollTo(0, start + traveled * direction);
+
+			if (traveled < totalDistance) {
+				requestAnimationFrame(step);
 			}
 		}
-		function easeInOutQuad(t) {
-			return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; // Smooth easing function
-		}
-		requestAnimationFrame(animationStep);
-	}
 
+		requestAnimationFrame(step);
+	}
 	// INIT functions
 	onMount(() => {
 		// scroll to top on loading the page
@@ -71,7 +69,6 @@
 		idPrev = { ...id };
 
 		// indicator circle and lines
-		const circle = document.querySelector(".circle");
 		const indicator = document.querySelector("#indicator");
 		const lineAgmt = document.querySelector(".scroll-line-agmt");
 		const lineGeo = document.querySelector(".scroll-line-geo");
@@ -81,7 +78,7 @@
 		const lineStage = document.querySelector(".scroll-line-stage");
 		const lineDend = document.querySelector(".scroll-line-dendr");
 
-		if (!circle || !indicator) return;
+		if (!indicator) return;
 
 		const setFixedLinePosition = () => {
 			let docHeight =
@@ -92,34 +89,32 @@
 				return;
 			}
 
-			const indicatorHeight = indicator.clientHeight;
-
-			// Position lineRect
+			// Position agt
 			if (scrollerRefAgreement instanceof HTMLElement) {
 				let scrollerAgmt = scrollerRefAgreement.getBoundingClientRect();
 				let scrollerTop = scrollerAgmt.top + window.scrollY;
-				let scrollerPercent = scrollerTop / docHeight;
-				let linePositionAgreement = scrollerPercent * indicatorHeight;
-				lineAgmt.style.top = `${linePositionAgreement}px`;
-
 				// Add click listener to lineRect
 				lineAgmt.addEventListener("click", () => {
-					smoothScrollTo(scrollerTop, 2000);
+					smoothScrollTo(scrollerTop);
 				});
 			}
 
-			// Position lineRect
+			// Position map
+			if (scrollerRefGeo instanceof HTMLElement) {
+				const scrollerRectGeo = scrollerRefGeo.getBoundingClientRect();
+				const scrollerTopGeo = scrollerRectGeo.top + window.scrollY;
+				lineGeo.addEventListener("click", () => {
+					smoothScrollTo(scrollerTopGeo);
+				});
+			}
+
+			// Position rects
 			if (scrollerRefRectangles instanceof HTMLElement) {
 				let scrollerRect =
 					scrollerRefRectangles.getBoundingClientRect();
 				let scrollerTop = scrollerRect.top + window.scrollY;
-				let scrollerPercent = scrollerTop / docHeight;
-				let linePositionRectangles = scrollerPercent * indicatorHeight;
-				lineRect.style.top = `${linePositionRectangles}px`;
-
-				// Add click listener to lineRect
 				lineRect.addEventListener("click", () => {
-					smoothScrollTo(scrollerTop, 2000);
+					smoothScrollTo(scrollerTop);
 				});
 			}
 
@@ -127,31 +122,8 @@
 			if (scrollerRefReason instanceof HTMLElement) {
 				let scrollerReason = scrollerRefReason.getBoundingClientRect();
 				let scrollerTopReason = scrollerReason.top + window.scrollY;
-				
-				let scrollerPercentReason = scrollerTopReason / docHeight;
-				let linePositionReason =
-					scrollerPercentReason * indicatorHeight;
-				console.log(linePositionReason);
-				lineReason.style.top = `${linePositionReason}px`;
-
-				// Add click listener to lineReason
 				lineReason.addEventListener("click", () => {
-					smoothScrollTo(scrollerTopReason, 2000);
-				});
-			}
-
-			// Position lineTime
-			if (scrollerRefTime instanceof HTMLElement) {
-				const scrollerRectTime =
-					scrollerRefTime.getBoundingClientRect();
-				const scrollerTopTime = scrollerRectTime.top + window.scrollY;
-				const scrollerPercentTime = scrollerTopTime / docHeight;
-				const linePositionTime = scrollerPercentTime * indicatorHeight;
-				lineTime.style.top = `${linePositionTime}px`;
-
-				// Add click listener to lineTime
-				lineTime.addEventListener("click", () => {
-					smoothScrollTo(scrollerTopTime, 2000);
+					smoothScrollTo(scrollerTopReason);
 				});
 			}
 
@@ -160,28 +132,18 @@
 				const scrollerRectStage =
 					scrollerRefStages.getBoundingClientRect();
 				const scrollerTopStage = scrollerRectStage.top + window.scrollY;
-				const scrollerPercentStage = scrollerTopStage / docHeight;
-				const linePositionStage =
-					scrollerPercentStage * indicatorHeight;
-				lineStage.style.top = `${linePositionStage}px`;
-
-				// Add click listener to lineStage
 				lineStage.addEventListener("click", () => {
-					smoothScrollTo(scrollerTopStage, 2000);
+					smoothScrollTo(scrollerTopStage);
 				});
 			}
 
-			// Position lineGeo
-			if (scrollerRefGeo instanceof HTMLElement) {
-				const scrollerRectGeo = scrollerRefGeo.getBoundingClientRect();
-				const scrollerTopGeo = scrollerRectGeo.top + window.scrollY;
-				const scrollerPercentGeo = scrollerTopGeo / docHeight;
-				const linePositionGeo = scrollerPercentGeo * indicatorHeight;
-				lineGeo.style.top = `${linePositionGeo}px`;
-
-				// Add click listener to lineGeo
-				lineGeo.addEventListener("click", () => {
-					smoothScrollTo(scrollerTopGeo, 2000);
+			// Position lineTime
+			if (scrollerRefTime instanceof HTMLElement) {
+				const scrollerRectTime =
+					scrollerRefTime.getBoundingClientRect();
+				const scrollerTopTime = scrollerRectTime.top + window.scrollY;
+				lineTime.addEventListener("click", () => {
+					smoothScrollTo(scrollerTopTime);
 				});
 			}
 
@@ -189,38 +151,20 @@
 				const scrollerRectDend =
 					scrollerRefDend.getBoundingClientRect();
 				const scrollerTopDend = scrollerRectDend.top + window.scrollY;
-				const scrollerPercentDend = scrollerTopDend / docHeight;
-				const linePositionDend = scrollerPercentDend * indicatorHeight;
-
-				lineDend.style.top = `${linePositionDend}px`;
-
-				// Add click listener to lineGeo
 				lineDend.addEventListener("click", () => {
-					smoothScrollTo(scrollerTopDend, 2000);
+					smoothScrollTo(scrollerTopDend);
 				});
 			}
 		};
 
 		const updateCircle = () => {
-			const scrollTop = window.scrollY;
 			let docHeight =
 				document.documentElement.scrollHeight - window.innerHeight;
-
 			if (docHeight <= 0) return;
-
-			const indicatorHeight = indicator.clientHeight;
-			const circleMaxMove = indicatorHeight - circle.clientHeight;
-			const scrollPercent = scrollTop / docHeight;
-
-			// Move the scrolling circle dynamically
-			circle.style.top = `${scrollPercent * circleMaxMove}px`;
 		};
 
 		// Set the fixed line position once
 		requestAnimationFrame(setFixedLinePosition);
-
-		// Keep updating the circle, but not the line
-		window.addEventListener("scroll", updateCircle);
 
 		// Update the line positions on window resize
 		window.addEventListener("resize", () => {
@@ -352,62 +296,24 @@
 	let path = [
 		"./data/pax_v9.csv",
 		"./data/pax_gender_v9.csv",
-		"./data/pax_central_points.csv",
-		"./data/pax_gender_text.csv",
-		"./data/text_corr.csv",
-		"./data/wgg_text.csv",
 		"./data/gender_categories.csv",
 	];
 	let pax;
 	let pax_gender;
-	let pax_gender_text;
-	let corr_text;
 	let pax_timeline;
 	let central_points;
-	let wgg_text;
 	let pax_stages;
 	let categories;
 	getCSV(path).then((data) => {
 		centralPointsStore.set(central_points);
 		pax = data[0];
 		pax_gender = data[1];
-		central_points = data[2];
-		pax_gender_text = data[3];
-		corr_text = data[4];
-		wgg_text = data[5];
-		categories = data[6];
+		categories = data[2];
 
 		const counter = {};
 		keysToCount.forEach((key) => {
 			counter[key] = 0;
 		});
-
-		// add text to every pax_gender agt
-		// pax_gender.forEach((genderItem) => {
-		// 	const item = pax_gender_text.find(
-		// 		(gender) => gender.AgtId === genderItem.AgtId,
-		// 	);
-
-		// 	const find_corr = corr_text.find(
-		// 		(gender) => gender.AgtId === genderItem.AgtId,
-		// 	);
-
-		// 	const detail_wgg = wgg_text.find(
-		// 		(gender) => gender.AgtId === genderItem.AgtId,
-		// 	);
-
-		// 	const quotas_text = detail_wgg.WggGenQuot.length;
-		// 	const law_text = detail_wgg.WggIntLaw.length;
-		// 	const un_text = detail_wgg.WggUnsc.length;
-
-		// 	if (item) {
-		// 		genderItem.text = item.GeWom;
-		// 		genderItem.quotas = quotas_text;
-		// 		genderItem.law = law_text;
-		// 		genderItem.un = un_text;
-		// 		genderItem.corr_char_no = +find_corr.Text_length;
-		// 	}
-		// });
 
 		// Iterate through each object in the pax array
 		pax.forEach((paxItem) => {
@@ -470,19 +376,31 @@
 		}
 		info_checker += 1;
 	}
+
+	$: console.log(step);
 </script>
 
 <!-- navigation -->
 <div id="indicator">
-	<!-- <div class="line"></div> -->
-	<div class="circle"></div>
-	<div class="scroll-line-agmt"><img src="./img/agmt.png" alt="rect" /></div>
-	<div class="scroll-line-rect"><img src="./img/recs.png" alt="rect" /></div>
-	<div class="scroll-line-reason"><img src="./img/un.png" alt="rect" /></div>
-	<div class="scroll-line-time"><img src="./img/time.png" alt="rect" /></div>
-	<div class="scroll-line-stage"><img src="./img/bar.png" alt="rect" /></div>
-	<div class="scroll-line-geo"><img src="./img/glb.png" alt="rect" /></div>
-	<div class="scroll-line-dendr">
+	<div class="scroll-line-agmt" data-tooltip="Peace Agreement">
+		<img src="./img/agmt.png" alt="rect" />
+	</div>
+	<div class="scroll-line-geo" data-tooltip="Geography">
+		<img src="./img/glb.png" alt="rect" />
+	</div>
+	<div class="scroll-line-rect" data-tooltip="All Agreements">
+		<img src="./img/recs.png" alt="rect" />
+	</div>
+	<div class="scroll-line-reason" data-tooltip="UN Resolution">
+		<img src="./img/un.png" alt="rect" />
+	</div>
+	<div class="scroll-line-time" data-tooltip="Reference Quality">
+		<img src="./img/quality.png" alt="rect" />
+	</div>
+	<div class="scroll-line-stage" data-tooltip="Negotiation Stages">
+		<img src="./img/bar.png" alt="rect" />
+	</div>
+	<div class="scroll-line-dendr" data-tooltip="Topics">
 		<img src="./img/dendr.png" alt="rect" />
 	</div>
 </div>
@@ -508,6 +426,19 @@
 		><i class="fa fa-info-circle" aria-hidden="true"></i></button
 	>
 	<div class="info_div">
+		This 'scrollytelling' tool allows users to scroll through key findings
+		and insights from data in the PA-X Peace Agreements Database, with a
+		specific view on Gender inclusion in formal peace agreements in the
+		context of the UN Security Resolution 1325. Cite the data shown in this
+		tool using: <br /><br /><i
+			>Bell, Christine, Sanja Badanjak, Juline Beaujouan, Tim Epple, Adam
+			Farquhar, Robert Forster, Astrid Jamar, Sean Molloy, Kevin
+			McNicholl, Kathryn Nash, Jan Pospisil, Robert Wilson, and Laura Wise
+			(2025). PA-X Gender Peace Agreements Database and Dataset, Version
+			9.</i
+		>
+		<br />
+		<br />
 		<strong>Visualization</strong>: Tomas Vancisin<br /><strong
 			>Data Preparation</strong
 		>: Niamh Henry <br /> <strong>Text</strong>: Laura Wise
@@ -792,7 +723,7 @@
 	</div>
 </Scroller>
 
-<div class="filler" bind:this={scrollerRefReason}>
+<div class="filler">
 	<div id="text_field">
 		<p style="text-align: center">
 			How did UNSCR 1325 influence the number of gender-related peace
@@ -806,7 +737,7 @@
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="time">
+				<div class="time" bind:this={scrollerRefReason}>
 					<Timeline {pax} {pax_timeline} {step} />
 				</div>
 			</div>
@@ -1139,7 +1070,7 @@
 				href="https://www.peaceagreements.org/agreements/wggsearch/"
 				target="_blank"
 			>
-				<img src="./img/fife.png" alt="PA-X Gender Database" />
+				<img src="./img/gender_db.png" alt="PA-X Gender Database" />
 			</a>
 			<p>PA-X Gender Database</p>
 		</div>
@@ -1153,7 +1084,10 @@
 					alt="Women, Peace and Security at 25"
 				/>
 			</a>
-			<p>UNSCR 1325</p>
+			<p>
+				Women, Peace and Security at 25: Assessing Implementation
+				through Gender Perspectives in Peace Agreements
+			</p>
 		</div>
 		<div class="research_item">
 			<a
@@ -1165,7 +1099,10 @@
 					alt="UN Report Cites PeaceRep Research"
 				/>
 			</a>
-			<p>UN Report</p>
+			<p>
+				UN Report Cites PeaceRep Research on Stagnation of Gender
+				References in Peace Agreements
+			</p>
 		</div>
 		<div class="research_item">
 			<a
@@ -1174,7 +1111,10 @@
 			>
 				<img src="./img/four.png" alt="Principled Pragmatism Paper" />
 			</a>
-			<p>Inclusion Project</p>
+			<p>
+				Principled Pragmatism and the ‘Inclusion Project’: Implementing
+				a Gender Perspective in Peace Agreements
+			</p>
 		</div>
 		<div class="research_item">
 			<a
@@ -1192,54 +1132,50 @@
 	h1 {
 		font-size: 1em;
 	}
+
 	p {
 		font-size: 0.8em;
 	}
+
 	#indicator {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 30px;
-		height: 100%;
-		background-color: none;
-		z-index: 100;
-		display: flex;
-		justify-content: center;
-		align-items: flex-start;
+		position: fixed; /* stays fixed when scrolling */
+		top: 50%; /* halfway down the screen */
+		left: 0; /* stick to the left edge */
+		transform: translateY(-50%); /* shift up by half its height */
+
+		display: flex; /* flexbox for layout */
+		flex-direction: column; /* stack children vertically */
+		align-items: center; /* center images horizontally inside */
+		gap: 12px; /* spacing between images */
+		padding: 5px; /* optional, keeps from touching edge */
+		z-index: 99;
 	}
-	.line {
-		position: fixed;
-		top: 0;
-		left: 0px;
-		width: 2px;
-		height: 100%;
-		background-color: rgb(72, 72, 72);
-		display: flex;
-	}
-	.circle {
-		width: 7px;
-		height: 7px;
-		background-color: white;
-		border-radius: 50%;
-		position: absolute;
-		top: 0;
-		left: 4px;
-		transform: translateX(-50%);
-		transition: top 0.1s linear;
-	}
-	:global(
-			.scroll-line-agmt,
-			.scroll-line-rect,
-			.scroll-line-stage,
-			.scroll-line-time,
-			.scroll-line-reason,
-			.scroll-line-geo,
-			.scroll-line-dendr
-		) {
-		position: absolute;
-		width: 100%;
-		height: 5px;
+
+	#indicator > div {
+		position: relative; /* so tooltip positions relative to each icon */
 		cursor: pointer;
+	}
+
+	#indicator > div::after {
+		content: attr(data-tooltip);
+		position: absolute;
+		left: 110%; /* place to the right of the icon */
+		top: 50%;
+		transform: translateY(-50%);
+		white-space: nowrap;
+
+		background: rgba(0, 0, 0, 0.8);
+		color: #fff;
+		font-size: 13px;
+		padding: 4px 8px;
+		border-radius: 4px;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.2s ease;
+	}
+
+	#indicator > div:hover::after {
+		opacity: 1;
 	}
 
 	.scroll-line-agmt img,
@@ -1250,7 +1186,20 @@
 	.scroll-line-stage img,
 	.scroll-line-geo img {
 		height: 20px;
-		padding-left: 8px;
+		padding-left: 5px;
+		cursor: pointer;
+		opacity: 0.5;
+		transition: transform 0.2s ease;
+	}
+
+	.scroll-line-agmt img:hover,
+	.scroll-line-rect img:hover,
+	.scroll-line-reason img:hover,
+	.scroll-line-dendr img:hover,
+	.scroll-line-time img:hover,
+	.scroll-line-stage img:hover,
+	.scroll-line-geo img:hover {
+		transform: scale(1.2);
 	}
 
 	.filler {
@@ -1367,7 +1316,7 @@
 
 	.info_div {
 		position: absolute;
-		width: 200px;
+		width: 250px;
 		top: -100%;
 		right: 40px;
 		font-size: 12px;
@@ -1407,6 +1356,7 @@
 
 	.research_item p {
 		margin-top: 15px;
+		padding: 5px;
 		font-size: 12px;
 	}
 
