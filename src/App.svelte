@@ -1,14 +1,7 @@
 <script>
 	import * as d3 from "d3";
-	import { setContext, onMount } from "svelte";
-	import { themes } from "./config.js";
-	import {
-		setColors,
-		getGEO,
-		getCSV,
-		keysToCount,
-		hierarchy,
-	} from "./utils.js";
+	import { onMount, onDestroy } from "svelte";
+	import { getGEO, getCSV, keysToCount } from "./utils.js";
 	import { centralPointsStore } from "./store";
 	import Header from "./layout/Header.svelte";
 	import Scroller from "./layout/Scroller.svelte";
@@ -20,18 +13,25 @@
 	import Dendrogram from "./vis/Dendrogram.svelte";
 
 	// Scroll references
-	let scrollerRefAgreement;
-	let scrollerRefRectangles;
-	let scrollerRefReason;
-	let scrollerRefTime;
-	let scrollerRefStages;
-	let scrollerRefGeo;
-	let scrollerRefDend;
+	let scrollerRefAgreement,
+		scrollerRefRectangles,
+		scrollerRefReason,
+		scrollerRefTime,
+		scrollerRefStages,
+		scrollerRefGeo,
+		scrollerRefDend;
 
-	// Set theme globally (options are 'light', 'dark' or 'lightblue')
-	let theme = "dark";
-	setContext("theme", theme);
-	setColors(themes, theme);
+	let scrollerTopAgmt,
+		scrollerTopGeo,
+		scrollerTopRect,
+		scrollerTopReason,
+		scrollerTopStage,
+		scrollerTopTime,
+		scrollerTopDend;
+
+	//handlers
+	let resizeHandler;
+	let onScroll;
 
 	// CONFIG FOR SCROLLER COMPONENTS
 	const threshold = 0.65;
@@ -56,9 +56,46 @@
 				requestAnimationFrame(step);
 			}
 		}
-
 		requestAnimationFrame(step);
 	}
+
+	let active = {
+		agreement: false,
+		geo: false,
+		rect: false,
+		reason: false,
+	};
+
+	function handleEnter(section) {
+		console.log(`${section} entered viewport`);
+		d3.selectAll(
+			".scroll-line-agmt img, .scroll-line-geo img, .scroll-line-rect img, .scroll-line-reason img, .scroll-line-stage img, .scroll-line-time img, .scroll-line-dendr img",
+		).style("opacity", 0.5);
+		// Set opacity to 1 for the corresponding icon
+		d3.select(`.scroll-line-${section} img`).style("opacity", 1);
+	}
+
+	function handleLeave(section) {
+		console.log(`${section} left viewport`);
+		// Set opacity to 0.5 for the corresponding icon
+		d3.select(`.scroll-line-${section} img`).style("opacity", 0.5);
+		if (section == "geo") {
+			d3.select(`.scroll-line-agmt img`).style("opacity", 1);
+		} else if (section == "rect") {
+			d3.select(`.scroll-line-geo img`).style("opacity", 1);
+		} else if (section == "reason") {
+			d3.select(`.scroll-line-rect img`).style("opacity", 1);
+		} else if (section == "stage") {
+			d3.select(`.scroll-line-reason img`).style("opacity", 1);
+		} else if (section == "time") {
+			d3.select(`.scroll-line-stage img`).style("opacity", 1);
+		} else if (section == "dendr") {
+			d3.select(`.scroll-line-time img`).style("opacity", 1);
+		}
+
+
+	}
+
 	// INIT functions
 	onMount(() => {
 		// scroll to top on loading the page
@@ -68,7 +105,7 @@
 		window.scrollTo({ top: 0, behavior: "auto" });
 		idPrev = { ...id };
 
-		// indicator circle and lines
+		// indicator
 		const indicator = document.querySelector("#indicator");
 		const lineAgmt = document.querySelector(".scroll-line-agmt");
 		const lineGeo = document.querySelector(".scroll-line-geo");
@@ -92,17 +129,18 @@
 			// Position agt
 			if (scrollerRefAgreement instanceof HTMLElement) {
 				let scrollerAgmt = scrollerRefAgreement.getBoundingClientRect();
-				let scrollerTop = scrollerAgmt.top + window.scrollY;
+				scrollerTopAgmt = scrollerAgmt.top + window.scrollY;
+
 				// Add click listener to lineRect
 				lineAgmt.addEventListener("click", () => {
-					smoothScrollTo(scrollerTop);
+					smoothScrollTo(scrollerTopAgmt);
 				});
 			}
 
 			// Position map
 			if (scrollerRefGeo instanceof HTMLElement) {
 				const scrollerRectGeo = scrollerRefGeo.getBoundingClientRect();
-				const scrollerTopGeo = scrollerRectGeo.top + window.scrollY;
+				scrollerTopGeo = scrollerRectGeo.top + window.scrollY;
 				lineGeo.addEventListener("click", () => {
 					smoothScrollTo(scrollerTopGeo);
 				});
@@ -112,16 +150,16 @@
 			if (scrollerRefRectangles instanceof HTMLElement) {
 				let scrollerRect =
 					scrollerRefRectangles.getBoundingClientRect();
-				let scrollerTop = scrollerRect.top + window.scrollY;
+				scrollerTopRect = scrollerRect.top + window.scrollY;
 				lineRect.addEventListener("click", () => {
-					smoothScrollTo(scrollerTop);
+					smoothScrollTo(scrollerTopRect);
 				});
 			}
 
 			// Position lineReason
 			if (scrollerRefReason instanceof HTMLElement) {
 				let scrollerReason = scrollerRefReason.getBoundingClientRect();
-				let scrollerTopReason = scrollerReason.top + window.scrollY;
+				scrollerTopReason = scrollerReason.top + window.scrollY;
 				lineReason.addEventListener("click", () => {
 					smoothScrollTo(scrollerTopReason);
 				});
@@ -131,7 +169,7 @@
 			if (scrollerRefStages instanceof HTMLElement) {
 				const scrollerRectStage =
 					scrollerRefStages.getBoundingClientRect();
-				const scrollerTopStage = scrollerRectStage.top + window.scrollY;
+				scrollerTopStage = scrollerRectStage.top + window.scrollY;
 				lineStage.addEventListener("click", () => {
 					smoothScrollTo(scrollerTopStage);
 				});
@@ -141,7 +179,7 @@
 			if (scrollerRefTime instanceof HTMLElement) {
 				const scrollerRectTime =
 					scrollerRefTime.getBoundingClientRect();
-				const scrollerTopTime = scrollerRectTime.top + window.scrollY;
+				scrollerTopTime = scrollerRectTime.top + window.scrollY;
 				lineTime.addEventListener("click", () => {
 					smoothScrollTo(scrollerTopTime);
 				});
@@ -150,26 +188,113 @@
 			if (scrollerRefDend instanceof HTMLElement) {
 				const scrollerRectDend =
 					scrollerRefDend.getBoundingClientRect();
-				const scrollerTopDend = scrollerRectDend.top + window.scrollY;
+				scrollerTopDend = scrollerRectDend.top + window.scrollY;
 				lineDend.addEventListener("click", () => {
 					smoothScrollTo(scrollerTopDend);
 				});
 			}
 		};
 
-		const updateCircle = () => {
-			let docHeight =
-				document.documentElement.scrollHeight - window.innerHeight;
-			if (docHeight <= 0) return;
+		// scroll handler
+		onScroll = () => {
+			const scrollPos = window.scrollY + window.innerHeight * 0.5; // trigger roughly at middle
+
+			// Agreement
+			if (scrollerTopAgmt) {
+				if (!active.agreement && scrollPos >= scrollerTopAgmt) {
+					active.agreement = true;
+					handleEnter("agmt");
+				} else if (active.agreement && scrollPos < scrollerTopAgmt) {
+					active.agreement = false;
+					handleLeave("agmt");
+				}
+			}
+
+			// Geo
+			if (scrollerTopGeo) {
+				if (!active.geo && scrollPos >= scrollerTopGeo) {
+					active.geo = true;
+					handleEnter("geo");
+				} else if (active.geo && scrollPos < scrollerTopGeo) {
+					active.geo = false;
+					handleLeave("geo");
+				}
+			}
+
+			// Rect
+			if (scrollerTopRect) {
+				if (!active.rect && scrollPos >= scrollerTopRect) {
+					active.rect = true;
+					handleEnter("rect");
+				} else if (active.rect && scrollPos < scrollerTopRect) {
+					active.rect = false;
+					handleLeave("rect");
+				}
+			}
+
+			// Reason
+			if (scrollerTopReason) {
+				if (!active.reason && scrollPos >= scrollerTopReason) {
+					active.reason = true;
+					handleEnter("reason");
+				} else if (active.reason && scrollPos < scrollerTopReason) {
+					active.reason = false;
+					handleLeave("reason");
+				}
+			}
+
+			// stages
+			if (scrollerTopStage) {
+				if (!active.stage && scrollPos >= scrollerTopStage) {
+					active.stage = true;
+					handleEnter("stage");
+				} else if (active.stage && scrollPos < scrollerTopStage) {
+					active.stage = false;
+					handleLeave("stage");
+				}
+			}
+
+			// time
+			if (scrollerTopTime) {
+				if (!active.time && scrollPos >= scrollerTopTime) {
+					active.time = true;
+					handleEnter("time");
+				} else if (active.time && scrollPos < scrollerTopTime) {
+					active.time = false;
+					handleLeave("time");
+				}
+			}
+
+			// dend
+			if (scrollerTopDend) {
+				if (!active.dendr && scrollPos >= scrollerTopDend) {
+					active.dendr = true;
+					handleEnter("dendr");
+				} else if (active.dendr && scrollPos < scrollerTopDend) {
+					active.dendr = false;
+					handleLeave("dendr");
+				}
+			}
 		};
+
+		window.addEventListener("scroll", onScroll);
+		onScroll(); // initial check
 
 		// Set the fixed line position once
 		requestAnimationFrame(setFixedLinePosition);
 
-		// Update the line positions on window resize
-		window.addEventListener("resize", () => {
-			requestAnimationFrame(setFixedLinePosition); // Recalculate line positions after resize
-		});
+		// global resize handler
+		resizeHandler = () => requestAnimationFrame(setFixedLinePosition);
+		window.addEventListener("resize", resizeHandler);
+	});
+
+	// cleanup on destroy
+	onDestroy(() => {
+		window.removeEventListener("resize", resizeHandler);
+	});
+
+	onDestroy(() => {
+		window.removeEventListener("scroll", onScroll);
 	});
 
 	// STEPS
@@ -376,8 +501,6 @@
 		}
 		info_checker += 1;
 	}
-
-	$: console.log(step);
 </script>
 
 <!-- navigation -->
@@ -394,11 +517,11 @@
 	<div class="scroll-line-reason" data-tooltip="UN Resolution">
 		<img src="./img/un.png" alt="rect" />
 	</div>
-	<div class="scroll-line-time" data-tooltip="Reference Quality">
-		<img src="./img/quality.png" alt="rect" />
-	</div>
 	<div class="scroll-line-stage" data-tooltip="Negotiation Stages">
 		<img src="./img/bar.png" alt="rect" />
+	</div>
+	<div class="scroll-line-time" data-tooltip="Reference Quality">
+		<img src="./img/quality.png" alt="rect" />
 	</div>
 	<div class="scroll-line-dendr" data-tooltip="Topics">
 		<img src="./img/dendr.png" alt="rect" />
@@ -763,7 +886,7 @@
 	</div>
 </Scroller>
 
-<div class="filler">
+<div class="filler" bind:this={scrollerRefStages}>
 	<div id="text_field">
 		<p style="text-align: center">
 			There are different <strong>stages of peace processes</strong>
@@ -810,7 +933,7 @@
 	</p>
 </Filler>
 
-<div bind:this={scrollerRefStages} class="filler">
+<div class="filler">
 	<div id="text_field">
 		<p style="text-align: center">
 			At which stage of peace negotiations do women, girls, and gender get

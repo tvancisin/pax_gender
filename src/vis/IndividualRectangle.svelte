@@ -35,8 +35,6 @@
     let isHovered = false;
 
     const handleMouseEnter = () => {
-        console.log("here");
-        
         isHovered = true;
         // Dispatch the custom event with necessary data
         dispatch("hover", { x, y, info });

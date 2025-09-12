@@ -83,7 +83,6 @@
     }
 
     $: if (step == "afgh01") {
-        console.log("step1");
         let updatedTree = JSON.parse(JSON.stringify(hierarchy)); // Create a fresh copy
         countOccurrences(pax_gender, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
@@ -91,7 +90,6 @@
         d3.selectAll("path.link").style("stroke", "#808080");
         d3.selectAll("text").style("fill", "white");
     } else if (step == "afgh02") {
-        console.log("step2");
         function splitArray(arr) {
             let mid = Math.ceil(arr.length / 2); // Get the middle index
             let firstHalf = arr.slice(0, 1); // First half
@@ -111,7 +109,6 @@
             d3.selectAll("text." + key).style("fill", "white");
         });
     } else if (step == "afgh03") {
-        console.log("step3");
         function splitArray(arr) {
             let mid = Math.ceil(arr.length / 2); // Get the middle index
             let firstHalf = arr.slice(1, 2); // First half
