@@ -19,7 +19,8 @@
 		scrollerRefTime,
 		scrollerRefStages,
 		scrollerRefGeo,
-		scrollerRefDend;
+		scrollerRefDend,
+		scrollerRefResearch;
 
 	let scrollerTopAgmt,
 		scrollerTopGeo,
@@ -27,7 +28,8 @@
 		scrollerTopReason,
 		scrollerTopStage,
 		scrollerTopTime,
-		scrollerTopDend;
+		scrollerTopDend,
+		scrollerTopRes;
 
 	//handlers
 	let resizeHandler;
@@ -91,9 +93,9 @@
 			d3.select(`.scroll-line-stage img`).style("opacity", 1);
 		} else if (section == "dendr") {
 			d3.select(`.scroll-line-time img`).style("opacity", 1);
+		} else if (section == "research") {
+			d3.select(`.scroll-line-dendr img`).style("opacity", 1);
 		}
-
-
 	}
 
 	// INIT functions
@@ -114,6 +116,7 @@
 		const lineTime = document.querySelector(".scroll-line-time");
 		const lineStage = document.querySelector(".scroll-line-stage");
 		const lineDend = document.querySelector(".scroll-line-dendr");
+		const lineResearch = document.querySelector(".scroll-line-research");
 
 		if (!indicator) return;
 
@@ -191,6 +194,15 @@
 				scrollerTopDend = scrollerRectDend.top + window.scrollY;
 				lineDend.addEventListener("click", () => {
 					smoothScrollTo(scrollerTopDend);
+				});
+			}
+
+			if (scrollerRefResearch instanceof HTMLElement) {
+				const scrollerRectRes =
+					scrollerRefResearch.getBoundingClientRect();
+				scrollerTopRes = scrollerRectRes.top + window.scrollY;
+				lineResearch.addEventListener("click", () => {
+					smoothScrollTo(scrollerTopRes);
 				});
 			}
 		};
@@ -273,6 +285,17 @@
 				} else if (active.dendr && scrollPos < scrollerTopDend) {
 					active.dendr = false;
 					handleLeave("dendr");
+				}
+			}
+
+			// research
+			if (scrollerTopRes) {
+				if (!active.research && scrollPos >= scrollerTopRes) {
+					active.research = true;
+					handleEnter("research");
+				} else if (active.research && scrollPos < scrollerTopRes) {
+					active.research = false;
+					handleLeave("research");
 				}
 			}
 		};
@@ -506,25 +529,28 @@
 <!-- navigation -->
 <div id="indicator">
 	<div class="scroll-line-agmt" data-tooltip="Peace Agreement">
-		<img src="./img/agmt.png" alt="rect" />
+		<img src="./img/agt.svg" alt="rect" />
 	</div>
 	<div class="scroll-line-geo" data-tooltip="Geography">
 		<img src="./img/glb.png" alt="rect" />
 	</div>
 	<div class="scroll-line-rect" data-tooltip="All Agreements">
-		<img src="./img/recs.png" alt="rect" />
+		<img src="./img/rects.svg" alt="rect" />
 	</div>
 	<div class="scroll-line-reason" data-tooltip="UN Resolution">
 		<img src="./img/un.png" alt="rect" />
 	</div>
 	<div class="scroll-line-stage" data-tooltip="Negotiation Stages">
-		<img src="./img/bar.png" alt="rect" />
+		<img src="./img/bars.svg" alt="rect" />
 	</div>
 	<div class="scroll-line-time" data-tooltip="Reference Quality">
-		<img src="./img/quality.png" alt="rect" />
+		<img src="./img/ref.svg" alt="rect" />
 	</div>
 	<div class="scroll-line-dendr" data-tooltip="Topics">
 		<img src="./img/dendr.png" alt="rect" />
+	</div>
+	<div class="scroll-line-research" data-tooltip="Research">
+		<img src="./img/research.svg" alt="rect" />
 	</div>
 </div>
 
@@ -748,7 +774,7 @@
 	</div>
 </div>
 
-<div class="filler">
+<div class="filler" bind:this={scrollerRefGeo}>
 	<div id="text_field">
 		<p style="text-align: center;">
 			PA-X contains 2,055 peace agreements that have been signed since
@@ -765,7 +791,7 @@
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="map" bind:this={scrollerRefGeo}>
+				<div class="map">
 					<Geography
 						{mygeojson}
 						{pax}
@@ -804,7 +830,7 @@
 	</div>
 </Scroller>
 
-<div class="filler">
+<div class="filler" bind:this={scrollerRefRectangles}>
 	<div id="text_field">
 		<p style="text-align: center;">
 			To get a better idea about how often women, girls and gender are
@@ -819,7 +845,7 @@
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="rect" bind:this={scrollerRefRectangles}>
+				<div class="rect">
 					<Rectangles {pax} {step} />
 				</div>
 			</div>
@@ -846,7 +872,7 @@
 	</div>
 </Scroller>
 
-<div class="filler">
+<div class="filler" bind:this={scrollerRefReason}>
 	<div id="text_field">
 		<p style="text-align: center">
 			How did UNSCR 1325 influence the number of gender-related peace
@@ -860,7 +886,7 @@
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="time" bind:this={scrollerRefReason}>
+				<div class="time">
 					<Timeline {pax} {pax_timeline} {step} />
 				</div>
 			</div>
@@ -1182,7 +1208,11 @@
 	</div>
 </div>
 
-<div class="filler" style="padding-left: 10%; padding-right: 10%">
+<div
+	class="filler"
+	style="padding-left: 10%; padding-right: 10%; padding-top:40px"
+	bind:this={scrollerRefResearch}
+>
 	<p style="text-align: center">
 		Explore our research and data on gender in peace agreements, and how
 		this work informs Women, Peace and Security monitoring.
@@ -1307,9 +1337,10 @@
 	.scroll-line-dendr img,
 	.scroll-line-time img,
 	.scroll-line-stage img,
+	.scroll-line-research img,
 	.scroll-line-geo img {
-		height: 20px;
-		padding-left: 5px;
+		height: 25px;
+		padding-left: 3px;
 		cursor: pointer;
 		opacity: 0.5;
 		transition: transform 0.2s ease;
@@ -1321,6 +1352,7 @@
 	.scroll-line-dendr img:hover,
 	.scroll-line-time img:hover,
 	.scroll-line-stage img:hover,
+	.scroll-line-research img:hover,
 	.scroll-line-geo img:hover {
 		transform: scale(1.2);
 	}

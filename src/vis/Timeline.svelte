@@ -316,7 +316,7 @@
         justify-content: center;
         overflow: hidden;
         opacity: 0;
-        transition: 0.5s ease;
+        transition: 0.2s ease;
         pointer-events: none;
     }
 
@@ -334,7 +334,7 @@
         padding: 10px;
         border-radius: 2px;
         pointer-events: none;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.2s ease;
         width: 150px;
     }
 
