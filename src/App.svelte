@@ -5,7 +5,6 @@
 	import { centralPointsStore } from "./store";
 	import Header from "./layout/Header.svelte";
 	import Scroller from "./layout/Scroller.svelte";
-	import Filler from "./layout/Filler.svelte";
 	import Stages from "./vis/Stages.svelte";
 	import Rectangles from "./vis/Rectangles.svelte";
 	import Timeline from "./vis/Timeline.svelte";
@@ -925,13 +924,20 @@
 	</div>
 </div>
 
-<Filler short={false} wide={true} center={true} shadow={true}>
+<!-- <Filler short={false} wide={true} center={true} shadow={true}>
 	<img
 		src="./img/messy_1.png"
 		alt="peace agreement example"
 		style="width: 100%;"
 	/>
-</Filler>
+</Filler> -->
+<div class="filler" style="padding: 50px;">
+	<img
+		src="./img/messy_1.png"
+		alt="messy timeline visualization picutre"
+		style="width: 100%;"
+	/>
+</div>
 
 <div class="filler">
 	<div id="text_field">
@@ -944,7 +950,7 @@
 	</div>
 </div>
 
-<Filler short={false} wide={true} center={true} shadow={true}>
+<div class="filler" style="padding: 50px; text-align:center">
 	<img
 		src="./img/messy_2.png"
 		alt="peace agreement example"
@@ -957,7 +963,7 @@
 			style="color: white;">Messy Timeline Visualization</a
 		>
 	</p>
-</Filler>
+</div>
 
 <div class="filler">
 	<div id="text_field">
