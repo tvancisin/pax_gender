@@ -2,6 +2,7 @@
     import * as d3 from "d3";
     import { hierarchy } from "../utils";
     import Circle from "./Circle.svelte";
+    import Select from "svelte-select";
 
     export let pax_gender;
     export let step;
@@ -13,6 +14,9 @@
     let linksGenerator;
     let radius = 100;
     let tree = [];
+    let agt_list = [];
+
+    $: console.log(pax_gender);
 
     function countOccurrences(data, hierarchy) {
         data.forEach((obj) => {
@@ -46,8 +50,8 @@
             .filter(([key, value]) => key.startsWith("Wgg") && value === "1")
             .map(([key]) => key);
 
-        wggAttributes.push("undefined")
-            
+        wggAttributes.push("undefined");
+
         return wggAttributes;
     }
 
@@ -55,6 +59,11 @@
         let updatedTree = JSON.parse(JSON.stringify(hierarchy)); // Create a fresh copy
         countOccurrences(pax_gender, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
+        agt_list = pax_gender.map((d) => ({
+            Agt: d.Agt,
+            AgtId: d.AgtId,
+            Con: d.Con,
+        }));
     }
 
     $: if (width < height) {
@@ -82,55 +91,70 @@
             });
     }
 
-    $: if (step == "afgh01") {
-        let updatedTree = JSON.parse(JSON.stringify(hierarchy)); // Create a fresh copy
-        countOccurrences(pax_gender, updatedTree);
-        tree = updatedTree; // Assign the new reference to trigger reactivity
-
-        d3.selectAll("path.link").style("stroke", "#808080");
-        d3.selectAll("text").style("fill", "white");
-    } else if (step == "afgh02") {
-        function splitArray(arr) {
-            let mid = Math.ceil(arr.length / 2); // Get the middle index
-            let firstHalf = arr.slice(0, 1); // First half
-            return firstHalf;
-        }
-        let split = splitArray(pax_gender);
-
+    function updateTree(agt) {
+        let split = pax_gender.filter((d) => d.AgtId == agt);
         let updatedTree = JSON.parse(JSON.stringify(hierarchy)); // Create a fresh copy
         countOccurrences(split, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
 
         d3.selectAll("path.link").style("stroke", "rgb(74, 74, 74)");
         d3.selectAll("text").style("fill", "rgb(74, 74, 74)");
-        const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, "589");
-        highlightedWggKeys.forEach((key) => {
-            d3.selectAll("path." + key).style("stroke", "#808080");
-            d3.selectAll("text." + key).style("fill", "white");
-        });
-    } else if (step == "afgh03") {
-        function splitArray(arr) {
-            let mid = Math.ceil(arr.length / 2); // Get the middle index
-            let firstHalf = arr.slice(1, 2); // First half
-            return firstHalf;
-        }
-        let split = splitArray(pax_gender);
-
-        let updatedTree = JSON.parse(JSON.stringify(hierarchy)); // Create a fresh copy
-        countOccurrences(split, updatedTree);
-        tree = updatedTree;
-
-        d3.selectAll("path.link").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll("text").style("fill", "rgb(74, 74, 74)");
-        const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, "1845");
+        const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, agt);
         highlightedWggKeys.forEach((key) => {
             d3.selectAll("path." + key).style("stroke", "#808080");
             d3.selectAll("text." + key).style("fill", "white");
         });
     }
+
+    $: if (step == "afgh01") {
+        let updatedTree = JSON.parse(JSON.stringify(hierarchy)); // Create a fresh copy
+        countOccurrences(pax_gender, updatedTree);
+        tree = updatedTree; // Assign the new reference to trigger reactivity
+        d3.selectAll("path.link").style("stroke", "#808080");
+        d3.selectAll("text").style("fill", "white");
+    } else if (step == "afgh02") {
+        updateTree("589");
+    } else if (step == "afgh03") {
+        updateTree("1845");
+    }
+
+    let selectedAgt = "";
+
+    $: options = agt_list.map((d) => ({
+        label: d.Agt,
+        value: d.AgtId,
+        group: d.Con,
+    }));
+
+    const groupBy = (item) => item.group;
+
+    function handleSelect(event) {
+        const value = event.detail.value;
+        // highlight selected
+        updateTree(value);
+    }
 </script>
 
 <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
+    <Select
+        class="selector"
+        items={options}
+        {groupBy}
+        bind:value={selectedAgt}
+        on:select={handleSelect}
+        --width="250px"
+        --border-radius="3px"
+        --placeholder-color="white"
+        --background="#003645"
+        --list-background="#003645"
+        --border="none"
+        --multi-item-color="black"
+        --item-hover-bg="gray"
+        --font-size="14px"
+        --font-weight="300"
+        placeholder="Choose agreement..."
+    />
+
     {#if root}
         <svg {width} {height}>
             <g transform="translate({width / 2}, {height / 2})">
@@ -155,6 +179,16 @@
     .wrapper {
         height: 90vh;
         position: relative;
+    }
+
+    :global(.selector) {
+        position: absolute !important;
+        top: 0px;
+        right: 5px;
+    }
+
+    :global(.svelte-select-list) {
+        width: 500px !important;
     }
 
     path {

@@ -414,6 +414,9 @@
 			afgh03: () => {
 				step = "afgh03";
 			},
+			afgh04: () => {
+				step = "afgh04";
+			},
 		},
 	};
 
@@ -776,7 +779,7 @@
 <div class="filler" bind:this={scrollerRefGeo}>
 	<div id="text_field">
 		<p style="text-align: center;">
-			PA-X contains 2,055 peace agreements that have been signed since
+			PA-X contains 2,144 peace agreements that have been signed since
 			1990.
 			<br /><br />
 			The map below shows the geographical spread of where these agreements
@@ -864,7 +867,7 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Out of all these agreements, less than a quarter contain
-					references to women, girls, and gender (436 agreements).
+					references to women, girls, and gender (465 agreements).
 				</p>
 			</div>
 		</section>
@@ -1190,6 +1193,13 @@
 				<p style="text-align: center;">
 					In contrast, the more recent 2016 Colombian Final Agreement
 					includes these topics.
+				</p>
+			</div>
+		</section>
+		<section data-id="afgh04">
+			<div class="col-medium">
+				<p style="text-align: center;">
+					Try and choose an agreement from the list on the right.
 				</p>
 			</div>
 		</section>
