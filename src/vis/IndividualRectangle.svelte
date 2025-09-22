@@ -57,7 +57,7 @@
         width={$tWidth}
         height={$tHeight}
         rx="1"
-        fill="#F6F1D6"
+        fill="#333333"
         stroke="gray"
         stroke-width="0.5"
         class:is-hovered={isHovered}
@@ -68,7 +68,7 @@
 
 <style>
     rect {
-        fill: #f6f1d6;
+        fill: #333333;
         transition: fill 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
 

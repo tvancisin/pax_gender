@@ -42,6 +42,6 @@
 
 <style>
     rect {
-        fill: #001c23;
+        fill: #ffffff;
     }
 </style>

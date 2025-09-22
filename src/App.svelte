@@ -67,8 +67,8 @@
 		reason: false,
 	};
 
+	// in/out of viewpoint functions
 	function handleEnter(section) {
-		console.log(`${section} entered viewport`);
 		d3.selectAll(
 			".scroll-line-agmt img, .scroll-line-geo img, .scroll-line-rect img, .scroll-line-reason img, .scroll-line-stage img, .scroll-line-time img, .scroll-line-dendr img",
 		).style("opacity", 0.5);
@@ -77,7 +77,6 @@
 	}
 
 	function handleLeave(section) {
-		console.log(`${section} left viewport`);
 		// Set opacity to 0.5 for the corresponding icon
 		d3.select(`.scroll-line-${section} img`).style("opacity", 0.5);
 		if (section == "geo") {
@@ -534,13 +533,13 @@
 		<img src="./img/agt.svg" alt="rect" />
 	</div>
 	<div class="scroll-line-geo" data-tooltip="Geography">
-		<img src="./img/glb.png" alt="rect" />
+		<img src="./img/glb.svg" alt="rect" />
 	</div>
 	<div class="scroll-line-rect" data-tooltip="All Agreements">
 		<img src="./img/rects.svg" alt="rect" />
 	</div>
 	<div class="scroll-line-reason" data-tooltip="UN Resolution">
-		<img src="./img/un.png" alt="rect" />
+		<img src="./img/un.svg" alt="rect" />
 	</div>
 	<div class="scroll-line-stage" data-tooltip="Negotiation Stages">
 		<img src="./img/bars.svg" alt="rect" />
@@ -549,7 +548,7 @@
 		<img src="./img/ref.svg" alt="rect" />
 	</div>
 	<div class="scroll-line-dendr" data-tooltip="Topics">
-		<img src="./img/dendr.png" alt="rect" />
+		<img src="./img/dendr.svg" alt="rect" />
 	</div>
 	<div class="scroll-line-research" data-tooltip="Research">
 		<img src="./img/research.svg" alt="rect" />
@@ -611,11 +610,7 @@
 		</p>
 	</div>
 	<br />
-	<img
-		src="./img/scroll-down-white.svg"
-		alt="scroll down"
-		class="scroll-down-icon"
-	/>
+	<img src="./img/down.svg" alt="scroll down" class="scroll-down-icon" />
 </Header>
 
 <div class="filler" bind:this={scrollerRefAgreement}>
@@ -624,19 +619,18 @@
 			A <strong>peace agreement</strong> is a document produced after
 			discussion with conflict protagonists and mutually agreed to by
 			them, addressing conflict with a view to ending it. <br /><br />
-			<a
-				href="https://pax.peaceagreements.org/agreements/search/"
-				style="color:white">PA-X Database</a
+			<a href="https://pax.peaceagreements.org/agreements/search/"
+				>PA-X Database</a
 			>
 			collects and archives formal, publicly-available, signed peace agreements.
 			PA-X Gender is a sub-database of PA-X that includes agreements that contain
-			mentions to Women, Girls or Gender. <br /><br />
-			Below is a ceasefire agreement from 1990 Nicaragua.
+			mentions to Women, Girls or Gender. Below is a ceasefire agreement from
+			1990 Nicaragua.
 		</p>
 	</div>
 </div>
 
-<div class="filler" style="padding: 50px;">
+<div class="filler">
 	<a
 		href="https://pax.peaceagreements.org/agreements/wgg/589/"
 		target="_blank"
@@ -645,7 +639,7 @@
 		<img
 			src="./img/toncontin.png"
 			alt="peace agreement example"
-			style="width: 100%;"
+			style="width: 100%; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;"
 		/>
 	</a>
 </div>
@@ -669,7 +663,7 @@
 			style="height: 100px;"
 		/>
 		<p
-			style="text-align: center; font-size: 14px; padding-left: 10%; padding-right: 10%"
+			style="text-align: center; font-size: 14px; padding-left: 10%; padding-right: 10%;"
 		>
 			Responding to the special needs of women and girls during
 			repatriation, resettlement, rehabilitation, reintegration and
@@ -707,7 +701,7 @@
 
 <div class="filler">
 	<div id="text_field">
-		<p style="text-align: center">
+		<p style="text-align: center; background-color:white">
 			Why should peace agreements incorporate a gender perspective?
 		</p>
 	</div>
@@ -769,8 +763,7 @@
 			Hear more on this from PeaceRep's Women Peace and Security expert,
 			Laura Wise in this short, informative <a
 				href="https://www.youtube.com/watch?v=52GFh0r6Zj8"
-				target="_blank"
-				style="color: white;">video</a
+				target="_blank" style="color: black;">video</a
 			> (3 mins).
 		</p>
 	</div>
@@ -780,10 +773,9 @@
 	<div id="text_field">
 		<p style="text-align: center;">
 			PA-X contains 2,144 peace agreements that have been signed since
-			1990.
-			<br /><br />
-			The map below shows the geographical spread of where these agreements
-			are from and the primary location of the conflict they are addressing.
+			1990. The map below shows the geographical spread of where these
+			agreements are from and the primary location of the conflict they
+			are addressing.
 		</p>
 	</div>
 </div>
@@ -811,7 +803,7 @@
 		<section data-id="map01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Brighter colour (white) indicates a higher number of peace
+					Darker colour (black) indicates a higher number of peace
 					agreements signed. <span style="color: gray;"
 						>[<i
 							>hover over a country for the exact number of peace
@@ -858,7 +850,7 @@
 		<section data-id="rect01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Every rectangle in this view represents one of the 2,055
+					Every rectangle in this view represents one of the 2,144
 					formal agreements signed since 1990.
 				</p>
 			</div>
@@ -927,14 +919,7 @@
 	</div>
 </div>
 
-<!-- <Filler short={false} wide={true} center={true} shadow={true}>
-	<img
-		src="./img/messy_1.png"
-		alt="peace agreement example"
-		style="width: 100%;"
-	/>
-</Filler> -->
-<div class="filler" style="padding: 50px;">
+<div class="filler">
 	<img
 		src="./img/messy_1.png"
 		alt="messy timeline visualization picutre"
@@ -947,23 +932,23 @@
 		<p style="text-align:center">
 			Instead, peace processes frequently involve a series of
 			back-and-forth movements, reflecting the reality that progress is
-			rarely uniform or predictable.<br /><br /> For example, here is the trajectory
+			rarely uniform or predictable. For example, here is the trajectory
 			of the Philippines-Mindano Process.
 		</p>
 	</div>
 </div>
 
-<div class="filler" style="padding: 50px; text-align:center">
+<div class="filler">
 	<img
 		src="./img/messy_2.png"
 		alt="peace agreement example"
 		style="width: 100%;"
 	/>
-	<p>
+	<p style="color: black;">
 		Explore the trajectory of other processes in PA-X on our <a
 			href="https://pax.peaceagreements.org/visualizations/messy-peace-processes/"
 			target="_blank"
-			style="color: white;">Messy Timeline Visualization</a
+			style="color: black;">Messy Timeline Visualization</a
 		>
 	</p>
 </div>
@@ -1018,7 +1003,7 @@
 					- the <a
 						href="https://pax.peaceagreements.org/media/documents/ag818_573ed266c7c9c.pdf"
 						target="_blank"
-						style="color: white;"
+						style="color: black;"
 						>Brazzaville Agreement on Cessation of Hostilities</a
 					> - included 'gender' by stipulating that under the agreement
 					the parties would cease the act of sexual violence.
@@ -1079,7 +1064,7 @@
 					One instance is the <a
 						href="https://pax.peaceagreements.org/media/documents/ag478_55d493ee828e7.pdf"
 						target="_blank"
-						style="color: white;">Lome Agreement</a
+						style="color: black">Lome Agreement</a
 					>
 					for Sierra Leone in 1999 that acknowledged women's victimization
 					during the war, and stated that
@@ -1109,7 +1094,7 @@
 					For example, the 2016 <a
 						href="https://pax.peaceagreements.org/media/documents/ag1845_593e97bdd6f32.pdf"
 						target="_blank"
-						style="color: white;">Final Agreement</a
+						style="color: black;">Final Agreement</a
 					> between the Colombian Government and the FARC set up a special
 					forum comprising representatives from 6 national and regional
 					Colombian women's organisations, to work with the implementation
@@ -1133,7 +1118,7 @@
 				<p style="text-align: center;">
 					For example, in a 1996 <a
 						href="https://pax.peaceagreements.org/media/documents/ag291_5630f71a3ae07.pdf"
-						style="color: white;"
+						style="color: black;"
 						target="_blank">peace agreement from Guatemala</a
 					>, the government agreed to revise national legislation to
 					eliminate all forms of discrimination against women, and to
@@ -1224,12 +1209,8 @@
 	</div>
 </div>
 
-<div
-	class="filler"
-	style="padding-left: 10%; padding-right: 10%; padding-top:40px"
-	bind:this={scrollerRefResearch}
->
-	<p style="text-align: center">
+<div class="filler" bind:this={scrollerRefResearch}>
+	<p style="text-align: center; color: black">
 		Explore our research and data on gender in peace agreements, and how
 		this work informs Women, Peace and Security monitoring.
 	</p>
@@ -1374,9 +1355,8 @@
 	}
 
 	.filler {
-		padding-left: 20%;
-		padding-right: 20%;
-		height: 100%;
+		text-align: center;
+		padding: 5%;
 		justify-content: center;
 		display: flex;
 		flex-direction: column;
@@ -1388,7 +1368,7 @@
 		position: absolute;
 		top: 0px;
 		left: 0px;
-		background-color: #001c23;
+		background-color: white;
 		display: flex;
 		justify-content: center;
 		z-index: 100;
@@ -1397,7 +1377,7 @@
 	#loading_text {
 		position: absolute;
 		top: 40%;
-		color: rgb(255, 255, 255);
+		color: black;
 		margin: 0px;
 		font-weight: 300;
 		font-size: 20px;
@@ -1405,13 +1385,14 @@
 
 	#loading_button {
 		font-family: "Montserrat";
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 5px;
 		font-size: 16px;
 		font-weight: 400;
 		position: absolute;
 		top: 40%;
-		background-color: #001c23;
-		color: white;
-		border: 1px solid rgb(69, 69, 69);
+		background-color: white;
+		color: black;
+		border: 1px solid rgb(199, 199, 199);
 		border-radius: 5px;
 		padding: 15px 15px;
 		cursor: pointer;
@@ -1422,8 +1403,8 @@
 	}
 
 	#loading_button:hover {
-		background-color: white;
-		color: #001c23;
+		background-color: rgb(44, 44, 44);
+		color: white;
 	}
 
 	.rect,
@@ -1440,43 +1421,52 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
+		color: black;
+		box-sizing: border-box; /* include padding/margin in width calculations */
 	}
 
 	.icon-item {
-		flex: 1 1 calc(33.33% - 10px);
+		flex: 1 1 calc(33.33% - 10px); /* 3 per row on large screens */
 		margin: 5px;
 		text-align: center;
-		padding: 20px;
-		box-sizing: border-box;
+		padding: 50px 20px; /* shorthand: top/bottom 50px, left/right 20px */
+		box-sizing: border-box; /* important! */
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 	}
 
+	/* Small screens */
 	@media (max-width: 768px) {
+		#icons {
+			justify-content: center; /* center the stacked items */
+		}
+
 		.icon-item {
-			flex: 1 1 100%;
+			flex: 0 0 100%; /* take full width */
+			max-width: 100%; /* ensure no extra width */
+			margin: 10px 0; /* vertical spacing between items */
 		}
 	}
 
 	#text_field {
-		padding-left: 10%;
-		padding-right: 10%;
-		display: flex;
+		width: 50%;
 		margin: auto;
+		color: black;
 	}
 
 	.fa-info-circle {
-		font-size: 24px;
+		font-size: 30px;
 	}
 
 	.info {
-		background-color: #04aa6d00;
 		border: none;
-		color: white;
+		background-color: white;
+		color: black;
 		text-align: center;
 		text-decoration: none;
 		display: inline-block;
 		position: absolute;
 		top: 10px;
-		right: 5px;
+		right: 0px;
 		cursor: pointer;
 		transition: transform 0.1s ease-in-out;
 	}
@@ -1487,25 +1477,27 @@
 
 	.info_div {
 		position: absolute;
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 5px;
 		width: 250px;
 		top: -100%;
-		right: 40px;
+		right: 45px;
 		font-size: 12px;
 		text-align: left;
-		background-color: black;
+		background-color: white;
+		color: black;
 		padding: 20px;
 	}
 
 	#research_field {
 		padding-top: 40px;
 		display: flex;
-		flex-wrap: wrap; /* allows wrapping */
+		flex-wrap: wrap;
 		justify-content: center;
-		gap: 5px; /* spacing between cards */
+		gap: 5px;
 	}
 
 	.research_item {
-		flex: 0 1 18%; /* ~5 per row on large screens */
+		flex: 0 1 18%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -1513,11 +1505,12 @@
 	}
 
 	.research_item img {
-		width: 180px; /* fixed size for all images */
-		height: 250px; /* equal height */
-		object-fit: contain; /* no distortion */
+		width: 179px;
+		height: 250px;
+		object-fit: contain;
 		display: block;
 		border-radius: 4px;
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 5px;
 		transition: transform 0.1s ease-in-out;
 	}
 
@@ -1526,6 +1519,7 @@
 	}
 
 	.research_item p {
+		color: black;
 		margin-top: 15px;
 		padding: 5px;
 		font-size: 12px;
@@ -1534,7 +1528,7 @@
 	/* Medium screens: fewer per row */
 	@media (max-width: 992px) {
 		.research_item {
-			flex: 0 1 30%; /* about 3 per row */
+			flex: 0 1 30%;
 		}
 	}
 

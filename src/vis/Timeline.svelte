@@ -1,8 +1,11 @@
 <script>
+    // import IndividualRectangle from "./IndividualRectangle.svelte";
+    // import Background from "./BackgroundRectangle.svelte";
     import * as d3 from "d3";
-    import IndividualRectangle from "./IndividualRectangle.svelte";
     import { years } from "../utils";
-    import Background from "./BackgroundRectangle.svelte";
+    import Canvas from "./Canvas.svelte";
+    import CanvasRectangle from "./CanvasRectangle.svelte";
+    import CanvasBackground from "./CanvasBackground.svelte";
 
     export let pax;
     export let pax_timeline;
@@ -18,7 +21,7 @@
     let imageSource = "./img/lome.png";
     let exampleImg;
     let imageHeight;
-    let margin = { top: 20, right: 20, bottom: 20, left: 40 };
+    let margin = { top: 20, right: 80, bottom: 20, left: 100 };
 
     $: innerWidth = width - margin.left - margin.right;
     $: innerHeight = height - margin.top - margin.bottom;
@@ -144,32 +147,32 @@
     updateImageHeight();
 
     // Event handlers for tooltip
-    const handleHover = (event) => {
-        let dyn_x;
-        let dyn_y;
-        if (event.detail.x >= innerWidth / 2) {
-            dyn_x = event.detail.x - 140;
-        } else if (event.detail.x < innerWidth / 2) {
-            dyn_x = event.detail.x + 70;
-        }
+    // const handleHover = (event) => {
+    //     let dyn_x;
+    //     let dyn_y;
+    //     if (event.detail.x >= innerWidth / 2) {
+    //         dyn_x = event.detail.x - 140;
+    //     } else if (event.detail.x < innerWidth / 2) {
+    //         dyn_x = event.detail.x + 70;
+    //     }
 
-        if (event.detail.y >= innerHeight / 2) {
-            dyn_y = event.detail.y - 50;
-        } else if (event.detail.y < innerHeight / 2) {
-            dyn_y = event.detail.y;
-        }
+    //     if (event.detail.y >= innerHeight / 2) {
+    //         dyn_y = event.detail.y - 50;
+    //     } else if (event.detail.y < innerHeight / 2) {
+    //         dyn_y = event.detail.y;
+    //     }
 
-        tooltip = {
-            visible: true,
-            x: dyn_x,
-            y: dyn_y,
-            info: event.detail.info,
-        };
-    };
+    //     tooltip = {
+    //         visible: true,
+    //         x: dyn_x,
+    //         y: dyn_y,
+    //         info: event.detail.info,
+    //     };
+    // };
 
-    const handleLeave = () => {
-        tooltip = { ...tooltip, visible: false };
-    };
+    // const handleLeave = () => {
+    //     tooltip = { ...tooltip, visible: false };
+    // };
 </script>
 
 {#if rendered_data && pax_timeline}
@@ -184,7 +187,7 @@
                         <g
                             class="tick tick-{tick}"
                             transform="translate({xScale(tick) +
-                                xScale.bandwidth() / 2},{innerHeight + 17})"
+                                xScale.bandwidth() / 2},{innerHeight + 15})"
                         >
                             <text y="1"
                                 >{innerWidth > 800
@@ -194,6 +197,7 @@
                         </g>
                     {/each}
                 </g>
+                <!--
                 {#each background_data as d, i}
                     <Background
                         {i}
@@ -215,7 +219,7 @@
                         on:hover={handleHover}
                         on:leave={handleLeave}
                     />
-                {/each}
+                {/each}-->
 
                 <rect
                     class="un_resolution"
@@ -223,7 +227,7 @@
                     y={20}
                     width="1"
                     height={innerHeight - 100}
-                    fill="white"
+                    fill="black"
                 />
 
                 {#if lineEnd}
@@ -234,7 +238,7 @@
                          ${imageX - margin.left},${lineEnd + 100} 
                          ${imageX - margin.left},${lineEnd}`}
                         fill="none"
-                        stroke="white"
+                        stroke="black"
                         stroke-width="1"
                         opacity="0"
                     />
@@ -244,18 +248,45 @@
                     class="un_resolution"
                     x={xScale("2000") + xScale.bandwidth()}
                     y={20}
-                    fill="white">UN Resolution 1325</text
+                    fill="black">UN Resolution 1325</text
                 >
             </g>
         </svg>
-        {#if tooltip.visible}
+        <!-- {#if tooltip.visible}
             <div
                 class="tooltip"
                 style="position: absolute; left: {tooltip.x}px; top: {tooltip.y}px;"
             >
                 <p>{tooltip.info}</p>
             </div>
-        {/if}
+        {/if} -->
+
+        <div style="position: absolute; top: 0; left: 0;">
+            <Canvas {width} {height} --position="absolute">
+                {#each background_data as d, i}
+                    <CanvasBackground
+                        x={d.x}
+                        y={d.y}
+                        width={d.width}
+                        height={d.height}
+                        {margin}
+                    />
+                {/each}
+            </Canvas>
+            <Canvas {width} {height}>
+                {#each rendered_data as d, i}
+                    <CanvasRectangle
+                        {i}
+                        x={d.x}
+                        y={d.y}
+                        width={d.width}
+                        height={d.height}
+                        {margin}
+                    />
+                {/each}
+            </Canvas>
+        </div>
+
         <div id="example">
             <img
                 class="example_img"
@@ -283,9 +314,9 @@
     }
 
     .tick text {
-        fill: white;
+        fill: black;
         text-anchor: start;
-        font-size: 12px;
+        font-size: 10px;
         font-family: "Montserrat";
         font-weight: 400;
     }
@@ -322,13 +353,20 @@
 
     #example img {
         position: absolute;
+        background-color: #33333399;
+        border-radius: 5px;
         top: 0px;
         max-width: 80%;
+        padding: 10px;
         height: auto;
         display: block;
     }
 
-    .tooltip {
+    .un_resolution {
+        visibility: hidden;
+    }
+
+    /* .tooltip {
         background-color: rgba(0, 0, 0, 0.9);
         color: white;
         padding: 10px;
@@ -341,5 +379,5 @@
     p {
         margin: 5px;
         font-size: 12px;
-    }
+    } */
 </style>

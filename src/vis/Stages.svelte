@@ -1,8 +1,11 @@
 <script>
-    import * as d3 from "d3";
     import IndividualRectangle from "./IndividualRectangle.svelte";
-    import { years, pax_stages_grid, pax_stages_filter_grid } from "../utils";
     import Background from "./BackgroundRectangle.svelte";
+    import * as d3 from "d3";
+    import { years, pax_stages_grid, pax_stages_filter_grid } from "../utils";
+    import Canvas from "./Canvas.svelte";
+    import CanvasRectangle from "./CanvasRectangle.svelte";
+    import CanvasBackground from "./CanvasBackground.svelte";
 
     export let pax;
     export let pax_stages;
@@ -29,7 +32,7 @@
         "Other",
     ];
 
-    const margin = { top: 20, right: 20, bottom: 20, left: 40 };
+    let margin = { top: 20, right: 80, bottom: 20, left: 100 };
 
     $: innerWidth = width - margin.left - margin.right;
     $: innerHeight = height - margin.top - margin.bottom;
@@ -128,10 +131,11 @@
                         y={innerHeight + 14}
                         text-anchor="middle"
                         font-family="Montserrat"
-                        fill="white"
+                        fill="black"
                         font-size="14px">{d}</text
                     >
                 {/each}
+                <!--
                 {#each background_data as d, i}
                     <Background
                         {i}
@@ -155,21 +159,22 @@
                         on:leave={handleLeave}
                     />
                 {/each}
-            </g>
-            {#if lineEnd}
-                <path
-                    id="example_stage"
-                    d={`M ${column_width * 2},${innerHeight - 30} 
+            </g> -->
+                {#if lineEnd}
+                    <path
+                        id="example_stage"
+                        d={`M ${column_width * 2},${innerHeight - 30} 
                        C ${column_width * 2},${innerHeight - 100} 
                          ${imageX},${lineEnd + 100} 
                          ${imageX},${lineEnd}`}
-                    fill="none"
-                    stroke="white"
-                    stroke-width="1"
-                    opacity="0"
-                />
-            {/if}
-        </svg>
+                        fill="none"
+                        stroke="black"
+                        stroke-width="1"
+                        opacity="0"
+                    />
+                {/if}
+            </g></svg
+        >
         {#if tooltip.visible}
             <div
                 class="tooltip"
@@ -178,6 +183,32 @@
                 <p>{tooltip.info}</p>
             </div>
         {/if}
+        <div style="position: absolute; top: 0; left: 0;">
+            <Canvas {width} {height} --position="absolute">
+                {#each background_data as d, i}
+                    <CanvasBackground
+                        x={d.x}
+                        y={d.y}
+                        width={d.width}
+                        height={d.height}
+                        {margin}
+                    />
+                {/each}
+            </Canvas>
+            <Canvas {width} {height}>
+                {#each rendered_data as d, i}
+                    <CanvasRectangle
+                        {i}
+                        x={d.x}
+                        y={d.y}
+                        width={d.width}
+                        height={d.height}
+                        {margin}
+                    />
+                {/each}
+            </Canvas>
+        </div>
+
         <div id="example_stage">
             <img
                 class="example_img"
@@ -200,9 +231,9 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%; 
-        height: 100%; 
-        display: flex; 
+        width: 100%;
+        height: 100%;
+        display: flex;
         justify-content: center;
         overflow: hidden;
         opacity: 0;
@@ -212,10 +243,13 @@
 
     #example_stage img {
         position: absolute;
+        background-color: #33333399;
+        border-radius: 5px;
         top: 0px;
-        max-width: 80%; 
-        height: auto; 
-        display: block; 
+        max-width: 80%;
+        padding: 10px;
+        height: auto;
+        display: block;
     }
 
     .tooltip {

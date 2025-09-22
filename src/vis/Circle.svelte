@@ -99,7 +99,7 @@
             y={bbox.y - 1}
             width={bbox.width + 4}
             height={bbox.height + 2}
-            fill={node.data.key == undefined ? "none" : "#001C23"}
+            fill={node.data.key == undefined ? "none" : "white"}
             rx="2"
             ry="2"
         />
@@ -110,10 +110,14 @@
             x={node.x < 180 ? 15 : -15}
             dy="0.32em"
             text-anchor={node.x < 180 ? "start" : "end"}
-            fill="#f6f1d6"
             font-size="10"
             opactity={node.data.key == undefined ? 0 : 1}
             class={"node " + node.data.key}
+            fill="black"
+            stroke="white"
+            stroke-width="2"
+            paint-order="stroke fill"
+            font-family="Montserrat"
         >
             {name}
         </text>
@@ -146,7 +150,7 @@
 
 <style>
     circle {
-        fill: #f6f1d6;
+        fill: #333333;
     }
     :global(.undefined) {
         opacity: 0;

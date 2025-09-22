@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="71.73571mm"
-   height="71.735672mm"
-   viewBox="0 0 71.73571 71.735672"
+   width="102.92316mm"
+   height="59.502441mm"
+   viewBox="0 0 102.92316 59.502441"
    version="1.1"
    id="svg1"
    xml:space="preserve"
@@ -25,11 +25,16 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(192.33388,-647.1356)"><path
-       d="m -166.42933,679.01816 h 19.92661 v 39.85317 h -19.92661 z m -25.90455,-19.92659 h 19.92657 v 59.77976 h -19.92657 z m 51.80913,-11.95595 h 19.92658 v 71.73571 h -19.92658 z"
-       fill="#00bcd4"
-       id="path1-78"
-       style="fill:#000000;stroke-width:0.093406" /></g><style
+     transform="translate(1.6749789,-580.7072)"><g
+       id="g1"
+       transform="matrix(4.0204362,0,0,4.0204362,-2.8811097,579.50105)"
+       style="fill:#000000">
+	<path
+   class="st0"
+   d="m 13.1,15.1 c -0.5,0 -1,-0.2 -1.4,-0.6 L 0.9,3.7 c -0.8,-0.8 -0.8,-2 0,-2.8 0.8,-0.8 2,-0.8 2.8,0 l 9.4,9.4 9.4,-9.4 c 0.8,-0.8 2,-0.8 2.8,0 0.8,0.8 0.8,2 0,2.8 L 14.5,14.5 c -0.3,0.4 -0.8,0.6 -1.4,0.6 z"
+   id="path1-8"
+   style="fill:#000000" />
+</g></g><style
      type="text/css"
      id="style1">
 	.st0{fill:#FFFFFF;}

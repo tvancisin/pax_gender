@@ -1,13 +1,13 @@
 <script>
     import * as d3 from "d3";
     import { years, full_grid, full_grid_filter } from "../utils";
-    import Background from "./BackgroundRectangle.svelte";
-    import IndividualRectangle from "./IndividualRectangle.svelte";
+    // import Background from "./BackgroundRectangle.svelte";
+    // import IndividualRectangle from "./IndividualRectangle.svelte";
 
     // canvas variation
-    // import Canvas from "./Canvas.svelte";
-    // import CanvasRectangle from "./CanvasRectangle.svelte";
-    // import CanvasBackground from "./CanvasBackground.svelte";
+    import Canvas from "./Canvas.svelte";
+    import CanvasRectangle from "./CanvasRectangle.svelte";
+    import CanvasBackground from "./CanvasBackground.svelte";
 
     export let pax;
     export let step;
@@ -19,7 +19,7 @@
     let background_data;
     let initialPaxCount;
     let innerWidth, innerHeight, xScale, yScale;
-    const margin = { top: 20, right: 20, bottom: 20, left: 40 };
+    const margin = { top: 20, right: 80, bottom: 20, left: 100 };
 
     $: innerWidth = width - margin.left - margin.right;
     $: innerHeight = height - margin.top - margin.bottom;
@@ -60,7 +60,6 @@
             innerWidth,
             initialPaxCount,
         );
-
     } else if (step == "rect02") {
         //full grid gender
         rendered_data = full_grid_filter(
@@ -106,7 +105,7 @@
 
 {#if rendered_data}
     <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
-        <svg {width} {height}>
+        <!-- <svg {width} {height}>
             <g
                 class="timeline"
                 transform="translate({margin.left}, {margin.top})"
@@ -134,15 +133,15 @@
                     />
                 {/each}
             </g>
-        </svg>
-
-        <!-- <Canvas {width} {height} --position="absolute">
+        </svg> -->
+        <Canvas {width} {height} --position="absolute">
             {#each background_data as d, i}
                 <CanvasBackground
                     x={d.x}
                     y={d.y}
                     width={d.width}
                     height={d.height}
+                    margin={margin}
                 />
             {/each}
         </Canvas>
@@ -154,9 +153,11 @@
                     y={d.y}
                     width={d.width}
                     height={d.height}
+                    margin={margin}
                 />
             {/each}
-        </Canvas> -->
+        </Canvas>
+
         {#if tooltip.visible}
             <div
                 class="tooltip"

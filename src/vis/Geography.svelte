@@ -22,9 +22,9 @@
     let height = 400;
     let cumulative_isos;
     let innerWidth, innerHeight, xScale, yScale;
-    const margin = { top: 20, right: 20, bottom: 20, left: 40 };
+    let margin = { top: 20, right: 100, bottom: 20, left: 100 };
 
-    $: projection = d3.geoNaturalEarth1().fitSize([width, height], mygeojson);
+    $: projection = d3.geoNaturalEarth1().fitSize([innerWidth, innerHeight], mygeojson);
     $: pathGenerator = d3.geoPath(projection);
 
     let countries = [];
@@ -113,7 +113,7 @@
         {#if mygeojson}
             <LayerCake>
                 <Svg>
-                    <Map {countries} {transform} {cumulative_isos} />
+                    <Map {countries} {transform} {cumulative_isos} {margin} />
                 </Svg>
             </LayerCake>
         {/if}

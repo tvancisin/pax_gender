@@ -4,15 +4,16 @@
 
     export let cumulative_isos;
     export let transform;
+    export let margin;
     export let countries;
 
     let opacity_generator = d3.scaleLinear().domain([0, 150]).range([0.2, 1]);
 
     $: if (cumulative_isos) {
-        d3.selectAll(".country").style("fill", " black");
+        // d3.selectAll(".country").style("fill", "none").style("stroke", "gray");
         cumulative_isos.forEach((d) => {
             d3.selectAll("." + d.iso)
-                .style("fill", "#f6f1d6")
+                .style("fill", "black")
                 .style("fill-opacity", opacity_generator(d.count));
         });
     }
@@ -21,8 +22,8 @@
         return cumulative_isos.some(
             (item) => item.iso === polygon.properties.adm0_iso,
         )
-            ? "#f6f1d6"
-            : "black";
+            ? "black"
+            : "none";
     }
 
     function opacity_calculator(country) {
@@ -84,10 +85,12 @@
     }
 </script>
 
-<g class="map-group" {transform}>
+<g class="map-group" transform="translate({margin.left}, {margin.top})">
     {#each countries as country}
         <path
             fill={initial_fill(country)}
+            stroke="#cccccc"
+            stroke-width="0.5"
             fill-opacity={opacity_calculator(country)}
             class={"country " + country.properties.adm0_iso}
             d={country.path}

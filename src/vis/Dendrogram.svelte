@@ -16,8 +16,6 @@
     let tree = [];
     let agt_list = [];
 
-    $: console.log(pax_gender);
-
     function countOccurrences(data, hierarchy) {
         data.forEach((obj) => {
             hierarchy.children.forEach((category) => {
@@ -97,12 +95,12 @@
         countOccurrences(split, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
 
-        d3.selectAll("path.link").style("stroke", "rgb(74, 74, 74)");
-        d3.selectAll("text").style("fill", "rgb(74, 74, 74)");
+        d3.selectAll("path.link").style("stroke", "white");
+        d3.selectAll("text").style("fill", "white");
         const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, agt);
         highlightedWggKeys.forEach((key) => {
-            d3.selectAll("path." + key).style("stroke", "#808080");
-            d3.selectAll("text." + key).style("fill", "white");
+            d3.selectAll("path." + key).style("stroke", "black");
+            d3.selectAll("text." + key).style("fill", "black");
         });
     }
 
@@ -111,11 +109,12 @@
         countOccurrences(pax_gender, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
         d3.selectAll("path.link").style("stroke", "#808080");
-        d3.selectAll("text").style("fill", "white");
+        d3.selectAll("text").style("fill", "black");
     } else if (step == "afgh02") {
         updateTree("589");
     } else if (step == "afgh03") {
         updateTree("1845");
+    } else if (step == "afgh03") {
     }
 
     let selectedAgt = "";
@@ -145,14 +144,15 @@
         --width="250px"
         --border-radius="3px"
         --placeholder-color="white"
-        --background="#003645"
-        --list-background="#003645"
-        --border="none"
+        --background="#333333"
+        --list-background="white"
+        --item-color="black"
+        --border="1px solid #999999"
         --multi-item-color="black"
         --item-hover-bg="gray"
         --font-size="14px"
         --font-weight="300"
-        placeholder="Choose agreement..."
+        placeholder="Select agreement..."
     />
 
     {#if root}
@@ -194,6 +194,6 @@
     path {
         fill: none;
         stroke: #808080;
-        stroke-width: 2;
+        stroke-width: 1;
     }
 </style>
