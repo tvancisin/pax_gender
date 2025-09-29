@@ -33,8 +33,8 @@
         .area()
         .x((d) => xScale(d.year) + xScale.bandwidth() / 2)
         .y0(innerHeight)
-        .y1((d) => yScale(d.value));
-    // .curve(d3.curveMonotoneX);
+        .y1((d) => yScale(d.value))
+        .curve(d3.curveMonotoneX);
 
     // initial functions (data wrangling)
     let pax_gender_rendered;
