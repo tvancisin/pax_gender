@@ -15,6 +15,7 @@
     let radius = 100;
     let tree = [];
     let agt_list = [];
+    let currentUrl;
 
     function countOccurrences(data, hierarchy) {
         data.forEach((obj) => {
@@ -90,13 +91,16 @@
     }
 
     function updateTree(agt) {
+        d3.select("#select_agt").style("visibility", "visible");
+        currentUrl = `https://www.peaceagreements.org/agreements/wgg/${agt}`;
+
         let split = pax_gender.filter((d) => d.AgtId == agt);
         let updatedTree = JSON.parse(JSON.stringify(hierarchy)); // Create a fresh copy
         countOccurrences(split, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
 
-        d3.selectAll("path.link").style("stroke", "white");
-        d3.selectAll("text").style("fill", "white");
+        d3.selectAll("path.link").style("stroke", "#d9d9d9");
+        d3.selectAll("text").style("fill", "#d9d9d9");
         const highlightedWggKeys = getWggAttributesByAgtId(pax_gender, agt);
         highlightedWggKeys.forEach((key) => {
             d3.selectAll("path." + key).style("stroke", "black");
@@ -105,6 +109,7 @@
     }
 
     $: if (step == "afgh01") {
+        d3.select("#select_agt").style("visibility", "hidden");
         let updatedTree = JSON.parse(JSON.stringify(hierarchy)); // Create a fresh copy
         countOccurrences(pax_gender, updatedTree);
         tree = updatedTree; // Assign the new reference to trigger reactivity
@@ -132,6 +137,14 @@
         // highlight selected
         updateTree(value);
     }
+
+    function openAgreement() {
+        if (currentUrl) {
+            window.open(currentUrl, "_blank");
+        } else {
+            alert("No agreement selected yet");
+        }
+    }
 </script>
 
 <div class="wrapper" bind:clientWidth={width} bind:clientHeight={height}>
@@ -154,7 +167,7 @@
         --font-weight="300"
         placeholder="Select agreement..."
     />
-
+    <button id="select_agt" on:click={openAgreement}> See Agreement </button>
     {#if root}
         <svg {width} {height}>
             <g transform="translate({width / 2}, {height / 2})">
@@ -195,5 +208,16 @@
         fill: none;
         stroke: #808080;
         stroke-width: 1;
+    }
+
+    #select_agt {
+        position: absolute;
+        top: 0px;
+        right: 257px;
+        height: 42px;
+        visibility: hidden;
+        cursor: pointer;
+        font-family: "Montserrat";
+        font-weight: 500;
     }
 </style>

@@ -8,6 +8,7 @@
 	import Stages from "./vis/Stages.svelte";
 	import Rectangles from "./vis/Rectangles.svelte";
 	import Timeline from "./vis/Timeline.svelte";
+	import Area from "./vis/Area.svelte";
 	import Geography from "./vis/Geography.svelte";
 	import Dendrogram from "./vis/Dendrogram.svelte";
 
@@ -69,6 +70,7 @@
 
 	// in/out of viewpoint functions
 	function handleEnter(section) {
+		d3.select(".rotated").transition().style("opacity", 0);
 		d3.selectAll(
 			".scroll-line-agmt img, .scroll-line-geo img, .scroll-line-rect img, .scroll-line-reason img, .scroll-line-stage img, .scroll-line-time img, .scroll-line-dendr img",
 		).style("opacity", 0.5);
@@ -93,6 +95,8 @@
 			d3.select(`.scroll-line-time img`).style("opacity", 1);
 		} else if (section == "research") {
 			d3.select(`.scroll-line-dendr img`).style("opacity", 1);
+		} else {
+			d3.select(".rotated").transition().style("opacity", 1);
 		}
 	}
 
@@ -329,6 +333,14 @@
 				step = "rect02";
 			},
 		},
+		area: {
+			area01: () => {
+				step = "area01";
+			},
+			area02: () => {
+				step = "area02";
+			},
+		},
 		chart: {
 			chart01: () => {
 				step = "one";
@@ -525,10 +537,13 @@
 		}
 		info_checker += 1;
 	}
+
+	$: console.log(step);
 </script>
 
 <!-- navigation -->
 <div id="indicator">
+	<p class="rotated" style="color: black;">CHAPTERS</p>
 	<div class="scroll-line-agmt" data-tooltip="Peace Agreement">
 		<img src="./img/agt.svg" alt="rect" />
 	</div>
@@ -573,7 +588,7 @@
 		class="info"
 		on:mouseenter={() => infoPressed()}
 		on:mouseleave={() => infoPressed()}
-		><i class="fa fa-info-circle" aria-hidden="true"></i></button
+		><i class="fa fa-info" aria-hidden="true"></i></button
 	>
 	<div class="info_div">
 		This 'scrollytelling' tool allows users to scroll through key findings
@@ -610,6 +625,7 @@
 		</p>
 	</div>
 	<br />
+	<p style="font-weight: 700;">SCROLL DOWN</p>
 	<img src="./img/down.svg" alt="scroll down" class="scroll-down-icon" />
 </Header>
 
@@ -763,7 +779,8 @@
 			Hear more on this from PeaceRep's Women Peace and Security expert,
 			Laura Wise in this short, informative <a
 				href="https://www.youtube.com/watch?v=52GFh0r6Zj8"
-				target="_blank" style="color: black;">video</a
+				target="_blank"
+				style="color: black;">video</a
 			> (3 mins).
 		</p>
 	</div>
@@ -876,30 +893,31 @@
 </div>
 
 <!-- TIME -->
-<Scroller {threshold} bind:id={id["time"]} splitscreen={false} shadow={false}>
+<Scroller {threshold} bind:id={id["area"]} splitscreen={false} shadow={false}>
 	<div slot="background">
 		<figure>
 			<div class="col-wide height-full">
-				<div class="time">
-					<Timeline {pax} {pax_timeline} {step} />
+				<div class="area">
+					<Area {pax} {pax_timeline} {step} />
 				</div>
 			</div>
 		</figure>
 	</div>
 
 	<div slot="foreground">
-		<section data-id="time01">
+		<section data-id="area01">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Each line represents a peace agreement signed between 1990
-					and 2024.
+					This area chart shows the number of peace agreements signed
+					per year since 1990.
 				</p>
 			</div>
 		</section>
-		<section data-id="time02">
+		<section data-id="area02">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					These are the agreements included in PA-X Gender.
+					The dark area chart shows the number of peace agreements
+					containing references to women, girls, and gender.
 				</p>
 			</div>
 		</section>
@@ -1184,7 +1202,7 @@
 		<section data-id="afgh04">
 			<div class="col-medium">
 				<p style="text-align: center;">
-					Try and choose an agreement from the list on the right.
+					You can choose an agreement from the list on the right.
 				</p>
 			</div>
 		</section>
@@ -1295,7 +1313,7 @@
 
 		display: flex; /* flexbox for layout */
 		flex-direction: column; /* stack children vertically */
-		align-items: center; /* center images horizontally inside */
+		align-items: left; /* center images horizontally inside */
 		gap: 12px; /* spacing between images */
 		padding: 5px; /* optional, keeps from touching edge */
 		z-index: 99;
@@ -1309,14 +1327,15 @@
 	#indicator > div::after {
 		content: attr(data-tooltip);
 		position: absolute;
-		left: 110%; /* place to the right of the icon */
+		left: 35px; /* place to the right of the icon */
 		top: 50%;
 		transform: translateY(-50%);
 		white-space: nowrap;
 
-		background: rgba(0, 0, 0, 0.8);
-		color: #fff;
-		font-size: 13px;
+		background: white;
+		color: black;
+		font-size: 14px;
+		font-weight: 400;
 		padding: 4px 8px;
 		border-radius: 4px;
 		opacity: 0;
@@ -1337,7 +1356,7 @@
 	.scroll-line-research img,
 	.scroll-line-geo img {
 		height: 25px;
-		padding-left: 3px;
+		padding: 3px;
 		cursor: pointer;
 		opacity: 0.5;
 		transition: transform 0.2s ease;
@@ -1409,6 +1428,7 @@
 
 	.rect,
 	.time,
+	.area,
 	.map,
 	.stage,
 	.afgh {
@@ -1453,8 +1473,8 @@
 		color: black;
 	}
 
-	.fa-info-circle {
-		font-size: 30px;
+	.fa-info {
+		font-size: 24px;
 	}
 
 	.info {
@@ -1480,7 +1500,7 @@
 		box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 5px;
 		width: 250px;
 		top: -100%;
-		right: 45px;
+		right: 40px;
 		font-size: 12px;
 		text-align: left;
 		background-color: white;
@@ -1552,5 +1572,12 @@
 		50% {
 			transform: translateY(7px); /* move down */
 		}
+	}
+
+	.rotated {
+		display: inline-block; /* needed so transform applies properly */
+		transform: rotate(-45deg);
+		font-size: 12px;
+		font-weight: 800;
 	}
 </style>

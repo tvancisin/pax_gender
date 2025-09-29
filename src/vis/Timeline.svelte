@@ -84,19 +84,19 @@
     }
     //steps
     $: if (step == "1") {
-        d3.selectAll(".un_resolution").style("visibility", "hidden");
+        d3.selectAll(".un_resolution_time").style("visibility", "hidden");
         // all agreements
         rendered_data = position_calc(pax, innerWidth, "none");
     } else if (step == "2") {
-        d3.selectAll(".un_resolution").style("visibility", "visible");
+        d3.selectAll(".un_resolution_time").style("visibility", "visible");
         // gender agreements
         rendered_data = position_calc(pax, innerWidth, "GeWom");
     } else if (step == "3") {
-        d3.selectAll(".un_resolution").style("visibility", "visible");
+        d3.selectAll(".un_resolution_time").style("visibility", "visible");
         // gender agreements
         rendered_data = position_calc(pax, innerWidth, "GeWom");
     } else if (step == "4") {
-        d3.selectAll(".un_resolution").style("visibility", "hidden");
+        d3.selectAll(".un_resolution_time").style("visibility", "hidden");
         d3.selectAll("#example").style("opacity", 0);
         // rehabilitation agreements
         rendered_data = position_calc(pax, innerWidth, "WggRehab");
@@ -221,15 +221,6 @@
                     />
                 {/each}-->
 
-                <rect
-                    class="un_resolution"
-                    x={xScale("2000") + xScale.bandwidth() / 2}
-                    y={20}
-                    width="1"
-                    height={innerHeight - 100}
-                    fill="black"
-                />
-
                 {#if lineEnd}
                     <path
                         id="example"
@@ -243,23 +234,8 @@
                         opacity="0"
                     />
                 {/if}
-
-                <text
-                    class="un_resolution"
-                    x={xScale("2000") + xScale.bandwidth()}
-                    y={20}
-                    fill="black">UN Resolution 1325</text
-                >
             </g>
         </svg>
-        <!-- {#if tooltip.visible}
-            <div
-                class="tooltip"
-                style="position: absolute; left: {tooltip.x}px; top: {tooltip.y}px;"
-            >
-                <p>{tooltip.info}</p>
-            </div>
-        {/if} -->
 
         <div style="position: absolute; top: 0; left: 0;">
             <Canvas {width} {height} --position="absolute">
@@ -307,10 +283,6 @@
     .tick {
         font-size: 0.725em;
         font-weight: 200;
-    }
-
-    .un_resolution {
-        visibility: hidden;
     }
 
     .tick text {
