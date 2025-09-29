@@ -1054,6 +1054,14 @@
 	</div>
 
 	<div slot="foreground">
+		<section>
+			<div class="col-medium">
+				<p style="text-align: center;">
+					These are all peace agreements signed since 1990, each
+					represented as a line.
+				</p>
+			</div>
+		</section>
 		<section data-id="time01">
 			<div class="col-medium">
 				<p style="text-align: center;">
