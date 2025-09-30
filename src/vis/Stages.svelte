@@ -2,6 +2,7 @@
     import IndividualRectangle from "./IndividualRectangle.svelte";
     import Background from "./BackgroundRectangle.svelte";
     import * as d3 from "d3";
+    import { fade } from "svelte/transition";
     import { years, pax_stages_grid, pax_stages_filter_grid } from "../utils";
     import Canvas from "./Canvas.svelte";
     import CanvasRectangle from "./CanvasRectangle.svelte";
@@ -13,7 +14,7 @@
 
     let tooltip = { visible: false, x: 0, y: 0, info: "" };
     let width = 400;
-    let imageSource = "./img/africa.png";
+    let imageSource = null;
     let exampleImg;
     let imageX;
     let imageHeight;
@@ -66,9 +67,9 @@
             innerWidth,
             "GeWom",
         );
-        d3.selectAll("#example_stage").style("opacity", 0);
+        imageSource = null;
     } else if (step == "stage03") {
-        d3.selectAll("#example_stage").style("opacity", 1);
+        imageSource = "./img/africa.png";
     }
 
     function formatMobile(tick) {
@@ -88,34 +89,6 @@
     $: if (innerHeight) {
         lineEnd = innerHeight - (innerHeight - imageHeight);
     }
-
-    // Event handlers for tooltip
-    const handleHover = (event) => {
-        let dyn_x;
-        let dyn_y;
-        if (event.detail.x >= innerWidth / 2) {
-            dyn_x = event.detail.x - 140;
-        } else if (event.detail.x < innerWidth / 2) {
-            dyn_x = event.detail.x + 70;
-        }
-
-        if (event.detail.y >= innerHeight / 2) {
-            dyn_y = event.detail.y - 50;
-        } else if (event.detail.y < innerHeight / 2) {
-            dyn_y = event.detail.y;
-        }
-
-        tooltip = {
-            visible: true,
-            x: dyn_x,
-            y: dyn_y,
-            info: event.detail.info,
-        };
-    };
-
-    const handleLeave = () => {
-        tooltip = { ...tooltip, visible: false };
-    };
 </script>
 
 {#if rendered_data}
@@ -160,29 +133,22 @@
                     />
                 {/each}
             </g> -->
-                {#if lineEnd}
-                    <path
-                        id="example_stage"
-                        d={`M ${column_width * 2},${innerHeight - 30} 
+                {#if imageSource}
+                    {#if lineEnd}
+                        <path
+                            d={`M ${column_width * 2},${innerHeight - 30} 
                        C ${column_width * 2},${innerHeight - 100} 
                          ${imageX},${lineEnd + 100} 
                          ${imageX},${lineEnd}`}
-                        fill="none"
-                        stroke="black"
-                        stroke-width="1"
-                        opacity="0"
-                    />
+                            fill="none"
+                            stroke="black"
+                            stroke-width="1"
+                            transition:fade={{ duration: 400 }}
+                        />
+                    {/if}
                 {/if}
             </g></svg
         >
-        {#if tooltip.visible}
-            <div
-                class="tooltip"
-                style="position: absolute; left: {tooltip.x}px; top: {tooltip.y}px;"
-            >
-                <p>{tooltip.info}</p>
-            </div>
-        {/if}
         <div style="position: absolute; top: 0; left: 0;">
             <Canvas {width} {height} --position="absolute">
                 {#each background_data as d, i}
@@ -210,13 +176,16 @@
         </div>
 
         <div id="example_stage">
-            <img
-                class="example_img"
-                src={imageSource}
-                alt="agt"
-                bind:this={exampleImg}
-                on:load={updateImageHeight}
-            />
+            {#if imageSource}
+                <img
+                    class="img"
+                    src={imageSource}
+                    alt="agt"
+                    bind:this={exampleImg}
+                    transition:fade={{ duration: 400 }}
+                    on:load={updateImageHeight}
+                />
+            {/if}
         </div>
     </div>
 {/if}
@@ -236,7 +205,6 @@
         display: flex;
         justify-content: center;
         overflow: hidden;
-        opacity: 0;
         transition: 0.2s ease;
         pointer-events: none;
     }
@@ -250,20 +218,5 @@
         padding: 10px;
         height: auto;
         display: block;
-    }
-
-    .tooltip {
-        background-color: rgba(0, 0, 0, 0.9);
-        color: white;
-        padding: 10px;
-        border-radius: 2px;
-        pointer-events: none;
-        transition: opacity 0.2s ease;
-        width: 150px;
-    }
-
-    p {
-        margin: 5px;
-        font-size: 12px;
     }
 </style>

@@ -2,6 +2,7 @@
     // import IndividualRectangle from "./IndividualRectangle.svelte";
     // import Background from "./BackgroundRectangle.svelte";
     import * as d3 from "d3";
+    import { fade } from "svelte/transition";
     import { years } from "../utils";
     import Canvas from "./Canvas.svelte";
     import CanvasRectangle from "./CanvasRectangle.svelte";
@@ -11,14 +12,13 @@
     export let pax_timeline;
     export let step;
 
-    let tooltip = { visible: false, x: 0, y: 0, info: "" };
     let width = 400;
     let height = 400;
     let rendered_data;
     let background_data;
     let innerWidth, innerHeight, xScale, yScale;
     let imageX;
-    let imageSource = "./img/lome.png";
+    let imageSource = null;
     let exampleImg;
     let imageHeight;
     let margin = { top: 20, right: 80, bottom: 20, left: 100 };
@@ -82,49 +82,33 @@
         // filled rectangles
         rendered_data = position_calc(pax, innerWidth, "none");
     }
+
     //steps
     $: if (step == "1") {
-        d3.selectAll(".un_resolution_time").style("visibility", "hidden");
         // all agreements
         rendered_data = position_calc(pax, innerWidth, "none");
-    } else if (step == "2") {
-        d3.selectAll(".un_resolution_time").style("visibility", "visible");
-        // gender agreements
-        rendered_data = position_calc(pax, innerWidth, "GeWom");
-    } else if (step == "3") {
-        d3.selectAll(".un_resolution_time").style("visibility", "visible");
-        // gender agreements
-        rendered_data = position_calc(pax, innerWidth, "GeWom");
     } else if (step == "4") {
-        d3.selectAll(".un_resolution_time").style("visibility", "hidden");
-        d3.selectAll("#example").style("opacity", 0);
-        // rehabilitation agreements
+        imageSource = null; // hide image
         rendered_data = position_calc(pax, innerWidth, "WggRehab");
     } else if (step == "5") {
-        d3.selectAll("#example").style("opacity", 1);
         imageSource = "./img/lome.png";
         agt_path_year = "1999";
-        // rehabilitation agreements
         rendered_data = position_calc(pax, innerWidth, "WggRehab");
     } else if (step == "6") {
-        d3.selectAll("#example").style("opacity", 0);
-        // implementation agreements
+        imageSource = null;
         rendered_data = position_calc(pax, innerWidth, "WggImplRole");
     } else if (step == "7") {
-        d3.selectAll("#example").style("opacity", 1);
         imageSource = "./img/colombia.png";
         agt_path_year = "2016";
-        // implementation agreements
         rendered_data = position_calc(pax, innerWidth, "WggImplRole");
     } else if (step == "8") {
-        d3.selectAll("#example").style("opacity", 0);
-        // human rights agreements
+        imageSource = null;
         rendered_data = position_calc(pax, innerWidth, "WggHR");
     } else if (step == "9") {
         imageSource = "./img/guatemala.png";
-        d3.selectAll("#example").style("opacity", 1);
         agt_path_year = "1996";
     }
+
     function formatMobile(tick) {
         return "'" + tick.toString().slice(-2);
     }
@@ -145,34 +129,6 @@
 
     // Call the function on initial load to set the height
     updateImageHeight();
-
-    // Event handlers for tooltip
-    // const handleHover = (event) => {
-    //     let dyn_x;
-    //     let dyn_y;
-    //     if (event.detail.x >= innerWidth / 2) {
-    //         dyn_x = event.detail.x - 140;
-    //     } else if (event.detail.x < innerWidth / 2) {
-    //         dyn_x = event.detail.x + 70;
-    //     }
-
-    //     if (event.detail.y >= innerHeight / 2) {
-    //         dyn_y = event.detail.y - 50;
-    //     } else if (event.detail.y < innerHeight / 2) {
-    //         dyn_y = event.detail.y;
-    //     }
-
-    //     tooltip = {
-    //         visible: true,
-    //         x: dyn_x,
-    //         y: dyn_y,
-    //         info: event.detail.info,
-    //     };
-    // };
-
-    // const handleLeave = () => {
-    //     tooltip = { ...tooltip, visible: false };
-    // };
 </script>
 
 {#if rendered_data && pax_timeline}
@@ -221,18 +177,19 @@
                     />
                 {/each}-->
 
-                {#if lineEnd}
-                    <path
-                        id="example"
-                        d={`M ${xScale(agt_path_year)},${innerHeight - 10} 
+                {#if imageSource}
+                    {#if lineEnd}
+                        <path
+                            d={`M ${xScale(agt_path_year)},${innerHeight - 10} 
                        C ${xScale(agt_path_year)},${innerHeight - 100} 
                          ${imageX - margin.left},${lineEnd + 100} 
                          ${imageX - margin.left},${lineEnd}`}
-                        fill="none"
-                        stroke="black"
-                        stroke-width="1"
-                        opacity="0"
-                    />
+                            fill="none"
+                            stroke="black"
+                            stroke-width="1"
+                            transition:fade={{ duration: 400 }}
+                        />
+                    {/if}
                 {/if}
             </g>
         </svg>
@@ -264,13 +221,16 @@
         </div>
 
         <div id="example">
-            <img
-                class="example_img"
-                src={imageSource}
-                alt="agt"
-                bind:this={exampleImg}
-                on:load={updateImageHeight}
-            />
+            {#if imageSource}
+                <img
+                    class="example_img"
+                    src={imageSource}
+                    alt="agt"
+                    bind:this={exampleImg}
+                    transition:fade={{ duration: 400 }}
+                    on:load={updateImageHeight}
+                />
+            {/if}
         </div>
     </div>
 {/if}
@@ -283,6 +243,10 @@
     .tick {
         font-size: 0.725em;
         font-weight: 200;
+    }
+
+    .un_resolution {
+        visibility: hidden;
     }
 
     .tick text {
@@ -318,7 +282,6 @@
         display: flex;
         justify-content: center;
         overflow: hidden;
-        opacity: 0;
         transition: 0.2s ease;
         pointer-events: none;
     }
@@ -337,19 +300,4 @@
     .un_resolution {
         visibility: hidden;
     }
-
-    /* .tooltip {
-        background-color: rgba(0, 0, 0, 0.9);
-        color: white;
-        padding: 10px;
-        border-radius: 2px;
-        pointer-events: none;
-        transition: opacity 0.2s ease;
-        width: 150px;
-    }
-
-    p {
-        margin: 5px;
-        font-size: 12px;
-    } */
 </style>
