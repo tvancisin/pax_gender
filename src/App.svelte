@@ -834,7 +834,8 @@
 			<div class="col-medium">
 				<p style="text-align: center;">
 					Now, the map shows the number of peace agreements that
-					contain at least two references to women, girls, and gender.
+					contain at least <strong>two</strong> references to women, girls,
+					and gender.
 				</p>
 			</div>
 		</section>
