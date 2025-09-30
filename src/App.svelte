@@ -618,7 +618,7 @@
 	<h1>Women, Girls, and Gender in Peace Agreements</h1>
 	<div id="text_field" style="padding-left: 20%; padding-right:20%">
 		<p>
-			Marking the 25th Anniversary of the Women, Peace and Security
+			Marking the 25<sup>th</sup> Anniversary of the Women, Peace and Security
 			agenda, this visualization uses the PA-X database to show how and to
 			what extent women, girls, and gender are taken into consideration in
 			peace agreements around the world.
@@ -635,8 +635,9 @@
 			A <strong>peace agreement</strong> is a document produced after
 			discussion with conflict protagonists and mutually agreed to by
 			them, addressing conflict with a view to ending it. <br /><br />
+			The
 			<a href="https://pax.peaceagreements.org/agreements/search/"
-				>PA-X Database</a
+				>PA-X Peace Agreement Database</a
 			>
 			collects and archives formal, publicly-available, signed peace agreements.
 			PA-X Gender is a sub-database of PA-X that includes agreements that contain
@@ -776,7 +777,7 @@
 	</div>
 	<div id="text_field">
 		<p style="text-align: center;">
-			Hear more on this from PeaceRep's Women Peace and Security expert,
+			Hear more on this from PeaceRep Women Peace and Security expert,
 			Laura Wise in this short, informative <a
 				href="https://www.youtube.com/watch?v=52GFh0r6Zj8"
 				target="_blank"
@@ -929,9 +930,9 @@
 	<div id="text_field">
 		<p style="text-align: center">
 			There are different <strong>stages of peace processes</strong>
-			depending on the content included in agreements: from pre-neogtiation/process
+			depending on the content included in agreements: from pre-neogtiation
 			agreements where there are 'talks about talks', to ceasefires, to more
-			comprehensive agreements and implementation agreeements.<br /><br />
+			comprehensive agreements and implementation agreements.<br /><br />
 			If the process went smoothly from one stage to the next it would look
 			like this over time:
 		</p>
@@ -952,7 +953,7 @@
 			Instead, peace processes frequently involve a series of
 			back-and-forth movements, reflecting the reality that progress is
 			rarely uniform or predictable. For example, here is the trajectory
-			of the Philippines-Mindano Process.
+			of the Philippines-Mindanao Process.
 		</p>
 	</div>
 </div>
@@ -1012,6 +1013,14 @@
 					until substantive stages of negotiations (partial and
 					comprehensive), so that the earlier pre-negotiation or
 					ceasefire talks can focus on more 'urgent' issues.
+				</p>
+			</div>
+		</section>
+		<section>
+			<div class="col-medium">
+				<p style="text-align: center;">
+					However, gendered issues can be included in agreements at
+					any stage of a peace process.
 				</p>
 			</div>
 		</section>
